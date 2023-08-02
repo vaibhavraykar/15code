@@ -1,0 +1,63 @@
+@import '../../secondry-transaction/secondary-table/secondary-table.component.scss';
+.container-wrapper {
+    background-color: #F8F9FD;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    .inner-container {
+      background-color: #ECF1FC;
+      padding: 1em;
+      border-radius: 8px;
+      border: 2px solid rgba(204, 214, 236, 0.2);
+
+      .primary-btn {
+        font-size: 13px !important;
+        .bttn{
+          background-color: var(--yellow) !important;
+        }
+      }
+    }
+    
+  }
+  .quotation-table-container.paginator-container {
+    display: none !important;
+    align-items: baseline !important;
+    position: relative;
+  
+    ::ng-deep {
+      .mat-mdc-text-field-wrapper {
+        height: 32px;
+        width: 100px;
+      }
+  
+      .mat-mdc-text-field-wrapper.mdc-text-field--outlined
+        .mat-mdc-form-field-infix {
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+      }
+    }
+  }
+  
+  
+  .headingstyle {
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: #292929;
+  }
+
+  .list{
+    display: flex;
+    margin-top: 14px;
+    margin-bottom: 26px;
+  }
+  .discount-list {
+    ::ng-deep {
+      .mdc-notched-outline {
+        border-radius: 5px;
+        border: 1px solid #D0D0D0;
+      }
+    }
+  }
+

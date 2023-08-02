@@ -1,0 +1,17 @@
+#divChart{
+
+    width:165px;
+    height:165px;
+    position: relative;
+}
+
+.chart{
+position: absolute!important;
+width:165px;
+height:165px;
+inset: 0;
+overflow: visible!important;
+*{
+    padding: 10%!important;
+}
+}

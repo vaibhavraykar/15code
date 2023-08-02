@@ -1,0 +1,114 @@
+<div class="discount-detail-container mt-30">
+  <div class="">
+    <div class="d-flex align-items-center">
+      <mat-icon style="cursor: pointer;" (click)="back()">keyboard_backspace</mat-icon>
+      <div class="ml-12 darkBlackText">Coupon details</div>
+    </div>
+
+
+    <div style="padding:10px" class="admin-discount-wrapper">
+      <div class="mt-10 admin-discount-container">
+        <div class="">
+          <div class=" subContainer" style="padding: 10px 14px 15px 15px;">
+            <div class="row">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15">
+                <div class="light-text mb-4">Country</div>
+                <div class="dark-text" style="color:#EB7203;cursor:pointer"
+                  *ngIf="this.idDetails?.product?.productCountries?.length > 3" (click)="viewCountry()">View</div>
+                <div class="dark-text" *ngIf="this.idDetails?.product?.productCountries.length <= 3">
+                  {{countryList||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15">
+                <div class="light-text mb-4">Coupon For</div>
+                <div class="dark-text">{{this.idDetails?.product.applicableEntityType == 'BANK' ? 'BAAC' : this.idDetails?.product.applicableEntityType == 'BANK_AS_UNDERWRITER' ? 'BAAU' : 'CUSTOMER' ||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15">
+                <div class="light-text mb-4">Plan Type</div>
+                <div class="dark-text">{{this.idDetails?.product.planType||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15">
+                <div class="light-text mb-4">Plan Name</div>
+                <div class="dark-text" style="word-break: break-all; overflow-wrap: break-word;">
+                  <span>{{this.idDetails?.product?.planName||'NA'}}</span>
+                </div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                <div class="light-text mb-4">Coupon Code</div>
+                <div class="dark-text">{{this.idDetails?.couponCode||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15">
+                <div class="light-text mb-4">Quantity</div>
+                <div class="dark-text">{{this.idDetails?.quantity||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15">
+                <div class="light-text mb-4">Consumed Coupon</div>
+                <div class="dark-text">{{this.idDetails?.consumedCoupons||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15">
+                <div class="light-text mb-4">Currency</div>
+                <div class="dark-text">{{this.idDetails?.currency||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15" *ngIf="idDetails?.makerApprovedBy">
+                <div class="light-text mb-4">Maker Approved By</div>
+                <div class="dark-text">{{this.idDetails?.makerApprovedBy||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15" *ngIf="idDetails?.makerApprovalDate">
+                <div class="light-text mb-4">Maker Approved Date</div>
+                <div class="dark-text">{{this.makerDate.split(' GMT')[0]||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15" *ngIf="idDetails?.checkerApprovedBy">
+                <div class="light-text mb-4">Checker Approved By</div>
+                <div class="dark-text">{{this.idDetails?.checkerApprovedBy||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15" *ngIf="idDetails?.checkerApprovalDate">
+                <div class="light-text mb-4">Checker Approved Date</div>
+                <div class="dark-text">{{this.checkerDate.split(' GMT')[0]||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15" *ngIf="idDetails?.fixAmount !== 0">
+                <div class="light-text mb-4">Fix Amount</div>
+                <div class="dark-text">{{this.idDetails?.fixAmount|number :'1.0-2'||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                *ngIf="idDetails?.discountPercentage !== 0">
+                <div class="light-text mb-4">Discount Percentage</div>
+                <div class="dark-text">{{this.idDetails?.discountPercentage||'NA'}} %</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                *ngIf="idDetails?.maxDiscount !== 0">
+                <div class="light-text mb-4">Max. Discount</div>
+                <div class="dark-text">{{this.idDetails?.maxDiscount|number :'1.0-2'||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15">
+                <div class="light-text mb-4">Status</div>
+                <div class="dark-text">{{this.idDetails?.status||'NA'}}
+                  <span *ngIf="idDetails?.status == 'INACTIVE'" class="stat"
+                    (click)="changeStatus(idDetails?.id,'ACTIVE')">Change</span>
+                  <span *ngIf="idDetails?.status == 'ACTIVE'" class="stat"
+                    (click)="changeStatus(idDetails?.id,'INACTIVE')">Change</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #callAPIDialog>
+  <div class="text-center">
+    <div class="headingMessage">Selected Country
+      <span class="circle-icon">
+        <mat-icon (click)="close()" mat-dialog-close>
+          <img src="../../../assets/images/icons/Icon-close.svg">
+        </mat-icon>
+      </span>
+    </div>
+    <div style="padding: 0 20px 20px 20px; text-align: left;">
+      <div>
+        {{countryList}}
+      </div>
+    </div>
+  </div>
+</ng-template>

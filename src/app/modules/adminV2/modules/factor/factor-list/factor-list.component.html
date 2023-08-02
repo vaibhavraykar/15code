@@ -1,0 +1,13 @@
+<div>
+    <div class="list row">
+        <div class="col-md-3 headingstyle">Factor List</div>
+        <div class="col-md-7"></div>
+        <div class="col-md-2">
+          <button mat-raised-button class="primary-btn bttn f-16 w-80" (click)="newFactor()">New Factor</button>
+        </div>
+      </div>
+</div>
+<div class="container-wrapper mt-10 customer-list">
+    <app-factor-table #customTable [tableStructure]="tableStructure"
+    (combinedEmitter)="tableEventEmitter($event)"></app-factor-table>
+</div>

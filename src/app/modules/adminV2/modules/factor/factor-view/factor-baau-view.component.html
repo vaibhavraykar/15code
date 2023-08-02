@@ -1,0 +1,82 @@
+<div class="all-detail-container mt-30">
+  <div class="">
+    <div class="d-flex align-items-center mb-20">
+      <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+      <div class="ml-12 darkBlackText">Viewing details for {{viewData?.companyName}}</div>
+    </div>
+    <div class="all-details-tab-container">
+      <div style="padding:24px" class="admin-user-wrapper">
+        <div class="">
+          <div class="col-md-11">
+            <div class="userid">User ID</div>
+            <div class="dark-text">{{viewData?.entityId}}</div>
+          </div>
+        </div>
+        <div class="mt-30 admin-user-container">
+          <div class="row mt-10">
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Company Name</div>
+                <div class="dark-text">{{viewData?.companyName}}</div>
+            </div>
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Country</div>
+                <div class="dark-text">{{viewData?.country}}</div>
+            </div>
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Status</div>
+                <div class="dark-text">{{viewData?.status}}</div>
+            </div>
+        </div>
+        <div class="row mt-10" *ngFor="let data of masterUserList">
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">First Name</div>
+                <div class="dark-text">{{data?.firstName}}</div>
+            </div>
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Last Name</div>
+                <div class="dark-text">{{data?.lastName}}</div>
+            </div>
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Email</div>
+                <div class="dark-text">{{data?.email}}</div>
+            </div>
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Mobile No</div>
+                <div class="dark-text">{{data?.mobileNo}}</div>
+            </div>
+        </div>
+        <mat-accordion *ngIf="additionalUserList.length>=1">
+          <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="text-blue left-border">
+                Additional Details
+              </mat-panel-title>
+              <mat-panel-description class="justify-content-end">
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="">
+              <div class="subContainer" style="padding: 0 14px 15px 15px;">
+                <table class="ownerTable mt-10">
+                  <tr class="fontBold">
+                    <!-- <th>Sr No.</th> -->
+                    <th class="light-text mb-4">First Name</th>
+                    <th class="light-text mb-4">Last Name</th>
+                    <th class="light-text mb-4">Email</th>
+                    <th class="light-text mb-4">Mobile No</th>
+                  </tr>
+                  <tr *ngFor="let data of additionalUserList; let i=index">
+                    <td>{{data.firstName}}</td>
+                    <td>{{data.lastName}}</td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.mobileNo}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>    
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

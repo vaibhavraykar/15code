@@ -1,0 +1,219 @@
+<div class="admin-transaction-details" style="padding-left: 30px">
+    <div class="" style="margin-top: 30px">
+      <div class="col-md-11">
+        <div class="light-text mb-4">Transaction ID</div>
+        <div class="dark-text">{{transactionDetails?.transactionId}}</div>
+      </div>
+    </div>
+  </div>
+  <div style="padding: 24px" class="admin-transaction-wrapper">
+    <div class="mt-30 admin-transaction-container">
+      <mat-accordion>
+        <mat-expansion-panel class="mt-30" expanded="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="text-blue left-border">
+              Applicant
+            </mat-panel-title>
+            <mat-panel-description class="justify-content-end">
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div style="padding: 0 14px 15px 15px">
+            <div class="row ">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Applicant</div>
+                <div class="dark-text">{{transactionDetails?.applicantName||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Country</div>
+                <div class="dark-text">{{transactionDetails?.applicantCountry||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="text-blue left-border">
+              Beneficiary
+            </mat-panel-title>
+            <mat-panel-description class="justify-content-end">
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="">
+            <div class="subContainer" style="padding: 0 14px 15px 15px">
+              <div class="row ">
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Beneficiary</div>
+                  <div class="dark-text">{{transactionDetails?.beneName||'NA'}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Country</div>
+                  <div class="dark-text">{{transactionDetails?.beneCountry||'NA'}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="text-blue left-border">
+              Obligor Bank Details
+            </mat-panel-title>
+            <mat-panel-description class="justify-content-end">
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="">
+            <div class="subContainer" style="padding: 0 14px 15px 15px">
+              <div class="row ">
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Bank</div>
+                  <div class="dark-text">{{transactionDetails?.obligorBank||'NA'}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Bank Country</div>
+                  <div class="dark-text">{{transactionDetails?.obligorCountry||'NA'}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Applicable Law</div>
+                  <div class="dark-text">{{transactionDetails?.applicableLaw||'NA'}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="text-blue left-border">
+              Transaction Details
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="">
+            <div class="subContainer" style="padding: 0 14px 15px 15px">
+              <div class="row ">
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Participation Basis</div> 
+                  <!-- implement both funded and closed -->
+                  <div class="dark-text">{{transactionDetails?.secTransactionType}}/{{transactionDetails?.participationBasis}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Product</div>
+                  <div class="dark-text">{{transactionDetails?.requirementType}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Amount</div>
+                  <div class="dark-text">{{transactionDetails?.transactionAmount}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Currency</div>
+                  <div class="dark-text">{{transactionDetails?.lCCurrency}}</div>
+                </div>
+  
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Target Booking Date</div>
+                  <div class="dark-text">{{transactionDetails?.lCBookingDate}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Transaction Maturity Date</div>
+                  <div class="dark-text">{{transactionDetails?.lCMaturityDate}}</div>
+                </div>
+  
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Tenor</div>
+                  <div class="dark-text">{{transactionDetails?.usanceDays||'NA'}}</div> 
+                  <!-- check -->
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Goods</div>
+                  <div class="dark-text">{{transactionDetails?.goodsType}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Customer Quote Validity</div>
+                  <div class="dark-text">{{transactionDetails?.validity||'NA'}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">IS ESG Compliant</div>
+                  <div class="dark-text">{{convertBoolean(transactionDetails?.isESGComplaint)}}</div>
+                </div>
+  
+                <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+                <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+                <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        
+      
+        
+        <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="text-blue left-border">
+              Others
+            </mat-panel-title>
+            <mat-panel-description class="justify-content-end">
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="">
+            <div class="subContainer" style="padding: 0 14px 15px 15px">
+              <div class="row ">
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Country of port of loading</div>
+                  <div class="dark-text">{{transactionDetails?.loadingCountry}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Port of Loading</div>
+                  <div class="dark-text">{{transactionDetails?.loadingPort}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Country of port of discharge</div>
+                  <div class="dark-text">{{transactionDetails?.dischargeCountry}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Port of Discharge</div>
+                  <div class="dark-text">{{transactionDetails?.dischargePort}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="text-blue left-border">
+              Pricing
+            </mat-panel-title>
+            <mat-panel-description class="justify-content-end">
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="">
+            <div class="subContainer" style="padding: 0 14px 15px 15px">
+              <div class="row ">
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Commission Scheme</div>
+                  <div class="dark-text">{{transactionDetails?.commissionScheme}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Minimum Partiticipation Amount</div>
+                  <div class="dark-text">{{transactionDetails?.minParticipationAmt}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Offered Price</div>
+                  <div class="dark-text">{{transactionDetails?.offeredPrice}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Any Other Conditions</div>
+                  <div class="dark-text">{{transactionDetails?.otherCondition}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Benchmark</div>
+                  <div class="dark-text">{{transactionDetails?.benchmark}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        
+      </mat-accordion>
+    </div>
+  </div>
+  

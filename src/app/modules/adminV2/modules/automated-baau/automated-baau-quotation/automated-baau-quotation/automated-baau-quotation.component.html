@@ -1,0 +1,8 @@
+<div style="display:flex">
+    <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+    <span class="headingstyle">Automated BAAU Quotation</span>
+</div>
+<div class="container-wrapper mt-10">
+    <app-automated-baau-quotation-table #customTable [tableStructure]="tableStructure"
+    (combinedEmitter)="tableEventEmitter($event)"></app-automated-baau-quotation-table>
+</div>

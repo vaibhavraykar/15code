@@ -1,0 +1,103 @@
+<div class="view-transaction">
+    <span class="f-22 fontBold dgrey">Transaction Details</span>
+
+    <div class="col-md-8 m-auto">
+        <div class="boxShadow">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="row">
+                    <!-- <div class="col-md-10">
+                        <div class="yellow-txt f-14 fontBold">User ID</div>
+                        <!-- <div class="label-text">{{viewData.userId}}</div> --
+                    </div> -->
+                    <div class="col-md-11" style="text-align: end;line-height: initial;">
+                    </div>
+                    <div class="col-md-1" style="padding:0px" (click)="back()">
+                        <!-- <div class="f-14 fontBold dgrey cpointer back">
+                            <mat-icon (click)="back()">keyboard_arrow_left</mat-icon>
+                            <span (click)="back()">Back</span>
+                        </div> -->
+                        <div class="imgDiv f-14 fontBold dgrey cpointer">
+                            <mat-icon >keyboard_arrow_left</mat-icon>Back
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mt-20" style="padding: 10px;">
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Product Type</div>
+                        <div class="info">{{response.factoringTransaction.factoringProductType}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Assignor/Seller</div>
+                        <div class="info">{{response.factoringTransaction.factoringUserType=='DEBTOR'?response.factoringTransaction.debtorToAssignor:response.factoringTransaction.groupComapany.companyName}}                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Debtor/Buyer</div>
+                        <div class="info"> {{response.factoringTransaction.factoringUserType=='DEBTOR'?response.factoringTransaction.groupComapany.companyName:response.factoringTransaction.assignorToDebtor}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Charges On</div>
+                        <div class="info">{{response.factoringTransaction.chargesOn}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Currency</div>
+                        <div class="info">{{response.factoringTransaction.currency}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Amount</div>
+                        <div class="info">{{response.factoringTransaction.amount | amount}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Invoice Number</div>
+                        <div class="info">{{response.factoringTransaction.invoiceNumber}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Invoice Date</div>
+                        <div class="info">{{response.factoringTransaction.date}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Due Date</div>
+                        <div class="info">{{response.factoringTransaction.dueDate}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Tenure</div>
+                        <div class="info">{{response.factoringTransaction.tenor}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Financing Period</div>
+                        <div class="info">{{response.factoringTransaction.finicingPeriod}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Grace Period</div>
+                        <div class="info">{{response.factoringTransaction.gracePeriod}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Underlying Goods</div>
+                        <div class="info">{{response.factoringTransaction.underlyingGoods}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country Of Origin</div>
+                        <div class="info">{{response.factoringTransaction.countryOrigin}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country Of Discharge</div>
+                        <div class="info">{{response.factoringTransaction.countryDischarge}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">ESG Compliant</div>
+                        <div class="info">{{response.factoringTransaction.isESGCompliant}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

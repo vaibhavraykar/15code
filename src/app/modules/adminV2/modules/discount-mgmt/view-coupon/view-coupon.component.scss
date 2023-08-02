@@ -1,0 +1,109 @@
+.discount-detail-container {
+    // padding: 30px 25px 23px 24px;
+
+    .ml-12 {
+        margin-left: 12px;
+    }
+
+    .mb-10 {
+        margin-bottom: 10px;
+    }
+
+
+    .darkBlackText {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+        color: #292929;
+    }
+
+    .admin-discount-container {
+        // height: 73vh;
+        background-color: #F8F9FD;
+        padding: 10px !important;
+        border-radius: 8px !important;
+        border: 2px solid #fff !important;
+        .mt-10 {
+            margin-top: 4px !important;
+        }
+
+        .mb-4 {
+            margin-bottom: 4px !important;
+        }
+        .extra{
+            // width: 25% !important;
+            padding-top: 10px !important;
+            padding-bottom: 15px !important;
+        }
+
+        .text-blue {
+            font-family: 'Lato';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 18px;
+            color: #292929;
+            position: relative;
+            padding-left: 11px;
+        }
+
+        .light-text {
+            font-family: 'Lato' !important;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+            color: #727272;
+        }
+
+        .dark-text {
+            font-family: 'Lato' !important;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 18px;
+            color: #292929;
+            margin-top: 8px;
+            .stat{
+                color: #EB7203;
+                cursor: pointer;
+                margin-left: 4px;
+            }
+        }
+
+
+
+        .pointer {
+            cursor: pointer;
+        }
+
+        @media(max-width:766px) {
+            .admin-discount-wrapper {
+                .admin-discount-container {
+                    .display-none-mb {
+                        display: none !important;
+                    }
+                }
+
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .admin-discount-wrapper {
+                .admin-discount-container {
+                    .col-xxl-2 {
+                        width: 20%;
+                    }
+                }
+            }
+        }
+
+    }
+}
+@media(max-width:870px){
+    .discount-detail-container {
+        padding: 0px 40px 24px 0px;
+    }
+}

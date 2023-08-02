@@ -1,0 +1,144 @@
+.all-transaction {
+    .pageSizeChange{
+        ::ng-deep{
+            .mat-mdc-paginator{
+            background: none!important;
+            }
+            .mat-mdc-paginator-range-actions {
+            display: none!important;
+            }
+        }
+        }
+    .col-md-9 {
+        width: calc(100% - 16%) !important;
+        margin-top: 6px;
+    }
+    .col-md-3 {
+        width: 16% !important;
+    }
+    .search{
+        display: flex;
+        align-items: center;
+    }
+    .search-option img{
+        margin-top: 6px;
+        margin-right: 0px !important;
+        margin-left: 5px !important;
+    }
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        // height: 345px;
+        .mat-mdc-header-cell:nth-child(11), .mdc-data-table__cell:nth-child(11), .mat-mdc-header-cell:nth-child(13), .mdc-data-table__cell:nth-child(13), .mat-mdc-header-cell:nth-child(14), .mdc-data-table__cell:nth-child(14) {
+            text-align: center;
+        }
+        ::ng-deep{
+            .mat-mdc-form-field-subscript-wrapper{
+                display: none;
+            }
+            .mat-mdc-form-field-has-icon-prefix .mat-mdc-text-field-wrapper{
+                background-color: white !important;
+                height: 36px !important;
+                
+            }
+            .mat-mdc-form-field-infix{
+                min-height: 40px !important;
+            }
+            .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix{
+                padding: 7px 0px 0px !important;
+            }
+        }
+
+        table .mat-mdc-header-cell {
+            font-size: 12px;
+            font-weight: bold;
+            font-family: "Lato", sans-serif !important;
+            background-color: var(--lblue3) !important;
+            color: var(--dgrey);
+        }
+
+        table .mdc-data-table__cell {
+            font-size: 12px;
+            font-family: "Lato";
+            color: #727272;
+        }
+
+        .mat-mdc-table {
+            border: 1px solid var(--lblue3) !important;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        ::ng-deep {
+            .mat-mdc-menu-content {
+                padding: 0 !important;
+            }
+
+            .mat-mdc-paginator-page-size {
+                display: none !important;
+            }
+
+            // .mat-mdc-paginator-range-label {
+            //     display: none !important;
+            // }
+            .mat-mdc-icon-button.mat-mdc-button-base {
+                width: 25px !important;
+                height: 25px !important;
+            }
+
+            .mat-mdc-paginator-container {
+                display: inherit !important;
+                align-items: inherit !important;
+                justify-content: inherit !important;
+                padding: 4px 8px;
+                flex-wrap: wrap-reverse;
+                width: 100%;
+            }
+
+            .mdc-icon-button {
+                padding: 0 !important;
+            }
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+        }
+    }
+}
+
+.search-bar{
+    ::ng-deep{
+        .mat-mdc-form-field-has-icon-prefix .mat-mdc-text-field-wrapper{
+            background-color: white !important;
+            height: 40px !important;
+            
+        }
+        .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix{
+            padding: 7px 0px 0px !important;
+        }
+        .mat-mdc-form-field-infix{
+            min-height: 40px !important;
+        }
+        .mat-mdc-form-field-icon-prefix>.mat-icon, .mat-mdc-form-field-icon-suffix>.mat-icon {
+            padding: 9px;
+            color: var(--yellow) !important;
+        }
+        .mat-mdc-form-field-subscript-wrapper{
+            display: none;
+        }
+    }
+}
+.status-change{
+    ::ng-deep{
+        .mat-mdc-text-field-wrapper {
+        height: 25px;
+        align-items: center;
+        width: 90px;
+      }
+        .mat-mdc-form-field-subscript-wrapper {
+            display: none !important;
+        }
+    }
+}

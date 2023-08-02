@@ -1,0 +1,30 @@
+<div class="transact-popup">
+    <div class="text-center cpopup">
+        <div class="heading">Transaction Upload
+            <span class="circle-icon">
+                <mat-icon mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <!-- <div class="img-container">
+            <img src="../../../assets/images/icons/Icon-info.svg" />
+        </div> -->
+        <div class="error-msg">
+            <div class="mt-20">
+                Download Template
+            </div>
+            <div class="mt-20">
+                <a href="../../../../../assets/docs/sample.csv" target="_blank">Download link</a>
+            </div>
+            <div class="col-md-12 text-center px-4 px-2 justify-content-center" style="display: flex !important;">
+                <div class="mt-30 text-center" style="width: 260px;">
+                    <div>
+                        <app-file-upload [accept]="'.csv'"
+                            (onUpload)="uploadTransaction($event)"></app-file-upload>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

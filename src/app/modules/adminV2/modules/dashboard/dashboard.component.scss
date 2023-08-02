@@ -1,0 +1,115 @@
+.dashboard-container {
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-top: -10px;
+    .p24{
+        padding: 24px;
+    }
+    .tabHeadingStyle {
+        font-size: 14px;
+        line-height: 18px;
+        font-family: 'Lato';
+        font-style: normal;
+    }
+    .p-r{
+        padding: 0 24px 24px 0px;
+    }
+    p {
+        margin: 0 !important;
+    }
+
+    ::ng-deep {
+
+        button:not(:disabled),
+        [type=button]:not(:disabled),
+        [type=reset]:not(:disabled),
+        [type=submit]:not(:disabled) {
+            width: 0%;
+        }
+
+        .mat-mdc-tab-labels {
+            // margin-left: 30px;
+        }
+
+        .mat-mdc-tab-header {
+            border-bottom: 1px solid #D0D0D0;
+        }
+
+        .mdc-tab__text-label {
+            letter-spacing: normal !important;
+            font-weight: 400 !important;
+        }
+
+        .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+            flex-grow: 0;
+        }
+
+        .mdc-tab-indicator__content--underline {
+            width: 80%;
+        }
+
+        .mat-mdc-tab {
+            text-transform: none !important;
+
+           flex-basis: 15%;
+
+        }
+
+        .mat-mdc-tab-ripple {
+            left: initial;
+        }
+
+        .mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline,
+        .mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline {
+            border: 2px #EB7203 solid;
+        }
+
+        .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label,
+        .mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
+            color: #0032A0;
+            font-weight: 700 !important;
+
+        }
+
+        .mat-mdc-tab-body-content {
+            overflow-x: hidden !important;
+            overflow-y: hidden !important;
+
+        }
+
+    }
+
+    .pointer {
+        cursor: pointer;
+    }
+}
+
+@media(max-width:995px) {
+    .dashboard-container {
+        width: 100%;
+        ::ng-deep {
+            .mat-mdc-tab-labels {
+                margin-left: initial;
+            }
+        }
+    }
+}
+@media(max-width:1286px){
+    .dashboard-container {
+            ::ng-deep{
+                .mat-mdc-tab {
+                   flex-basis: initial!important;
+
+                }
+            }
+    }
+}
+
+::ng-deep .cPointer{
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}

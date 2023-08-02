@@ -1,0 +1,304 @@
+<div class="view-transaction" style="padding: 20px 10px;">
+    <div class="mt-30 px-5 py-2 col-md-8 m-auto">
+        <span class="f-14 fontBold dgrey cpointer back" (click)="back()">
+            <mat-icon>keyboard_backspace</mat-icon> Back
+        </span>
+        <div class="boxShadow">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="col-md-11">
+                    <div class="yellow-txt f-14 fontBold">Transaction ID</div>
+                    <div class="label-text">{{viewData.transactionId}}</div>
+                </div>
+                <div class="col-md-1" style="text-align: center;">
+                    <div class="imgDiv" (click)="editTransaction(viewData.id)">
+                        <img src="../../../../../assets/images/icons/action-edit.svg" />
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row mt-20">
+                <span class="f-14 fontBold blueText">Applicant</span>
+                <div class="row mt-5">
+                    <div class="col-md-2">
+                        <div class="label-text">Name</div>
+                        <div class="info">Louis D</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">India</div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="label-text">Contact person</div>
+                        <div class="info">input text</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Email ID</div>
+                        <div class="info">name.surname@email.com</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <span class="f-14 fontBold blueText mt-40">Beneficiary</span>
+                <div class="row mt-5">
+                    <div class="col-md-2">
+                        <div class="label-text">Name</div>
+                        <div class="info">Louis D</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">India</div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="label-text">Contact person</div>
+                        <div class="info">input text</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Email ID</div>
+                        <div class="info">name.surname@email.com</div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="label-text">Bank</div>
+                        <div class="info">Bank name</div>
+                    </div>
+                    <div class="col-md-2 mt-10">
+                        <div class="label-text">Swift code</div>
+                        <div class="info">xxxxx</div>
+                    </div>
+                    <div class="col-md-3 mt-10">
+                        <div class="label-text">Bank country</div>
+                        <div class="info">India</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="f-14 fontBold blueText mt-40">Product Details</span>
+                <div class="row mt-5">
+                    <div class="col-md-2">
+                        <div class="label-text">Issuance bank</div>
+                        <div class="info">Bank name</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Branch</div>
+                        <div class="info">Branch name</div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="label-text">Swift code</div>
+                        <div class="info">XXXXXX</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">India</div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="label-text">Product</div>
+                        <div class="info">Confirmation</div>
+                    </div>
+                    <div class="col-md-2 mt-10">
+                        <div class="label-text">Amount</div>
+                        <div class="info">$ 50,000.34</div>
+                    </div>
+                    <div class="col-md-3 mt-10">
+                        <div class="label-text">Issuance date</div>
+                        <div class="info">DD/MM/YYYY</div>
+                    </div>
+                    <div class="col-md-2 mt-10">
+                        <div class="label-text">LC negotiation date</div>
+                        <div class="info">DD/MM/YYYY</div>
+                    </div>
+                    <div class="col-md-3 mt-10">
+                        <div class="label-text">Last shipment date</div>
+                        <div class="info">DD/MM/YYYY</div>
+                    </div>
+                    <div class="col-md-2 mt-10">
+                        <div class="label-text">Goods / Services</div>
+                        <div class="info">input</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="f-14 fontBold blueText mt-40">Tenour of Differed Payment</span>
+                <div class="row mt-5">
+                    <div class="col-md-2">
+                        <div class="label-text">Usance (Days)</div>
+                        <div class="info">150</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Payment term to seller as per LC</div>
+                        <div class="info">input</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="f-14 fontBold blueText mt-40">Other Details</span>
+                <div class="row mt-5">
+                    <div class="col-md-2">
+                        <div class="label-text">Country</div>
+                        <div class="info">India</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Port of loading</div>
+                        <div class="info">Kolkata</div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="label-text">Port of discharge</div>
+                        <div class="info">Nhava Sheva</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Charges are on</div>
+                        <div class="info">Beneficiary</div>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-2 mt-10">
+                        <div class="label-text">Customer quote validity</div>
+                        <div class="info">DD/MM/YYYY</div>
+                    </div>
+                    <div class="col-md-3 mt-10">
+                        <div class="label-text">ESG Compliant</div>
+                        <div class="info">Yes</div>
+                    </div>
+                    <div class="col-md-2 mt-10">
+                        <div class="label-text">Upload invoice</div>
+                        <div class="info">No file attached</div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="mt-20" style="padding: 10px;">
+                <span class="f-14 fontBold blueText" style="margin-top: 20px;">View Transaction </span>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Product Type</div>
+                        <div class="info">{{viewData.factoringProductType}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">User Type</div>
+                        <div class="info">{{viewData.factoringUserType}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Status</div>
+                        <div class="info">{{viewData.status}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Amount</div>
+                        <div class="info">{{viewData.amount|number:'1.2-2'}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Invoice Number</div>
+                        <div class="info">{{viewData.invoiceNumber}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Date</div>
+                        <div class="info">{{viewData.date}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Tenure</div>
+                        <div class="info">{{viewData.tenor}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Due Date</div>
+                        <div class="info">{{viewData.dueDate}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Charges On</div>
+                        <div class="info">{{viewData.chargesOn}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Grace Period</div>
+                        <div class="info">{{viewData.gracePeriod}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Financing Period</div>
+                        <div class="info">{{viewData.finicingPeriod}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country Of Origin</div>
+                        <div class="info">{{viewData.countryOrigin}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Country Of Discharge</div>
+                        <div class="info">{{viewData.countryDischarge}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Currency</div>
+                        <div class="info">{{viewData.currency}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">ESG Compliant</div>
+                        <div class="info">{{viewData.isESGCompliant?'YES':'NO'}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Underlying Goods</div>
+                        <div class="info">{{viewData.underlyingGoods}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                        <div class="col-md-3" *ngIf="viewData?.extraUnderlingGoods">
+                            <div class="label-text">Extra Underlying Goods</div>
+                            <div class="info">{{viewData.extraUnderlyingGoods}}</div>
+                        </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Debtor/Buyer</div>
+                        <div class="info">{{viewData.factoringUserType=='DEBTOR'?viewData.groupComapany.companyName:viewData.assignorToDebtor}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Assignor/Seller</div>
+                        <div class="info">{{viewData.factoringUserType=='ASSIGNOR'?viewData.groupComapany.companyName:viewData.debtorToAssignor}}</div>
+                    </div>
+
+                    <div class="col-md-6 comment">
+                        <div class="label-text"><img src="../../../../../assets/images/icons/logo.png" />Message</div>
+                        <!-- <div class="info">{{viewData?.comment?viewData?.comment:''}}</div> -->
+                        <div class="info" (click)="openViewMessage()" *ngIf="messageList" style="color:#0f3c9c;cursor:pointer">Click here View Message</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<ng-template #messageDialog>
+    <div class="text-center">
+        <div class="heading">Message
+            <span class="circle-icon">
+                <mat-icon mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div class="" style="padding: 15px;">
+            <img src="../../../assets/images/icons/logo.png" alt="" style="height:30px;width:50px">
+        </div>
+        <div style="padding: 0 20px 20px 20px; text-align: left;" class="messageAccordion">
+            <!-- Add Message: -->
+            <div *ngFor="let data of messageList">
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Message By : {{data.createdBy}}</mat-panel-title>
+                            <mat-panel-description>
+                                Date : {{data.createdOn | date:'MMM d, y'}}
+
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <p>{{data.message}}</p>
+                    </mat-expansion-panel>
+                </mat-accordion><br>
+            </div>
+            <div class="update-btn">
+                <app-button  [name]="'Ok'" [class]="'primary-btn f-16'" [type]="'submit'" mat-dialog-close></app-button>
+             </div>
+        </div>
+    </div>
+</ng-template>

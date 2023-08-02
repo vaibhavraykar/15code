@@ -1,0 +1,106 @@
+<div class="all-transaction active-transaction mt-30">
+  <div class="row display">
+    <div class="col-xxl-10 col-sm-9 search">
+      <input type="text" placeholder="Search" [formControl]="searchInput" (input)="search($event)" />
+      <mat-icon>search</mat-icon>
+    </div>
+    <div class="col-xxl-2 col-sm-3 search-option mt-20mobile">
+      <img src="../../../../../assets/images/icons/refresh.svg" (click)="refresh()" />
+      <img src="../../../../../../assets/images/icons/download.svg" (click)="downloadAll()" />
+    </div>
+  </div>
+  <div class="row">
+    <span class="f-22 fontBold dgrey mt-30 mb-3">New Requests </span>
+    <div class="mt-30 table-view new-request-table table-container" >
+      <table mat-table [dataSource]="newDataSource">
+        <ng-container *ngFor="let columns of displayColumns" matColumnDef="{{ columns }}">
+          <th mat-header-cell *matHeaderCellDef>
+            <ng-container>
+              {{ columns }}
+            </ng-container>
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index" >
+            <div *ngIf="columns!=='Transaction ID'">
+              <ng-container *ngIf="['Amount'].includes(columns)">
+                {{ element[columns] |number : '1.2-2' }}
+              </ng-container>
+              <ng-container *ngIf="!(['Amount'].includes(columns))">
+                <ng-container *ngIf="!['Transaction ID','Currency','Product','Date','Valid Till'].includes(columns)">
+                  {{ element[columns]  |titlecase}}
+                </ng-container>
+                <ng-container *ngIf="['Currency','Product'].includes(columns)">
+                  {{ element[columns]}}
+                </ng-container>
+<!--
+                {{ element[columns] }} -->
+              </ng-container>
+
+            </div>
+            <div class="" *ngIf="['Date','Valid Till'].includes(columns)">
+
+                <ng-container *ngIf="['Date','Valid Till'].includes(columns)">
+                  {{ element[columns]|date:'dd-MM-yyyy'}}
+                </ng-container>
+            </div>
+            <div class="text-start" *ngIf="columns==='Transaction ID'">
+
+                <ng-container *ngIf="['Transaction ID'].includes(columns)">
+                  {{ element[columns]}}
+                </ng-container>
+            </div>
+            <div class="" *ngIf="columns === 'Action'">
+              <div class="" mat-button [matMenuTriggerFor]="menu">
+                <img src="../../../../../assets/images/icons/3dots.png"
+                  style="width: 20px; height: 20px; cursor: pointer" alt="" />
+              </div>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="placeQuote(element['Transaction ID'])">
+                  Place Quote
+                </button>
+                <button mat-menu-item (click)="viewDetails(element['Transaction ID'])">
+                  View Details
+                </button>
+              </mat-menu>
+            </div>
+          </td>
+        </ng-container>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell text-center" [attr.colspan]="displayColumns.length">
+            No Records Found.
+          </td>
+        </tr>
+        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+      </table>
+    </div>
+
+    <div class="d-flex pageSize align-items-center">
+      <div class=" pageSizeChange justify-content-start d-flex">
+        <mat-paginator  (page)= "onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]" [pageSize]="10"
+          *ngIf="page.totalElements>5"
+        >
+        </mat-paginator>
+      </div>
+      <div class="">
+        <div class="pagination mt-10 justify-content-end" *ngIf="newDataSource?.data?.length > 0">
+          <div class="f-12 fontBold grey mx-3">
+            {{ getPage() + " " }} of {{ page?.totalElements }}
+          </div>
+          <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="page?.index === 0 ? '#292929a1' : '#EB7203'"
+            [style.pointer-events]="page?.index === 0 ? 'none' : 'auto'">
+            arrow_back_ios
+          </mat-icon>
+          <mat-icon class="pointer" (click)="pageNext()  "
+            [style.pointer-events]="last === page?.totalElements ? 'none' : 'auto'"
+            [style.color]="last === page?.totalElements ? '#292929a1' : '#EB7203'"
+            [style.pointer-events]="last === page?.totalElements ? 'none' : 'auto'" style="margin-left: 10px">
+            arrow_forward_ios
+          </mat-icon>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>

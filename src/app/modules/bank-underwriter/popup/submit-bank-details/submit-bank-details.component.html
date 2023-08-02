@@ -1,0 +1,16 @@
+<div class="popup">
+  <div class="heading d-flex justify-content-betweeen">
+    Thank you for submitting the Bank Details.
+    <span (click)="close()"><mat-icon >close</mat-icon></span>
+  </div>
+  <div class="row" style="margin: 0; padding: 20px">
+    <div class="content_text">
+      <p>Bank Details is {{data?'updated':'added'}} Successfully</p>
+      <div class="row  justify-content-end">
+        <div class="save-btn-section col-md-2">
+            <button mat-button class="save-btn  f-12 fontBold dgrey " (click)="submit()" >OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

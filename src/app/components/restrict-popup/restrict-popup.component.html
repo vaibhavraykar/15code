@@ -1,0 +1,20 @@
+<div class="popup">
+  <div class="heading">
+    {{heading}}
+  </div>
+  <div class="px-3 py-3" style="background: white;">
+    <!-- <div class="mb-2" *ngIf="!showThankYouMessage">To avail this service <span class="cpointer" style="color:blue" (click)="availService()">Click here</span> or send email to tradesupport@360tf.trade</div>
+    <div class="mb-2" *ngIf="showThankYouMessage">
+        Thank you for showing your interestm our relationship officer will connect you shortly.
+    </div> -->
+    <div class="mb-2">To avail this service please connect to <a href="mailto:tradesupport@360tf.trade">tradesupport@360tf.trade</a>.</div>
+
+
+
+    <div class="w-100 d-flex justify-content-end">
+        <app-button  [name]="'OK'" [class]="'primary-btn f-16'" [type]="'submit'" (click)="close()"></app-button>
+    </div>
+  </div>
+
+</div>
+

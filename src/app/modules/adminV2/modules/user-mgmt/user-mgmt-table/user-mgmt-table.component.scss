@@ -1,0 +1,11 @@
+@import '../../../components/table/table.component.scss';
+.filter-text {
+    color: #EB7203;
+    font-size: 12px;
+    margin-top: 7px;
+    cursor: pointer;
+    img {
+        width: 12px;
+        margin-right: 5px;
+    }
+  }

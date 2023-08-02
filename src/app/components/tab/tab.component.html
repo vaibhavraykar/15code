@@ -1,0 +1,7 @@
+<div class="tabs ">
+    <mat-tab-group (selectedTabChange)="selectedTab($event)" [selectedIndex]="selectedIndex"
+        (selectedIndexChange)="selectedIndexChange($event)" [ngClass]="getVisited()">
+        <mat-tab *ngFor="let label of labels" label="{{label}}" [disabled]="label=='TRANSACTION DETAILS' && disableTab">
+        </mat-tab>
+    </mat-tab-group>
+</div>

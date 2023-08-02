@@ -1,0 +1,475 @@
+<div class="popup add-bank">
+
+  <ng-container [ngSwitch]="viewType">
+    <ng-container *ngSwitchDefault>
+        <div class="heading">
+            ADD BANK
+            <span (click)="close()"><mat-icon>close</mat-icon></span>
+          </div>
+          <ng-container *ngTemplateOutlet="default" ></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="'edit'"  >
+        <div class="heading">
+            EDIT BANK
+            <span (click)="close()"><mat-icon>close</mat-icon></span>
+          </div>
+          <ng-container *ngTemplateOutlet="edit" ></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="'details'"  >
+        <div class="heading">
+            VIEW BANK
+            <span (click)="close()"><mat-icon>close</mat-icon></span>
+          </div>
+          <ng-container *ngTemplateOutlet="details" ></ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+<ng-template #default>
+    <div class="row default" style="margin: 0; padding: 20px;overflow-y: scroll;max-height: 80vh;">
+        <form [formGroup]="addbankform">
+          <section class="row mt-20">
+            <div class=" fw-700 f-16" style="margin-bottom: 10px;">Enter details of an Authorized Bank</div>
+            <div class="col-md-6 mt-10">
+              <mat-form-field class="w100" appearance="outline">
+                <mat-label>Bank Name</mat-label>
+                <input
+                  type="text"
+                  class="f-14"
+                  matInput
+                  formControlName="BankName"
+                />
+                <mat-error
+                    *ngIf="addbankform.controls['BankName'].hasError('required')"
+                    > Bank Name Required</mat-error
+                  >
+                  <mat-error
+                    *ngIf="addbankform.controls['BankName'].hasError('pattern')"
+                    >Please enter valid Bank Name</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6 mt-10">
+              <mat-form-field
+                class="w100"
+                appearance="outline"
+                (click)="matAutocompleteCountryObservers()"
+              >
+                <mat-label>Select Country</mat-label>
+
+                <input
+                  type="text"
+                  class="f-14"
+                  matInput
+                  [matAutocomplete]="applicantCountry"
+                  formControlName="CountryName"
+                />
+                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                <mat-autocomplete
+                  autoActiveFirstOption
+                  #applicantCountry="matAutocomplete"
+                  (optionSelected)="selectedCountry()"
+                >
+                  <mat-option
+                    *ngFor="let item of bankCountryList | async"
+                    [value]="item"
+                  >
+                    {{ item }}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error   *ngIf="addbankform.controls['CountryName'].hasError('required')">Country required</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6 mt-10">
+                <mat-form-field class="w100" appearance="outline">
+                  <mat-label>Swift Code</mat-label>
+
+                  <input
+                    type="text"
+                    class="f-14"
+                    matInput
+                    formControlName="SwiftCode"
+                  />
+                  <mat-error *ngIf="addbankform.controls['SwiftCode'].hasError('required')"
+                      >Swift Code Required</mat-error
+                    >
+                    <mat-error *ngIf="addbankform.controls['SwiftCode'].hasError('maxlength')&&!addbankform.controls['SwiftCode'].hasError('pattern')"
+                      >Swift Code exceeded limit</mat-error
+                    >
+                    <mat-error *ngIf="addbankform.controls['SwiftCode'].hasError('pattern')"
+                      >Please enter valid Swift Code</mat-error
+                    >
+                </mat-form-field>
+              </div>
+          </section>
+          <section class="row ">
+            <div class=" fw-700 f-16">MRPA</div>
+            <mat-radio-group
+                class="mt-10"
+              aria-label="Select an option"
+              style="flex-wrap: nowrap !important; display: flex; align-items: center"
+              formControlName="MRPA"
+            >
+              <mat-radio-button [value]="true">Yes</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+              <!-- <mat-error *ngIf="errors.MRPA">MRPA field is required</mat-error> -->
+            </mat-radio-group>
+          </section>
+        </form>
+        <form [formGroup]="addAdditionalInformationform" style="max-height: 300px;overflow-y: auto;">
+          <div formArrayName="additionaladdBankdetails">
+          <section class="row mt-10" *ngFor="let variable of additionaladdBankdetails().controls; let i = index" [formGroupName]="i">
+            <div class="col-md-5 ">
+
+                <mat-form-field class="w100" appearance="outline">
+                  <mat-label> First Name </mat-label>
+
+                  <input
+                    type="text"
+                    class="f-14"
+                    matInput
+                    formControlName="keyName"
+                  />
+                  <!-- <mat-error *ngIf="addAdditionalInformationform.controls['keyName'].hasError('required')"
+                      >First Name Required</mat-error
+                    > -->
+                    <!-- <mat-error *ngIf="form.controls['keyName'].hasError('pattern')"
+                      >Please enter valid First Name</mat-error
+                    > -->
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-5">
+                <mat-form-field class="w100" appearance="outline">
+                  <mat-label> Your Email Id </mat-label>
+
+                  <input
+                    type="email"
+                    class="f-14"
+                    matInput
+                    formControlName="valueName"
+                  />
+                  <!-- <mat-error *ngIf="addAdditionalInformationform.controls['valueName'].hasError('required')"
+                      >Email is required</mat-error
+                    >
+                    <mat-error *ngIf="addAdditionalInformationform.controls['valueName'].hasError('pattern')"
+                      >Please enter valid Email Id</mat-error
+                    > -->
+                </mat-form-field>
+              </div>
+              <div class="col-md-2 ">
+                <div class="d-flex">
+                  <div class="save-btn-section addStyle">
+                    <mat-icon (click)="addAdditionaladdBankdetails()" class="pointer">group_add</mat-icon>
+                    <!-- <button mat-button class="save-btn  f-12 fontBold dgrey" (click)="addAdditionaladdBankdetails()">ADD</button> -->
+                </div>
+                <div class="save-btn-section ml-20 deleteStyle" *ngIf="additionaladdBankdetails().controls?.length >1">
+                  <mat-icon (click)="removeAdditionaladdBankdetails(i)" class="pointer">delete_outline</mat-icon>
+                  <!-- <button mat-button class="save-btn  f-12 fontBold dgrey" (click)="removeAdditionaladdBankdetails(i)" >DELETE</button> -->
+              </div>
+                </div>
+
+              </div>
+          </section>
+        </div>
+      </form>
+        <div class="save-btn-section">
+            <button mat-button class="save-btn  f-12 fontBold dgrey save-btnWidth" (click)="addbank()">ADD BANK</button>
+        </div>
+      </div>
+</ng-template>
+<ng-template #edit>
+  <div class="row default" style="margin: 0; padding: 20px;overflow-y: scroll;max-height: 80vh;">
+    <form [formGroup]="addbankform">
+      <section class="row mt-20">
+        <div class=" fw-700 f-16" style="margin-bottom: 10px;" style="margin-bottom: 10px;">Enter details of an Authorized Bank</div>
+        <div class="col-md-6 mt-10">
+          <mat-form-field class="w100" appearance="outline">
+            <mat-label>Bank Name</mat-label>
+            <input
+              type="text"
+              class="f-14"
+              matInput
+              formControlName="BankName"
+            />
+
+                <mat-error
+                    *ngIf="addbankform.controls['BankName'].hasError('required')"
+                    > Bank Name Required</mat-error
+                  >
+                  <mat-error
+                    *ngIf="addbankform.controls['BankName'].hasError('pattern')"
+                    >Please enter valid Bank Name</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mt-10">
+          <mat-form-field
+            class="w100"
+            appearance="outline"
+            (click)="matAutocompleteCountryObservers()"
+          >
+            <mat-label>Select Country</mat-label>
+
+            <input
+              type="text"
+              class="f-14"
+              matInput
+              [matAutocomplete]="applicantCountry"
+              formControlName="CountryName"
+            />
+            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+            <mat-autocomplete
+              autoActiveFirstOption
+              #applicantCountry="matAutocomplete"
+              (optionSelected)="selectedCountry()"
+            >
+              <mat-option
+                *ngFor="let item of bankCountryList | async"
+                [value]="item"
+              >
+                {{ item }}
+              </mat-option>
+            </mat-autocomplete>
+            <!-- <mat-error   *ngIf="form.controls['CountryName'].hasError('required')">Country required</mat-error> -->
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mt-10">
+          <mat-form-field class="w100" appearance="outline">
+                  <mat-label>Swift Code</mat-label>
+
+                  <input
+                    type="text"
+                    class="f-14"
+                    matInput
+                    formControlName="SwiftCode"
+                  />
+                  <mat-error *ngIf="addbankform.controls['SwiftCode'].hasError('required')"
+                      >Swift Code Required</mat-error
+                    >
+                    <mat-error *ngIf="addbankform.controls['SwiftCode'].hasError('maxlength')&&!addbankform.controls['SwiftCode'].hasError('pattern')"
+                      >Swift Code exceeded limit</mat-error
+                    >
+                    <mat-error *ngIf="addbankform.controls['SwiftCode'].hasError('pattern')"
+                      >Please enter valid Swift Code</mat-error
+                    >
+            </mat-form-field>
+        </div>
+      </section>
+      <section class="row ">
+        <div class=" fw-700 f-16">MRPA</div>
+        <mat-radio-group
+            class="mt-10"
+          aria-label="Select an option"
+          style="flex-wrap: nowrap !important; display: flex; align-items: center"
+          formControlName="MRPA"
+        >
+          <mat-radio-button [value]="true">Yes</mat-radio-button>
+          <mat-radio-button [value]="false">No</mat-radio-button>
+          <!-- <mat-error *ngIf="errors.MRPA">MRPA field is required</mat-error> -->
+        </mat-radio-group>
+      </section>
+    </form>
+    <form [formGroup]="addAdditionalInformationform" style="max-height: 300px;overflow-y: auto;">
+      <div formArrayName="additionaladdBankdetails">
+        <section class="row mt-10" *ngFor="let variable of additionaladdBankdetails().controls; let i = index" [formGroupName]="i">
+          <div class="col-md-5 ">
+              <mat-form-field class="w100" appearance="outline">
+                <mat-label> First Name </mat-label>
+
+                <input
+                  type="text"
+                  class="f-14"
+                  matInput
+                  formControlName="keyName"
+                />
+                <!-- <mat-error *ngIf="addAdditionalInformationform.controls['keyName'].hasError('required')"
+                    >First Name Required</mat-error
+                  > -->
+                  <!-- <mat-error *ngIf="form.controls['keyName'].hasError('pattern')"
+                    >Please enter valid First Name</mat-error
+                  > -->
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-5">
+              <mat-form-field class="w100" appearance="outline">
+                <mat-label> Your Email Id </mat-label>
+
+                <input
+                  type="email"
+                  class="f-14"
+                  matInput
+                  formControlName="valueName"
+                />
+                <!-- <mat-error *ngIf="addAdditionalInformationform.controls['valueName'].hasError('required')"
+                    >Email is required</mat-error
+                  >
+                  <mat-error *ngIf="addAdditionalInformationform.controls['valueName'].hasError('pattern')"
+                    >Please enter valid Email Id</mat-error
+                  > -->
+              </mat-form-field>
+            </div>
+            <div class="col-md-2 ">
+              <div class="d-flex">
+                <div class="save-btn-section addStyle">
+                  <mat-icon (click)="addAdditionaladdBankdetails()" class="pointer">group_add</mat-icon>
+                  <!-- <button mat-button class="save-btn  f-12 fontBold dgrey" (click)="addAdditionaladdBankdetails()">ADD</button> -->
+              </div>
+              <div class="save-btn-section ml-20 deleteStyle"  *ngIf="additionaladdBankdetails().controls?.length >1">
+                <mat-icon (click)="removeAdditionaladdBankdetails(i)" class="pointer">delete_outline</mat-icon>
+                <!-- <button mat-button class="save-btn  f-12 fontBold dgrey" (click)="removeAdditionaladdBankdetails(i)" >DELETE</button> -->
+            </div>
+              </div>
+
+            </div>
+        </section>
+    </div>
+  </form>
+    <div class="save-btn-section">
+        <button mat-button class="save-btn   f-12 fontBold dgrey save-btnWidth" (click)="editBank()">UPDATE DETAILS</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #details>
+  <div class="row default" style="margin: 0; padding: 20px;overflow-y: scroll;max-height: 80vh;">
+    <form [formGroup]="addbankform">
+      <section class="row mt-20">
+        <div class=" fw-700 f-16" style="margin-bottom: 10px;">Enter details of an Authorized Bank</div>
+        <div class="col-md-6 mt-10">
+          <mat-form-field class="w100" appearance="outline">
+            <mat-label>Bank Name</mat-label>
+            <input
+              type="text"
+              class="f-14"
+              matInput
+              formControlName="BankName"
+            />
+
+                <mat-error
+                    *ngIf="addbankform.controls['BankName'].hasError('required')"
+                    > Bank Name Required</mat-error
+                  >
+                  <mat-error
+                    *ngIf="addbankform.controls['BankName'].hasError('pattern')"
+                    >Please enter valid Bank Name</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mt-10">
+          <mat-form-field
+            class="w100"
+            appearance="outline"
+            (click)="matAutocompleteCountryObservers()"
+          >
+            <mat-label>Select Country</mat-label>
+
+            <input
+              type="text"
+              class="f-14"
+              matInput
+              [matAutocomplete]="applicantCountry"
+              formControlName="CountryName"
+            />
+            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+            <mat-autocomplete
+              autoActiveFirstOption
+              #applicantCountry="matAutocomplete"
+            >
+              <mat-option
+                *ngFor="let item of bankCountryList | async"
+                [value]="item"
+              >
+                {{ item }}
+              </mat-option>
+            </mat-autocomplete>
+            <!-- <mat-error   *ngIf="form.controls['CountryName'].hasError('required')">Country required</mat-error> -->
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mt-10">
+          <mat-form-field class="w100" appearance="outline">
+                  <mat-label>Swift Code</mat-label>
+
+                  <input
+                    type="text"
+                    class="f-14"
+                    matInput
+                    formControlName="SwiftCode"
+                  />
+                  <mat-error *ngIf="addbankform.controls['SwiftCode'].hasError('required')"
+                      >Swift Code Required</mat-error
+                    >
+                    <mat-error *ngIf="addbankform.controls['SwiftCode'].hasError('maxlength')&&!addbankform.controls['SwiftCode'].hasError('pattern')"
+                      >Swift Code exceeded limit</mat-error
+                    >
+                    <mat-error *ngIf="addbankform.controls['SwiftCode'].hasError('pattern')"
+                      >Please enter valid Swift Code</mat-error
+                    >
+            </mat-form-field>
+        </div>
+      </section>
+      <section class="row ">
+        <div class=" fw-700 f-16">MRPA</div>
+        <mat-radio-group
+            class="mt-10"
+          aria-label="Select an option"
+          style="flex-wrap: nowrap !important; display: flex; align-items: center"
+          formControlName="MRPA"
+        >
+          <mat-radio-button [value]="true">Yes</mat-radio-button>
+          <mat-radio-button [value]="false">No</mat-radio-button>
+          <!-- <mat-error *ngIf="errors.MRPA">MRPA field is required</mat-error> -->
+        </mat-radio-group>
+      </section>
+    </form>
+    <form [formGroup]="addAdditionalInformationform" style="max-height: 300px;overflow-y: auto;">
+      <div formArrayName="additionaladdBankdetails">
+      <section class="row mt-10" *ngFor="let variable of additionaladdBankdetails().controls; let i = index" [formGroupName]="i">
+        <div class="col-md-6 ">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label> First Name </mat-label>
+
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                formControlName="keyName"
+              />
+              <!-- <mat-error *ngIf="form.controls['FirstName'].hasError('required')"
+                  >First Name Required</mat-error
+                >
+                <mat-error *ngIf="form.controls['FirstName'].hasError('pattern')"
+                  >Please enter valid First Name</mat-error
+                > -->
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-md-3 ">
+            <div class="d-flex">
+              <div class="save-btn-section">
+                <button mat-button class="save-btn  f-12 fontBold dgrey" (click)="addAdditionaladdBankdetails()">ADD</button>
+            </div>
+            <div class="save-btn-section ml-20" *ngIf=" i >= 1">
+              <button mat-button class="save-btn  f-12 fontBold dgrey" (click)="removeAdditionaladdBankdetails(i)" >DELETE</button>
+          </div>
+            </div>
+
+          </div> -->
+          <div class="col-md-6">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label> Your Email Id </mat-label>
+
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                formControlName="valueName"
+              />
+              <!-- <mat-error *ngIf="form.controls['EmailId'].hasError('required')"
+                  >Email is required</mat-error
+                >
+                <mat-error *ngIf="form.controls['EmailId'].hasError('pattern')"
+                  >Please enter valid Email Id</mat-error
+                > -->
+            </mat-form-field>
+          </div>
+      </section>
+    </div>
+  </form>
+  </div>
+</ng-template>

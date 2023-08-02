@@ -1,0 +1,95 @@
+<div style="padding: 20px 10px;">
+  <div class="row">
+    <div class="col-md-10">
+      <span class="f-22 fontBold dgrey">Factor Details</span>
+  </div>
+  <div class="col-md-2">
+      <app-button
+      [name]="'Add Factor'"
+      [class]="'primary-btn f-16 w-100'"
+      class="btnResize" (click)="openModel()"
+      ></app-button>
+  </div>
+  </div>
+
+<div class="mt-30 table-container">
+    <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="Factor ID">
+            <th mat-header-cell *matHeaderCellDef > Factor ID </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.entityId}}
+            </td>
+          </ng-container>
+    <ng-container matColumnDef="Factor Name">
+      <th mat-header-cell *matHeaderCellDef > Factor Name </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.companyName}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Factor Country">
+        <th mat-header-cell *matHeaderCellDef > Factor Country </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.country}}
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef >Status</th>
+        <td mat-cell *matCellDef="let element">
+            {{element.status}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Action1">
+        <th mat-header-cell *matHeaderCellDef >View/Edit</th>
+        <td mat-cell *matCellDef="let element">
+            <div mat-button [matMenuTriggerFor]="menu">
+                <img src="../../../assets/images/icons/3dots.png"
+                    style="width: 20px;height: 20px; cursor: pointer;" alt="">
+            </div>
+            <mat-menu #menu="matMenu">
+              <!-- (click)="edit(element.id)" -->
+                    <button mat-menu-item 
+                    class="f-12 fontRegular dgrey" (click)="view(element)">View/Edit</button>
+            </mat-menu> 
+           </td>
+      </ng-container>
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+                    <!-- <i class="fa fa-eye" style="cursor:pointer" (click)="view(element)"></i>  -->
+                    <i *ngIf="element.status == 'PENDING' && element.makerApprovedBy != loginuserName" (click)="actionFactor('ACTIVE',element.id)"class="fa fa-check-circle" matTooltip="Approve" style="color: forestgreen; cursor:pointer"></i>
+                    <i *ngIf="element.status == 'PENDING' && element.makerApprovedBy != loginuserName" (click)="actionFactor('REJECTED',element.id)"class="fa fa-times-circle" matTooltip="Reject" style="color: red; cursor:pointer"></i>
+                    <i *ngIf="element.status == 'INACTIVE'" (click)="actionFactor('ACTIVE',element.id)"class="fa fa-check-circle" matTooltip="Active" style="color: forestgreen; cursor:pointer"></i>
+                    <i *ngIf="element.status == 'ACTIVE'" (click)="actionFactor('INACTIVE',element.id)"class="fa fa-times-circle" matTooltip="Inactive" style="color: red; cursor:pointer"></i>
+                    <i *ngIf="(element.status=='REJECTED')"class="fa fa-times-rectangle" matTooltip="Rejected" style="color: red; cursor:pointer"></i>
+                    <i  *ngIf="element.status =='PENDING' && element.makerApprovedBy == loginuserName"class="fa fa-lock" matTooltip="You are not authorized to perform this action" style="color: forestgreen; cursor:pointer"></i>
+        </td>
+      </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+  
+  </table>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <mat-paginator  (page)= "onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]">
+    </mat-paginator>
+  </div>
+  <div class="col-md-10">
+    <div class="pagination" style="float: right;">
+      <div class="f-12 fontBold grey mx-3"> {{getPage()+' ' }} of {{page?.totalElements}}</div>
+      <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="page?.index === 0 ?'#292929a1':'#EB7203'"
+          [style.pointer-events]="page?.index === 0?'none':'auto'">
+          arrow_back_ios
+      </mat-icon> 
+    
+       <mat-icon class="pointer" (click)="pageNext()"
+          [style.pointer-events]="last===page?.totalElements?'none':'auto'"
+          [style.color]="last===page?.totalElements ?'#292929a1':'#EB7203'"
+          [style.pointer-events]="last===page?.totalElements ?'none':'auto'" style="margin-left: 10px;">
+          arrow_forward_ios
+      </mat-icon>
+    </div>
+   </div>
+</div>
+</div>

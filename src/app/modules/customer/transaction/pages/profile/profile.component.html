@@ -1,0 +1,220 @@
+<div class="view-transaction" style="padding: 20px 10px;">
+    <div class="mt-30 px-5 py-2 m-auto">
+        <div class="f-22 fontBold dgrey mt-20 mb-3 m-auto" style="text-align: center;">My Profile</div>
+        <!-- Personal Details Section -->
+        <div class="boxShadow">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="dgrey f-14 fontBold">Personal Details</div>                        
+                    </div>
+                    <div class="col-md-1">
+                        <div class="imgDiv cpointer" (click)="editPersonalDetails()">
+                            <img src="../../../../../assets/images/icons/action-edit.svg" />
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            <div style="padding: 10px;">
+                <div class="row ">                    
+                    <div class="col-md-3">
+                        <div class="label-text">First Name</div>
+                        <div class="info">{{personalDetails?.firstName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Last Name</div>
+                        <div class="info">{{personalDetails?.lastName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Email</div>
+                        <div class="info">{{personalDetails?.email}}</div>
+                    </div>                    
+                </div>
+                <div class="row ">                    
+                    <div class="col-md-3">
+                        <div class="label-text">Mobile Number</div>
+                        <div class="info">{{personalDetails?.mobileNumber}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Landline Number</div>
+                        <div class="info">{{personalDetails?.landLineNumber||'NA'}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">{{personalDetails?.country}}</div>
+                    </div>
+                </div>
+                <div class="row mt-20">
+                    <span class="f-14 fontBold dgrey">Additional Email IDs </span>
+                </div>
+                
+                <div class="row ">                    
+                    <div class="col-md-3">
+                        <div class="label-text">Email ID 1</div>
+                        <div class="info">{{personalDetails?.additionalEmails?personalDetails?.additionalEmails[0]?.additionalEmail||'NA':'NA'}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Email ID 2</div>
+                        <div class="info">{{personalDetails?.additionalEmails?personalDetails?.additionalEmails[1]?.additionalEmail||'NA':'NA'}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Email ID 3</div>
+                        <div class="info">{{personalDetails?.additionalEmails?personalDetails?.additionalEmails[2]?.additionalEmail||'NA':'NA'}}</div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <!-- Business Details -->
+        <div class="boxShadow mt-20">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="dgrey f-14 fontBold">Business Details</div>                        
+                    </div>
+                    <div class="col-md-1">
+                        <div class="imgDiv cpointer" (click)="editBusinessDetails()" >
+                            <img src="../../../../../assets/images/icons/action-edit.svg" />
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            <div style="padding: 10px;">
+                <div class="row ">                    
+                    <div class="col-md-3">
+                        <div class="label-text">Registration Type</div>
+                        <div class="info">{{businessDetails?.registrationType}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Company Name</div>
+                        <div class="info">{{businessDetails?.companyName}}</div>
+                    </div>                   
+                </div>
+                <!-- Employee Details -->
+                <div class="row mt-20" *ngIf="employeeDetails?.length>0">
+                    <span class="f-14 fontBold dgrey">Employee Details</span>
+                </div>
+                
+                <div class="" *ngIf="employeeDetails?.length>0">
+                    <div class="row " *ngFor="let employee of employeeDetails">                    
+                        <div class="col-md-3">
+                            <div class="label-text">MD/CEO/Owner's First Name</div>
+                            <div class="info">{{employee?.firstName||'NA'}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="label-text">MD/CEO/Owner's Last Name</div>
+                            <div class="info">{{employee?.lastName||'NA'}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="label-text">Designation</div>
+                            <div class="info">{{employee?.designation||'NA'}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <!-- Address Details Section -->
+        <div class="boxShadow">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="dgrey f-14 fontBold">Registered Address Details</div>                        
+                    </div>
+                    <!-- <div class="col-md-1">
+                        <div class="imgDiv cpointer"  (click)="editBusinessDetails()">
+                            <img src="../../../../../assets/images/icons/action-edit.svg" />
+                        </div>
+                    </div> -->
+                </div>                
+            </div>
+            <div style="padding: 10px;">
+                <div class="row ">                    
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">{{businessDetails?.addressDetails?.registeredCountry}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">State</div>
+                        <div class="info">{{businessDetails?.addressDetails?.province}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">City</div>
+                        <div class="info">{{businessDetails?.addressDetails?.city}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Address Line 1</div>
+                        <div class="info">{{businessDetails?.addressDetails?.address1}}</div>
+                    </div>                      
+                </div>
+                <div class="row ">                    
+                    <div class="col-md-3">
+                        <div class="label-text">Address Line 2</div>
+                        <div class="info">{{businessDetails?.addressDetails?.address2}}</div>
+                    </div>                    
+                    <div class="col-md-3">
+                        <div class="label-text">Address Line 3</div>
+                        <div class="info">{{businessDetails?.addressDetails?.address3 || 'NA'}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">PIN Code</div>
+                        <div class="info">{{businessDetails?.addressDetails?.pincode}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Telephone</div>
+                        <div class="info">{{businessDetails?.addressDetails?.telephone}}</div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <!-- KYC Details Section -->
+        <div class="boxShadow mt-20">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="dgrey f-14 fontBold" >KYC Details</div>                        
+                    </div>
+                    <!-- <div class="col-md-1">
+                        <div class="imgDiv cpointer" (click)="editKYCDetails()">
+                            <img src="../../../../../assets/images/icons/action-edit.svg" />
+                        </div>
+                    </div> -->
+                </div>                
+            </div>
+            <div style="padding: 10px;">
+                <div class="row mt-20" >
+                    <span class="f-14 fontBold dgrey">Personal KYC Details</span>
+                </div>
+                <div class="row ">                    
+                    <div class="col-md-3">
+                        <div class="label-text">Document</div>
+                        <div class="info">{{personalKYCDetails?.documentName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">KYC status</div>
+                        <div class="info buttonstyle">{{personalKYCDetails?.status}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Action</div>
+                        <div class=" yellow-txt cpointer" (click)="openPersonalKYCDocument()">View document</div>
+                    </div>                     
+                </div>
+                <div class="row ">  
+                    <div class="row mt-20" >
+                        <span class="f-14 fontBold dgrey">Business KYC Details</span>
+                    </div>                  
+                    <div class="col-md-3">
+                        <div class="label-text">Document</div>
+                        <div class="info">{{businessKYCDetails?.documentName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">KYC status</div>
+                        <div class="info buttonstyle">{{businessKYCDetails?.status}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Action</div>
+                        <div class=" yellow-txt cpointer" (click)="openBusinessKYCDocument()">View document</div>
+                    </div>                     
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>

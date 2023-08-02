@@ -1,0 +1,171 @@
+<div style="padding: 20px 10px;">
+    <div class="row">
+        <div class="col-md-10">
+            <span class="f-22 fontBold dgrey">Grant Transaction</span>
+        </div>
+    </div>
+
+    <div class="mt-30 table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="User Id">
+                <th mat-header-cell *matHeaderCellDef>User Id</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.userId}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Mobile">
+                <th mat-header-cell *matHeaderCellDef>Mobile</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.mobileNo}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.email}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Beneficiary">
+                <th mat-header-cell *matHeaderCellDef>Beneficiary</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.beneName}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="B. Country">
+                <th mat-header-cell *matHeaderCellDef>Country</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.beneBankCountry}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Applicant">
+                <th mat-header-cell *matHeaderCellDef>Applicant</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.applicantName}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="A. Country">
+                <th mat-header-cell *matHeaderCellDef>Country</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.applicantCountry}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Trxn Id">
+                <th mat-header-cell *matHeaderCellDef>Trxn Id</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.mtransactionId}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.date}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Trxn Validity">
+                <th mat-header-cell *matHeaderCellDef>Trxn Validity</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.validity}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="IB">
+                <th mat-header-cell *matHeaderCellDef>IB</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.lcissuanceBank}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Amount">
+                <th mat-header-cell *matHeaderCellDef>Amount</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.lcvalue | amount}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Currency">
+                <th mat-header-cell *matHeaderCellDef>Currency</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.lccurrency}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Requirement">
+                <th mat-header-cell *matHeaderCellDef>Requirement</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.requirementType}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Trxn Status">
+                <th mat-header-cell *matHeaderCellDef>Trxn Status</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.transactionStatus}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element">
+                    <i (click)="comment(element.mtransactionId,'ACTIVE','CHECKER')" *ngIf="(element.transactionStatus =='MAKER_APPROVED') && element.transactionAdminManagement.makerRejectApproveBy != loginuserName" class="fa fa-check-circle" matTooltip="Approve" style="color: forestgreen; cursor:pointer"></i>
+                    <i (click)="comment(element.mtransactionId,'REJECTED','CHECKER')" *ngIf="(element.transactionStatus =='MAKER_APPROVED')&& element.transactionAdminManagement.makerRejectApproveBy != loginuserName" class="fa fa-times-circle" matTooltip="Reject" style="color: red; cursor:pointer"></i>
+                    <i *ngIf="element.transactionStatus =='MAKER_APPROVED' && element.transactionAdminManagement.makerRejectApproveBy == loginuserName" class="fa fa-lock" matTooltip="You are not authorized to perform this action" style="color: forestgreen; cursor:pointer"></i>
+                </td>
+            </ng-container>
+            <tr class="mat-row " *matNoDataRow>
+                <td class="mat-cell text-center " [attr.colspan]="displayColumns.length">
+                    No Records Found.
+                </td>
+            </tr>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+        </table>
+
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+          <mat-paginator  (page)= "onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]">
+          </mat-paginator>
+        </div>
+        <div class="col-md-10">
+            <div class="pagination" style="float: right;">
+                <div class="f-12 fontBold grey mx-3"> {{getPage()+' ' }} of {{page?.totalElements}}</div>
+                <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="page?.index === 0 ?'#292929a1':'#EB7203'"
+                    [style.pointer-events]="page?.index === 0?'none':'auto'">
+                    arrow_back_ios
+                </mat-icon>
+                <mat-icon class="pointer" (click)="pageNext()" [style.pointer-events]="last===page?.totalElements?'none':'auto'"
+                    [style.color]="last===page?.totalElements ?'#292929a1':'#EB7203'"
+                    [style.pointer-events]="last===page?.totalElements ?'none':'auto'" style="margin-left: 10px;">
+                    arrow_forward_ios
+                </mat-icon>
+            </div>
+         </div>
+      </div>
+</div>
+
+<ng-template #callAPIDialog>
+    <div class="text-center">
+        <div class="heading">Add Comment
+            <span class="circle-icon">
+                <mat-icon (click)="closeComment()" mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div class="" style="padding: 15px;">
+            <img src="../../../assets/images/icons/logo.png" alt="" style="height:30px;width:50px">
+        </div>
+        <div style="padding: 0 20px 20px 20px; text-align: left;">
+            <!-- Add Message: -->
+            <div style="text-align: center;">
+                <mat-form-field>
+                    <textarea matInput maxlength="255" rows="4" [(ngModel)]="commentValue"></textarea>
+                    <mat-hint>Max 255 character</mat-hint>
+                    <!-- <mat-error>Max 255 character</mat-error> -->
+                </mat-form-field>
+            </div>
+            <div class="update-btn">
+                <app-button [name]="'Submit'" [class]="'primary-btn f-16'" [type]="'submit'"
+                    (click)="submitComment()"></app-button>
+            </div>
+        </div>
+    </div>
+</ng-template>

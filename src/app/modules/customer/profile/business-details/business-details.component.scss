@@ -1,0 +1,37 @@
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.add-label-pd {
+  ::ng-deep {
+    .mdc-notched-outline__notch {
+      padding-right: 20px !important;
+    }
+  }
+}
+.business-details {
+  ::ng-deep .mdc-notched-outline .mdc-floating-label--float-above {
+    // text-overflow: ellipsis !important;
+  }
+  .notification-icon {
+		width: 40px;
+		height: 40px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin-left: 8px;
+		border-radius: 100%;
+		cursor: pointer;
+	}
+  ::ng-deep .mdc-tooltip__surface {
+    background-color: #fff !important;
+    color: var(--grey) !important;
+    border: 1px solid var(--grey);
+  }
+}

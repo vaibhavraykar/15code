@@ -1,0 +1,146 @@
+.transaction-details {
+  overflow: hidden;
+
+  .mat-mdc-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    // justify-content: space-between;
+    margin: 0 -8px;
+    width: calc(100% + 16px);
+
+    ::ng-deep {
+      .mdc-radio {
+        padding: 0;
+        transform: scale(0.7);
+      }
+
+      .mdc-radio__outer-circle {
+        border: 1px solid #d8d8d8;
+      }
+    }
+
+    .mat-mdc-radio-button {
+      border: 1px solid var(--lblue2);
+      padding: 5px 15px 5px 10px;
+      margin: 2px 8px 10px;
+      border-radius: 5px;
+      background: #f8f9fd;
+      width: auto;
+    }
+
+    @media screen and (max-width: 991px) {
+      .mat-mdc-radio-button {
+        width: calc(100% / 2 - 16px);
+      }
+    }
+  }
+
+  .max-content {
+    @media screen and (min-width: 768px) {
+      max-width: 350px;
+    }
+  }
+
+  .help-icon {
+    margin-top: -15px;
+    color: #727272;
+    font-style: italic;
+    position: absolute;
+
+    @media screen and (max-width: 767px) {
+      position: static;
+      margin-bottom: 10px;
+    }
+  }
+
+  .notification-icon {
+    width: 40px;
+    height: 40px;
+    background: rgb(235 114 3 / 5%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    border-radius: 100%;
+    cursor: pointer;
+  }
+
+  .upload-button {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border: 1px solid #d0d0d0;
+    justify-content: space-between;
+  }
+
+  ::ng-deep {
+    .mat-datepicker-toggle-default-icon {
+      width: 20px;
+      color: #eb7203;
+    }
+
+    .file-upload {
+      .mat-mdc-text-field-wrapper {
+        padding: 0;
+      }
+
+      .mat-mdc-form-field-infix {
+        height: auto;
+        width: auto;
+      }
+
+      .mat-toolbar-single-row {
+        justify-content: flex-end;
+
+        align-items: center !important;
+      }
+
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+
+      .mdc-button__label {
+        font-size: 12px;
+      }
+
+      .mat-mdc-button-base {
+        height: 24px !important;
+      }
+    }
+  }
+
+  .upload-button-content {
+    .help-icon {
+      margin-top: 10px;
+      max-width: 310px;
+
+      img {
+        min-width: 16px;
+      }
+    }
+  }
+
+  .submit-btn {
+    margin-top: 80px;
+
+    @media screen and (max-width: 767px) {
+      margin-top: 40px;
+    }
+  }
+}
+.disableField {
+  * {
+    pointer-events: none !important;
+  }
+}
+.enableField {
+  * {
+    pointer-events: auto !important;
+  }
+}
+::ng-deep{
+	.mdc-tooltip--shown .mdc-tooltip__surface-animation {
+		color:black !important;
+		background-color: white !important;
+	}
+}

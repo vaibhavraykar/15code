@@ -1,0 +1,67 @@
+<div class="filter-popup">
+    <div class="heading">
+        Filter
+        <span (click)="close()" class="cpointer"><mat-icon>close</mat-icon></span>
+    </div>
+    <div class="sidebar">
+        <mat-sidenav-container>
+            <mat-sidenav mode="side" opened class="col-md-2">
+                <mat-nav-list>
+                    <li (click)="goTo('Subsidiaries')" class="addBorderBottom" *ngIf="subscriberType!=='BANK_AS_UNDERWRITER'">
+                        <div class="d-flex justify-content-left f-14 cpointer"
+                        *ngIf="subscriberType!=='BANK'"
+                            [ngClass]="selectedMenu == 'Subsidiaries' ? 'activeclass' : 'removeclass'">
+                            Subsidiaries
+                        </div>
+                    </li>
+                    <li (click)="goTo('Passcode users')" class="addBorderBottom" *ngIf="subscriberType!=='BANK_AS_UNDERWRITER'">
+                        <div class="d-flex justify-content-left f-14 cpointer"
+                            [ngClass]="selectedMenu == 'Passcode users' ? 'activeclass' : 'removeclass'">
+                            Passcode users
+                        </div>
+                    </li>
+                    <li (click)="goTo('status')" class="addBorderBottom" *ngIf="fromTableType!=='ACTIVE_TRANSACTION'&&fromTableType!=='SAVED_TRANSACTION'">
+                        <div class="d-flex justify-content-left f-14 cpointer"
+                            [ngClass]="selectedMenu == 'status' ? 'activeclass' : 'removeclass'">
+                            Transaction status
+                        </div>
+                    </li>
+                </mat-nav-list>
+            </mat-sidenav>
+            <mat-sidenav-content class="col-md-10">
+                <div class="tabs f-14 lgrey" *ngIf="selectedMenu == 'Subsidiaries'">
+                   <ul>
+                        <!-- <li class="isClicked">All</li> -->
+                        <!-- <li>Category 1</li>
+                        <li>Category 2</li>
+                        <li>Category 3</li>
+                        <li>Category 4</li> -->
+                        <li *ngFor="let items of companies" 
+                            [ngClass]="items.id==selectedSubsidiary?'isClicked':''"
+                            (click)="comapanyNameChange(items.companyName)"
+                        >{{items.companyName}}</li>
+                   </ul>
+                </div>
+                <div class="tabs f-14 lgrey" *ngIf="selectedMenu == 'Passcode users'">
+                    <ul>
+                        <li *ngFor="let items of passcodeUsers"
+                        [ngClass]="items.id==selectedUser?'isClicked':''"
+                        (click)="passcodeUserSelected(items.name)">{{items.name}}</li>
+                    </ul>
+                </div>
+                <div class="tabs f-14 lgrey" *ngIf="selectedMenu == 'status'">
+                    <ul>
+                        <li *ngFor="let items of transactionStatus"
+                        [ngClass]="items==selectedStatus?'isClicked':''"
+                        (click)="transStatusSelected(items)">{{items | titlecase}}</li>
+                    </ul>
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+    <div class="col-md-11 m-auto">
+        <div class="text-center" style="margin-top: 11px;">
+            <app-button [name]="'Apply'" [class]="'primary-btn f-16 w100'" [type]="'button'" (click)="apply()"></app-button>
+        </div>
+    </div>
+</div>

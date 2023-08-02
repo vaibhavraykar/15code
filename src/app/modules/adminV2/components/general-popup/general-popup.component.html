@@ -1,0 +1,78 @@
+<div class="general-popup" *ngIf="isConfirm">
+    <div class="header">
+        Confirm Action
+        <mat-icon class="cpointer" (click)="close()">close</mat-icon>
+    </div>
+    <div class="main-container">
+        <p class="f-16">{{this.data?.message}}</p>
+        <div class="row">
+            <div class="text-center button-style d-flex" >
+                <div class="col-md-2 mt-10">                
+                    <button mat-raised-button class="primary-btn" (click)="yes()">Yes</button>                   
+                </div>
+                <div class="col-md-2 mt-10" style="margin-left: 10px;">                
+                    <button mat-stroked-button class="f-16 w100" (click)="no()">No</button>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+
+<div class="general-popup" *ngIf="isAllGood">
+    <div class="header">
+        <mat-icon class="cpointer" (click)="close()">close</mat-icon>
+    </div>
+    <div class="main-container" style="text-align: center; ">
+        <div *ngIf="finalStatus">
+            <img src="../../../../../assets/images/factoring/Congratulatins.svg" />
+        </div>
+        <div *ngIf="!finalStatus">
+            <img src="../../../../../assets/images/icons/Icon-info.svg" style="width:65px"/>
+        </div>
+        <div class="f-22 fontBold blueText mt-40" *ngIf="finalStatus">
+            Congratulations!
+        </div>
+        <div class="f-22 fontBold blueText mt-40" *ngIf="!finalStatus">
+            Error!
+        </div>
+        <div class="f-14 fontRegular fw-600 dgrey mt-10">
+            {{finalmessage}}
+        </div>
+        <div class="col-md-2 mt-10" style="margin: auto;">                
+            <button mat-stroked-button class="f-16 w100" (click)="close()">Ok</button>
+        </div>
+    </div>
+</div>
+<div class="general-popup" *ngIf="viewDocument">
+    <div class="header">
+       View KYC Document
+        <mat-icon class="cpointer" (click)="close()">close</mat-icon>
+    </div>
+    <div class="main-container" style="text-align: center; ">
+        <div class="f-14 fontRegular fw-600 dgrey mt-10">
+            <img [src]="imgUrl"/>
+        </div>
+        <!-- <div class="col-md-2 mt-10" style="margin: auto;">                
+            <button mat-stroked-button class="f-16 w100" (click)="close()">Ok</button>
+        </div> -->
+    </div>
+</div>
+<div class="general-popup" *ngIf="changePassword">
+        <div class="main-container" style="text-align: center; "> 
+            <div>
+                <img src="../../../../../assets/images/factoring/Congratulatins.svg" />
+            </div>
+            <div class="f-22 fontBold blueText mt-40">
+                Congratulations!
+            </div>
+            <div class="f-14 fontRegular blueText fw-600 mt-20">
+                Your password has been successfully changed!
+              </div>
+            <div class="f-14 fontRegular fw-600 dgrey mt-10">
+              Kindly login with new password
+            </div>
+            <div class="col-md-2 mt-10" style="margin: auto;">
+                    <button mat-stroked-button class="f-16 w100" (click)="gotoLoginPage()">Login</button>
+            </div>
+        </div>
+</div>

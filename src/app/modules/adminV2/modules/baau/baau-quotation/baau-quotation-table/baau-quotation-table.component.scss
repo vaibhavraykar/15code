@@ -1,0 +1,47 @@
+@import '../../../../components/table/table.component.scss';
+.planAndPayment{
+  color:#eb7203;
+  cursor: pointer;
+}
+.search-box {
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined
+      .mat-mdc-form-field-infix {
+      padding-top: 2px !important;
+      padding-bottom: 0 !important;
+    }
+
+    .mat-mdc-form-field-flex {
+      height: 32px !important;
+    }
+
+    ::ng-deep .mdc-notched-outline {
+      * {
+        border-color: #d0d0d0 !important;
+      }
+    }
+
+    .mat-mdc-text-field-wrapper {
+      // background-color: #f2f2f2 !important;
+      border-radius: 7px;
+    }
+
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined
+      .mat-mdc-form-field-infix {
+      margin-left: 25px !important;
+
+      img {
+        position: absolute;
+        left: -30px;
+        top: 7px;
+      }
+    }
+
+    .mat-mdc-form-field-input-control {
+      font-family: "Lato" !important;
+      font-size: 0.75rem;
+      color: #8e8e8e !important;
+    }
+  }
+}
+

@@ -1,0 +1,109 @@
+<div class=" active-transaction add-bank-container mt-30">
+    <div class="row display">
+      <div class="col-xxl-9 col-xl-8 col-lg-8 col-md-7 col-sm-9 search" style="opacity: 0;pointer-events: none;">
+        <input
+          type="text"
+          placeholder="Search"
+          [formControl]="searchInput"
+          (input)="search($event)"
+        />
+        <mat-icon>search</mat-icon>
+      </div>
+      <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-5 col-sm-3 search-option mt-20mobile">
+       <div class="d-flex " >
+        <img src="../../../../../../assets/images/icons/download.svg" (click)="downloadBank()"/>
+        <app-button
+        style="margin-left:10px"
+        [name]="'+ ADD BANK DETAILS'"
+        [class]="'primary-btn f-16 w100'"
+        (click)="addbank()"
+      ></app-button>
+       </div>
+      </div>
+    </div>
+    <div class="row">
+      <span class="f-22 fontBold dgrey mt-30 mb-3">Manage Bank Users</span>
+      <div class="mt-30 table-container add-bank-table" style="padding-bottom: 20px !important">
+        <table mat-table [dataSource]="newDataSource">
+          <ng-container
+            *ngFor="let columns of displayColumns"
+            matColumnDef="{{ columns }}"
+          >
+            <th mat-header-cell *matHeaderCellDef>
+              <ng-container>
+                {{ columns }}
+              </ng-container>
+            </th>
+            <td mat-cell *matCellDef="let element; let i = index">
+              <div
+                class=""
+                *ngIf="columns != 'Quotes Received' && columns != 'Actions'"
+              >
+                {{ element[columns] }}
+              </div>
+              <div class="d-flex justify-content-evenly"
+               *ngIf="columns === 'Action'">
+                <div class="" mat-button [matMenuTriggerFor]="menu">
+                  <img
+                    src="../../../../../assets/images/icons/3dots.png"
+                    style="width: 20px; height: 20px; cursor: pointer"
+                    alt=""
+                  />
+                </div>
+                <mat-menu #menu="matMenu">
+                  <button
+                    mat-menu-item
+                    (click)="edit(element['id'])"
+                  >
+                   EDIT
+                  </button>
+                  <button
+                    mat-menu-item
+                    (click)="details(element['id'])"
+                  >
+                  DETAILS
+                  </button>
+                </mat-menu>
+              </div>
+            </td>
+          </ng-container>
+          <tr class="mat-row" *matNoDataRow>
+            <td
+              class="mat-cell text-center"
+              [attr.colspan]="displayColumns.length"
+            >
+              No Records Found.
+            </td>
+          </tr>
+          <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+        </table>
+      </div>
+      <div
+        class="pagination mt-10 "
+        *ngIf="page?.totalElements>0"
+      >
+        <div class="f-12 fontBold grey mx-3">
+          {{ getPage() + " " }} of {{ page?.totalElements }}
+        </div>
+        <mat-icon
+          class="pointer"
+          (click)="pagePrevious()"
+          [style.color]="page?.index === 0 ? '#292929a1' : '#EB7203'"
+          [style.pointer-events]="page?.index === 0 ? 'none' : 'auto'"
+        >
+          arrow_back_ios
+        </mat-icon>
+        <mat-icon
+          class="pointer"
+          (click)="pageNext()"
+          [style.pointer-events]="last === page?.totalElements ? 'none' : 'auto'"
+          [style.color]="last === page?.totalElements ? '#292929a1' : '#EB7203'"
+          [style.pointer-events]="last === page?.totalElements ? 'none' : 'auto'"
+          style="margin-left: 10px"
+        >
+          arrow_forward_ios
+        </mat-icon>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,81 @@
+.main-title {
+    background: transparent linear-gradient(270deg, #eb7203 0%, #ff922e 100%) 0%
+      0% no-repeat padding-box !important;
+    padding: 10px;
+    color: white;
+  }
+
+  .withdraw-btn {
+    width: 100%;
+    height: 48px;
+    background-color: white;
+    border: solid 1px #eb7203;
+    border-radius: 4px;
+    span {
+      color: #eb7203;
+    }
+  }
+  @media(max-width:994px){
+    .quote-page{
+      .flex-direction-col{
+        flex-direction: column;
+      }
+      .full-width{
+        width: 100%!important;
+      }
+      .text-align-responsive{
+        text-align: center;
+      }
+      .pl-0-mobile{
+        padding-left: 0!important;
+      }
+    }
+  }
+  @media(max-width:768px){
+    .margin-top-mobile{
+      margin-top: 10px;
+    }
+  }
+  @media(max-width:754px){
+
+    .text-align-responsive{
+      text-align: left!important;
+    }
+  }
+
+  .offered-container{
+    ::ng-deep {
+      .mat-datepicker-toggle-default-icon {
+        color: #eb7203;
+      }
+      .mat-mdc-form-field {
+        width: 100%;
+      }
+    }
+  }
+
+  @media(max-width:769px){
+    .mt-mobile-10{
+      margin-top: 20px;
+    }
+  }
+ .buying_quote-page{
+  ::ng-deep{
+    .mdc-text-field--disabled .mdc-text-field__input{
+  color: initial;
+    }
+    .mdc-text-field--disabled{
+
+      .mdc-notched-outline__leading{
+        border-color: rgba(0, 0, 0, 0.38);
+      }
+     .mdc-notched-outline__notch{
+      border-color: rgba(0, 0, 0, 0.38);
+     }
+      .mdc-notched-outline__trailing{
+        border-color: rgba(0, 0, 0, 0.38);
+      }
+    }
+  }
+ }
+

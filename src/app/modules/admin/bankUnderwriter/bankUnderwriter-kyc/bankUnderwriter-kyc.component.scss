@@ -1,0 +1,101 @@
+.bankKyc {   
+    .label-text {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--grey);
+        font-family: 'Lato', sans-serif !important;
+    }
+    .info {
+        font-size: 13px;
+        font-weight: bold;
+        margin-top: 5px;
+        color: var(--dgrey);
+        font-family: 'Lato', sans-serif !important;
+    }
+    .col-md-3 {
+        margin-top: 20px;
+    }
+    .transaction {
+        background-color: #f1f1f9 !important;
+        padding: 10px;
+    }
+    .imgDiv {
+        // width: 40px;
+        // height: 40px;
+        // background-color: var(--l-yellow);
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        // border-radius: 25px;
+        img {
+            width: 12px;
+            height: 12px;
+            text-align: center;
+        }
+    }
+    ::ng-deep {
+        .material-icons {
+            font-size: 19px;
+        }
+        .mat-icon {
+            height: 14px;
+        }
+        .back {
+            display: flex;
+            margin-top:2px;
+        }
+    }
+    .comment {
+        overflow-wrap: break-word;
+        margin-top: 20px;
+    }
+}
+.boxShadow {
+    box-shadow: 0px 1px 20px #00000029;
+}
+.back{
+    text-align: end;
+}
+.mat-expansion-panel-header:hover{
+    background:transparent !important;
+}
+.imgData{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    // height: 320px;
+}
+.close {
+    cursor: pointer;
+    // float: right;
+    position: absolute;
+    right: 0;
+  }
+  .otherBankTable{
+    border: solid 1px black;
+    padding:2%;
+    th{
+        padding:1%;
+        border-left: 1px solid;
+    }
+    tr{
+        border-bottom: 1px solid;
+    }
+    td{
+        padding:0.5% 0 0.5% 1%;
+        border-left: 1px solid;
+    }
+}
+.bankKyc{
+    ::ng-deep .mat-expansion-panel-header-title
+    {
+        max-width: 100% !important;
+    }
+    ::ng-deep .mat-expansion-indicator::after{
+        color:orange
+    }
+}
+
+
+

@@ -1,0 +1,36 @@
+<div class="subscription">
+    <div class="summary row plan-div"  style="margin: 20px 0">
+        <div class="title-head mt-10 text-center" style="margin-bottom: 20px;">Select Add-ons for this plan</div>
+        <div class="col-md-6 m-auto" *ngFor="let item of vasPlans;let i=index" (click)="addVAS(i)">
+            <div class="cart"
+                [ngClass]="{'clicked':selectedVasPlans.includes(item.productId)}"
+            >
+                <div  class="plan-description">
+                    <div class="plans-details mt-10 d-flex align-items-center justify-content-between px-3">
+                        <div class="f-12">{{item.planName}}</div>
+                        <div class="btn-style">
+                            <button mat-button class="Add-btn"
+                                [ngClass]="{'submit-btn':selectedVasPlans.includes(item.productId)}"
+                            >ADD|{{subscriptionPlanCurrency+item.price}}</button>
+                        </div> 
+                    </div>
+                    <div class="mt-10">
+                        <ul *ngIf="item.productBenefits">
+                            <li *ngFor="let benefits of item.productBenefits;let j=index">
+                                
+                            <div class="col-7 fw-12 d-flex" style="font: italic normal normal 14px/24px Lato;opacity:0.6;" ><mat-icon>check</mat-icon>{{item.productBenefits[j].benefit}}</div>
+                            <div class="col-5 fw-12 fw-600">{{item.productBenefits[j].value}}</div>                              
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div> 
+        </div>   
+        <div class=" m-auto" [ngClass]="(postpaidValue == true) ? 'col-md-8-modified': 'col-md-8'">
+            <div class="submit-btn d-flex justify-content-between align-items-center px-4 cpointer" (click)="buy()">
+                <div class="" style="text-align: left" *ngIf="postpaidValue == false">{{subscriptionPlanCurrency+" "+(count>0?count:"0.00")}}</div>
+                <div class="">BUY NOW</div>
+            </div>
+        </div>         
+    </div>
+</div>

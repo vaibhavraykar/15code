@@ -1,0 +1,32 @@
+<div class="header-wrapper">
+    <div class="logo">
+        <img src="../../../../assets/images/icons/login-logo.png" />
+    </div>
+    <div class="hide-div"></div>
+    <div class="user-wrapper white-bg"  (click)="options.click()">
+        <div class="user">
+            <img src="../../../../assets/images/icons/user.png" />
+        </div>
+        <div class="user-txt">
+            <div class="grey fontRegular f-14">{{userDetails ? userDetails.firstName : ''}} {{userDetails ? userDetails.lastName : ''}}</div>
+            <!-- <div class="d-flex credit">
+                <img src="../../../../assets/images/icons/credit.png" />
+                <p class="f-11 fontRegular blueText fw-600">18 Credits</p> -->
+            <!-- </div> -->
+        </div>
+        <!-- <div class="dots">
+            <img src="../../../../assets/images/icons/3dots.png" />
+        </div> -->
+        <div #options  class="dots" [matMenuTriggerFor]="menu" style="pointer-events: none;">
+          <img src="../../../../assets/images/icons/3dots.png" />
+        </div>
+    </div>
+    <mat-menu #menu="matMenu" xPosition="after">
+      <button mat-menu-item (click)="close()">Logout</button>
+    </mat-menu>
+    <!-- <div *ngIf="isLogout" class="dropdown-style">
+      <ul>
+         <li (click)="close()">Logout</li>
+      </ul>
+   </div> -->
+</div>

@@ -1,0 +1,436 @@
+<div class="all-transaction active-transaction">
+  <div class="row">
+    <!-- <div class="col-md-9 search">
+
+        <input
+        type="text"
+        placeholder="Search"
+        [formControl]="searchInput"
+        (input)="search($event)"
+      />
+
+      <mat-icon>search</mat-icon>
+    </div> -->
+    <!-- <div class="col-md-9 ">
+      <form [formGroup]="searchForm">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput type="text" placeholder="Search"
+          [formControl]="searchInput">
+          <button  matPrefix mat-icon-button>
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+    </div> -->
+
+
+    <div class="search-bar col-md-9">
+    <form [formGroup]="searchForm">
+      <mat-form-field appearance="outline" class="w-100">
+        <input matInput type="text" placeholder="Search"
+        formControlName="searchInput"
+        (input)="search($event)">
+          <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </form>
+    </div>
+    <div class="col-md-3 search-option">
+      <!-- <img
+        (click)="moreoptions()"
+        src="../../../../../assets/images/icons/more.svg"
+      /> -->
+      <img src="../../../../../../../assets/images/icons/refresh.svg " (click)="refresh()">
+
+      <img
+        (click)="filter()"
+        src="../../../../../../assets/images/icons/filter.svg"
+      />
+      <img
+        (click)="downloadCSV()"
+        src="../../../../../../assets/images/icons/download.svg"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <span class="f-22 fontBold dgrey mt-30 mb-3">All Transactions</span>
+    <div class="mt-30 table-view">
+      <div class="table-container" *ngIf="filterBy===['ACCEPTED']">
+        <table mat-table [dataSource]="dataSource2">
+          <ng-container matColumnDef="transactionId">
+            <th mat-header-cell *matHeaderCellDef>Transaction ID</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.transactionId }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="issuingCountry">
+            <th mat-header-cell *matHeaderCellDef>Issuing Country Yooo</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.issuingCountry }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let element">{{ element.amount |number:'1.2-2'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="issuanceBank">
+            <th mat-header-cell *matHeaderCellDef>Issuance Bank</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.issuanceBank }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="applicantName">
+            <th mat-header-cell *matHeaderCellDef>Applicant Name</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.applicantName }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="beneficiaryName">
+            <th mat-header-cell *matHeaderCellDef>Beneficiary Name</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.beneficiaryName }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="product">
+            <th mat-header-cell *matHeaderCellDef>Product</th>
+            <td mat-cell *matCellDef="let element">{{ element.product }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="productValue">
+            <th mat-header-cell *matHeaderCellDef>Product Value</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.productValue }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="quote">
+            <th mat-header-cell *matHeaderCellDef>Quote</th>
+            <td mat-cell *matCellDef="let element">{{ element.quote }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="quoteRank">
+            <th mat-header-cell *matHeaderCellDef>Quote Rank</th>
+            <td mat-cell *matCellDef="let element">{{ element.quoteRank }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="status" >
+            <th mat-header-cell *matHeaderCellDef>Transaction Status</th>
+            <td mat-cell *matCellDef="let element" >
+              <mat-form-field appearance="outline">
+                <mat-select  name="statusAccepted"
+                [(value)]="selected"
+                (selectionChange)="closeQuotation($event,element.transactionId)">
+                  <mat-option  [value]="'Open'">
+                    Open
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <div class="">
+                <div mat-button [matMenuTriggerFor]="menu">
+                  <img
+                    src="../../../assets/images/icons/3dots.png"
+                    style="width: 20px; height: 20px; cursor: pointer"
+                    alt=""
+                  />
+                </div>
+                <mat-menu #menu="matMenu">
+                  <ng-container *ngIf="element.status ==='NEW'">
+                    <button
+                      mat-menu-item
+                      class="f-12 fontRegular dgrey" (click)="placeQuotes(element.transactionID)"
+                    >
+                      Place Quote
+                      </button>
+                    <button
+                    mat-menu-item
+                    class="f-12 fontRegular dgrey"
+                    (click)="viewTransaction(element.transactionId)"
+                  >
+                    View Details
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="element.status ==='ACCEPTED'">
+                  <button
+                    mat-menu-item
+                    class="f-12 fontRegular dgrey" (click)="viewQuoteTransaction(element.transactionId, 'ACCEPTED')"
+                  >
+                    View Quote
+                    </button>
+                  <button
+                  mat-menu-item
+                  class="f-12 fontRegular dgrey"
+                  (click)="viewTransaction(element.transactionId)"
+                >
+                  View Details
+                </button>
+              </ng-container>
+              <ng-container *ngIf="element.status ==='REJECTED'">
+                <button
+                  mat-menu-item
+                  class="f-12 fontRegular dgrey" (click)="viewQuoteTransaction(element.transactionId, 'REJECTED')"
+                >
+                  View Quote
+                  </button>
+                <button
+                mat-menu-item
+                class="f-12 fontRegular dgrey"
+                (click)="viewTransaction(element.transactionId)"
+              >
+                View Details
+              </button>
+            </ng-container>
+              <ng-container *ngIf="element.status ==='EXPIRED'">
+                <button
+                  mat-menu-item
+                  class="f-12 fontRegular dgrey" (click)="viewQuoteTransaction(element.transactionId, 'EXPIRED')"
+                >
+                  View Quote
+                  </button>
+                <button
+                mat-menu-item
+                class="f-12 fontRegular dgrey"
+                (click)="viewTransaction(element.transactionId)"
+              >
+                View Details
+              </button>
+            </ng-container>
+              <ng-container *ngIf="element.status ==='CLOSE'">
+                <button
+                  mat-menu-item
+                  class="f-12 fontRegular dgrey" (click)="viewQuoteTransaction(element.transactionId, 'CLOSE')"
+                >
+                  View Quote
+                  </button>
+                <button
+                mat-menu-item
+                class="f-12 fontRegular dgrey"
+                (click)="viewTransaction(element.transactionId)"
+              >
+                View Details
+              </button>
+            </ng-container>
+              <ng-container *ngIf="element.status ==='WITHDRAW'">
+                <button
+                  mat-menu-item
+                  class="f-12 fontRegular dgrey" (click)="viewQuoteTransaction(element.transactionId, 'WITHDRAW')"
+                >
+                  View Quote
+                  </button>
+                <button
+                mat-menu-item
+                class="f-12 fontRegular dgrey"
+                (click)="viewTransaction(element.transactionId)"
+              >
+                View Details
+              </button>
+            </ng-container>
+
+
+
+                </mat-menu>
+              </div>
+            </td>
+          </ng-container>
+          <tr class="mat-row" *matNoDataRow>
+            <td
+              class="mat-cell text-center"
+              [attr.colspan]="displayedColumnsActive.length"
+            >
+              No Records Found.
+            </td>
+          </tr>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsActive"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsActive"></tr>
+        </table>
+      </div>
+      <div class="table-container" *ngIf="filterBy!=['ACCEPTED']">
+        <table mat-table [dataSource]="dataSource2">
+          <ng-container matColumnDef="transactionId">
+            <th mat-header-cell *matHeaderCellDef>Transaction ID</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.transactionId }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="issuingCountry">
+            <th mat-header-cell *matHeaderCellDef>Issuing Country </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.issuingCountry }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="currency">
+            <th mat-header-cell *matHeaderCellDef>Currency</th>
+            <td mat-cell *matCellDef="let element">{{ element.currency }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let element">{{ element.amount |number:'1.2-2'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="issuanceBank">
+            <th mat-header-cell *matHeaderCellDef>Issuance Bank</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.issuanceBank }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="applicantName">
+            <th mat-header-cell *matHeaderCellDef>Applicant Name</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.applicantName }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="beneficiaryName">
+            <th mat-header-cell *matHeaderCellDef>Beneficiary Name</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.beneficiaryName }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="product">
+            <th mat-header-cell *matHeaderCellDef>Product</th>
+            <td mat-cell *matCellDef="let element">{{ element.product }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="productValue">
+            <th mat-header-cell *matHeaderCellDef>Product Value</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.productValue }}
+            </td>
+          </ng-container>
+          
+
+          <ng-container matColumnDef="quote">
+            <th mat-header-cell *matHeaderCellDef>Quote </th>
+            <td mat-cell *matCellDef="let element">{{ element.quote }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="quoteRank">
+            <th mat-header-cell *matHeaderCellDef>Quote Rank</th>
+            <td mat-cell *matCellDef="let element">{{ element.quoteRank }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="status" >
+            <th mat-header-cell *matHeaderCellDef>Transaction Status</th>
+            <td mat-cell *matCellDef="let element" class="status-change" >
+              <mat-form-field appearance="outline" *ngIf="filterBy.length===1&&filterBy[0]==='ACCEPTED'">
+                <mat-select  name="statusAccepted"
+                [(value)]="selected"
+                (selectionChange)="closeQuotation($event,element.transactionId)">
+                  <mat-option  [value]="'Open'">
+                    Open
+                  </mat-option>
+                  <!-- <mat-option  [value]="'Close'">
+                    Close
+                  </mat-option> -->
+                </mat-select>
+              </mat-form-field>
+              <div *ngIf="!(filterBy.length===1&&filterBy[0]==='ACCEPTED')">
+                {{element.status}}
+              </div>
+            </td>
+
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element">
+              <div class="">
+                <div mat-button [matMenuTriggerFor]="menu">
+                  <img
+                    src="../../../assets/images/icons/3dots.png"
+                    style="width: 20px; height: 20px; cursor: pointer"
+                    alt=""
+                  />
+                </div>
+                <mat-menu #menu="matMenu">
+                  <button
+                    mat-menu-item
+                    class="f-12 fontRegular dgrey"
+                    *ngIf="element.quote > 0 "
+                    (click)="viewQuote(element.transactionId)"
+                  >
+                    View quote
+                  </button>
+                  <button
+                    mat-menu-item
+                    class="f-12 fontRegular dgrey"
+                    (click)="viewTransaction(element.transactionId)"
+                  >
+                    View Details
+                  </button>
+                </mat-menu>
+              </div>
+            </td>
+          </ng-container>
+          <tr class="mat-row" *matNoDataRow>
+            <td
+              class="mat-cell text-center"
+              [attr.colspan]="displayedColumns2.length"
+            >
+              No Records Found.
+            </td>
+          </tr>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+        </table>
+      </div>
+      <div class="d-flex align-items-center">
+        <div class=" pageSizeChange justify-content-start d-flex">
+                <mat-paginator  (page)="onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]"
+                  *ngIf="totalItems>5"
+                >
+                </mat-paginator>
+            </div>
+        <div
+        class="pagination mt-10 justify-content-end"
+        *ngIf="dataSource2?.length > 0"
+      >
+        <div class="f-12 fontBold grey mx-3">
+          {{ getPage() + " " }} of {{ page?.totalElements }}
+        </div>
+        <mat-icon
+          class="pointer"
+          (click)="pagePrevious()"
+          [style.color]="page?.index === 0 ? '#292929a1' : '#EB7203'"
+          [style.pointer-events]="page?.index === 0 ? 'none' : 'auto'"
+        >
+          arrow_back_ios
+        </mat-icon>
+        <mat-icon
+          class="pointer"
+          (click)="pageNext()"
+          [style.pointer-events]="
+            last === page?.totalElements ? 'none' : 'auto'
+          "
+          [style.color]="last === page?.totalElements ? '#292929a1' : '#EB7203'"
+          [style.pointer-events]="
+            last === page?.totalElements ? 'none' : 'auto'
+          "
+          style="margin-left: 10px"
+        >
+          arrow_forward_ios
+        </mat-icon>
+      </div>
+      </div>
+
+    </div>
+  </div>
+</div>

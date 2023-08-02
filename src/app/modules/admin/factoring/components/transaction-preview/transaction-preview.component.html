@@ -1,0 +1,19 @@
+<div style="padding: 40px 10px;">
+    <span class="f-22 fontBold dgrey">Transactions Preview</span>
+
+    <div class="mt-30">
+        <!-- <app-accordion [displayedColumns]="displayedColumns" style="width: 100%;"></app-accordion> -->
+        <app-table [dataSource]="dataSource" [displayedColumns]="displayColumns" [selectOption]="true"
+            [viewComment]="true" *ngIf="dataSource.length>0"
+            (selectedTransactions)="selectedTransactions($event)"></app-table>
+
+        <div class="row d-flex justify-content-end">
+            <div class="col-md-2">
+                <div class="mt-30 text-center">
+                    <app-button [name]="'Confirm'" [class]="'primary-btn f-16 w100'" [type]="'button'"
+                        (click)="confirm()"></app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

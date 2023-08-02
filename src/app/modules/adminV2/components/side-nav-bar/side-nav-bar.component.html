@@ -1,0 +1,388 @@
+<div class="sidebar-wrapper" *ngIf="!isMobile">
+  <mat-sidenav-container [ngClass]="(isOpen == false) ? 'toggle-open' : 'toggle-close'">
+    <mat-sidenav #sideNav mode="side" opened class="col-md-2">      
+      <mat-nav-list>
+        <div>
+          <li class="menuLi" (click)="goTo('Dashboard')" [ngClass]="selectedMenu == 'Dashboard' ? 'selected' : 'removed'" style="height: 48px;">
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/dashboard.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Dashboard
+              </div>
+            </div>
+          </li>
+          <li class="menuLi"
+            [ngClass]="selectedMenu == 'Primary' || selectedMenu == 'Secondary' || selectedMenu == 'Corporate'   ? 'selected' : 'removed' " *ngIf="(myRole != 'CUSTOMER_RM' && myRole != 'BANK_RM' && myRole != 'ANALYTICS_USER') || myRights.includes('TRANSACTIONS') || myRights.includes('CORP_TRANSACTIONS')">
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change" style="min-width: 24px!important;">
+                <img src="../../../../../assets/images/adminV2/transaction.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text w-100" *ngIf="!isOpen">
+                <mat-expansion-panel #transPanel [expanded]="panelOpenState" (opened)="panelOpenState = true"
+                  (closed)="panelOpenState = false" class="bgclr">
+                  <mat-expansion-panel-header class="bgclr" style="padding-right: 2px!important;">
+                    <mat-panel-title class="f-14 fontRegular">Transactions</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <!-- <p (click)="goTo('Primary')" class="f-14 fontRegular"
+                    [ngClass]="selectedMenu == 'Primary' ? 'selectedTab   ' : 'removedTab'">
+                    Primary
+                  </p> -->
+                  <mat-expansion-panel [expanded]="internalTranpanelOpenState" (opened)="internalTranpanelOpenState = true"
+                  (closed)="panelOpenState = false" class="bgclr">
+                  <mat-expansion-panel-header class="bgclr" style="padding-right: 2px!important;">
+                    <mat-panel-title class="f-14 fontRegular">Primary</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <p (click)="goTo('Primary')" class="f-14 fontRegular"
+                    [ngClass]="selectedMenu == 'Primary' ? 'selectedTab   ' : 'removedTab'" *ngIf="myRights.includes('TRANSACTIONS')">
+                   FI(LC,BG,BR etc...)
+                  </p>
+                  <p class="f-14 fontRegular" (click)="goTo('Corporate')"
+                    [ngClass]="selectedMenu == 'Corporate' ? 'selectedTab' : 'removedTab'" *ngIf="myRights.includes('CORP_TRANSACTIONS')">
+                    Corporate<br/>(Factoring)
+                  </p>
+  
+                </mat-expansion-panel>
+                  <p class="f-14 fontRegular" (click)="goTo('Secondary')"
+                    [ngClass]="selectedMenu == 'Secondary' ? 'selectedTab' : 'removedTab'">
+                    Secondary
+                  </p>
+  
+                </mat-expansion-panel>
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('Customer')" [ngClass]="selectedMenu == 'Customer'   ? 'selected' : 'removed' " *ngIf='myRights.includes("CUSTOMERS")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/customer.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Customer
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" [ngClass]="selectedMenu == 'BAAU' || selectedMenu == 'Automated'  ? 'selected' : 'removed' " *ngIf='myRights.includes("BANKS") || myRights.includes("OFFLINEBANK") '>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change" style="min-width: 24px!important;">
+                <img src="../../../../../assets/images/adminV2/dashboard.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text w-100" *ngIf="!isOpen">
+                <mat-expansion-panel [expanded]="baauPanelOpenState" (opened)="baauPanelOpenState = true"
+                  (closed)="baauPanelOpenState = false" class="bgclr">
+                  <mat-expansion-panel-header class="bgclr" style="padding-right: 2px!important;">
+                    <mat-panel-title class="f-14 fontRegular">BAAU</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <p (click)="goTo('BAAU')" class="f-14 fontRegular"
+                    [ngClass]="selectedMenu == 'BAAU' ? 'selectedTab' : 'removedTab'" *ngIf='myRights.includes("BANKS")'>
+                    Digital BAAU
+                  </p>
+                  <p (click)="goTo('Automated')" class="f-14 fontRegular"
+                  [ngClass]="selectedMenu == 'Automated' ? 'selectedTab' : 'removedTab'" *ngIf='myRights.includes("OFFLINEBANK")'>
+                    Automated BAAU
+                  </p>
+  
+                </mat-expansion-panel>
+              </div>
+            </div>
+          </li>
+          <!-- <li class="menuLi" (click)="goTo('Referrer')" [ngClass]="selectedMenu == 'Referrer'   ? 'selected' : 'removed' " *ngIf='myRights.includes("REFERRER")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/referral 1.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Referrer
+              </div>
+            </div>
+          </li> -->
+          <li class="menuLi" (click)="goTo('User')" [ngClass]="selectedMenu == 'User'  ? 'selected' : 'removed' " *ngIf='myRights.includes("CREATE_USER")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/user 1.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                User Management
+              </div>
+            </div>
+          </li>
+  
+          <li class="menuLi" (click)="goTo('Subscription')" [ngClass]="selectedMenu == 'Subscription'   ? 'selected' : 'removed' " *ngIf='myRights.includes("SUBSCRIPTION_MGMT_VIEW")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/subscribe 1.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Subscription/VAS Management
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('Coupons')" [ngClass]="selectedMenu == 'Coupons'   ? 'selected' : 'removed' " *ngIf='myRights.includes("DISCOUNT_MGMT_VIEW")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/discount 1.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Discount Management
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('rm')" [ngClass]="selectedMenu == 'rm'   ? 'selected' : 'removed' " *ngIf='myRights.includes("ASSIGN_RMS")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/organization.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen" style="margin-left: 5px!important;">
+                RM Management
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('payments')" [ngClass]="selectedMenu == 'payments'   ? 'selected' : 'removed' " *ngIf='myRights.includes("CREATE_USER_GRANT") || myRights.includes("KYC_GRANT") || myRights.includes("PAYMENT_APPROVAL") || myRights.includes("DISCOUNT_MGMT_GRANT") || myRights.includes("GRANT_RMS") || myRights.includes("SUBSCRIPTION_MGMT_GRANT")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/grant.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Grant Requests
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('factor')" [ngClass]="selectedMenu == 'factor'   ? 'selected' : 'removed' " *ngIf='myRights.includes("ADD_FACTOR")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/customer.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Factor
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('report')" [ngClass]="selectedMenu == 'report'   ? 'selected' : 'removed' " *ngIf="(myRole == 'ANALYTICS_USER' || myRole == 'SUPER_ADMIN') && myRights.includes('REPORTS_DOWNLOADS')">
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/customer.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Report
+              </div>
+            </div>
+          </li>
+        </div>
+     
+<li class="menuLi" (click)="goTo('bulkupload')" [ngClass]="selectedMenu == 'bulkupload'   ? 'selected' : 'removed' " *ngIf="myRole == 'CUSTOMER_RM'">
+  <div class="d-flex menuList">
+    <div class="img-cont mr-0change">
+      <img src="../../../../../assets/images/adminV2/customer.svg">
+    </div>
+    <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+      Bulk Upload
+    </div>
+  </div>
+</li>
+
+
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="col-md-10">
+      <div class="tabs">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+<div class="sidebar-wrapper"  *ngIf="isMobile">
+  <mat-sidenav-container [ngClass]="(isOpen == false) ? 'toggle-open' : 'toggle-close'">
+    <mat-sidenav #sideNav mode="side" opened class="col-md-2">      
+      <mat-nav-list>
+        <div>
+          <li class="menuLi" (click)="goTo('Dashboard')" [ngClass]="selectedMenu == 'Dashboard' ? 'selected' : 'removed'" style="height: 48px;">
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/dashboard.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Dashboard
+              </div>
+            </div>
+          </li>
+          <li class="menuLi"
+            [ngClass]="selectedMenu == 'Primary' || selectedMenu == 'Secondary' || selectedMenu == 'Corporate'   ? 'selected' : 'removed' " *ngIf="(myRole != 'CUSTOMER_RM' && myRole != 'BANK_RM' && myRole != 'ANALYTICS_USER') || myRights.includes('TRANSACTIONS') || myRights.includes('CORP_TRANSACTIONS')">
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change" style="min-width: 24px!important;">
+                <img src="../../../../../assets/images/adminV2/transaction.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text w-100" *ngIf="!isOpen">
+                <mat-expansion-panel #transPanel [expanded]="panelOpenState" (opened)="panelOpenState = true"
+                  (closed)="panelOpenState = false" class="bgclr">
+                  <mat-expansion-panel-header class="bgclr" style="padding-right: 2px!important;">
+                    <mat-panel-title class="f-14 fontRegular">Transactions</mat-panel-title>
+                  </mat-expansion-panel-header>
+                 
+                  <mat-expansion-panel [expanded]="internalTranpanelOpenState" (opened)="internalTranpanelOpenState = true"
+                  (closed)="panelOpenState = false" class="bgclr">
+                  <mat-expansion-panel-header class="bgclr" style="padding-right: 2px!important;">
+                    <mat-panel-title class="f-14 fontRegular">Primary</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <p (click)="goTo('Primary')" class="f-14 fontRegular"
+                    [ngClass]="selectedMenu == 'Primary' ? 'selectedTab   ' : 'removedTab'" *ngIf="myRights.includes('TRANSACTIONS')">
+                   FI(LC,BG,BR etc...)
+                  </p>
+                  <p class="f-14 fontRegular" (click)="goTo('Corporate')"
+                    [ngClass]="selectedMenu == 'Corporate' ? 'selectedTab' : 'removedTab'" *ngIf="myRights.includes('CORP_TRANSACTIONS')">
+                    Corporate<br/>(Factoring)
+                  </p>
+  
+                </mat-expansion-panel>
+                  <p class="f-14 fontRegular" (click)="goTo('Secondary')"
+                    [ngClass]="selectedMenu == 'Secondary' ? 'selectedTab' : 'removedTab'">
+                    Secondary
+                  </p>
+  
+                </mat-expansion-panel>
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('Customer')" [ngClass]="selectedMenu == 'Customer'   ? 'selected' : 'removed' " *ngIf='myRights.includes("CUSTOMERS")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/customer.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Customer
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" [ngClass]="selectedMenu == 'BAAU' || selectedMenu == 'Automated'  ? 'selected' : 'removed' " *ngIf='myRights.includes("BANKS") || myRights.includes("OFFLINEBANK") '>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change" style="min-width: 24px!important;">
+                <img src="../../../../../assets/images/adminV2/dashboard.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text w-100" *ngIf="!isOpen">
+                <mat-expansion-panel [expanded]="baauPanelOpenState" (opened)="baauPanelOpenState = true"
+                  (closed)="baauPanelOpenState = false" class="bgclr">
+                  <mat-expansion-panel-header class="bgclr" style="padding-right: 2px!important;">
+                    <mat-panel-title class="f-14 fontRegular">BAAU</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <p (click)="goTo('BAAU')" class="f-14 fontRegular"
+                    [ngClass]="selectedMenu == 'BAAU' ? 'selectedTab' : 'removedTab'" *ngIf='myRights.includes("BANKS")'>
+                    Digital BAAU
+                  </p>
+                  <p (click)="goTo('Automated')" class="f-14 fontRegular"
+                  [ngClass]="selectedMenu == 'Automated' ? 'selectedTab' : 'removedTab'" *ngIf='myRights.includes("OFFLINEBANK")'>
+                    Automated BAAU
+                  </p>
+  
+                </mat-expansion-panel>
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('Referrer')" [ngClass]="selectedMenu == 'Referrer'   ? 'selected' : 'removed' " *ngIf='myRights.includes("REFERRER")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/referral 1.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Referrer
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('User')" [ngClass]="selectedMenu == 'User'  ? 'selected' : 'removed' " *ngIf='myRights.includes("CREATE_USER")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/user 1.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                User Management
+              </div>
+            </div>
+          </li>
+  
+          <li class="menuLi" (click)="goTo('Subscription')" [ngClass]="selectedMenu == 'Subscription'   ? 'selected' : 'removed' " *ngIf='myRights.includes("SUBSCRIPTION_MGMT_VIEW")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/subscribe 1.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Subscription/VAS Management
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('Coupons')" [ngClass]="selectedMenu == 'Coupons'   ? 'selected' : 'removed' " *ngIf='myRights.includes("DISCOUNT_MGMT_VIEW")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/discount 1.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Discount Management
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('rm')" [ngClass]="selectedMenu == 'rm'   ? 'selected' : 'removed' " *ngIf='myRights.includes("ASSIGN_RMS")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/organization.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen" style="margin-left: 5px!important;">
+                RM Management
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('payments')" [ngClass]="selectedMenu == 'payments'   ? 'selected' : 'removed' " *ngIf='myRights.includes("CREATE_USER_GRANT") || myRights.includes("KYC_GRANT") || myRights.includes("PAYMENT_APPROVAL") || myRights.includes("DISCOUNT_MGMT_GRANT") || myRights.includes("GRANT_RMS") || myRights.includes("SUBSCRIPTION_MGMT_GRANT")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/grant.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Grant Requests
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('factor')" [ngClass]="selectedMenu == 'factor'   ? 'selected' : 'removed' " *ngIf='myRights.includes("ADD_FACTOR")'>
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/customer.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Factor
+              </div>
+            </div>
+          </li>
+          <li class="menuLi" (click)="goTo('report')" [ngClass]="selectedMenu == 'report'   ? 'selected' : 'removed' " *ngIf="(myRole == 'ANALYTICS_USER' || myRole == 'SUPER_ADMIN') && myRights.includes('REPORTS_DOWNLOADS')">
+            <div class="d-flex menuList">
+              <div class="img-cont mr-0change">
+                <img src="../../../../../assets/images/adminV2/customer.svg">
+              </div>
+              <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+                Report
+              </div>
+            </div>
+          </li>
+
+<li class="menuLi" (click)="goTo('bulkupload')" [ngClass]="selectedMenu == 'bulkupload'   ? 'selected' : 'removed' " *ngIf="myRole == 'CUSTOMER_RM'">
+  <div class="d-flex menuList">
+    <div class="img-cont mr-0change">
+      <img src="../../../../../assets/images/adminV2/customer.svg">
+    </div>
+    <div class="f-14 fontRegular ml-10 grey-text" *ngIf="!isOpen">
+      Bulk Upload
+    </div>
+  </div>
+</li>
+
+
+
+        </div>
+        
+
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="col-md-10">
+      <div class="tabs" *ngIf="isOpen == true">
+        <router-outlet></router-outlet>
+      </div>
+      <div class="tabsBg" *ngIf="isOpen == false"></div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

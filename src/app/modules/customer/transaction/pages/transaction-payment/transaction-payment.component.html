@@ -1,0 +1,27 @@
+<div class="vas-popup">
+    <div class="heading">
+        Transcation Payment
+        <span (click)="close()" class="cpointer"><mat-icon>close</mat-icon></span>
+    </div>
+    <div class="row" style="margin: 0; padding: 20px;">
+        <div class="text-item f-16">
+           Do you want to proceed further?
+        </div>
+    </div>
+    <div class="row mt-20" style="margin: 0;">        
+          <div class="d-flex justify-content-end " style="margin-top: 40px">
+            <div class="col-md-2 col-sm-3 widthButton close-btn">
+                <app-button mat-stroked-button 
+                [name]="'CLOSE'"
+                [class]="'f-16 w100 '"
+            ></app-button>
+            </div>
+            <div class="col-md-2 col-sm-3 widthButton">
+                <app-button
+                [name]="'PAY'"
+                [class]="'primary-btn f-16 w100 '"
+            ></app-button>
+            </div>
+        </div>
+    </div>
+</div>

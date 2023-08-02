@@ -1,0 +1,114 @@
+.admin-transaction-details {
+    .mb-4 {
+        margin-bottom: 4px !important;
+    }
+
+    .ml--10 {
+        margin-left: -10px;
+    }
+  
+}
+
+.admin-transaction-container {
+    .mt-15{
+        margin-top: 15px;
+    }
+    .mat-expansion-panel{
+        background-color: #ECF1FC;
+        border-top:1px dashed #CCD6EC ;
+        border:1px dashed #CCD6EC ;
+    }
+    // .expansion-panel-header{
+    //     border-bottom:1px solid #CCD6EC;
+        
+    // }
+    .text-blue {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        color: #292929;
+        position: relative;
+        padding-left: 11px;
+        // &::after {
+        //     content: '';
+        //     width: 4px;
+        //     height: 15px;
+        //     background-color: #0032A0;
+        //     position: absolute;
+        //     border-radius: 5px;
+        //     left: 5px; 
+        //     top: 2px;   
+        // }
+    }
+
+    // .left-border {
+    //     border-left: #0032A0 solid 4px;
+    //     padding-left: 6px;
+    //     border-radius: 4px;
+    // }
+
+    .mb-4 {
+        margin-bottom: 4px !important;
+    }
+
+    ::ng-deep .mat-expansion-indicator::after {
+        color: #EB7203 !important;
+    }
+    ::ng-deep .mat-expansion-panel-body{
+        border-top: 1px solid #CCD6EC;
+    }
+    .mat-expansion-panel-header {
+        height: 42px !important;
+        background-color: #ECF1FC !important;
+        padding-right: 24px !important;
+        padding-left: 5px !important;
+        // border-bottom:1px solid #CCD6EC;
+        margin-bottom: 0px!important;
+        
+    }
+
+    .light-text {
+        font-family: 'Lato' !important;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        color: #727272;
+    }
+
+    .dark-text {
+        font-family: 'Lato' !important;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        color: #292929;
+    }
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+@media(max-width:766px) {
+    .admin-transaction-wrapper {
+        .admin-transaction-container {
+            .display-none-mb {
+                display: none !important;
+            }
+        }
+
+    }
+}
+
+@media (min-width: 1400px) {
+    .admin-transaction-wrapper {
+        .admin-transaction-container {
+            .col-xxl-2 {
+                width: 20%;
+            }
+        }
+    }
+}

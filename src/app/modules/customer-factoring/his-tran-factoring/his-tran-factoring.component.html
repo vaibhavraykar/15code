@@ -1,0 +1,81 @@
+<div style="padding: 20px 10px;">
+  <span class="f-22 fontBold dgrey">History Transaction</span>
+
+<div class="mt-30 table-container">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="Assignor_Seller">
+      <th mat-header-cell *matHeaderCellDef > Assignor/Seller </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.factoringTransaction.factoringUserType=='DEBTOR'?element.factoringTransaction.debtorToAssignor:element.factoringTransaction.groupComapany.companyName}}
+      </td>
+    </ng-container>
+<ng-container matColumnDef="Debotr_Buyer">
+<th mat-header-cell *matHeaderCellDef > Debotr/Buyer </th>
+<td mat-cell *matCellDef="let element">
+  {{element.factoringTransaction.factoringUserType=='DEBTOR'?element.factoringTransaction.groupComapany.companyName:element.factoringTransaction.assignorToDebtor}}
+</td>
+</ng-container>
+<ng-container matColumnDef="Amount">
+  <th mat-header-cell *matHeaderCellDef > Amount </th>
+  <td mat-cell *matCellDef="let element">
+    {{element.factoringTransaction.amount | amount}}
+  </td>
+</ng-container>
+
+<ng-container matColumnDef="Invoice_Date">
+  <th mat-header-cell *matHeaderCellDef >Invoice Date</th>
+  <td mat-cell *matCellDef="let element">
+      {{element.factoringTransaction.date}}
+  </td>
+</ng-container>
+<ng-container matColumnDef="Due_Date">
+  <th mat-header-cell *matHeaderCellDef >Due Date</th>
+  <td mat-cell *matCellDef="let element">
+      {{element.factoringTransaction.dueDate}}
+  </td>
+</ng-container>
+<ng-container matColumnDef="Status">
+  <th mat-header-cell *matHeaderCellDef> Status </th>
+  <td mat-cell *matCellDef="let element" class="selectFact" style="width:0%">
+    {{element.status == 'ACTIVE'?'Interested':'Not Interested'}}
+  </td>
+</ng-container>
+<ng-container matColumnDef="Comment">
+  <th mat-header-cell *matHeaderCellDef> Comment </th>
+  <td mat-cell *matCellDef="let element" class="selectFact" style="width:0%">
+    {{element.comment}}
+  </td>
+</ng-container>
+<ng-container matColumnDef="View">
+  <th mat-header-cell *matHeaderCellDef > View </th>
+  <td mat-cell *matCellDef="let element">
+      <i class="fa fa-eye" style="cursor:pointer" (click)="viewDetails(element.id)"></i> 
+  </td>
+</ng-container>
+
+
+  <tr class="mat-row " *matNoDataRow>
+      <td class="mat-cell text-center " [attr.colspan]="displayColumns.length">
+          No Records Found.
+      </td>
+  </tr>
+  <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+</table>
+</div>
+<div class="pagination" style="float: right;">
+  <div class="f-12 fontBold grey mx-3"> {{getPage()+' ' }} of {{page?.totalElements}}</div>
+  <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="page?.index === 0 ?'#292929a1':'#EB7203'"
+      [style.pointer-events]="page?.index === 0?'none':'auto'">
+      arrow_back_ios
+  </mat-icon> 
+
+   <mat-icon class="pointer" (click)="pageNext()"
+      [style.pointer-events]="last===page?.totalElements?'none':'auto'"
+      [style.color]="last===page?.totalElements ?'#292929a1':'#EB7203'"
+      [style.pointer-events]="last===page?.totalElements ?'none':'auto'" style="margin-left: 10px;">
+      arrow_forward_ios
+  </mat-icon>
+</div>
+
+</div>

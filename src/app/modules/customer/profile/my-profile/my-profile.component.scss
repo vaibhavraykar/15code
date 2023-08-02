@@ -1,0 +1,73 @@
+.my-profile-component {
+	.stepper {
+		.nav-tabs {
+			> li {
+				width: 33.3%;
+			}
+		}
+	}
+
+	.profile-details{
+		.col-md-10{
+			width: 100%;
+		}
+		::ng-deep .mat-mdc-tab-body-wrapper{
+			padding: 0rem 3rem !important;
+		}
+		::ng-deep .mat-mdc-tab-header
+		{button:not(:disabled), [type=button]:not(:disabled) {
+			width: auto !important;
+		}}
+	}
+
+.visited_both {
+      ::ng-deep .mdc-tab-indicator__content,
+      ::ng-deep .mdc-tab-indicator--active .mdc-tab-indicator__content {
+        opacity: 1 !important;
+        border-color: var(--yellow) !important;
+      }
+      ::ng-deep .mdc-tab__text-label {
+        color: var(--yellow) !important;
+      }
+      ::ng-deep .mat-mdc-tab-disabled .mdc-tab__text-label {
+        color: initial !important;
+      }
+      ::ng-deep .mat-mdc-tab-disabled .mdc-tab-indicator__content--underline {
+          border-color: initial !important;
+        }
+    }
+
+    .visited_one {
+      ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active {
+        ::ng-deep .mdc-tab-indicator__content--underline {
+          border-color: var(--blue) !important;
+        }
+        ::ng-deep .mdc-tab__text-label {
+          color: var(--blue) !important;
+        }
+      }
+    }
+
+
+}
+
+@media screen and (max-width: 768px) {
+  ::ng-deep .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab, .mat-mdc-tab.mdc-tab {
+    width: 38% !important;
+  }
+  ::ng-deep .radio-style .mat-mdc-radio-group .mat-mdc-radio-button {
+    margin: 0px 0px 10px !important; 
+    width: 100% !important;
+  }
+  ::ng-deep .radio-style .mat-mdc-radio-group {
+    display: grid !important;
+    width: 100% !important;
+  }
+  ::ng-deep .radio-style .mat-mdc-radio-group .mat-mdc-radio-button {
+    width: 100% !important;
+  }
+  .radio-style .mat-mdc-radio-group {
+    margin: 0 !important;
+  }
+
+}

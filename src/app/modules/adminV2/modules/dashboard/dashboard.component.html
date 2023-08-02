@@ -1,0 +1,47 @@
+<div class="dashboard-container ">
+
+  <mat-tab-group (selectedTabChange)="onTabChange($event)" [selectedIndex]="selectedTabIndex">
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <p class="tabHeadingStyle">Status</p>
+      </ng-template>
+      <div class="p24">
+        <app-dashboard-status-tab></app-dashboard-status-tab>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <p class="tabHeadingStyle">Actions needing your attention</p>
+      </ng-template>
+      <div class="p24">
+        <app-dashboard-attention-tab></app-dashboard-attention-tab>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <p class="tabHeadingStyle">Revenue Analysis</p>
+      </ng-template>
+      <div class="p24">
+        <app-dashboard-revenue-tab></app-dashboard-revenue-tab>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+
+        <p class="tabHeadingStyle">Transaction Analysis</p>
+      </ng-template>
+      <div class="p24">
+        <app-dashboard-transaction-tab></app-dashboard-transaction-tab>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <p class="tabHeadingStyle">User Analysis</p>
+      </ng-template>
+      <div class="p-r">
+        <app-dashboard-users-tab></app-dashboard-users-tab>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

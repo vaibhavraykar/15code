@@ -1,0 +1,25 @@
+<svg id="Group_17262" data-name="Group 17262" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25.5" height="34.144" viewBox="0 0 25.5 34.144">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2534" data-name="Rectangle 2534" width="25.5" height="34.144" fill="none" stroke="#0032a0" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Group_17232" data-name="Group 17232">
+    <g id="Group_17231" data-name="Group 17231" clip-path="url(#clip-path)">
+      <path id="Path_2641" data-name="Path 2641" d="M22.36,31.3H13.715a.75.75,0,0,1,0-1.5H21.61V4.5H1.5V29.8H3.343a.75.75,0,0,1,0,1.5H.75a.75.75,0,0,1-.75-.75V3.75A.75.75,0,0,1,.75,3H22.36a.75.75,0,0,1,.75.75v26.8A.75.75,0,0,1,22.36,31.3Z" transform="translate(-0.102 -0.508)" fill="#0032a0"/>
+      <path id="Line_361" data-name="Line 361" d="M0,28.411a.75.75,0,0,1-.75-.75V0A.75.75,0,0,1,0-.75.75.75,0,0,1,.75,0V27.661A.75.75,0,0,1,0,28.411Z" transform="translate(24.852 0.648)" fill="#0032a0"/>
+      <path id="Line_362" data-name="Line 362" d="M21.61.75H0A.75.75,0,0,1-.75,0,.75.75,0,0,1,0-.75H21.61a.75.75,0,0,1,.75.75A.75.75,0,0,1,21.61.75Z" transform="translate(3.242 0.648)" fill="#0032a0"/>
+    </g>
+  </g>
+  <path id="Line_363" data-name="Line 363" d="M12.966.75H0A.75.75,0,0,1-.75,0,.75.75,0,0,1,0-.75H12.966a.75.75,0,0,1,.75.75A.75.75,0,0,1,12.966.75Z" transform="translate(4.97 11.021)" fill="#0032a0"/>
+  <path id="Line_364" data-name="Line 364" d="M6.915.75H0A.75.75,0,0,1-.75,0,.75.75,0,0,1,0-.75H6.915a.75.75,0,0,1,.75.75A.75.75,0,0,1,6.915.75Z" transform="translate(4.97 7.564)" fill="#0032a0"/>
+  <path id="Line_365" data-name="Line 365" d="M12.966.75H0A.75.75,0,0,1-.75,0,.75.75,0,0,1,0-.75H12.966a.75.75,0,0,1,.75.75A.75.75,0,0,1,12.966.75Z" transform="translate(4.97 14.479)" fill="#0032a0"/>
+  <g id="Group_17234" data-name="Group 17234">
+    <g id="Group_17233" data-name="Group 17233" clip-path="url(#clip-path)">
+      <path id="Ellipse_275" data-name="Ellipse 275" d="M3.458-.75A4.208,4.208,0,1,1-.75,3.458,4.212,4.212,0,0,1,3.458-.75Zm0,6.915A2.708,2.708,0,1,0,.75,3.458,2.711,2.711,0,0,0,3.458,6.165Z" transform="translate(4.97 20.53)" fill="#0032a0"/>
+      <path id="Line_366" data-name="Line 366" d="M0,5.072a.75.75,0,0,1-.75-.75V0A.75.75,0,0,1,0-.75.75.75,0,0,1,.75,0V4.322A.75.75,0,0,1,0,5.072Z" transform="translate(11.021 29.174)" fill="#0032a0"/>
+      <path id="Line_367" data-name="Line 367" d="M0,3.343a.75.75,0,0,1-.75-.75V0A.75.75,0,0,1,0-.75.75.75,0,0,1,.75,0V2.593A.75.75,0,0,1,0,3.343Z" transform="translate(8.428 30.038)" fill="#0032a0"/>
+      <path id="Line_368" data-name="Line 368" d="M0,5.072a.75.75,0,0,1-.75-.75V0A.75.75,0,0,1,0-.75.75.75,0,0,1,.75,0V4.322A.75.75,0,0,1,0,5.072Z" transform="translate(5.835 29.174)" fill="#0032a0"/>
+    </g>
+  </g>
+</svg>

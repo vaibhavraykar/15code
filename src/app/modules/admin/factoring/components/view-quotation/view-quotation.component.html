@@ -1,0 +1,133 @@
+<div class="view-transaction">
+    <div class="col-md-8 m-auto">
+        <div class="boxShadow">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="yellow-txt f-14 fontBold">Transaction Id</div>
+                        <div class="label-text">{{viewData.transactionId}}</div>
+                    </div>
+                    <div class="col-md-1" style="text-align: end;line-height: initial;">
+                    </div>
+                    <div class="col-md-1" style="padding:0px">
+                        <div class="imgDiv f-14 fontBold dgrey cpointer" (click)="back()">
+                            <mat-icon>keyboard_arrow_left</mat-icon>Back
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mt-20" style="padding: 10px;">
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Requirement</div>
+                        <div class="info">{{viewData.requirementType | titlecase}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Quote Amount</div>
+                        <div class="info">{{viewData.quotationAmount | amount}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Usance Days</div>
+                        <div class="info">{{viewData.usanceDays}} days</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Issuing Bank</div>
+                        <div class="info">{{viewData.bankName}}</div>
+                    </div>
+                </div>
+
+                <div class="row mt-10">
+                    <div class="col-md-3"
+                        *ngIf="viewData.requirementType === 'DISCOUNTING' || viewData.requirementType === 'CONFIRMANDDISCOUNT' || viewData.requirementType === 'BILLAVALISATION' || viewData.requirementType === 'BANKER' || viewData.requirementType === 'REFINANCE'">
+                        <div class="label-text">Applicable Benchmark (if any)</div>
+                        <div class="info">{{viewData.applicableBenchmark}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData.requirementType === 'BANKER'">
+                        <div class="label-text">Banker's Acceptance charges p.a. (Spread over benchmark)</div>
+                        <div class="info">{{viewData.bankAcceptCharges}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData.requirementType === 'REFINANCE'">
+                        <div class="label-text">Refinancing charges p.a. (Spread over benchmark)</div>
+                        <div class="info">{{viewData.refinancingCharges}}</div>
+                    </div>
+                    <div class="col-md-3"
+                        *ngIf="viewData.requirementType === 'BILLAVALISATION' || viewData.requirementType === 'DISCOUNTING' || viewData.requirementType === 'CONFIRMANDDISCOUNT'">
+                        <div class="label-text">Discounting Charges P.A.</div>
+                        <div class="info">{{viewData.discountingCharges}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10" *ngIf="viewData.requirementType === 'BANKER' || viewData.requirementType === 'DISCOUNTING' || viewData.requirementType === 'CONFIRMANDDISCOUNT'">
+                    <span class="f-14 fontBold heading">Negotiation Charges p.a.</span>
+                    <div class="col-md-3">
+                        <div class="label-text">Negotiation Charges(Fixed)</div>
+                        <div class="info">{{viewData.negotiationChargesFixed | amount}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Negotiation Charges(%) <br>
+                            <span style="font-size: xx-small;">*Higher of the two will be considered</span></div>
+                        <div class="info">{{viewData.negotiationChargesPerct}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3" *ngIf="viewData.requirementType === 'BANKGUARANTEE'">
+                        <div class="label-text">BG Commission p.a.</div>
+                        <div class="info">{{viewData.confirmationCharges}}</div>
+                    </div>
+                    <div class="col-md-3"
+                        *ngIf="viewData.requirementType === 'CONFIRMATION' || viewData.requirementType === 'CONFIRMANDDISCOUNT'">
+                        <div class="label-text">Confirmation Commission p.a.</div>
+                        <div class="info">{{viewData.confirmationCharges}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData.requirementType === 'BANKGUARANTEE'">
+                        <div class="label-text">Commission charges applicable from date of issuance till expiry date
+                        </div>
+                        <div class="info">{{viewData.confChgsIssuanceToexp}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData.requirementType === 'BANKGUARANTEE'">
+                        <div class="label-text">Commission charges applicable from date of issuance till claim expiry
+                            date</div>
+                        <div class="info">{{viewData.confChgsIssuanceToClaimExp}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData.requirementType === 'CONFIRMATION' || viewData.requirementType === 'CONFIRMANDDISCOUNT'">
+                        <div class="label-text">Confirmation charges applicable from date of issuance till Negotiation
+                            date</div>
+                        <div class="info">{{viewData.confChgsIssuanceToNegot}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData.requirementType === 'CONFIRMATION' || viewData.requirementType === 'CONFIRMANDDISCOUNT'">
+                        <div class="label-text">Confirmation charges applicable from date of issuance till date of
+                            maturity</div>
+                        <div class="info">{{viewData.confChgsIssuanceToMatur}}</div>
+                    </div>
+                    <div class="col-md-3"
+                        *ngIf="viewData.requirementType === 'BANKGUARANTEE' || viewData.requirementType === 'CONFIRMATION'">
+                        <div class="label-text">Minimum Transaction Charges (If any)</div>
+                        <div class="info">{{viewData.minTransactionCharges | amount}}</div>
+                    </div>
+                </div>
+
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Other Charges (If any)</div>
+                        <div class="info">{{viewData.otherCharges | amount}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Validity</div>
+                        <div class="info">{{viewData.validity}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Total Quote</div>
+                        <div class="info">{{viewData.totalQuote | amount}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Quote Status</div>
+                        <div class="info">{{viewData.status | titlecase}}</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

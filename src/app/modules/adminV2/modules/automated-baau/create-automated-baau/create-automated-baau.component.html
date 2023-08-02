@@ -1,0 +1,276 @@
+<div class="all-detail-container mt-30 createAutomated">
+  <div class="">
+    <div class="d-flex align-items-center mb-20">
+      <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+      <div class="ml-12 darkBlackText">Create New Automated BAAU</div>
+    </div>
+    <div class="all-details-tab-container">
+      <div style="padding:24px" class="admin-user-wrapper">
+        <div class="mt-30 admin-user-container">
+            <form [formGroup]="manageSubForm">
+              <div class="row">
+              <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                <mat-form-field appearance="outline" class="w100">
+                  <mat-label>Bank Name</mat-label>
+                  <input type="text" matInput formControlName="bankName" maxlength=25 (keypress)="textOnly($event)">
+                  <mat-error *ngIf="manageSubForm.controls['bankName'].hasError('required')">Bank Name required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                <mat-form-field appearance="outline" class="w100 newDrop">
+                  <mat-label>Bank Country</mat-label>
+                  <mat-select formControlName="country" (selectionChange)="getAllRm()" >
+                    <input type ="text" style="padding-left: 14px !important; border: none;outline: none;" (input) = "countryValueChange($event)" placeholder="Search">
+                    <mat-option *ngFor="let item of filteredCountries" style="font-size:medium"
+                      [value]="item.countryName">{{item.countryName}}</mat-option>
+                      <mat-option *ngIf="filteredCountries?.length === 0" [disabled]="true">Record not found</mat-option>
+                  </mat-select>
+                  <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                  <mat-error *ngIf="manageSubForm.controls['country'].hasError('required')">Bank Country required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                <mat-form-field appearance="outline" class="w100">
+                  <mat-label>Swift Code</mat-label>
+                  <input type="text" matInput formControlName="swiftCode" minlength=8 maxlength=11 (keypress)="textOnly($event)">
+                  <mat-error *ngIf="manageSubForm.controls['swiftCode'].hasError('required')">Swift Code required</mat-error>
+                  <mat-error *ngIf="manageSubForm.controls['swiftCode'].hasError('minlength')">Please enter valid Swift Code</mat-error>
+                </mat-form-field>
+              </div> 
+              <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                <mat-form-field appearance="outline" class="w100">
+                  <mat-label>Landline No</mat-label>
+                  <input type="text" matInput formControlName="landLineNumber" minlength=8 maxlength=15 (keypress)="isNumberKey($event)">
+                  <mat-error *ngIf="manageSubForm.controls['landLineNumber'].hasError('required')">Landline No required</mat-error>
+                  <mat-error *ngIf="manageSubForm.controls['landLineNumber'].hasError('minlength')">Please enter valid Landline No</mat-error>
+                </mat-form-field>
+              </div> 
+              </div>
+              <div class="row">
+                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newDrop">
+                  <mat-form-field class="w100 " appearance="outline">
+                    <mat-label>Issuance Countries Interested</mat-label>
+                    <mat-select formControlName="issuanceCountryList" multiple [value]="manageSubForm.get('issuanceCountryList').value" (selectionChange)="onIssuanceCountrySelection($event)">
+                      <mat-select-trigger>
+                        <mat-chip-listbox>
+                          <mat-chip *ngFor="let category of (manageSubForm.controls['issuanceCountryList'].value)?.slice(0,1)" [removable]="true"
+                            (removed)="onCatRemoved(category,'issuanceCountry')">
+                            {{ category }}
+                            <mat-icon matChipRemove>cancel</mat-icon>
+                          </mat-chip>
+                          <span *ngIf="manageSubForm.controls['issuanceCountryList'].value.length > 1">+{{manageSubForm.controls['issuanceCountryList'].value.length - 1}}</span>
+                        </mat-chip-listbox>
+                      </mat-select-trigger>
+                      <div class="search-box">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <input matInput type="text" placeholder="Search" (input) = "issuanceCountryValueChange($event)">
+                            <img src="../../../../../assets/images/adminV2/search-normal.svg" />
+                        </mat-form-field>
+                    </div>
+                      <mat-option value="ALL" #matOption (click)="selectAll(matOption.selected,'issuanceCountryList')">All</mat-option>
+                      <mat-option *ngFor="let item of filteredIssaunceCountries" style="font-size:medium"
+                      [value]="item.countryName"[disabled]="matOption.selected">{{item.countryName}}</mat-option>
+                    </mat-select>
+                    <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                    <mat-error *ngIf="manageSubForm.controls['issuanceCountryList'].hasError('required')">Issuance Bank Interested required</mat-error>
+                  </mat-form-field>
+              </div> 
+              <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newDrop">
+                <mat-form-field class="w100" appearance="outline">
+                  <mat-label>Beneficiary Countries Interested</mat-label>
+                  <mat-select formControlName="beneficiaryCountryList" multiple [value]="manageSubForm.get('beneficiaryCountryList').value" (selectionChange)="onBeneCountrySelection($event)">
+                    <mat-select-trigger>
+                      <mat-chip-listbox>
+                        <mat-chip *ngFor="let category of (manageSubForm.controls['beneficiaryCountryList'].value)?.slice(0,1)" [removable]="true"
+                          (removed)="onCatRemoved(category,'beneCountry')">
+                          {{ category }}
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                        <span *ngIf="manageSubForm.controls['beneficiaryCountryList'].value.length > 1">+{{manageSubForm.controls['beneficiaryCountryList'].value.length - 1}}</span>
+                      </mat-chip-listbox>
+                    </mat-select-trigger>
+                    <div class="search-box">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <input matInput type="text" placeholder="Search" (input) = "beneCountryValueChange($event)">
+                          <img src="../../../../../assets/images/adminV2/search-normal.svg" />
+                      </mat-form-field>
+                  </div>
+                    <mat-option value="ALL" #matOption1 (click)="selectAll(matOption1.selected,'beneficiaryCountryList')">All</mat-option>
+                    <mat-option *ngFor="let item of filteredBeneCountries" style="font-size:medium"
+                    [value]="item.countryName" [disabled]="matOption1.selected">{{item.countryName}}</mat-option>
+                  </mat-select>
+                  <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                  <mat-error *ngIf="manageSubForm.controls['beneficiaryCountryList'].hasError('required')">Beneficiary Countries Interested required</mat-error>
+                </mat-form-field>
+              </div> 
+              <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newDrop">
+                <mat-form-field class="w100" appearance="outline">
+                  <mat-label>Blacklisted Goods/Commodities</mat-label>
+                  <mat-select formControlName="blklstedGoods" multiple (selectionChange)="onGoodsSelection($event)">
+                    <mat-select-trigger>
+                      <mat-chip-listbox>
+                        <mat-chip *ngFor="let category of (manageSubForm.controls['blklstedGoods'].value)?.slice(0,1)" [removable]="true"
+                          (removed)="onCatRemoved(category,'goods')">
+                          {{ category }}
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                        <span *ngIf="manageSubForm.controls['blklstedGoods'].value.length > 1">+{{manageSubForm.controls['blklstedGoods'].value.length - 1}}</span>
+                      </mat-chip-listbox>
+                    </mat-select-trigger>
+                    <div class="search-box">
+                      <mat-form-field appearance="outline" class="w-100">
+                          <input matInput type="text" placeholder="Search" (input) = "goodsValueChange($event)">
+                          <img src="../../../../../assets/images/adminV2/search-normal.svg" />
+                      </mat-form-field>
+                    </div>
+                    <mat-option *ngFor="let item of filteredGoods" [value]="item.name">
+                      {{ item.name }}
+                    </mat-option>
+                  </mat-select>
+                  <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                  <mat-error *ngIf="manageSubForm.controls['blklstedGoods'].hasError('required')">Blacklisted Goods/Commodities required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <mat-form-field appearance="outline" class="w100 newDrop">
+                  <mat-label>Select RM</mat-label>
+                  <mat-select formControlName="rmUserId">
+                    <mat-option *ngFor="let item of rmList" style="font-size:medium"
+                      [value]="item.id">{{item.firstName}} {{item.lastName}}</mat-option>
+                  </mat-select>
+                  <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                  <mat-error *ngIf="manageSubForm.controls['rmUserId'].hasError('required')">RM required</mat-error>
+                </mat-form-field>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                  <mat-form-field appearance="outline" class="w100">
+                    <mat-label>First Name</mat-label>
+                    <input type="text" matInput formControlName="firstName" maxlength=25 (keypress)="textOnly($event)">
+                    <mat-error *ngIf="manageSubForm.controls['firstName'].hasError('required')">First Name required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                  <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Last Name</mat-label>
+                    <input type="text" matInput formControlName="lastName" maxlength=25 (keypress)="textOnly($event)">
+                    <mat-error *ngIf="manageSubForm.controls['lastName'].hasError('required')">Last Name required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div>
+                    <mat-form-field appearance="outline" class="w100 Mobiledrop" style="border-top: 1px solid #D0D0D0;">
+                      <mat-select formControlName="countryExt" formControlName="countryExt">
+                        <input type ="text" style="padding-left: 14px !important;border: none;outline: none;width: 100%;" (input)="countryCodeValueChange($event)" placeholder="Search">
+                        <mat-option *ngFor="let item of filteredCountryCodes" style="font-size:medium"
+                         [value]="item">{{ item }}</mat-option>
+                         <mat-option *ngIf="filteredCountryCodes?.length === 0" [disabled]="true">Record not found</mat-option>
+                      </mat-select>
+                      <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                      <mat-error *ngIf="manageSubForm.controls['countryExt'].hasError('required')">Code required</mat-error>
+                </mat-form-field>
+                    <mat-form-field appearance="outline" class="w100 MobileInput" style="border-top: 1px solid #D0D0D0;">
+                      <mat-label>Mobile No </mat-label>
+                          <input type="text" matInput formControlName="mobileNo"
+                          minlength="5" maxlength="15"
+                              placeholder="Mobile Number" 
+                              (keypress)="isNumberKey($event)" (click)="stopPropagation($event)">
+                          <mat-error *ngIf="manageSubForm.controls['mobileNo'].hasError('required')">Mobile No required</mat-error>
+                          <mat-error *ngIf="manageSubForm.controls['mobileNo'].hasError('minlength')">Please enter valid Mobile Number</mat-error>
+                        </mat-form-field>
+                      </div>
+                </div>
+                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                  <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Email ID</mat-label>
+                    <input type="text" matInput formControlName="email" (keypress)="textOnly($event)">
+                    <mat-error *ngIf="manageSubForm.controls['email'].hasError('required')">Email ID required</mat-error>
+                    <mat-error *ngIf="manageSubForm.controls['email'].hasError('pattern')">Please enter a valid Email ID</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                  <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Minimum Value of LC</mat-label>
+                    <input type="number" min="0" matInput formControlName="minLcValue" (keypress)="numberOnly($event)">
+                    <mat-error *ngIf="manageSubForm.controls['minLcValue'].hasError('required')">Minimum Value of LC required</mat-error>
+                  </mat-form-field>
+                </div>
+                  <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                    <mat-form-field appearance="outline" class="w100 newDrop">
+                      <mat-label>Currency</mat-label>
+                      <mat-select formControlName="currency">
+                        <input type ="text" style="padding-left: 14px !important; border: none;outline: none;" (input)="currencyValueChange($event)" placeholder="Search">
+                          <mat-option *ngFor="let item of filteredCurrencies" style="font-size:medium"
+                          [value]="item">{{item}}</mat-option>
+                          <mat-option *ngIf="filteredCurrencies?.length === 0" [disabled]="true">Record not found</mat-option>
+                      </mat-select>
+                      <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                      <mat-error *ngIf="manageSubForm.controls['currency'].hasError('required')">Currency required</mat-error>
+                    </mat-form-field>
+                </div>
+              </div>
+              <div>
+                <form [formGroup]="manageSubFormArray">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <p class="fontBold f-14 mt-15" style="color:#fd7e14">Additional Details </p>
+                    </div>
+                    <div class="col-md-2">
+                      <button mat-raised-button class="primary-btn f-14 w-100" (click)="additionalUser()">+ Add</button>
+                    </div>
+                  </div>
+                  <div formArrayName="details"
+                        *ngFor="let item of manageSubFormArray.get('details')['controls']; let i = index;">
+                        <div [formGroupName]="i">
+                          <div class="row">
+                            <div class="col-xxl-2 col-xl-2 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                              <mat-form-field appearance="outline" class="w100">
+                                <mat-label>First Name</mat-label>
+                                <input type="text" matInput formControlName="firstName" maxlength=25 (keypress)="textOnly($event)">
+                              </mat-form-field>
+                            </div>
+                            <div class="col-xxl-2 col-xl-2 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                              <mat-form-field appearance="outline" class="w100">
+                                <mat-label>Last Name</mat-label>
+                                <input type="text" matInput formControlName="lastName" maxlength=25 (keypress)="textOnly($event)">
+                              </mat-form-field>
+                            </div>
+                            <div class="col-xxl-2 col-xl-2 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                              <mat-form-field appearance="outline" class="w100">
+                                <mat-label>Mobile No</mat-label>
+                                <input type="text" matInput formControlName="mobileNo" minlength="5" maxlength="15" (keypress)="isNumberKey($event)">
+                              </mat-form-field>
+                            </div>
+                            <div class="col-xxl-2 col-xl-2 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                              <mat-form-field appearance="outline" class="w100">
+                                <mat-label>Email ID</mat-label>
+                                <input type="text" matInput formControlName="email" (keypress)="textOnly($event)">
+                              </mat-form-field>
+                            </div>
+                            <div class="col-xxl-2 col-xl-2 col-lg-4 col-md-6 col-12 mt-15">
+                              <span (click)="deleteUser(i)"><i class="fa fa-trash-o fa-lg deleteIcon"
+                                aria-hidden="true"></i></span>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+                </form>
+                <div class="row mt-10" style="justify-content: end;">
+                  <!-- Personal KYC approve -->
+                  <div class="col-xxl-2 col-xl-1 col-lg-2 col-md-2 col-12 mt-15">
+                    <button mat-raised-button class="approveBtn" (click)="submit()">Save</button>
+                  </div>
+                  <div class="col-xxl-2 col-xl-1 col-lg-2 col-md-2 col-12 mt-15">
+                    <button mat-raised-button class="rejectBtn" (click)="cancelForm()">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.main-title {
+    background: transparent linear-gradient(270deg, #eb7203 0%, #ff922e 100%) 0%
+      0% no-repeat padding-box !important;
+    padding: 10px;
+    color: white;
+  }
+  .withdraw-btn {
+    width: 100%;
+    height: 48px;
+    background-color: white;
+    border: solid 1px #eb7203;
+    border-radius: 4px;
+    span {
+      color: #eb7203;
+    }
+  }
+  ::ng-deep .mdc-tooltip__surface {
+    background-color: #fff !important;
+    color: var(--grey) !important;
+    border: 1px solid var(--grey);
+  }

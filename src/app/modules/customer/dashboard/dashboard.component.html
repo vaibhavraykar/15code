@@ -1,0 +1,413 @@
+<!-- <app-header></app-header>
+<div class="mt-20 px-4">
+    <div class="row  ">
+        <div class="col-md-6 mt-30">
+            <div class=" px-3">
+                <div class="row">
+                    <div class="col-6 col-md-4">
+                        <div>
+                            <div class="f-24 fw-400 blue-text py-2">4</div>
+                            <div class="f-16 fw-400 orange-text">Actve transactions</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="">
+                            <div class="f-24 fw-400 blue-text py-2">2</div>
+                            <div class="f-16 fw-400 orange-text">Quotes Recieved</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="row mt-20">
+                    <div class="">
+                        <div class="d-flex justify-content-between align-items-center py-2">
+                            <div>
+                                <span class="f-20 fw-700">$2,000</span>
+                            </div>
+                            <div class="">
+                                <p class="f-16 fw-700 text-end">lifetime savings</p>
+                                <p class="f-14 fw-400 text-end grey-text">Sub text goes here</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2">
+                            <div>
+                                <span class="f-20 fw-700">10</span>
+                            </div>
+                            <div class="">
+                                <p class="f-16 fw-700 text-end">Total no. of banks quoted on transactions</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2">
+                            <div>
+                                <span class="f-20 fw-700">1.5Days</span>
+                            </div>
+                            <div class="">
+                                <p class="f-16 fw-700 text-end">Average time for recieving a Quote</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mt-30">
+            <div class="">
+                <div class="row">
+                    <div class="f-16 fw-700">
+                        COUNTRY WISE PRODUCT TRANSACTIONS
+                    </div>
+                    <div class="row py-2">
+                        <div class="col py-2">
+                            <div class="">
+                                <div class="bg-lightblue" style="height: 100px;width: 100px;"></div>
+                            </div>
+                        </div>
+                        <div class="col py-2 d-flex flex-column justify-content-end">
+                            <div class="row d-flex align-items-center datePicker">
+                                <div class="col-5 ">
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <input matInput [matDatepicker]="picker1" placeholder="DD/MM/YYYY">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-2 f-14 fw-400">to</div>
+                                <div class="col-5 ">
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <input matInput [matDatepicker]="picker2" placeholder="DD/MM/YYYY">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row mt-20">
+                                <div class="d-flex align-items-center">
+                                    <div class="color-box bg-blue"></div>
+                                    <span>India</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="color-box bg-orange"></div>
+                                    <span>Bangladesh</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-20">
+                    <div class="f-16 fw-700">
+                        PRODUCT WISE TRANSACTIONS
+                    </div>
+                    <div class="row py-2">
+                        <div class="col py-2">
+                            <div class="">
+                                <div class="bg-lightblue" style="height: 100px;width: 100px;"></div>
+                            </div>
+                        </div>
+                        <div class="col py-2 d-flex flex-column justify-content-end">
+                            <div class="row">
+                                <div class="d-flex align-items-center">
+                                    <div class="color-box bg-blue"></div>
+                                    <span>India</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="color-box bg-orange"></div>
+                                    <span>Bangladesh</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-30 highlight-section mb-30 ">
+        <div class="col col-sm-8 col-md-8 highlight-text px-2">
+            <div class=" w100 h100 d-flex align-items-center">
+                <div class="f-14 fw-400 py-3 px-2">Add more power to your plan with <span class="f-16 fw-700">Value Added Services</span></div>
+            
+            </div>
+        </div>
+        <div class="col col-sm-4 col-md-4 text-center py-3 px-2">
+            <div class=" w100 h100 d-flex justify-content-center align-items-center">
+
+            <button mat-button class="primary-btn">ADD VAS</button>
+            </div>
+        </div>
+    </div>
+    <mat-divider ></mat-divider>
+    <div class="row mt-30">
+        <div class="d-flex align-items-center">
+            <div class="" style="background:black;height: 50px;width: 100px;"></div>
+            <div class="fw-700 f-20" style="margin-left: 10px;">Live Currency Cross Rates</div>
+        </div>
+       
+        
+        <div class="">
+            <div class="w100 bg-lightblue mt-20 " style="height:200px"></div>
+        </div>
+    </div>
+
+    <div class="mt-30">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="col col-sm-10 col-md-10">
+                <div class="f-16 fw-700">Cumulative transaction mount vs transaction count</div>
+            </div>
+            <div class="col col-sm-2 col-md-2">
+                <div class="yearSelect">
+                    <mat-form-field appearance="outline" class="w100" >
+                        <mat-select value="Year">
+
+                            <mat-option value="Year" selected>Year</mat-option>
+                            <mat-option value="2022">2022</mat-option>
+                            <mat-option value="2022">2021</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="w100 bg-lightblue mt-20" style="height:200px"></div>
+    </div>
+
+    <div class="mt-30 mb-30">
+        <div class=" d-flex justify-content-between align-items-center">
+            <div class="">
+                <div class="f-16 fw-700">Transaction bifurcation for</div>
+            </div>
+            <div class="">
+                <div class=" bg-orange" style="height: 15px;width:15px">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="mt-10 py-2 col col-md-4">
+            <div class="row d-flex align-items-center datePicker">
+                <div class="col-5 col-md-5 ">
+                    <mat-form-field appearance="outline" class="w100">
+                        <input matInput [matDatepicker]="picker3" placeholder="DD/MM/YYYY">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-2 col-md-2 f-14 fw-400">to</div>
+                <div class="col-5 col-md-5 ">
+                    <mat-form-field appearance="outline" class="w100">
+                        <input matInput [matDatepicker]="picker4" placeholder="DD/MM/YYYY">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
+                        <mat-datepicker #picker4></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-20" style="border-top: 2px dashed #e7ecfe;">
+            <div class="d-flex justify-content-between align-items-center py-2">
+                <div>
+                    <span class="f-14 fw-500 lightgrey-text">Rejected transactions</span>
+                </div>
+                <div class="">
+                    <p class="f-14 fw-500 orange-text text-end">0</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center py-2">
+                <div>
+                    <span class="f-14 fw-500 lightgrey-text">Accepted transactions</span>
+                </div>
+                <div class="">
+                    <p class="f-14 fw-500 orange-text text-end">0</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center py-2">
+                <div>
+                    <span class="f-14 fw-500 lightgrey-text">Expired transactions</span>
+                </div>
+                <div class="">
+                    <p class="f-14 fw-500 orange-text text-end">0</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center py-2">
+                <div>
+                    <span class="f-14 fw-500 lightgrey-text">Banks transactions</span>
+                </div>
+                <div class="">
+                    <p class="f-14 fw-500 orange-text text-end">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="dashboard-wrapper">
+    <div class="sidebar l-blue-bg">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="main-content l-blue-bg">
+        <app-header></app-header>
+        <div class="row m0 upContent">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-4 card-wrapper">
+                        <div class="number fontBold f-32 blueText">4</div>
+                        <div class="card-details mt-20 d-flex">
+                            <div class="num-text yellow-txt fontRegular f-16">Active <br/>transactions</div>
+                            <div class="arrow">
+                                <img src="../../../../assets/images/icons/right-arrow.png" />
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="col-4 card-wrapper">
+                        <div class="number fontBold f-32 blueText">4</div>
+                        <div class="card-details mt-20 d-flex">
+                            <div class="num-text yellow-txt fontRegular f-16">Quotes <br/>received</div>
+                            <div class="arrow">
+                                <img src="../../../../assets/images/icons/right-arrow.png" />
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="row white-bg mt-20 rowCard" *ngFor="let item of row1;" >
+                    <div class="col-md-3 fontBold f-22 dgrey" style="padding-left: 0;">{{item.leftText}}</div>
+                    <div class="col-md-9 ">
+                        <div class="textRight">
+                            <div class="dgrey f-14 fontBold rightText textAlignRight">{{item.rightText}}</div>
+                        </div>
+                         
+                        <div class="lgrey f-12 fontRegular fw-600 textAlignRight">{{item.rightSubtext}}</div>                    
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row white-bg pd-10 chart1">
+                    <p class="fontBold f-14 dgrey">COUNTRY WISE PRODUCT TRANSACTIONS</p>
+                    <div class="row pd20">
+                        <div class="left-info">
+                            <app-pie-chart *ngIf="chartData" [chartData]="chartData"></app-pie-chart>
+                        </div>
+                        <div class="right-info">
+                            <div class="chart1">
+                                <mat-form-field class="example-form-field" appearance="outline" style="width: 100%; padding-left: 0;">                    
+                                    <mat-date-range-input separator="to"
+                                      [formGroup]="campaignOne"
+                                      [rangePicker]="campaignOnePicker1"
+                                      [comparisonStart]="campaignTwo.value.start"
+                                      [comparisonEnd]="campaignTwo.value.end">
+                                      <input matStartDate placeholder="Start date" formControlName="start">
+                                      <input matEndDate placeholder="End date" formControlName="end">
+                                      
+                                    </mat-date-range-input>
+                                    <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker1"></mat-datepicker-toggle>
+                                    <mat-date-range-picker #campaignOnePicker1></mat-date-range-picker>
+                                </mat-form-field>
+                            </div>   
+                            <div class="row ml-20">
+                                <div class="col-md-1">
+                                    <div *ngFor="let item of getBg; let i = index">
+                                        <div [style.background-color]="getBg[i]" class="checkbox"></div>
+                                    </div>
+                                </div>
+                               <div class="col-md-11">
+                                    <div *ngFor="let item of getData;" class="f-12 fontRegular lgrey">
+                                        {{item}}
+                                    </div>
+                               </div>                                
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row white-bg pd-10 mt-20">
+                    <p class="fontBold f-14 dgrey">PRODUCT WISE TRANSACTIONS</p>
+                    <div class="row pd20">
+                        <div class="left-info">
+                            <app-pie-chart *ngIf="chartData2" [chartData]="chartData2"></app-pie-chart>
+                        </div>
+                        <div class="right-info">
+                            <div class="row ml-20">
+                                <div class="col-md-1">
+                                    <div *ngFor="let item of getTransactBg; let i = index">
+                                        <div [style.background-color]="getTransactBg[i]" class="checkbox"></div>
+                                    </div>
+                                </div>
+                               <div class="col-md-11">
+                                    <div *ngFor="let item of getTransaction;" class="f-12 fontRegular lgrey">
+                                        {{item}}
+                                    </div>
+                               </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m0 service-wrapper white-bg" style="margin-top: 40px;">
+            <div class="col-md-6 f-16 dgrey fontRegular light-grey-bg pd35 serviceText">
+                Add more power to your plan with <span class="f-16 dgrey fontBold">Value Added Services.</span>
+            </div>
+            <div class="col-md-6 btnstyle">
+                <div class="buttonStyle">
+                    <app-button  [name]="'ADD VAS'" [class]="'primary-btn f-16'" [type]="'button'"></app-button>
+                </div>                
+            </div>
+        </div>
+        <div class="row addBorder mt-20 white-bg" style="margin-left: 0; margin-right: 0;">
+            <div class="investing-wrapper">
+                <div class="row investing">
+                    <div class="col-md-2">
+                        <img src="../../../../assets/images/investing.png" />
+                    </div>
+                    <div class="col-md-10 f-20 dgrey fontBold rate-text">Live Currency Cross Rates</div>
+                </div> 
+                <div class="row dashboard-table">
+                    <app-table [dataSource]="dataSource" [displayedColumns]="displayColumns" [imageShow]="false"></app-table>
+                </div>  
+            </div>
+        </div>
+        <div class="row m0" style="margin-top: 40px; display: flex; align-items: center;">
+            <div class="row borderBottom m0 white-bg">
+                <div class="col-md-10 f-14 fontRegular fw-600 counttext">
+                    Cumulative transaction mount vs transaction count
+                </div>
+                <div class="col-md-2 selectdropdown">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-select value="Year">
+                            <mat-option value="Year" selected>Year</mat-option>
+                            <mat-option value="2022">2022</mat-option>
+                            <mat-option value="2022">2021</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div> 
+            <div class="white-bg">
+              <app-line-chart [chartData]="lineChart"></app-line-chart>
+            </div>           
+        </div>
+        <div class="row m0 white-bg" style="margin-top: 40px; display: flex; align-items: center;">
+            <div class="row m0">
+                <div class="col-md-11 f-14 fontBold counttext m0">
+                    Transaction bifurcation for
+                </div>
+                <div class="col-md-1 w20" style="text-align: center;">
+                    <img src="../../../../assets/images/icons/info.png" />
+                </div>
+            </div>  
+            <div class="datePicker borderBottom" style="margin-bottom: 20px;">
+                <mat-form-field class="example-form-field" appearance="outline">                    
+                    <mat-date-range-input separator="to"
+                      [formGroup]="campaignOne"
+                      [rangePicker]="campaignOnePicker"
+                      [comparisonStart]="campaignTwo.value.start"
+                      [comparisonEnd]="campaignTwo.value.end">
+                      <input matStartDate placeholder="Start date" formControlName="start">
+                      <input matEndDate placeholder="End date" formControlName="end">
+                      
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+                </mat-form-field>
+            </div>   
+            <div class="row m0 pd-10" *ngFor="let item of transaction;" >
+                <div class="col-md-11 f-14 fontRegular lgrey">{{item.type}}</div>
+                <div class="col-md-1 yellow-txt f-16 fw-600 fontRegular" style="text-align: center;">{{item.value}}</div>
+            </div>      
+        </div>
+    </div>
+</div>

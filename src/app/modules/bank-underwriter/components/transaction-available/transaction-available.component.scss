@@ -1,0 +1,10 @@
+.transaction-available {
+    ::ng-deep {
+        .mat-mdc-select-arrow {
+            display: none !important;
+        }
+        .mat-mdc-text-field-wrapper {
+            background-color: #fff !important;
+        }
+    }
+}

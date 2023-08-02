@@ -1,0 +1,39 @@
+.back{
+    text-align: end;
+}
+.inline-radio{
+    display: contents;
+}
+.mat-mdc-option{
+    font-size:smaller !important;
+}
+.small{
+    font-size:smaller !important;
+}
+.pd-r-0{
+    padding-right:0px;
+}
+.back{
+    text-align: end;
+}
+
+.heading{
+    text-align: initial;
+}
+.Close{
+    background-color: var(--yellow);
+    color: var(--white);
+    padding: 15px;
+    position: relative;
+    .circle-icon {
+        position: absolute;
+        right: 8px;
+        top: 10px;
+        cursor: pointer;
+    }
+  }
+  .icon {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }

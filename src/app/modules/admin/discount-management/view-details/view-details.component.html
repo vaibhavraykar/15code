@@ -1,0 +1,63 @@
+<div class="view-transaction">
+    <div class="col-md-8 m-auto">
+        
+        <div class="boxShadow">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="yellow-txt f-14 fontBold">ID</div>
+                        <div class="label-text">{{viewData?.id}}</div>
+                    </div>
+                    <div class="col-md-1" style="text-align: end;line-height: initial;">
+                    </div>
+                    <div class="col-md-1" style="padding:0px">
+                        <div class="imgDiv f-14 fontBold dgrey cpointer" (click)="back()">
+                            <mat-icon>keyboard_arrow_left</mat-icon>Back 
+                        </div>                
+                    </div>
+                </div>
+               
+            </div>
+            <div class="mt-20" style="padding: 10px;">
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Coupon Code</div>
+                        <div class="info">{{viewData?.couponCode}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Quantity</div>
+                        <div class="info">{{viewData?.quantity}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Consumed Coupon</div>
+                        <div class="info">{{viewData?.consumedCoupons}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Product</div>
+                        <div class="info" style="word-wrap: break-word;">{{viewData?.product.planName}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Currency</div>
+                        <div class="info">{{viewData?.currency}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData?.fixAmount !== 0">
+                        <div class="label-text">Fix Amount</div>
+                        <div class="info">{{viewData?.fixAmount | amount}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData?.discountPercentage !== 0">
+                        <div class="label-text">Discount Percentage</div>
+                        <div class="info">{{viewData?.discountPercentage | amount}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData?.maxDiscount !== 0">
+                        <div class="label-text">Max Discount</div>
+                        <div class="info">{{viewData?.maxDiscount | amount}}</div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</div>

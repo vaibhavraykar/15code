@@ -1,0 +1,147 @@
+.showImg {
+    width: 12px;
+  }
+  
+  .btncss {
+    font-size: 12px;
+    font-family: "Lato", sans-serif !important;
+    color: var(--dgrey);
+  }
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    // height: 345px;
+  
+    table .mat-mdc-header-cell {
+      font-size: 12px;
+      font-weight: bold;
+      font-family: "Lato", sans-serif !important;
+      background-color: var(--lblue3) !important;
+      color: var(--dgrey);
+    }
+    table .mdc-data-table__cell {
+      font-size: 12px;
+      font-family: "Lato";
+      color: var(--dgrey);
+    }
+    .mat-mdc-table {
+      border: 1px solid var(--lblue3) !important;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+  
+    ::ng-deep {
+      .mat-mdc-menu-content {
+        padding: 0 !important;
+      }
+  
+      .mat-mdc-paginator-page-size {
+        display: none !important;
+      }
+      // .mat-mdc-paginator-range-label {
+      //     display: none !important;
+      // }
+      .mat-mdc-icon-button.mat-mdc-button-base {
+        width: 25px !important;
+        height: 25px !important;
+      }
+      .mat-mdc-paginator-container {
+        display: inherit !important;
+        align-items: inherit !important;
+        justify-content: inherit !important;
+        padding: 4px 8px;
+        flex-wrap: wrap-reverse;
+        width: 100%;
+      }
+      .mdc-icon-button {
+        padding: 0 !important;
+      }
+    }
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+    }
+  }
+  
+  .pointer {
+    cursor: pointer;
+    color: #292929a1;
+  }
+  .fa{
+    margin-right: 21px;
+  }
+  .selectFact{
+    height:53px;
+  }
+  .selectFact ::ng-deep .mat-mdc-form-field-infix{
+    min-height:40px !important;
+  }
+  .selectFact ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 8px  !important;
+    padding-bottom: 8px !important;
+  }
+  .selectFact ::ng-deep .mdc-data-table__cell{
+    padding: 0px !important;
+  }
+  .heading {
+    background-color: var(--yellow);
+    color: var(--white);
+    padding: 15px;
+    position: relative;
+    .circle-icon {
+        position: absolute;
+        right: 8px;
+        top: 5px;
+        cursor: pointer;
+    }
+  }
+  ::ng-deep {
+    .update-btn {
+     margin-top: 10px;
+     text-align: center;
+     button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled) {
+         width: 100px !important;
+     }
+    }
+    .mat-mdc-form-field {
+     width: 100% !important;
+    }
+  }
+  ::ng-deep .mat-mdc-paginator-range-actions{
+    display:none !important;
+  }
+  ::ng-deep .mat-mdc-paginator{
+    background: none  !important;
+  }
+  ::ng-deep .mat-mdc-paginator-container{
+    justify-content: flex-start !important;
+    align-items: flex-end !important;
+  }
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  ::ng-deep .mat-mdc-paginator-outer-container .mat-mdc-text-field-wrapper{
+   width:50% !important;
+  }
+  .filterDropdown {
+    ::ng-deep {
+      .mat-mdc-select-value-text{
+        font-size:small;
+      }
+      .mat-mdc-form-field-infix{
+        min-height:50px !important;
+      }
+      .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+        padding-top: 12px  !important;
+        padding-bottom: 8px !important;
+      }
+      .mdc-data-table__cell{
+        padding: 0 12px 0 6px !important;
+      }
+    }
+  } 
+
+  

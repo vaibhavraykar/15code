@@ -1,0 +1,7 @@
+<div style="display:flex">
+  <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+  <span class="headingstyle">Quotation List</span>
+</div>
+<div class="container-wrapper mt-10 kyc-list quotation-table-container">
+  <app-sec-quote-table #customTable [tableStructure]="tableStructure"></app-sec-quote-table>
+</div>

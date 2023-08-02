@@ -1,0 +1,35 @@
+<div class="AddFactor" id="managerole_dialog">
+    <div class="Close">
+        <div class="row">
+            <div class="col-md-6 f-22 fontBold heading">
+                Select Role
+            </div>
+            <div class="col-md-6">
+                <span class="circle-icon" (click)="close()">
+                    <mat-icon mat-dialog-close>
+                        <img src="../../../../../assets/images/icons/Icon-close.svg">
+                    </mat-icon>
+                </span>
+            </div>
+        </div>
+    </div>
+<div class="send-otp-component  px-4 py-4 d-flex flex-column justify-content-center align-items-center">
+    <span class="circle-icon">
+        <!-- <mat-icon mat-dialog-close>
+            <img src="../../../../../assets/images/icons/Icon-close.svg">
+        </mat-icon> -->
+    </span>
+    <div class="col-md-10">
+        <div>
+            <mat-form-field appearance="outline" class="w100">
+                <!-- <mat-label>Factor Country</mat-label> -->
+                <mat-select placeholder="Select Role" (selectionChange)="selectedRole($event.value)">
+                  <mat-option *ngFor="let data of roleList" [value] = "data">{{data.name.replace('_' , ' ') | titlecase}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="col-md-5 m-auto mt-20">
+            <button mat-raised-button class="primary-btn f-14 w-100" (click)="submit()">Submit</button>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+.container-wrapper {
+    background-color: #F8F9FD;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    .inner-container {
+      background-color: #ECF1FC;
+      padding: 1em;
+      border-radius: 8px;
+      border: 2px solid rgba(204, 214, 236, 0.2);
+
+      .primary-btn {
+        font-size: 13px !important;
+        .bttn{
+          background-color: var(--yellow) !important;
+        }
+      }
+    }
+    
+  }
+  
+  .headingstyle {
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 16px;
+    color: #292929;
+  }
+
+  .list{
+    display: flex;
+    margin-top: 16px;
+    margin-bottom: 32px;
+  }
+  .transaction-list {
+    ::ng-deep {
+      .mdc-notched-outline {
+        border-radius: 5px;
+        border: 1px solid #D0D0D0;
+      }
+    }
+  }

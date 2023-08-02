@@ -1,0 +1,928 @@
+<div class="transaction-details px-4">
+	<h6 class="title text-center mb-32">Fill in your transaction details</h6>
+
+	<form [formGroup]="detailsForm">
+
+	<!-- Product Details Section -->
+	<div class="fw-700 f-16">Product Details</div>
+	<div class="row mt-20">
+
+		<!-- Currency & Amount Field -->
+		<div class="col-md-4">
+			<div class="">
+				<div class="row">
+					<!-- Currency Field -->
+					<div class="col-12 col-sm-5">
+						<mat-form-field class="w100 mt-15" appearance="outline">
+							<mat-label>Currency</mat-label>
+
+							<input
+								type="text"
+								class="f-14"
+								matInput
+								[matAutocomplete]="currencyDropdown"
+								formControlName="currency"
+								(input)="currencyChange($event)"
+								(change)="checkAutocomplete($event,'currency')"
+							/>
+							<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+							<mat-autocomplete
+								autoActiveFirstOption
+								#currencyDropdown="matAutocomplete"
+							>
+								<mat-option
+									*ngFor="let item of currencyOptions"
+									[value]="item"
+								>
+									{{ item }}
+								</mat-option>
+							</mat-autocomplete>
+							<mat-error *ngIf="detailsForm.controls['currency'].hasError('required')">Currency required</mat-error>
+						</mat-form-field>
+					</div>
+					<!-- Amount Field -->
+					<div class="col-12 col-sm-7">
+						<mat-form-field class="w100 mt-15" appearance="outline">
+							<mat-label>Amount</mat-label>
+							<input matInput type="text" [placeholder]="'Amount'" [maxlength]="11" [required]="true"
+							formControlName="amount" class="f-14 fontRegular dgrey" [value]="formatAmount(this.detailsForm.controls['amount'].value)"
+							(paste)="onPaste($event)" (keydown)="onKeyDown($event)" (blur)="onBlur()"
+							(input)=" this.detailsForm.controls['amount'].setValue(parseAmount($event))">
+							<!-- <input type="text" class="f-14" matInput
+								formControlName="amount"
+								(keypress)="amountInputHandler($event)"
+								(paste)="pasteHandler($event)"
+								(change)="nonZeroHandlerData($event,'amount')"
+							/> -->
+
+							<mat-error *ngIf="detailsForm.controls['amount'].hasError('required')">Amount required</mat-error>
+							<!-- <mat-error *ngIf="detailsForm.controls['amount'].hasError('maxlength')">Amount exceeded limit</mat-error> -->
+							<mat-error *ngIf="detailsForm.controls['amount'].invalid && !detailsForm.controls['amount'].errors?.['required'] && detailsForm.controls['amount'].errors?.['invalidAmount']">
+								Please enter valid
+							  </mat-error>
+
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Issuance Date -->
+		<div class="col-md-4" *ngIf="selectedProductType!='BILLAVALISATION'">
+			<div class="">
+				<div class="col-md-12">
+					<mat-form-field appearance="outline" class="w100 mt-15">
+						<mat-label>Issuance Date</mat-label>
+						<input matInput [matDatepicker]="picker1" formControlName="issuanceDate"/>
+						<mat-datepicker-toggle
+							matIconSuffix
+							[for]="picker1"
+						></mat-datepicker-toggle>
+						<mat-datepicker #picker1></mat-datepicker>
+						<mat-error *ngIf="detailsForm.controls['issuanceDate'].hasError('required')">Issuance Date required</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<!-- Last Shipment Date -->
+		<div class="col-md-4" *ngIf="selectedProductType!='REFINANCE'&&selectedProductType!='BANKGUARANTEE'">
+			<div class=" ml-auto">
+				<div class="col-md-12">
+					<mat-form-field appearance="outline" class="w100 mt-15">
+						<mat-label>Last Shipment Date</mat-label>
+						<input matInput [matDatepicker]="picker2" formControlName="lastShipmentDate"/>
+						<mat-datepicker-toggle
+							matIconSuffix
+							[for]="picker2"
+						></mat-datepicker-toggle>
+						<mat-datepicker #picker2></mat-datepicker>
+						<mat-error *ngIf="detailsForm.controls['lastShipmentDate'].hasError('required')">Last Shipment Date required</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<!-- Negotiation Date -->
+		<div class="col-md-4" *ngIf="selectedProductType!='REFINANCE'&&selectedProductType!='BANKGUARANTEE'&&selectedProductType!='BILLAVALISATION'">
+			<div class="">
+				<div class="col-md-12">
+					<mat-form-field appearance="outline" class="w100 mt-15">
+						<mat-label>Negotiation Date</mat-label>
+						<input matInput [matDatepicker]="picker3" formControlName="negotiationDate"/>
+						<mat-datepicker-toggle
+							matIconSuffix
+							[for]="picker3"
+						></mat-datepicker-toggle>
+						<mat-datepicker #picker3></mat-datepicker>
+						<mat-error *ngIf="detailsForm.controls['negotiationDate'].hasError('required')">Negotiation Date required</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<!-- BG Expiry Date -->
+		<div class="col-md-4" *ngIf="selectedProductType=='BANKGUARANTEE'">
+			<div class=" ml-auto">
+				<div class="col-md-12">
+					<mat-form-field appearance="outline" class="w100 mt-15">
+						<mat-label>BG Expiry Date</mat-label>
+						<input matInput [matDatepicker]="picker6" formControlName="bgExpiryDate"/>
+						<mat-datepicker-toggle
+							matIconSuffix
+							[for]="picker6"
+						></mat-datepicker-toggle>
+						<mat-datepicker #picker6></mat-datepicker>
+						<mat-error *ngIf="detailsForm.controls['bgExpiryDate'].hasError('required')">BG Expiry Date required</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<!-- Claim Expiry Date -->
+		<div class="col-md-4" *ngIf="selectedProductType=='BANKGUARANTEE'">
+			<div class=" ml-auto">
+				<div class="col-md-12">
+					<mat-form-field appearance="outline" class="w100 mt-15">
+						<mat-label>Claim Expiry Date</mat-label>
+						<input matInput [matDatepicker]="picker7" formControlName="claimExpiryDate" />
+						<mat-datepicker-toggle
+							matIconSuffix
+							[for]="picker7"
+						></mat-datepicker-toggle>
+						<mat-datepicker #picker7></mat-datepicker>
+						<mat-error *ngIf="detailsForm.controls['claimExpiryDate'].hasError('required')">Claim Expiry Date required</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<!-- Bill Issuance Date -->
+		<div class="col-md-4"  *ngIf="selectedProductType=='BILLAVALISATION'">
+			<div class=" ml-auto">
+				<div class="col-md-12">
+					<mat-form-field appearance="outline" class="w100 mt-15">
+						<mat-label>Bill Issuance Date</mat-label>
+						<input matInput [matDatepicker]="picker9" formControlName="billIssuanceDate" (dateChange)="revalidateDate()"/>
+						<mat-datepicker-toggle
+							matIconSuffix
+							[for]="picker9"
+						></mat-datepicker-toggle>
+						<mat-datepicker #picker9></mat-datepicker>
+						<mat-error *ngIf="detailsForm.controls['billIssuanceDate'].hasError('required')">Bill Issuance Date required</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<!-- Bill Maturity Date -->
+		<div class="col-md-4" *ngIf="selectedProductType=='BILLAVALISATION'">
+			<div class=" ml-auto">
+				<div class="col-md-12">
+					<mat-form-field appearance="outline" class="w100 mt-15">
+						<mat-label>Bill Maturity Date</mat-label>
+						<input matInput [matDatepicker]="picker8"
+						[min]="findMinDate()"
+						formControlName="billMaturityDate" (dateChange)="revalidateDate()"/>
+						<mat-datepicker-toggle
+							matIconSuffix
+							[for]="picker8"
+						></mat-datepicker-toggle>
+						<mat-datepicker #picker8></mat-datepicker>
+						<mat-error *ngIf="detailsForm.controls['billMaturityDate'].hasError('required')">Bill Maturity Date required</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<!-- Usance (Days) for avalisation(calculated from bill issuance date and bill maturity date)-->
+		<div class="col-md-4" *ngIf="selectedProductType=='BILLAVALISATION'">
+			<mat-form-field class="w100 mt-15" appearance="outline">
+				<mat-label>Usance (days)</mat-label>
+
+				<input type="text" class="f-14" matInput
+					formControlName="ussance"
+					(keydown)="onlyDigitHandler($event)"
+					[readonly]="true"
+
+				/>
+				<!-- <mat-error *ngIf="detailsForm.controls['ussance'].hasError('required')">Ussance required</mat-error>
+				<mat-error *ngIf="detailsForm.controls['ussance'].hasError('maxlength')">Ussance exceeded limit</mat-error> -->
+
+
+			</mat-form-field>
+		</div>
+		<!-- Transaction Validity -->
+		<div class="col-md-4">
+			<div class=" ml-auto">
+				<div class="col-md-12">
+					<mat-form-field appearance="outline" class="w100 mt-15">
+						<mat-label>Transaction Validity</mat-label>
+						<input matInput [matDatepicker]="picker4"
+						[min]="getToday()"
+						formControlName="transactionValidity" />
+						<mat-datepicker-toggle
+							matIconSuffix
+							[for]="picker4"
+						></mat-datepicker-toggle>
+						<mat-datepicker #picker4></mat-datepicker>
+						<mat-error *ngIf="detailsForm.controls['transactionValidity'].hasError('required')">Transaction validity required</mat-error>
+					</mat-form-field>
+					<div class="d-flex align-items-center help-icon">
+						<div class="mr-10">
+							<img
+								src="../../../../assets/images/icons/Icon-info.svg"
+								height="15"
+								alt="icon"
+							/>
+						</div>
+
+						<span class="f-12">Expected date to recieve quote</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Type of BG -->
+		<div class="col-md-4" *ngIf="selectedProductType=='BANKGUARANTEE'">
+			<div class="">
+				<div class="col-md-12">
+					<mat-form-field class="w100 mt-15" appearance="outline">
+						<mat-label>Select the type of BG</mat-label>
+
+						<input
+							type="text"
+							class="f-14"
+							matInput
+							[matAutocomplete]="bgType"
+							formControlName="typeOfBG"
+							(input)="bgTypeChange($event)"
+							(change)="checkAutocomplete($event,'typeOfBG')"
+						/>
+						<mat-icon matSuffix>search</mat-icon>
+						<mat-autocomplete
+							autoActiveFirstOption
+							#bgType="matAutocomplete"
+							(optionSelected)="bgTypeSelected($event)"
+						>
+							<mat-option
+							*ngFor="let item of bgTypeOptions"
+							[value]="item.bgtype"
+							>
+							{{item.bgtype}}
+							</mat-option>
+						</mat-autocomplete>
+						<mat-error *ngIf="detailsForm.controls['typeOfBG'].hasError('required')">Type of BG required</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<!-- Other Type of BG -->
+		<div class="col-md-4 mt-10" *ngIf="selectedProductType=='BANKGUARANTEE'&&otherBGTypeSelected"></div>
+		<div class="col-md-4 mt-10" *ngIf="selectedProductType=='BANKGUARANTEE'&&otherBGTypeSelected"></div>
+		<div class="col-md-4 mt-10" *ngIf="selectedProductType=='BANKGUARANTEE'&&otherBGTypeSelected">
+			<div class="">
+				<div class="col-md-12">
+					<mat-form-field class="w100 mt-15" appearance="outline">
+						<mat-label>Type of BG</mat-label>
+
+						<input
+							type="text"
+							class="f-14"
+							matInput
+							[formControl]="otherBGType"
+						/>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<!-- Type of Good -->
+		<div class="col-md-4 " *ngIf="selectedProductType!='BANKGUARANTEE'">
+			<div class="">
+				<div class="col-md-12">
+					<mat-form-field class="w100 mt-15" appearance="outline">
+						<mat-label>Types of Goods</mat-label>
+
+						<input
+							type="text"
+							class="f-14"
+							matInput
+							[matAutocomplete]="goodsType"
+							formControlName="typeOfGood"
+							(input)="goodsTypeChange($event)"
+							(change)="checkAutocomplete($event,'typeOfGood')"
+						/>
+						<mat-icon matSuffix>search</mat-icon>
+						<mat-autocomplete
+							autoActiveFirstOption
+							#goodsType="matAutocomplete"
+							(optionSelected)="getGoodsSelected($event)"
+						>
+							<mat-option
+								*ngFor="let item of goodsTypeOptions"
+								[value]="item.name"
+							>
+								{{ item.name }}
+							</mat-option>
+						</mat-autocomplete>
+						<mat-error *ngIf="detailsForm.controls['typeOfGood'].hasError('required')">Type of Good required</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<!-- For good type other -->
+
+		<div class="col-md-4" *ngIf="otherGoodsSelected&&selectedProductType!='BANKGUARANTEE'">
+			<div class="">
+				<div class="col-md-12">
+					<mat-form-field class="w100 mt-15" appearance="outline">
+						<mat-label>Type of Good</mat-label>
+
+						<input
+							type="text"
+							class="f-14"
+							matInput
+							formControlName="otherTypeGoods"
+						/>
+						<mat-error *ngIf="detailsForm.controls['otherTypeGoods'].hasError('required')">Type of Good required</mat-error>
+
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Type of Bill -->
+	<div class="row" *ngIf="selectedProductType=='BILLAVALISATION'">
+		<div class="col-md-4" >
+			<div class=" fw-700 f-16">Type of Bill</div>
+			<div class="mt-10">
+				<div class="col-md-12">
+					<mat-radio-group aria-label="Select an option" formControlName="typeOfBill" >
+						<mat-radio-button value="Avalized" >Avalized</mat-radio-button>
+						<mat-radio-button value="Unavalized"
+							>Unavalized</mat-radio-button
+						>
+					</mat-radio-group>
+				</div>
+			</div>
+			<div class="f-14 fw-400" style="opacity: 0.5;">(if the Bill is avalised please select
+					avalised otherwise select unavalised
+				)</div>
+		</div>
+	</div>
+
+	<!-- Tenor (Usance Days) Section -->
+	<div class="mt-20 fw-700 f-16 col-md-6" *ngIf="selectedProductType!='BILLAVALISATION'">Tenor</div>
+	<div class="row mt-20" *ngIf="selectedProductType!='BILLAVALISATION'">
+		<!-- Usance(days)  -->
+		<div class="col-md-4"  *ngIf="selectedProductType!='REFINANCE'&&selectedProductType!='BANKER'&&selectedProductType!='BANKGUARANTEE'">
+			<mat-form-field class="w100 mt-15" appearance="outline">
+				<mat-label>Usance (days)</mat-label>
+
+				<input type="text" class="f-14" matInput
+				formControlName="ussance"
+				pattern="[0-9]*"
+				(keydown)="restrictKeys($event)"
+				(keypress)="onlyNonZeroDigitHandler($event)"
+				(input)="nonZeroHandlerData($event,'ussance')"
+				/>
+				<mat-error *ngIf="detailsForm.controls['ussance'].hasError('required')">Usance required</mat-error>
+				<mat-error *ngIf="detailsForm.controls['ussance'].hasError('maxlength')">Usance exceeded limit</mat-error>
+
+
+			</mat-form-field>
+		</div>
+		<!-- Tenor Field -->
+		<div class="col-md-4"  *ngIf="selectedProductType=='BANKGUARANTEE'">
+			<mat-form-field class="w100 mt-15" appearance="outline">
+				<mat-label>Tenor</mat-label>
+
+				<input type="text" class="f-14" matInput
+				formControlName="tenor"
+				pattern="[0-9]*"
+				(keydown)="restrictKeys($event)"
+				(keypress)="onlyNonZeroDigitHandler($event)"
+				(input)="nonZeroHandlerData($event,'tenor')"
+				/>
+
+				<mat-error *ngIf="detailsForm.controls['tenor'].hasError('required')">Tenor required</mat-error>
+				<mat-error *ngIf="detailsForm.controls['tenor'].hasError('maxlength')">Tenor exceeded limit</mat-error>
+			</mat-form-field>
+		</div>
+		<!-- Payment terms to seller as per LC -->
+		<div class="col-md-4"  *ngIf=" !['REFINANCE','BANKGUARANTEE','BILLAVALISATION'].includes(selectedProductType)">
+			<mat-form-field class="w100 mt-15" appearance="outline">
+				<mat-label>Payment terms to seller as per LC</mat-label>
+				<!-- <textarea
+                matInput
+                formControlName="paymentTerms"
+              ></textarea> -->
+				<input type="text" class="f-14" matInput
+				formControlName="paymentTerms"
+			/>
+				<mat-error *ngIf="detailsForm.controls['paymentTerms'].hasError('required')">Payment terms to seller as per LC required</mat-error>
+
+				<mat-error *ngIf="detailsForm.controls['paymentTerms'].hasError('maxlength')">Payment terms limit exceeded</mat-error>
+			</mat-form-field>
+		</div>
+		<!-- Original Usance(Tenor of LC) -->
+		<div class="col-md-4 " *ngIf="selectedProductType=='REFINANCE'">
+			<mat-form-field class="w100 mt-15" appearance="outline" >
+				<mat-label>Original usance(Tenor) of LC</mat-label>
+
+				<input type="text" class="f-14" matInput
+					formControlName="originalUssance"
+					pattern="[0-9]*"
+					(keydown)="restrictKeys($event)"
+					(keypress)="onlyNonZeroDigitHandler($event)"
+					(input)="nonZeroHandlerData($event,'originalUssance')"
+
+				/>
+				<mat-error *ngIf="detailsForm.controls['originalUssance'].hasError('required')">Original usance(tenor) of LC required</mat-error>
+				<mat-error *ngIf="detailsForm.controls['originalUssance'].hasError('maxlength')">Original usance(tenor) of LC exceeded limit</mat-error>
+
+
+			</mat-form-field>
+		</div>
+		<!-- Period for which refinancing is required -->
+		<div class="col-md-4"  *ngIf="selectedProductType=='REFINANCE'||selectedProductType=='BANKER'">
+			<mat-form-field class="w100 mt-15" appearance="outline">
+				<mat-label>Period for which refinancing is required</mat-label>
+
+				<input type="text" class="f-14" matInput
+					formControlName="financingPeriod"
+					pattern="[0-9]*"
+					(keydown)="restrictKeys($event)"
+					(keypress)="onlyNonZeroDigitHandler($event)"
+					(input)="nonZeroHandlerData($event,'financingPeriod')"
+				/>
+
+
+				<mat-error *ngIf="detailsForm.controls['financingPeriod'].hasError('required')">Period for refinancing required</mat-error>
+				<mat-error *ngIf="detailsForm.controls['financingPeriod'].hasError('maxlength')">Period for refinancing exceeded limit</mat-error>
+			</mat-form-field>
+		</div>
+		<!-- Claim Period -->
+		<div class="col-md-4" *ngIf="selectedProductType=='BANKGUARANTEE'">
+			<mat-form-field class="w100 mt-15" appearance="outline">
+				<mat-label>Claim period</mat-label>
+
+				<input type="text" class="f-14" matInput
+				formControlName="claimPeriod"
+				pattern="[0-9]*"
+				(keydown)="restrictKeys($event)"
+				(keypress)="onlyNonZeroDigitHandler($event)"
+				(input)="nonZeroHandlerData($event,'claimPeriod')"
+				/>
+				<mat-error *ngIf="detailsForm.controls['claimPeriod'].hasError('required')">Claim period required</mat-error>
+				<mat-error *ngIf="detailsForm.controls['claimPeriod'].hasError('maxlength')">Claim period exceeded limit</mat-error>
+
+
+			</mat-form-field>
+		</div>
+
+
+		<div class="row mt-15">
+<!-- LC Maturity Date -->
+<div class="col-md-4"  *ngIf="selectedProductType=='REFINANCE'" >
+	<div  class=" fw-700 f-16" >LC Maturity Date</div>
+		<div class="">
+			<div class="col-md-12">
+				<mat-form-field appearance="outline" class="w100 mt-15">
+					<mat-label>LC Maturity Date</mat-label>
+					<input matInput [matDatepicker]="picker5" formControlName="lcMaturityDate" />
+					<mat-datepicker-toggle
+						matIconSuffix
+						[for]="picker5"
+					></mat-datepicker-toggle>
+					<mat-datepicker #picker5></mat-datepicker>
+					<mat-error *ngIf="detailsForm.controls['lcMaturityDate'].hasError('required')">LC Maturity Date required</mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+</div>
+<!-- Upload Multiple Maturity Dates -->
+<div class="col-md-8" *ngIf="selectedProductType=='REFINANCE'">
+
+	<div  class=" fw-700 f-16" >Upload multiple maturity dates</div>
+	<div class=" upload-button-content mt-20 mt-15">
+		<div class="upload-button" style="min-height:58px;">
+			<label
+				style="word-break: break-word;max-width:65%" 
+			>{{tenorFileName!=''?tenorFileName:
+				this.transactionDataInput?.refinanceLcUpload?
+				getFileNameFromURL(this.transactionDataInput?.refinanceLcUpload||''):
+				'No file selected'}}</label>
+			<div *ngIf="tenorFileName!=''" class="" (click)="deleteSelectedDateFile()">
+				<img style="width:30px;height:30px" src="../../../../../../../assets/images/customer/close.png" alt="close button">
+			</div>
+
+			<app-file-upload
+				[name]="'Choose file'"
+				[accept]="'.jpg,.jpeg,.png,.pdf,.xlsx,.csv'"
+				(onUpload)="uploadMaturityDates($event)"
+			></app-file-upload>
+		</div>
+
+		<div class="d-flex align-items-start help-icon">
+			<div class="mr-5">
+				<img
+					src="../../../../assets/images/icons/Icon-info.svg"
+					height="15"
+					alt="icon"
+				/>
+			</div>
+
+			<span class="f-12"
+				>Upload only in (pdf, jpeg, png,xlsx,csv) format. File
+				should be less than 20MB  <mat-error style="margin-left: 10px;" *ngIf="this.detailsForm.controls['tenorFileUpload'].hasError('invalid')" class="mx-3">Invalid file format.</mat-error></span
+			>
+
+		</div>
+	</div>
+</div>
+		</div>
+
+
+	</div>
+
+	<!-- Beneficiary Details of Last Transaction -->
+	<div class="mt-20 fw-700 f-16" style="margin-top: 40px !important;"  *ngIf="selectedProductType=='REFINANCE'">Beneficiary Details of Last Transaction</div>
+	<div class="row " *ngIf="selectedProductType=='REFINANCE'">
+		<!-- LC Number -->
+		<div class="col-md-4">
+			<mat-form-field class="w100 mt-15" appearance="outline">
+				<mat-label>LC Number</mat-label>
+
+				<input type="text" class="f-14" matInput
+					formControlName="lcNumber"
+				/>
+				<mat-error *ngIf="detailsForm.controls['lcNumber'].hasError('required')">LC Number required</mat-error>
+				<mat-error *ngIf="detailsForm.controls['lcNumber'].hasError('pattern')">LC Number is not valid</mat-error>
+				<mat-error *ngIf="detailsForm.controls['lcNumber'].hasError('maxlength')">LC Number exceeded limit</mat-error>
+			</mat-form-field>
+		</div>
+		<!-- Beneficiary Bank Name -->
+		<div class="col-md-4">
+			<mat-form-field class="w100 mt-15" appearance="outline">
+				<mat-label>Beneficiary Bank Name</mat-label>
+
+				<input type="text" class="f-14" matInput
+					formControlName="lcbankName"
+				/>
+				<mat-error *ngIf="detailsForm.controls['lcbankName'].hasError('required')">Beneficiary Bank Name required</mat-error>
+				<mat-error *ngIf="detailsForm.controls['lcbankName'].hasError('pattern')">Please enter valid Beneficiary Bank Name</mat-error>
+			</mat-form-field>
+		</div>
+		<!-- Swift Code -->
+		<div class="col-md-4">
+			<mat-form-field class="w100 mt-15" appearance="outline">
+				<mat-label>Swift Code</mat-label>
+
+				<input type="text" class="f-14" matInput
+					formControlName="lcbankSwiftCode"
+				/>
+				<mat-error *ngIf="detailsForm.controls['lcbankSwiftCode'].hasError('required')">Swift Code required</mat-error>
+				<mat-error *ngIf="detailsForm.controls['lcbankSwiftCode'].hasError('maxlength')">Swift Code exceeded limit</mat-error>
+			</mat-form-field>
+		</div>
+		<!-- Country of beneficiary bank -->
+		<div class="col-md-4">
+			<mat-form-field  class="w100 mt-15" appearance="outline">
+				<mat-label>Country of Beneficiary Bank</mat-label>
+
+				<input type="text" class="f-14" matInput
+					[matAutocomplete]="beneficiarybankCountry"
+					formControlName="lcbeneBankCountry"
+					(input)="countryChange($event)"
+					[value]="detailsForm.controls['lcbeneBankCountry'].value.toUpperCase()"
+					(change)="checkAutocomplete($event,'lcbeneBankCountry')"
+					>
+					<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+				<mat-autocomplete autoActiveFirstOption #beneficiarybankCountry="matAutocomplete">
+					<mat-option *ngFor="let item of countryOptions" [value]="item">
+						{{item}}
+					</mat-option>
+				</mat-autocomplete>
+				<mat-error *ngIf="detailsForm.controls['lcbeneBankCountry'].hasError('required')">Country of Beneficiary Bank required</mat-error>
+			</mat-form-field>
+		</div>
+
+	</div>
+
+	<!-- Shipment Details Seciton -->
+
+	<div class="mt-20 fw-700 f-16 "  *ngIf="selectedProductType!='BANKGUARANTEE'">Shipment Details</div>
+	<div class="row"  *ngIf="selectedProductType!='BANKGUARANTEE'">
+		<!-- Country of Port of Loading -->
+		<div class="col-md-4">
+			<div class="">
+				<div class="col-md-12">
+					<mat-form-field class="w100 mt-15" appearance="outline">
+						<mat-label>Country of Port of Loading</mat-label>
+
+						<input
+							type="text"
+							class="f-14"
+							matInput
+							[matAutocomplete]="countryOfloading"
+							formControlName="loadingCountry"
+							(input)="countryOfloadingChange($event)"
+							[value]="detailsForm.controls['loadingCountry'].value.toUpperCase()"
+							(change)="checkAutocomplete($event,'loadingCountry')"
+						/>
+						<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+						<mat-autocomplete
+							autoActiveFirstOption
+							#countryOfloading="matAutocomplete"
+							(optionSelected)="getLoadingCountry($event)"
+						>
+							<mat-option
+								*ngFor="let item of countryOfLoadingOptions"
+								[value]="item"
+							>
+								{{ item }}
+							</mat-option>
+						</mat-autocomplete>
+						<mat-error *ngIf="detailsForm.controls['loadingCountry'].hasError('required')">Loading country required</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<!-- Port of loading -->
+		<div class="col-md-4">
+			<div class=" ml-auto">
+				<div class="col-md-12">
+					<div class="col-md-12">
+						<mat-form-field class="w100 mt-15" appearance="outline">
+							<mat-label>Port of Loading</mat-label>
+
+							<input
+								type="text"
+								class="f-14"
+								matInput
+								formControlName="loadingPort"
+								[matAutocomplete]="portOfloading"
+								(input)="portOfloadingChange($event)"
+								(change)="checkAutocomplete($event,'loadingPort')"
+							/>
+							<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+							<mat-autocomplete
+								autoActiveFirstOption
+								#portOfloading="matAutocomplete"
+								(optionSelected)="selectedPort($event,'loadingPort')"
+							>
+								<mat-option
+									*ngFor="let item of portOfLoadingOptions"
+									[value]="item.code+' - '+item.port"
+								>
+								{{ item.code }} - {{item.port }}
+								</mat-option>
+							</mat-autocomplete>
+							<mat-error *ngIf="detailsForm.controls['loadingPort'].hasError('required')">Loading port required</mat-error>
+							<mat-error *ngIf="!detailsForm.controls['loadingPort'].hasError('required')
+							&& detailsForm.controls['loadingPort'].invalid">
+							Loading port and Discharge Port cannot be same.</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Country of Port of Discharge -->
+		<div class="col-md-4">
+			<div class="">
+				<div class="col-md-12">
+					<mat-form-field class="w100 mt-15" appearance="outline">
+						<mat-label>Country of Port of Discharge</mat-label>
+
+						<input
+							type="text"
+							class="f-14"
+							matInput
+							[matAutocomplete]="countryOfdischarge"
+							formControlName="dischargeCountry"
+							(input)="countryOfdischargeChange($event)"
+							[value]="detailsForm.controls['dischargeCountry'].value.toUpperCase()"
+							(change)="checkAutocomplete($event,'dischargeCountry')"
+						/>
+						<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+						<mat-autocomplete
+							autoActiveFirstOption
+							#countryOfdischarge="matAutocomplete"
+							(optionSelected)="getDischargeCountry($event)"
+						>
+							<mat-option
+								*ngFor="let item of countryOfDischargeOptions"
+								[value]="item"
+							>
+								{{ item }}
+							</mat-option>
+						</mat-autocomplete>
+						<mat-error *ngIf="detailsForm.controls['dischargeCountry'].hasError('required')">Discharge country required</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<!-- Port of Discharge -->
+		<div class="col-md-4">
+			<div class=" ml-auto">
+				<div class="col-md-12">
+					<div class="col-md-12">
+						<mat-form-field class="w100 mt-15" appearance="outline">
+							<mat-label>Port of Discharge</mat-label>
+
+							<input
+								type="text"
+								class="f-14"
+								matInput
+								formControlName="dischargePort"
+								[matAutocomplete]="portOfdischarge"
+								(input)="portOfdischargeChange($event)"
+								(change)="checkAutocomplete($event,'dischargePort')"
+							/>
+							<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+							<mat-autocomplete
+								autoActiveFirstOption
+								#portOfdischarge="matAutocomplete"
+								(optionSelected)="selectedPort($event,'dischargePort')"
+							>
+								<mat-option
+									*ngFor="let item of portOfDischargeOptions"
+									[value]="item.code+' - '+item.port"
+								>
+									{{ item.code }} - {{item.port }}
+								</mat-option>
+							</mat-autocomplete>
+							<mat-error *ngIf="detailsForm.controls['dischargePort'].hasError('required')">Discharge port required</mat-error>
+							<mat-error *ngIf="!detailsForm.controls['dischargePort'].hasError('required')
+							&& detailsForm.controls['dischargePort'].invalid">
+								Discharge port and Loading Port cannot be same.</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Final destination of Goods -->
+		<div class="col-md-4">
+			<div class="">
+				<div class="col-md-12">
+					<mat-form-field class="w100 mt-15" appearance="outline">
+						<mat-label>Final Destination of Goods</mat-label>
+
+						<input
+							type="text"
+							class="f-14"
+							matInput
+							[matAutocomplete]="destinationCountry"
+							formControlName="finalDestinationOfGoods"
+							(input)="destinationCountryOfGoods($event)"
+							[value]="detailsForm.controls['finalDestinationOfGoods'].value.toUpperCase()"
+							(change)="checkAutocomplete($event,'finalDestinationOfGoods')"
+						/>
+						<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+						<mat-autocomplete
+							autoActiveFirstOption
+							#destinationCountry="matAutocomplete"
+						>
+							<mat-option
+								*ngFor="let item of finalDestinationOfGoodsOptions"
+								[value]="item"
+							>
+								{{ item }}
+							</mat-option>
+						</mat-autocomplete>
+						<mat-error *ngIf="detailsForm.controls['finalDestinationOfGoods'].hasError('required')">Final destination of goods required</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row mt-20">
+		<!-- Charges are On Section -->
+		<div class="col-md-4" >
+			<div class=" fw-700 f-16">Charges are on</div>
+			<div class="mt-10">
+				<div class="col-md-12">
+					<mat-radio-group aria-label="Select an option" formControlName="chargesOn">
+						<mat-radio-button value="Applicant" *ngIf="selectedProductType!='BILLAVALISATION'">{{data?.applicantName?data?.applicantName:companyName}}(Applicant)</mat-radio-button>
+						<mat-radio-button value="Beneficiary"
+							>{{data?.beneName?(data?.beneName):companyName}}(Beneficiary)</mat-radio-button
+						>
+					</mat-radio-group>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="col-md-6" *ngIf="selectedProductType=='CONFIRMANDDISCOUNT'&&userType!='BENEFICIARY'">
+			<div class=" fw-700 f-16">Charges are on</div>
+			<div class="mt-10">
+				<div class="col-md-12">
+					<mat-radio-group aria-label="Select an option" formControlName="chargesOn">
+						<mat-radio-button value="Applicant" >Applicant</mat-radio-button>
+						<mat-radio-button value="Beneficiary"
+							>Beneficiary</mat-radio-button
+						>
+					</mat-radio-group>
+				</div>
+			</div>
+		</div> -->
+		<!-- isESG Compliant -->
+		<div class="col-md-4">
+			<div class=" fw-700 f-16">ESG Compliant</div>
+			<div class=" ml-auto mt-10">
+				<div class="col-md-12">
+					<div class="col-md-12 d-flex justify-content-between ">
+						<mat-checkbox (change)="isESGCompliant($event)"
+							formControlName="esgCompliant"
+							>ESG Compliant?</mat-checkbox
+						>
+						<span class="notification-icon"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Environmental, Social and Governance"
+						>
+							<img
+								style="width: 16px;"
+								src="../../../../assets/images/icons/Icon-info.svg"
+								alt="icon"
+							/>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Upload Invoice -->
+	<div class="col-md-8">
+		<div class="row">
+			<div class="mt-20 fw-700 f-16 col-md-10" *ngIf="selectedProductType!='BANKGUARANTEE'&&selectedProductType!='BILLAVALISATION'">Upload Invoice</div>
+			<div class="mt-20 fw-700 f-16 col-md-10" *ngIf="selectedProductType=='BANKGUARANTEE'">Upload BG Text</div>
+			<div class="mt-20 fw-700 f-16 col-md-10" *ngIf="selectedProductType=='BILLAVALISATION'">Upload Avalisation draft</div>
+			<div class="col-md-2 mt-20 view" *ngIf="isView&&fileName" (click)="openView()">
+				View
+			</div>
+			<div class="col-md-2 mt-20 view" *ngIf="!(isView&&fileName)&&this.transactionDataInput?.invoiceUpload" (click)="openEditView(this.transactionDataInput?.invoiceUpload)">
+				View
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row mt-20">
+		<div class="col-md-8">
+
+			<div class=" upload-button-content">
+				<div class="upload-button">
+					<label
+					style="word-break: break-word;max-width:65%" 
+					*ngIf="selectedProductType!='BANKGUARANTEE'&&selectedProductType!='BILLAVALISATION'">{{fileName!=''?fileName:
+
+						'Upload document'}}</label>
+					<label
+					style="word-break: break-word;max-width:65%" 
+					*ngIf="selectedProductType=='BANKGUARANTEE'">{{fileName!=''?fileName:'Upload BG Text'}}</label>
+					<label
+					style="word-break: break-word;max-width:65%" 
+					*ngIf="selectedProductType=='BILLAVALISATION'">{{fileName!=''?fileName:
+						'Upload Avalisation draft'
+
+					}}</label>
+					<div *ngIf="fileName!=''" class="" (click)="deleteSelectedFile()">
+						<img style="width:30px;height:30px" src="../../../../../../../assets/images/customer/close.png" alt="close button">
+					</div>
+
+					<app-file-upload
+                        [name]="'Choose file'"
+						[accept]="'.jpg,.jpeg,.png,.pdf,.tiff'"
+						(onUpload)="uploadTransaction($event)"
+					></app-file-upload>
+				</div>
+
+				<div class="d-flex align-items-start help-icon">
+					<div class="mr-5">
+						<img
+							src="../../../../assets/images/icons/Icon-info.svg"
+							height="15"
+							alt="icon"
+						/>
+					</div>
+					<span class="f-12"
+          >Upload only in (pdf, jpeg, png, tiff) format. File
+          should be less than 20MB   <mat-error style="margin-left: 10px;" *ngIf="this.detailsForm.controls['fileUpload'].hasError('invalid')"  class="mx-3">Invalid file format.</mat-error></span
+					>
+
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+	<div class="f-14 fw-500 mt-30 text-center" style="color:red;" *ngIf="showFormCompletionError&&!this.detailsForm.hasError('portMismatch')">Please fill out the form.</div>
+	<div class="submit-btn">
+		<div class="col-md-4 text-center m-auto">
+			<app-button
+				[name]="'SAVE & PREVIEW'"
+				[class]="'primary-btn f-16 w100'"
+				(click)="save()"
+			></app-button>
+		</div>
+	</div>
+	</form>
+
+</div>

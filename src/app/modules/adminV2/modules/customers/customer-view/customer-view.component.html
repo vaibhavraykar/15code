@@ -1,0 +1,237 @@
+<div class="all-detail-container mt-30">
+  <div class="">
+    <div class="d-flex align-items-center mb-20">
+      <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+      <div class="ml-12 darkBlackText">Viewing details for {{customerDetails?.personalDetails?.firstName}}
+        {{customerDetails?.personalDetails?.lastName}}</div>
+    </div>
+    <div class="all-details-tab-container">
+      <div style="padding:24px" class="admin-user-wrapper">
+        <div class="">
+          <div class="col-md-11">
+            <div class="userid">User ID</div>
+            <div class="dark-text">{{customerDetails?.personalDetails?.username}}</div>
+          </div>
+        </div>
+        <div class="mt-30 admin-user-container">
+          <mat-accordion>
+            <mat-expansion-panel expanded="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border">
+                  Personal Details
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="">
+                <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+                  <div class="row">
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">First Name</div>
+                      <div class="dark-text">{{customerDetails?.personalDetails?.firstName||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Last Name</div>
+                      <div class="dark-text">{{customerDetails?.personalDetails?.lastName||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Email ID</div>
+                      <div class="dark-text">{{customerDetails?.personalDetails?.email||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Mobile No</div>
+                      <div class="dark-text">+{{customerDetails.personalDetails?.countryExt}}
+                        {{customerDetails?.personalDetails?.mobileNumber||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Landline Number</div>
+                      <div class="dark-text">{{customerDetails.personalDetails?.landLineNumber}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Country</div>
+                      <div class="dark-text">{{customerDetails?.personalDetails?.country||'NA'}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border">
+                  Additional Email IDs
+                </mat-panel-title>
+                <mat-panel-description class="justify-content-end">
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="">
+                <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+                  <div class="row">
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                      *ngFor="let emailList of customerDetails.personalDetails?.additionalEmails;let i=index">
+                      <div class="light-text mb-4">Email ID {{i+1}}</div>
+                      <div class="dark-text">{{emailList?.additionalEmail ||'NA'}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mt-30" (opened)="secondPanelOpenState = true"
+              (closed)="secondPanelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border">
+                  Business Details
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="">
+                <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+                  <div class="row">
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Registration Type</div>
+                      <div class="dark-text">{{customerDetails?.businessDetails?.registrationType?.replaceAll('_',' ')}}
+                      </div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Company Name</div>
+                      <div class="dark-text">{{customerDetails?.businessDetails?.companyName || 'NA'}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border">
+                  Owner Details
+                </mat-panel-title>
+                <mat-panel-description class="justify-content-end">
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="">
+                <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+                  <table class="ownerTable mt-10">
+                    <tr class="fontBold">
+                      <!-- <th>Sr No.</th> -->
+                      <th class="light-text mb-4">First Name</th>
+                      <th class="light-text mb-4">Last Name</th>
+                      <th class="light-text mb-4">Designtion</th>
+                    </tr>
+                    <tr *ngFor="let ownerData of customerDetails.businessDetails?.emplyeeDetails; let i=index">
+                      <!-- <td>{{i+1}}</td> -->
+                      <td>{{ownerData.firstName}}</td>
+                      <td>{{ownerData.lastName}}</td>
+                      <td>{{ownerData.designation}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border">
+                  Registration Address Details
+                </mat-panel-title>
+                <mat-panel-description class="justify-content-end">
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="">
+                <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+                  <div class="row">
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Country</div>
+                      <div class="dark-text">
+                        {{customerDetails?.businessDetails?.addressDetails?.registeredCountry||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">State/Province</div>
+                      <div class="dark-text">{{customerDetails?.businessDetails?.addressDetails?.province||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">City</div>
+                      <div class="dark-text">{{customerDetails?.businessDetails?.addressDetails?.city||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">PIN/ZIP Code</div>
+                      <div class="dark-text">{{customerDetails?.businessDetails?.addressDetails?.pincode||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Address Line 1</div>
+                      <div class="dark-text">{{customerDetails?.businessDetails?.addressDetails?.address1||'NA'}}</div>
+                    </div>
+
+
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Address Line 2</div>
+                      <div class="dark-text">{{customerDetails?.businessDetails?.addressDetails?.address2||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Address Line 3</div>
+                      <div class="dark-text">
+                        {{customerDetails?.businessDetails?.addressDetails?.address3||'NA'}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border">
+                  Referred By
+                </mat-panel-title>
+                <mat-panel-description class="justify-content-end">
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="">
+                <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+                  <div class="row">
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">First Name</div>
+                      <div class="dark-text">{{customerDetails?.personalDetails?.referredBy?.firstName||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Last Name</div>
+                      <div class="dark-text">{{customerDetails?.personalDetails?.referredBy?.lastName||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Company/Bank Name</div>
+                      <div class="dark-text">{{customerDetails?.personalDetails?.referredBy?.companyName||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">User ID</div>
+                      <div class="dark-text">{{customerDetails?.personalDetails?.referredBy?.userId||'NA'}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border">
+                  RM Details
+                </mat-panel-title>
+                <mat-panel-description class="justify-content-end">
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="">
+                <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+                  <div class="row">
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">First Name</div>
+                      <div class="dark-text">{{customerDetails?.businessDetails?.rmUser?.firstName||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Last Name</div>
+                      <div class="dark-text">{{customerDetails?.businessDetails?.rmUser?.lastName||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Designation</div>
+                      <div class="dark-text">{{customerDetails?.businessDetails?.rmUser?.designation||'NA'}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

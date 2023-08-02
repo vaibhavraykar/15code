@@ -1,0 +1,143 @@
+// Typography Styles
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
+html,
+body {
+	height: 100%;
+	position: relative;
+	margin: 0;
+	font-family: 'Lato', sans-serif !important;
+	font-size: 14px;
+	line-height: 20px;
+	
+}
+
+* :not(mat-icon, .fa) {
+	font-family: 'Lato', sans-serif !important;
+}
+
+.fontRegular {
+	font-family: 'Lato', sans-serif !important;
+	font-weight: 400;
+}
+
+.fontBold {
+	font-family: 'Lato', sans-serif !important;
+	font-weight: bold;
+}
+
+
+/* font-size */
+.f-10 {
+	font-size: 10px !important;
+}
+.f-11 {
+	font-size: 11px !important;
+}
+
+.f-12 {
+	font-size: 12px !important;
+}
+
+.f-13 {
+	font-size: 13px !important;
+}
+
+.f-14 {
+	font-size: 14px !important;
+}
+.f-15 {
+	font-size: 15px !important;
+}
+
+.f-16 {
+	font-size: 16px !important;
+}
+
+.f-18 {
+	font-size: 18px !important;
+}
+
+.f-20 {
+	font-size: 20px !important;
+}
+
+.f-22 {
+	font-size: 22px !important;
+}
+
+.f-24 {
+	font-size: 24px !important;
+}
+
+.f-32 {
+	font-size: 32px !important;
+}
+
+/* font-weight */
+.fw-100 {
+	font-weight: 100;
+}
+.fw-200 {
+	font-weight: 200;
+}
+.fw-300 {
+	font-weight: 300;
+}
+.fw-400 {
+	font-weight: 400;
+}
+.fw-500 {
+	font-weight: 500;
+}
+.fw-600 {
+	font-weight: 600;
+}
+.fw-700 {
+	font-weight: 700;
+}
+.fw-800 {
+	font-weight: 800;
+}
+.fw-900 {
+	font-weight: 900;
+}
+.mt-5 {
+	margin-top: 5px !important;
+}
+.mt-10 {
+	margin-top: 10px;
+}
+.mt-15 {
+	margin-top: 15px;
+}
+.mt-20 {
+	margin-top: 20px;
+}
+.mt-30 {
+	margin-top: 30px;
+}
+.mt-40 {
+	margin-top: 40px;
+}
+.pd-10 {
+	padding: 10px;
+}
+.m0 {
+	margin: 0;
+}
+.pd35 {
+	padding: 35px;
+}
+.pd20 {
+	padding: 20px;
+}
+.ml-20 {
+	margin-left: 20px;
+}
+.w100 {
+	width: 100% !important;
+}
+.w70 {
+	width: 70% !important;
+}

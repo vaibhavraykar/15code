@@ -1,0 +1,70 @@
+<div class="new-transaction-tab ">
+    
+
+    <mat-tab-group [selectedIndex]="tab"
+        (selectedTabChange)="tabChangeHandler($event)"
+        [ngClass]="getVisited()"
+    >
+        <mat-tab label="SELECT PRODUCT"> 
+            <app-select-product 
+                *ngIf="this.requirementProduct"
+                [selectedProductInput]="this.requirementProduct?this.requirementProduct:''"
+                (selectedProduct)="selectedProductType($event)"
+                (disableEmitter)="disableEmitter($event)"
+                [edit]="this.type"
+                (next)="next($event)" 
+            ></app-select-product>  
+            <app-select-product 
+                *ngIf="!this.requirementProduct"
+                (selectedProduct)="selectedProductType($event)"
+                (disableEmitter)="disableEmitter($event)"
+                (next)="next($event)" 
+                [edit]="this.type"
+            ></app-select-product> 
+        </mat-tab>
+        <mat-tab label="APPLICANT & BENEFICIARY" [disabled]="!this.tabsVisited['SELECT PRODUCT']"> 
+            <app-applicant-beneficiary 
+                *ngIf="this.transactionDetails"
+                [applicantBeneficiaryDataInput]="this.transactionDetails"
+                [product]="selectedProduct" 
+                [subscriberType]="subscriber" 
+                (userType)="userType($event)"
+                (applicantBeneficiaryData)="applicantBeneficiaryData($event)"
+                (finsihedApplicantDetails)="finsihedApplicantDetails($event)" 
+                (applicantFormValidity)="applicantFormStatus($event)"
+                [edit]="this.type"
+            ></app-applicant-beneficiary>  
+            <app-applicant-beneficiary 
+                *ngIf="!this.transactionDetails"
+                [product]="selectedProduct" 
+                [subscriberType]="subscriber" 
+                (userType)="userType($event)"
+                (applicantBeneficiaryData)="applicantBeneficiaryData($event)"
+                (finsihedApplicantDetails)="finsihedApplicantDetails($event)"  
+                (applicantFormValidity)="applicantFormStatus($event)"
+                [edit]="this.type"
+            ></app-applicant-beneficiary> 
+        </mat-tab>
+        <mat-tab label="TRANSACTION DETAILS" [disabled]="!this.tabsVisited['TRANSACTION DETAILS']">
+            <app-transaction-details 
+            *ngIf="this.transactionDetails"
+            [clone]="cloneTrans"
+            [applicantFormValid]="this.applicantFormValidStatus"
+            [transactionDataInput]="this.transactionDetails"
+            [data]="applicantBeneDetails"
+            [subscriberType]="subscriber" 
+            [selectedProductType]="selectedProduct" 
+            [userType]="userTypeSelected"></app-transaction-details>
+            <app-transaction-details 
+            *ngIf="!this.transactionDetails"
+            [clone]="cloneTrans"
+            [subscriberType]="subscriber" 
+            [applicantFormValid]="this.applicantFormValidStatus"
+            [data]="applicantBeneDetails"
+            [selectedProductType]="selectedProduct" 
+            [userType]="userTypeSelected"></app-transaction-details>
+        </mat-tab>
+    </mat-tab-group>
+
+
+</div>

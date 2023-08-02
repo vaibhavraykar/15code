@@ -1,0 +1,154 @@
+.header {
+  height: 48px;
+  padding: 8px 20px;
+  border-bottom: 1px solid #d0d0d0;
+  display: flex;
+ 
+  .profile {
+    width: 32px;
+    // height: 32px;
+    height: 100%;
+    background-color: #0032a0;
+    color: #fff;
+    text-align: center;
+    padding-top: 6px;
+    border-radius: 20px;
+  }
+  .alignment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1em;
+  }
+  .arrowAlignment{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left:1.8em;
+  }
+  .notification {
+    position: relative;
+  }
+  .notification::after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #ed1717;
+    border-radius: 10px;
+    right: 2px;
+    top: 2px;
+  }
+  
+  .search-box {
+    ::ng-deep {
+      .mat-mdc-text-field-wrapper.mdc-text-field--outlined
+        .mat-mdc-form-field-infix {
+        padding-top: 2px !important;
+        padding-bottom: 0 !important;
+      }
+      .mat-mdc-form-field-flex {
+        height: 32px !important;
+      }
+      ::ng-deep .mdc-notched-outline {
+        * {
+          border: none;
+        }
+      }
+      .mat-mdc-text-field-wrapper {
+        background-color: #f2f2f2 !important;
+        border-radius: 7px;
+      }
+      .mat-mdc-text-field-wrapper.mdc-text-field--outlined
+        .mat-mdc-form-field-infix {
+        margin-left: 25px !important;
+        img {
+          position: absolute;
+          left: -30px;
+          top: 7px;
+        }
+        &::before {
+          content: "";
+          height: 16px;
+          width: 1px;
+          background-color: #696969;
+          position: absolute;
+          left: -6px;
+          top: 7px;
+        }
+      }
+
+      .mat-mdc-form-field-input-control {
+        font-family: "DM Sans", sans-serif !important;
+        font-size: 0.8em;
+      }
+    }
+  }
+}
+.ml-10 {
+  margin-left: 10px;
+}
+
+::ng-deep {
+  .mat-mdc-checkbox
+    .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:checked
+    ~ .mdc-checkbox__background,
+  .mat-mdc-checkbox
+    .mdc-checkbox
+    .mdc-checkbox__native-control:enabled:indeterminate
+    ~ .mdc-checkbox__background,
+  .mat-mdc-checkbox
+    .mdc-checkbox
+    .mdc-checkbox__native-control[data-indeterminate="true"]:enabled
+    ~ .mdc-checkbox__background {
+    border-color: #eb7203 !important;
+    background-color: #eb7203 !important;
+  }
+}
+.profile-style {
+  align-items: center;
+  // justify-content: end;
+  // margin-left: 0;
+  margin-left:initial;
+  // width: 12em;
+}
+.w-100 {
+  width: 100%;
+}
+.desktopView {
+  display: block;
+}
+.mobileView{
+  display: none ;
+}
+@media(max-width:1440px){
+  .margin-right-0{
+    margin-right: 0!important;
+  }
+  .header .profile {
+    padding: 6px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .header {
+    height: inherit;
+    display: block;
+    .profile-style {
+      justify-content: right;
+    }
+    .profile {
+      width: 42px;
+      height: 42px;
+      padding-top: 11px;
+    }
+  }
+  
+.desktopView {
+    display: none;
+  }
+  .mobileView{
+    display: block ;
+  }
+ 
+}

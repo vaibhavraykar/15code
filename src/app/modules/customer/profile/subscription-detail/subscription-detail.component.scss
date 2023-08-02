@@ -1,0 +1,572 @@
+.susbcription-wrapper{
+    background-color: #fff;
+    border-radius: 10px;
+    margin-top: 30px;
+    ul{
+        padding-left: 0 !important;
+    }
+    .rec-update {
+        background: transparent linear-gradient(90deg, #8BC942 0%, #03961A 100%) 0% 0% no-repeat padding-box;
+        padding: 10px;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #fff;
+        border-radius: 20px;
+       
+    }
+    .total {
+        background-color: #EEF0FB;
+        padding: 15px;
+    }
+    fieldset{
+        display: block;
+        margin-inline-start: 2px;
+        margin-inline-end: 2px;
+        padding-block-start: 0.35em;
+        padding-inline-start: 0.75em;
+        padding-inline-end: 0.75em;
+        padding-block-end: 0.625em;
+        min-inline-size: min-content;
+        border-width: 1px;
+        border-style: groove;
+        border-color: #3f91f5;
+        border-radius: 10px;
+        border-image: initial;
+    }
+    legend{
+            display: block !important;
+            padding-inline-start: 2px !important;
+            padding-inline-end: 2px !important;
+            border-width: initial !important;
+            border-style: none !important;
+            border-color: initial !important;
+            border-image: initial !important;
+            float:none !important;
+            width: auto !important;
+            margin: auto;
+    }
+    .title-head {
+        color: #3f51b5;
+        font-weight: 600;
+    }
+    .pay {
+        font-size: 12px !important;
+        font: normal normal normal 14px/24px Lato;
+        opacity: 0.6;
+        color: #292929;
+        margin-left: 5px;
+    }
+    .submit-btn {
+        background: transparent linear-gradient(270deg, #EB7203 0%, #FF922E 100%) 0% 0% no-repeat padding-box !important;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        height: 47px;
+        border-radius: 7px;
+        align-items: center;
+    }
+    .button-style {
+        .mat-mdc-outlined-button:not(:disabled) {
+            border-color: 1px solid var(--yellow) !important;
+            height: 48px !important;
+        }
+        .mat-mdc-outlined-button.mat-unthemed {
+            --mdc-outlined-button-label-text-color: var(--yellow) !important;
+        }
+    }
+    ::ng-deep {
+        .mat-icon {
+            font-size: 12px;
+            color: #03961A;
+            margin: 4px;
+            user-select: inherit !important;
+            background-repeat: inherit !important;
+            display: inherit !important;
+            fill: #03961A !important;
+            height: 14px;
+            width: 14px;
+            overflow: inherit !important;
+            font-weight: 900;
+        }
+    }
+    .pageSizeChange{
+        ::ng-deep{
+            .mat-mdc-paginator{
+            background: none!important;
+            }
+            .mat-mdc-paginator-range-actions {
+            display: none!important;
+            }
+        }
+    }
+        .subscription {  
+            .back {
+                text-align: left;
+                margin-bottom: 20px;
+                display: flex;
+                align-items: center;
+                .mat-icon {
+                    margin-right: 10px;
+                    color: #EB7203;
+                    width: 24px !important;
+                    height: 24px !important;
+                    font-size: 24px !important;
+                    font-weight: 100 !important;
+                }
+                ::ng-deep {
+                    .mat-mdc-outlined-button.mat-mdc-button-base {
+                        width: 100px !important;
+                    }
+                }
+            } 
+            .rec {
+                background: transparent linear-gradient(90deg, #8BC942 0%, #03961A 100%) 0% 0% no-repeat padding-box;
+                padding: 3px 15px;
+                font-size: 9px;
+                text-transform: uppercase;
+                color: #fff;
+                border-radius: 20px;
+                position: absolute;
+                top: -11px;
+                left: 32%;
+            }
+            .rec-update {
+                background: transparent linear-gradient(90deg, #8BC942 0%, #03961A 100%) 0% 0% no-repeat padding-box;
+                padding: 3px 15px;
+                font-size: 9px;
+                text-transform: uppercase;
+                color: #fff;
+                border-radius: 20px;
+            
+            }
+            .heading {
+                display: flex;
+                align-items: center;
+            }
+            .cart {
+                border: 1px solid #c5cbef;
+                padding: 20px 10px;
+                background-color: #fff;
+                border-radius: 7px;
+            }
+            .clicked{
+                border: 1px solid var(--blue);
+            }
+            .title-head {
+                color: #3f51b5;
+                font-weight: 600;
+            }
+            .col-md-6 {
+                position: relative;
+                margin-bottom: 20px;
+            }
+            .button-style {
+                .mat-mdc-outlined-button:not(:disabled) {
+                    border-color: 1px solid var(--yellow) !important;
+                    height: 48px !important;
+                }
+                .mat-mdc-outlined-button.mat-unthemed {
+                    --mdc-outlined-button-label-text-color: var(--yellow) !important;
+                }
+            }
+            .plans-details {
+                height: 40px;
+                .btn-style {
+                    display: flex;
+                    div {
+                        width: 35px;
+                    }
+                }
+            }
+            .btn-style {
+                top: 0;
+                right: 0;
+            }
+            .Add-btn {
+                border: 1px solid var(--yellow);
+                border-radius: 3px !important;
+                color: var(--yellow);
+                width: inherit !important;
+            }
+            .payment-btn {
+                border: 1px solid #3f51b5;
+                border-radius: 3px !important;
+                // width: inherit !important;
+                // position: absolute;
+                // right: 0;
+                color: #3f51b5;
+                
+            }
+            .payment-btn-action {
+                background-color: #3f51b5;
+                color: #fff;
+                border-radius: 3px !important;
+            }
+            .plan-description {
+                margin-top: 10px;
+                border-top: 1px dashed #c5cbef;
+                ::ng-deep .mat-mdc-button.mat-mdc-button-base {
+                    height: 30px !important;
+                }
+            }
+            .total {
+                background-color: #EEF0FB;
+                padding: 15px;
+            }
+            .code {
+                ::ng-deep {
+                    .mat-mdc-form-field-infix {
+                        min-height: inherit !important;
+                    }
+                    .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+                        padding-top: 10px !important;
+                        padding-bottom: 10px !important;
+                    }
+                    .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+                        top: 19px !important;
+                    }
+                    .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+                        --mat-mdc-form-field-label-transform: translateY( -28.75px) scale(var(--mat-mdc-form-field-floating-label-scale, 0.75));
+                        transform: var(--mat-mdc-form-field-label-transform);
+                    }
+                    .mat-mdc-button.mat-mdc-button-base {
+                        height: 43px !important;
+                    }
+                }
+            }
+            .pay {
+                font-size: 10px !important;
+                font: normal normal normal 14px/24px Lato;
+                opacity: 0.6;
+                color: #292929;
+                margin-left: 5px;
+            }        
+            ul {
+                margin: 0;
+                padding: 0;
+                li {
+                    display: flex;
+                    .col-md-7 {
+                        font-size: 12px !important;
+                        font: italic normal normal 14px/24px Lato;
+                        opacity: 0.6;
+                        color: #292929;
+                        display: flex;
+                    }
+                    .col-md-5 {
+                        font: normal normal 600 14px/24px Lato;
+                        color: #292929;
+                        font-size: 12px !important;
+                    }
+                }
+            }
+            .submit-btn {
+                background: transparent linear-gradient(270deg, #EB7203 0%, #FF922E 100%) 0% 0% no-repeat padding-box !important;
+                color: #fff;
+                padding: 10px;
+                display: flex;
+                height: 47px;
+                border-radius: 7px;
+                align-items: center;
+            }
+            .col-md-8 {
+                text-align: end;
+            }
+            ::ng-deep {
+                .mat-icon {
+                    font-size: 12px;
+                    color: #03961A;
+                    margin: 4px;
+                    user-select: inherit !important;
+                    background-repeat: inherit !important;
+                    display: inherit !important;
+                    fill: #03961A !important;
+                    height: 14px;
+                    width: 14px;
+                    overflow: inherit !important;
+                    font-weight: 900;
+                }
+            }
+            .pay-style {
+                font-size: 10px !important;
+                font: normal normal normal 12px/12px Lato !important;
+                color: #292929 !important;
+                margin-left: 5px;
+                font-weight: 900;
+            }
+            .ostyle {
+                font: normal normal 600 14px/14px Lato;
+                color: #292929;
+                font-size: 12px !important;       
+            }
+            ::ng-deep .mat-mdc-raised-button.mat-mdc-button-base {
+                color: #fff !important;
+            }
+        }
+    
+        .vas{
+            .rec {
+        background: transparent linear-gradient(90deg, #8BC942 0%, #03961A 100%) 0% 0% no-repeat padding-box;
+        padding: 3px 15px;
+        font-size: 9px;
+        text-transform: uppercase;
+        color: #fff;
+        border-radius: 20px;
+        position: absolute;
+        top: -11px;
+        left: 32%;
+    }
+    .rec-update {
+        background: transparent linear-gradient(90deg, #8BC942 0%, #03961A 100%) 0% 0% no-repeat padding-box;
+        padding: 3px 15px;
+        font-size: 9px;
+        text-transform: uppercase;
+        color: #fff;
+        border-radius: 20px;
+       
+    }
+    .heading {
+        display: flex;
+        align-items: center;
+    }
+    .cart {
+        border: 1px solid #c5cbef;
+        padding: 20px 10px;
+        background-color: #fff;
+        border-radius: 7px;
+        margin-bottom: 20px;
+    }
+    .clicked{
+        
+        border: 1px solid var(--blue);
+    }
+    .title-head {
+        color: #3f51b5;
+        font-weight: 600;
+    }
+    .col-md-6 {
+        position: relative;
+        margin-bottom: 20px;
+    }
+    .button-style {
+        .mat-mdc-outlined-button:not(:disabled) {
+            border-color: 1px solid var(--yellow) !important;
+            height: 48px !important;
+        }
+        .mat-mdc-outlined-button.mat-unthemed {
+            --mdc-outlined-button-label-text-color: var(--yellow) !important;
+        }
+    }
+    .plans-details {
+        // position: relative;
+
+        .btn-style {
+            display: flex;
+            div {
+                width: 35px;
+            }
+        }
+    }
+    .btn-style {
+        // position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .Add-btn {
+        border: 1px solid var(--yellow);
+        border-radius: 3px !important;
+        color: var(--yellow);
+        width: inherit !important;
+    }
+    .payment-btn {
+        border: 1px solid #3f51b5;
+        border-radius: 3px !important;
+        // width: inherit !important;
+        // position: absolute;
+        // right: 0;
+        color: #3f51b5;
+        
+    }
+    .payment-btn-action {
+        background-color: #3f51b5;
+        color: #fff;
+        border-radius: 3px !important;
+        width: inherit !important;
+    }
+    .plan-description {
+        margin-top: 10px;
+        ::ng-deep .mat-mdc-button.mat-mdc-button-base {
+            height: 30px !important;
+        }
+    }
+    .total {
+        background-color: #EEF0FB;
+        padding: 15px;
+    }
+    .code {
+        ::ng-deep {
+            .mat-mdc-form-field-infix {
+                min-height: inherit !important;
+            }
+            .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+                padding-top: 10px !important;
+                padding-bottom: 10px !important;
+            }
+            .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+                top: 19px !important;
+            }
+            .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+                --mat-mdc-form-field-label-transform: translateY( -28.75px) scale(var(--mat-mdc-form-field-floating-label-scale, 0.75));
+                transform: var(--mat-mdc-form-field-label-transform);
+            }
+            .mat-mdc-button.mat-mdc-button-base {
+                height: 43px !important;
+            }
+        }
+    }
+    .pay {
+        font-size: 10px !important;
+        font: normal normal normal 14px/24px Lato;
+        opacity: 0.6;
+        color: #292929;
+        margin-left: 5px;
+    }
+    
+    
+    ul {
+        margin: 0;
+        padding: 0;
+        li {
+            display: flex;
+            .col-md-7 {
+                font-size: 12px !important;
+                font: italic normal normal 14px/24px Lato;
+                opacity: 0.6;
+                color: #292929;
+                display: flex;
+            }
+            .col-md-5 {
+                font: normal normal 600 14px/24px Lato;
+                color: #292929;
+                font-size: 12px !important;
+            }
+        }
+    }
+    .submit-btn {
+        background: transparent linear-gradient(270deg, #EB7203 0%, #FF922E 100%) 0% 0% no-repeat padding-box !important;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        height: 47px;
+        border-radius: 7px;
+        align-items: center;
+    }
+    .col-md-8 {
+        text-align: end;
+    }
+    ::ng-deep {
+        .mat-icon {
+            font-size: 12px;
+            color: #03961A;
+            margin: 4px;
+            user-select: inherit !important;
+            background-repeat: inherit !important;
+            display: inherit !important;
+            fill: #03961A !important;
+            height: 14px;
+            width: 14px;
+            overflow: inherit !important;
+            font-weight: 900;
+        }
+    }
+    .pay-style {
+        font-size: 10px !important;
+        font: normal normal normal 12px/12px Lato !important;
+        color: #292929 !important;
+        margin-left: 5px;
+        font-weight: 900;
+    }
+    .ostyle {
+        font: normal normal 600 14px/14px Lato;
+        color: #292929;
+        font-size: 12px !important;       
+    }
+    ::ng-deep .mat-mdc-raised-button.mat-mdc-button-base {
+        color: #fff !important;
+        // border: 2px solid var(--yellow) !important;
+    }
+        }
+.back {
+    text-align: left;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    .mat-icon {
+        margin-right: 10px;
+        color: #EB7203;
+    }
+    ::ng-deep {
+        .mat-mdc-outlined-button.mat-mdc-button-base {
+            width: 100px !important;
+        }
+    }
+}
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+          
+            table .mat-mdc-header-cell {
+              font-size: 12px;
+              font-weight: bold;
+              font-family: "Lato", sans-serif !important;
+              background-color: var(--lblue3) !important;
+              color: var(--dgrey);
+            }
+            table .mdc-data-table__cell {
+              font-size: 12px;
+              font-family: "Lato";
+              color: #727272;
+            }
+            .mat-mdc-table {
+              border: 1px solid var(--lblue3) !important;
+              border-top-left-radius: 5px;
+              border-top-right-radius: 5px;
+            }
+          
+            ::ng-deep {
+              .mat-mdc-menu-content {
+                padding: 0 !important;
+              }
+          
+              .mat-mdc-paginator-page-size {
+                display: none !important;
+              }
+              .mat-mdc-icon-button.mat-mdc-button-base {
+                width: 25px !important;
+                height: 25px !important;
+              }
+              .mat-mdc-paginator-container {
+                display: inherit !important;
+                align-items: inherit !important;
+                justify-content: inherit !important;
+                padding: 4px 8px;
+                flex-wrap: wrap-reverse;
+                width: 100%;
+              }
+              .mdc-icon-button {
+                padding: 0 !important;
+              }
+            }
+            .pagination {
+              display: flex;
+              align-items: center;
+              justify-content: end;
+            }
+
+            .activeQuote{
+                color:orange;
+                cursor: pointer;
+            }
+          }
+}

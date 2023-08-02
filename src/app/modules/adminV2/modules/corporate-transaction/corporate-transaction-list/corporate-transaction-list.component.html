@@ -1,0 +1,7 @@
+<div class="">
+    <span class="headingstyle">Transaction List</span>
+</div>
+<div class="container-wrapper mt-10 customer-list">
+    <app-corporate-transaction-table #customTable [tableStructure]="tableStructure"
+    (combinedEmitter)="tableEventEmitter($event)"></app-corporate-transaction-table>
+</div>

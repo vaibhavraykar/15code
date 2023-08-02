@@ -1,0 +1,29 @@
+<div class="loader" *ngIf="!showSuccess&&!(loadingService.getLoading())">
+    <div class="dot1"> </div>
+    <div class="dot2"></div>
+    <div class="dot3"></div>
+</div>
+<app-header></app-header>
+<div class="success mt-40 col-md-6 m-auto" style="height:60%" *ngIf="showSuccess">
+    <div class="congratulation-wrapper white-bg text-center">
+        <div>
+            <div>
+                <img src="../../../../../assets/images/factoring/Congratulatins.svg" />
+            </div>
+            <div class="f-22 fontBold blueText mt-10">
+                Congratulation
+            </div>
+            <div class="f-16 fontRegular fw-600 dgrey mt-20">
+                Your payment has been successfully completed!
+            </div>
+            <div class="text-center col-md-6 m-auto">
+                <div class="mt-40 text-center">
+                    <div  
+                        class="primary-btn f-16 w100 cpointer"
+                        (click)="gotoKyc()"
+                    >PROCEED</div>
+                </div>
+            </div>   
+        </div>   
+    </div>
+</div>

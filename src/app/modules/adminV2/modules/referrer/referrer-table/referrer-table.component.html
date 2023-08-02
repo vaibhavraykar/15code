@@ -1,0 +1,239 @@
+<div class="row referrer-container">
+  <div class="search-box col-md-3">
+    <mat-form-field appearance="outline" class="w-100">
+      <input matInput type="text" placeholder="Search in table" (keyup)="applyFilter($event)" />
+      <img src="../../../../../assets/images/adminV2/carbon_search.svg" />
+    </mat-form-field>
+  </div>
+  <ng-container>
+    <div class="col-12 col-md-9 d-flex justify-end">
+      <div class="row">
+        <div class="transactionType" *ngIf="tableStructure?.transaction?.showTransType">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select [(ngModel)]="tableStructure.transaction.selectedTransactionType" placeholder="Transaction Type"
+              (selectionChange)="transactionType($event)">
+              <mat-option *ngFor="let item of tableStructure?.transaction?.transactionsOption" [value]="item.value">
+                {{ item.viewValue }}
+              </mat-option>
+            </mat-select>
+            <img src="../../../../../assets/images/adminV2/darrow.svg" />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</div>
+<div class="table-wrapper">
+  <table mat-table [dataSource]="tableStructure.dataSource" class="mat-elevation-z8 f-12" style="min-width: max-content" matSort
+    (matSortChange)="announceSortChange($event)" matSortDisableClear>
+    <ng-container *ngFor="let col of tableStructure.displayColumns" [matColumnDef]="col">
+      <container-element [ngSwitch]="col">
+        <ng-container *ngSwitchCase="'more'">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="../../../../../assets/images/adminV2/more-filter.svg" #matMenuTriggerFilter
+              [matMenuTriggerFor]="columnMenu" (menuOpened)="onMenuOpened()" (menuClosed)="onMenuClosed()" />
+          </th>
+          <td mat-cell *matCellDef="let element"></td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'Total References'">
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">Total References</div>
+          </th>
+          <td mat-cell *matCellDef="let element"><span [ngClass]="{'planAndPayment' : element['Total References'] != 0}"
+              (click)="element['Total References'] != 0 ? getReferrerList('ALL',element) : ''">{{element['Total References']}}</span></td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'Approved References'">
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">Approved References</div>
+          </th>
+          <td mat-cell *matCellDef="let element"><span [ngClass]="{'planAndPayment' : element['Approved References'] != 0}"
+            (click)="element['Approved References'] != 0 ? getReferrerList('ACTIVE',element) : ''">
+         {{element['Approved References']}}</span></td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'Rejected References'">
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">Rejected References</div>
+          </th>
+          <td mat-cell *matCellDef="let element"><span
+              [ngClass]="{'planAndPayment' : element['Rejected References'] != 0}"
+              (click)="element['Rejected References'] != 0 ? getReferrerList('REJECTED',element) : ''">
+              {{element['Rejected References']}}</span></td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'Pending References'">
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">Pending References</div>
+          </th>
+          <td mat-cell *matCellDef="let element"><span
+              [ngClass]="{'planAndPayment' : element['Pending References'] != 0}"
+              (click)="element['Pending References'] != 0 ? getReferrerList('PENDING',element) : ''">
+              {{element['Pending References']}}</span></td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'KYC'">
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">KYC</div>
+          </th>
+          <td mat-cell *matCellDef="let element"><span [ngClass]="{'planAndPayment' : element['KYC'] != 'Not Updated'}"
+            (click)=" element['KYC'] != 'Not Updated' ? referrerKyc(element) : ''">{{element['KYC']}}</span></td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'select'">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? toggleAllRows() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'Actions'">
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">Actions</div>
+          </th>
+          <td mat-cell *matCellDef="let element"><span class="planAndPayment" (click)="viewReferrer(element)">Details</span></td>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">
+              {{ namingColumn(col) }}
+              <div class="img-style">
+                <img src="../../../../../assets/images/adminV2/fluent_arrow.svg" mat-sort-header />
+                <!-- <img src="../../../../../assets/images/adminV2/filter.svg" #matMenuTriggerFilter
+                  [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{ filter: col }" /> -->
+                <div class="img-notification" *ngIf="isFilterApplied(col)">
+                  <span>{{ isFilterApplied(col) }}</span>
+                </div>
+              </div>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element[col] }}</td>
+        </ng-container>
+      </container-element>
+    </ng-container>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="10" style="text-align: center">
+        No Record Found.
+      </td>
+    </tr>
+
+    <tr mat-header-row *matHeaderRowDef="tableStructure.displayColumns"></tr>
+    <tr #tableRow mat-row *matRowDef="let row; columns: tableStructure.displayColumns"
+      [ngClass]="checkSelection(row) ? 'highlight' : ''"></tr>
+  </table>
+</div>
+<div class="pagination_section">
+  <mat-paginator #paginator hidden [length]="tableStructure.page.length" [pageSize]="tableStructure.page.pageSize"
+    [pageSizeOptions]="[ 10, 25, 50,100]" [showFirstLastButtons]="true" [ngTemplateOutlet]="customPaginator"
+    (page)="paginationEmitter($event)" [ngTemplateOutletContext]="{
+      length: tableStructure.page.length,
+      pageSize: tableStructure.page.pageSize,
+      pageIndex: tableStructure.page.pageIndex
+    }">
+  </mat-paginator>
+</div>
+
+<ng-template #customPaginator let-length="length" let-pageSize="pageSize" let-pageIndex="pageIndex">
+  <div class="paginator-container mt-10">
+    <div class="paginator-page-size f-12">
+      Rows Per Page
+      <mat-form-field appearance="outline">
+        <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+        <mat-select [(value)]="paginator.pageSize" (selectionChange)="
+          changeEntriesSize($event)
+          ">
+          <mat-option *ngFor="let option of paginator.pageSizeOptions" [value]="option">{{ option }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="paginator-buttons" *ngIf="paginator.length > paginator.pageSize">
+      <button mat-icon-button [disabled]="paginator.pageIndex === 0" (click)="paginator.previousPage()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <div class="paginator-range">
+        {{ pageIndex * pageSize + 1 }} - {{ ((pageIndex + 1) * pageSize) > paginator.length
+        ?paginator.length:((pageIndex + 1) * pageSize)}} Of
+        {{ paginator.length }}
+      </div>
+      <button mat-icon-button [disabled]="
+          paginator.pageIndex >= paginator.length / paginator.pageSize - 1
+        " (click)="paginator.nextPage()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<mat-menu #columnMenu="matMenu" class="menuColumnFilter">
+  <div>
+    <p class="pstyle">Select the columns</p>
+    <div class="data-sec">
+      <ng-container *ngFor="let item of selectedColumns; let i = index" #menuItems>
+        <mat-checkbox style="display: block" [checked]="item.selected" (click)="$event.stopPropagation()"
+          (change)="onColumnSelect($event, item)" (keydown)="onMenuKeyDown($event, i)">{{ namingColumn(item.name)
+          }}</mat-checkbox>
+      </ng-container>
+    </div>
+    <div class="addPd">
+      <button mat-raised-button class="primary-btn f-18" (click)="saveColumnFilter()">
+        Save
+      </button>
+    </div>
+  </div>
+
+
+</mat-menu>
+
+<mat-menu #filterMenu="matMenu" (click)="$event.stopPropagation()" class="menuColumnFilter">
+  <ng-template matMenuContent let-filter="filter">
+    <container-element [ngSwitch]="namingColumn(filter)">
+      <div>
+        <ng-template ngSwitchCase="Country">
+          <p class="pstyle">Filter {{ namingColumn(filter) }}</p>
+          <div class="data-sec">
+            <input matInput type="text" placeholder="search" (click)="
+                getCountries$(filter).filterCountries$($event);
+                $event.stopPropagation()
+              " (input)="getCountries$(filter).filterCountries$($event)" />
+            <ng-container *ngFor="
+                let item of getCountries$(filter)?.countries$ | async;
+                let i = index
+              " #menuItems>
+              <mat-checkbox style="display: block" [checked]="item.selected" (click)="$event.stopPropagation()"
+                (change)="getCountries$(filter)?.countrySelected($event, item)">{{ item.name }}</mat-checkbox>
+            </ng-container>
+          </div>
+          <div class="addPd2">
+            <span class="clear-filter" (click)="getCountries$(filter)?.clearFilters()" style="cursor: pointer">Clear
+              Filters</span>
+            <button mat-raised-button (click)="getCountries$(filter)?.applyFilters()"
+              class="primary-btn f-18 filter-btn">
+              Filter
+            </button>
+          </div>
+        </ng-template>
+        <ng-template ngSwitchDefault>
+          <p class="pstyle">Filter {{ namingColumn(filter) }}</p>
+          <div class="data-sec">
+            <!-- <input matInput type="text" placeholder="search"
+              (click)="getCountries$(filter).filterCountries$($event);$event.stopPropagation();"
+              (input)="getCountries$(filter).filterCountries$($event)"> -->
+            <!-- <ng-container *ngFor="let item of  getCountries$(filter)?.countries$|async; let i = index;" #menuItems>
+              <mat-checkbox style="display: block;" [checked]="item.selected" (click)="$event.stopPropagation()"
+                (change)=" getCountries$(filter)?.countrySelected($event,item)">{{item.name}}</mat-checkbox>
+            </ng-container> -->
+          </div>
+          <div class="addPd2">
+            <span class="clear-filter" (click)="getCountries$(filter)?.clearFilters()" style="cursor: pointer">Clear
+              Filters</span>
+            <button mat-raised-button (click)="getCountries$(filter)?.applyFilters()"
+              class="primary-btn f-18 filter-btn">
+              Filter
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </container-element>
+  </ng-template>
+</mat-menu>

@@ -1,0 +1,97 @@
+<div class="view-transaction" style="padding: 20px 10px;">
+    <div class="mt-30 px-5 py-2 m-auto">
+        <!-- <span class="f-22 fontBold dgrey">
+            View Transaction
+        </span> -->
+        <span class="f-14 fontBold dgrey cpointer back d-flex align-items-center" (click)="back()">
+            <mat-icon>keyboard_backspace</mat-icon> Back
+        </span>
+        <div class="boxShadow">
+            <div class="transaction d-flex" style="margin-top: 30px;">
+                <div class="col-md-11">
+                    <div class="yellow-txt f-14 fontBold">Transaction ID</div>
+                    <div class="label-text">CU0041213546541213</div>
+                </div>
+                <div class="col-md-1" style="text-align: center;">
+                    <div class="imgDiv" (click)="editTransaction()">
+                        <img src="../../../../../assets/images/icons/action-edit.svg" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="mt-20" style="padding: 10px;">
+                <span class="f-14 fontBold blueText" style="margin-top: 20px;">Product Details </span>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Currency</div>
+                        <div class="info">1000</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Amount</div>
+                        <div class="info">10000</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">India</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Issuance date</div>
+                        <div class="info">10/01/2023</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Last shipment date</div>
+                        <div class="info">10/01/2023</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Negotiation date</div>
+                        <div class="info">10/01/2023</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Transaction Validity *</div>
+                        <div class="info">10/01/2023</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Type of good</div>
+                        <div class="info">Type</div>
+                    </div>
+                </div>
+                <!-- <span class="f-14 fontBold blueText" style="margin-top: 20px;">Beneficiary Details </span> -->
+                <div class="row mt-10" style="margin-bottom: 30px;">
+                    <div class="col-md-3">
+                        <div class="label-text">Tenor</div>
+                        <div class="info">Input</div>
+                    </div>
+
+                </div>
+               <span class="f-14 fontBold blueText" >Shipment Details </span>
+               <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Country of port of loading</div>
+                        <div class="info">India</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Port of loading</div>
+                        <div class="info">India</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country of port of discharge</div>
+                        <div class="info">India</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Port of discharge</div>
+                        <div class="info">India</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">ESG Compliant</div>
+                        <div class="info">yes</div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>

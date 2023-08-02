@@ -1,0 +1,59 @@
+<div class="active-transaction">
+    <div class="d-flex w-100 table-filters">
+        <!-- <div class="col-md-10 search">
+            <input type="text" placeholder="Search"
+            (input)="search($event)">
+            <mat-icon>search</mat-icon>
+        </div>
+        <div class="col-md-2 search-option">
+            <img src="../../../../../../assets/images/icons/filter.svg" (click)="filter()"/>
+            <img src="../../../../../../assets/images/icons/refresh.svg" (click)="reset()"/>
+            <img src="../../../../../../assets/images/icons/download.svg" (click)="downloadCSV()"/>
+        </div> -->
+        <div class="search-bar "> 
+            <form [formGroup]="searchForm">
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput type="text" placeholder="Search"
+                formControlName="searchInput"
+                (input)="search($event)">
+                  <mat-icon matPrefix>search</mat-icon>
+              </mat-form-field>
+            </form>
+            </div>
+            <div class=" search-option">
+              <img
+              (click)="filter()"
+                src="../../../../../assets/images/icons/filter.svg"
+              />
+              <img
+              (click)="reset()"
+                src="../../../../../../assets/images/icons/refresh.svg"
+              />
+              <img
+                (click)="downloadCSV()"
+                src="../../../../../../assets/images/icons/download.svg"
+              />
+            </div>
+    </div>
+    <div class="row">
+        <span class="f-22 fontBold dgrey mt-30 mb-3">Saved Transactions</span>
+        <div class="mt-30 table-view">
+  
+  <app-table 
+    [dataSource]="newDataSource" 
+    [displayedColumns]="displayColumns"  
+    [viewComment]="true"
+    [viewEdit]="true"
+    [showDownload]="true"
+    [pageData]="page"
+    [totalItems]="dataLength"
+    [viewDelete]="true"
+    (editSelected)="editSelected($event)"
+    (deleteSelected)="deleteSelected($event)"
+    (downloadSelected)="downloadSelected($event)"
+    (pagePreviousHandler)="pagePrevious($event)"
+    (pageNextHandler)="pageNext($event)"
+  ></app-table>
+        </div>
+    </div>
+</div>

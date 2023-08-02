@@ -1,0 +1,145 @@
+<div class="credits">
+    <div class="f-22 fontBold dgrey mt-20 mb-3 m-auto" style="text-align: center;">Credits & Transactions</div>
+    <div class="row" style="margin: 10px;">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="row white-bg">
+                <div class="col-md-6 add-rborder">
+                    <div class="f-12 lgrey">Total transactions</div>
+                    <div class="f-14 yellow-txt">{{totalTransactions}}</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="f-12 lgrey">Credits Utilized</div>
+                    <div class="f-14 yellow-txt">{{totalCredits}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="d-flex w-100 table-filters mt-20">
+        <div class="search-bar">
+            <form>
+                <mat-form-field appearance="outline" class="w-100">
+                    <input matInput type="text" placeholder="Search"
+                        (input)="search($event)"
+                    >
+                    <mat-icon matPrefix>search</mat-icon>
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="search-option">
+            <img src="../../../../../assets/images/icons/filter.svg"
+                (click)="filter()"
+            />
+            <img src="../../../../../../assets/images/icons/refresh.svg"
+                (click)="refresh()"
+            />
+            <img src="../../../../../../assets/images/icons/download.svg"
+                (click)="download()"
+            />
+        </div>
+    </div>
+    <div class="active-transaction">
+        <div class="mt-30 table-container" >
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef> Transaction ID </th>
+                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef> Date </th>
+                  <td mat-cell *matCellDef="let element"> {{element.date | date:'dd-MM-yyyy'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="type">
+                  <th mat-header-cell *matHeaderCellDef> Transaction Type </th>
+                  <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="country">
+                  <th mat-header-cell *matHeaderCellDef> Country </th>
+                  <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="ccy">
+                    <th mat-header-cell *matHeaderCellDef>Currency </th>
+                    <td mat-cell *matCellDef="let element"> {{element.ccy}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Transaction Status </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div>
+                          {{element.status}}
+                            <!-- <button>Accepted</button> -->
+                        </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="use">
+                    <th mat-header-cell *matHeaderCellDef> Credits Used </th>
+                    <td mat-cell *matCellDef="let element"> {{element.use}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="savings">
+                    <th mat-header-cell *matHeaderCellDef> Savings </th>
+                    <td mat-cell *matCellDef="let element"> {{element.savings}} </td>
+                  </ng-container>
+
+                <tr class="mat-row" *matNoDataRow>
+                        <td
+                            class="mat-cell text-center"
+                            [attr.colspan]="displayedColumns.length"
+                        >
+                            No Records Found.
+                        </td>
+                </tr>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+        </div>
+        <div class="d-flex pageSize align-items-center">
+                <div class="pageSizeChange justify-content-start d-flex">
+                    <mat-paginator  (page)= "onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]" [pageSize]="page.size"
+                        *ngIf="totalItems>5"
+                    >
+                    </mat-paginator>
+                </div>
+                <div class="">
+                    <div
+                    class="pagination  justify-content-end"
+                    *ngIf="dataSource?.length > 0"
+                >
+                    <div class="f-12 fontBold grey mx-3">
+                    {{ getPage() + " " }} of {{ page?.totalElements }}
+                    </div>
+                    <mat-icon
+                    class="pointer"
+                    (click)="pagePrevious()"
+                    [style.color]="page?.index === 0 ? '#292929a1' : '#EB7203'"
+                    [style.pointer-events]="page?.index === 0 ? 'none' : 'auto'"
+                    >
+                    arrow_back_ios
+                    </mat-icon>
+                    <mat-icon
+                    class="pointer"
+                    (click)="pageNext()"
+                    [style.pointer-events]="last === page?.totalElements ? 'none' : 'auto'"
+                    [style.color]="last === page?.totalElements ? '#292929a1' : '#EB7203'"
+                    [style.pointer-events]="last === page?.totalElements ? 'none' : 'auto'"
+                    style="margin-left: 10px"
+                    >
+                    arrow_forward_ios
+                    </mat-icon>
+                </div>
+                </div>
+                </div>
+    </div>
+
+</div>

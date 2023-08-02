@@ -1,0 +1,30 @@
+<div class="text-center cpopup">
+    <div class="heading">Add Comments
+        <span class="circle-icon">
+            <mat-icon mat-dialog-close>
+                <img src="../../../assets/images/icons/Icon-close.svg">
+            </mat-icon>
+        </span>
+    </div>
+    <div class="" style="padding: 15px;">
+        <img src="../../../assets/images/icons/logo.png" alt="" style="height:30px;width:50px">
+    </div>
+    <div style="padding: 0 20px 20px 20px; text-align: left;">
+        <div> 
+            <mat-form-field>
+                <textarea matInput  maxlength="255" rows="4" [formControl]="form">
+                </textarea>
+                <mat-hint>Max 255 character</mat-hint>
+                <mat-error *ngIf="form?.hasError('required')">
+                    Max 255 character
+                </mat-error>
+                <mat-error *ngIf="form?.hasError('maxlength')">
+                    Max 255 character
+                </mat-error>
+            </mat-form-field>
+         </div>
+         <div class="update-btn">                       
+            <app-button  [name]="'Proceed'" [class]="'primary-btn f-16'" [type]="'submit'" (click)="cancelTransaction()" ></app-button>
+        </div>
+    </div>
+</div>

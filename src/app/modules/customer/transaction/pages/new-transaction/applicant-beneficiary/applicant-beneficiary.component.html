@@ -1,0 +1,528 @@
+<div class="applicant-beneficiary-details px-4" >
+	<h6 class="title text-center mb-32">
+		Fill in the details for Applicant & Beneficiary
+	</h6>
+	<form [formGroup]="form">
+
+		<!-- User Type Field -->
+		<div class="col-md-6" *ngIf="subscriberType!='BANK'&&product!='BILLAVALISATION'">
+			<div class="">
+				<div class="col-md-12">
+					<mat-radio-group aria-label="Select an option"
+						(change)="selelctType($event)"
+						formControlName="selecteduserType"
+					>
+						<mat-radio-button value="Applicant"
+						>
+							Applicant
+						</mat-radio-button>
+						<mat-radio-button value="Beneficiary"
+						>
+							Beneficiary
+						</mat-radio-button>
+					</mat-radio-group>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6" *ngIf="subscriberType!='BANK'&&product=='BILLAVALISATION'">
+			<div class="">
+				<div class="col-md-12">
+					<mat-radio-group aria-label="Select an option"
+						(change)="selelctType($event)"
+						formControlName="selecteduserType"
+					>
+						<mat-radio-button value="Beneficiary"
+							[checked]="true"
+						>
+							Beneficiary
+						</mat-radio-button>
+					</mat-radio-group>
+				</div>
+			</div>
+		</div>
+
+	<!-- Applicant Details -->
+	<div class="mt-20 fw-700 f-16">Applicant Details</div>
+	<div class="row mt-20" *ngIf="selectedType=='Beneficiary'||subscriberType=='BANK'||product=='BILLAVALISATION'">
+		<!-- Applicant Country Name -->
+		<div class="col-md-4">
+			<mat-form-field class="w100" appearance="outline">
+				<mat-label>Country</mat-label>
+
+				<input
+					type="text"
+					class="f-14"
+					matInput
+					[matAutocomplete]="applicantCountry"
+					formControlName="applicantCountryName"
+					[value]="form.controls['applicantCountryName'].value.toUpperCase()"
+                    (input)="applicantCountryChange($event)"
+					(change)="checkAutocomplteExists($event,'applicantCountryName')"
+				/>
+				<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+				<mat-autocomplete
+					autoActiveFirstOption
+					#applicantCountry="matAutocomplete"
+				>
+					<mat-option
+						*ngFor="let item of applicantCountryOptions"
+						[value]="item"
+					>
+						{{ item }}
+					</mat-option>
+				</mat-autocomplete>
+				<mat-error
+                    *ngIf="form.controls['applicantCountryName'].hasError('required')"
+                    >Country required</mat-error>
+			</mat-form-field>
+		</div>
+		<!-- Applicant Name -->
+		<div class="col-md-4">
+			<mat-form-field class="w100" appearance="outline">
+				<mat-label>Applicant's Name</mat-label>
+
+				<input type="text" class="f-14" matInput
+					formControlName="applicantName"
+				/>
+				<mat-error
+                    *ngIf="form.controls['applicantName'].hasError('required')"
+                    >Applicant Name required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['applicantName'].hasError('pattern')"
+                    >Please enter valid Applicant Name</mat-error>
+			</mat-form-field>
+		</div>
+		<!-- Applicant Contact Person -->
+		<div class="col-md-4">
+			<mat-form-field class="w100" appearance="outline">
+				<mat-label>Contact Person</mat-label>
+
+				<input type="text" class="f-14" matInput
+					formControlName="applicantContactPerson"
+				/>
+				<mat-error
+                    *ngIf="form.controls['applicantContactPerson'].hasError('required')"
+                    >Contact Person name required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['applicantContactPerson'].hasError('pattern')"
+                    >Please enter valid Contact Person name</mat-error>
+			</mat-form-field>
+		</div>
+		<!-- Applicant Contact Person Email -->
+		<div class="col-md-4">
+			<mat-form-field class="w100" appearance="outline">
+				<mat-label>Contact Person's Email</mat-label>
+
+				<input type="email" class="f-14" matInput
+					formControlName="applicantContactPersonEmail"
+				/>
+				<mat-error
+                    *ngIf="form.controls['applicantContactPersonEmail'].hasError('required')"
+                    >Contact Person Email required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['applicantContactPersonEmail'].hasError('pattern')"
+                    >Please enter valid Email</mat-error>
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="row mt-20"  *ngIf="selectedType=='Applicant'&&subscriberType!='BANK'&&product!='BILLAVALISATION'">
+		<!--Applicant Country -->
+		<div class="col-md-4">
+			<mat-form-field class="w100" appearance="outline">
+				<mat-label>Country</mat-label>
+
+				<input
+					type="text"
+					class="f-14"
+					matInput
+					[matAutocomplete]="applicantCountry"
+					formControlName="applicantCountryName"
+                    (input)="applicantCountryChange($event)"
+					[readonly]="true"
+				/>
+				<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+				<mat-autocomplete
+					autoActiveFirstOption
+					#applicantCountry="matAutocomplete"
+				>
+					<mat-option
+						*ngFor="let item of applicantCountryOptions"
+						[value]="item"
+					>
+						{{ item }}
+					</mat-option>
+				</mat-autocomplete>
+				<mat-error
+                    *ngIf="form.controls['applicantCountryName'].hasError('required')"
+                    >Country required</mat-error>
+			</mat-form-field>
+		</div>
+		<!-- Applicant Group Company -->
+		<div class="col-md-4">
+			<mat-form-field class="w100" appearance="outline">
+				<mat-label>Group Companies</mat-label>
+
+				<input
+					type="text"
+					class="f-14"
+					matInput
+					formControlName="applicantGroupCompany"
+					[matAutocomplete]="groupcompany"
+          (input)="applicantGroupCompanyChange($event)"
+					(change)="checkAutocomplteExists($event,'applicantGroupCompany')"
+				/>
+				<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+				<mat-autocomplete
+					autoActiveFirstOption
+					#groupcompany="matAutocomplete"
+					(optionSelected)="applicantGroupCompanySelected($event)"
+				>
+					<mat-option
+						*ngFor="let item of applicantGroupcompanyOptions"
+						[value]="item.companyName"
+					>
+						{{ item.companyName }}
+					</mat-option>
+				</mat-autocomplete>
+				<mat-error
+				*ngIf="form.controls['applicantGroupCompany'].hasError('required')"
+				>Group companies required</mat-error>
+			</mat-form-field>
+		</div>
+	</div>
+
+
+		<!-- Beneficiary Details -->
+		<div class="mt-20 fw-700 f-16">
+			Beneficiary details
+		</div>
+		<div class="row mt-20" *ngIf="(selectedType=='Applicant'&&product!='BILLAVALISATION') ||subscriberType=='BANK'">
+			<!-- Beneficiary Country -->
+			<div class="col-md-4">
+				<mat-form-field  class="w100" appearance="outline">
+					<mat-label>Country</mat-label>
+
+					<input type="text" class="f-14" matInput
+						[matAutocomplete]="beneficiaryCountry"
+						formControlName="beneficiaryCountryName"
+						(input)="beneficiaryCountryChange($event)"
+						[value]="form.controls['beneficiaryCountryName'].value.toUpperCase()"
+						(change)="checkAutocomplteExists($event,'beneficiaryCountryName')"
+						>
+						<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+					<mat-autocomplete autoActiveFirstOption #beneficiaryCountry="matAutocomplete">
+						<mat-option *ngFor="let item of beneficiaryCountryOptions" [value]="item">
+							{{item}}
+						</mat-option>
+					</mat-autocomplete>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryCountryName'].hasError('required')"
+                    >Beneficiary country required</mat-error>
+				</mat-form-field>
+			</div>
+			<!-- Beneficiary Name -->
+			<div class="col-md-4">
+				<mat-form-field class="w100" appearance="outline">
+					<mat-label>Beneficiary's Name</mat-label>
+
+					<input type="text" class="f-14" matInput
+						formControlName="beneficiaryName"
+					/>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryName'].hasError('required')"
+                    >Beneficiary Name required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryName'].hasError('pattern')"
+                    >Please enter valid Beneficiary Name</mat-error>
+				</mat-form-field>
+			</div>
+			<!-- Beneficiary Contact Person -->
+			<div class="col-md-4">
+				<mat-form-field class="w100" appearance="outline">
+					<mat-label>Contact Person</mat-label>
+
+					<input type="text" class="f-14" matInput
+						formControlName="beneficiaryContactPerson"
+					/>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryContactPerson'].hasError('required')"
+                    >Contact person name required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryContactPerson'].hasError('pattern')"
+                    >Please enter valid Contact person name</mat-error>
+				</mat-form-field>
+			</div>
+			<!-- Beneficiary Contact Person Email -->
+			<div class="col-md-4">
+				<mat-form-field class="w100" appearance="outline">
+					<mat-label>Contact Person's Email</mat-label>
+
+					<input type="email" class="f-14" matInput
+						formControlName="beneficiaryContactPersonEmail"
+					/>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryContactPersonEmail'].hasError('required')"
+                    >Contact Person Email required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryContactPersonEmail'].hasError('pattern')"
+                    >Please enter valid Email </mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="row mt-20"  *ngIf="(selectedType=='Beneficiary'||product=='BILLAVALISATION')&&subscriberType!='BANK'">
+			<!-- Beneficiary Country -->
+			<div class="col-md-4">
+				<mat-form-field  class="w100" appearance="outline">
+					<mat-label>Country</mat-label>
+
+					<input type="text" class="f-14" matInput
+						[matAutocomplete]="beneficiaryCountry"
+						formControlName="beneficiaryCountryName"
+						(input)="beneficiaryCountryChange($event)"
+						[readonly]="true"
+						>
+						<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+					<mat-autocomplete autoActiveFirstOption #beneficiaryCountry="matAutocomplete">
+						<mat-option *ngFor="let item of beneficiaryCountryOptions" [value]="item">
+							{{item}}
+						</mat-option>
+					</mat-autocomplete>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryCountryName'].hasError('required')"
+                    >Beneficiary country required</mat-error>
+				</mat-form-field>
+			</div>
+			<!-- Beneficiary Group Company -->
+			<div class="col-md-4">
+				<mat-form-field class="w100" appearance="outline">
+					<mat-label>Group Companies</mat-label>
+					<input
+						type="text"
+						class="f-14"
+						matInput
+						formControlName="beneficiaryGroupCompany"
+						[matAutocomplete]="groupcompanyB"
+						(input)="beneficiaryGroupCompanyChange($event)"
+						(change)="checkAutocomplteExists($event,'beneficiaryGroupCompany')"
+					/>
+					<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+					<mat-autocomplete
+						autoActiveFirstOption
+						#groupcompanyB="matAutocomplete"
+						(optionSelected)="beneficiaryGroupCompanySelected($event)"
+					>
+						<mat-option
+							*ngFor="let item of beneficiaryGroupcompanyOptions"
+							[value]="item.companyName"
+						>
+							{{ item.companyName }}
+						</mat-option>
+					</mat-autocomplete>
+						<mat-error
+						*ngIf="form.controls['beneficiaryGroupCompany'].hasError('required')"
+						>Group companies required</mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<!-- Beneficiary's bank Details -->
+		<div class="mt-20 fw-700 f-16">
+			Beneficiary's bank details
+		</div>
+		<div class="row mt-20">
+			<!-- Beneficiary Bank Swift Code -->
+			<div class="col-md-4">
+				<mat-form-field class="w100" appearance="outline">
+					<mat-label>Swift Code</mat-label>
+
+					<input type="text" class="f-14" matInput
+						formControlName="beneficiaryBankSwiftCode"
+					/>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryBankSwiftCode'].hasError('required')"
+                    >Swift Code required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryBankSwiftCode'].hasError('pattern')"
+                    >Please enter valid Swift Code</mat-error>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryBankSwiftCode'].hasError('minlength')"
+                    >Swift Code invalid</mat-error>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryBankSwiftCode'].hasError('maxlength')"
+                    >Swift Code limit exceeded</mat-error>
+				</mat-form-field>
+			</div>
+			<!-- Beneficiary Bank Country -->
+			<div class="col-md-4">
+				<mat-form-field  class="w100" appearance="outline">
+					<mat-label>Country of Beneficiary Bank</mat-label>
+
+					<input type="text" class="f-14" matInput
+						[matAutocomplete]="beneficiarybankcountry"
+						formControlName="beneficiaryBankCountry"
+						(input)="beneficiarybankCountryChange($event)"
+						[value]="form.controls['beneficiaryBankCountry'].value.toUpperCase()"
+						(change)="checkAutocomplteExists($event,'beneficiaryBankCountry')"
+						>
+						<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+					<mat-autocomplete autoActiveFirstOption #beneficiarybankcountry="matAutocomplete">
+						<mat-option *ngFor="let item of beneficiarybankCountryOptions" [value]="item">
+							{{item}}
+						</mat-option>
+					</mat-autocomplete>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryBankCountry'].hasError('required')"
+                    >Country of Beneficiary Bank required</mat-error>
+				</mat-form-field>
+			</div>
+			<!-- Beneficiarry Bank Name -->
+			<div class="col-md-4">
+				<mat-form-field class="w100" appearance="outline">
+					<mat-label>Bank Name</mat-label>
+
+					<input type="text" class="f-14" matInput
+						formControlName="beneficiaryBankName"
+					/>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryBankName'].hasError('required')"
+                    >Beneficiary Bank Name required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['beneficiaryBankName'].hasError('pattern')"
+                    >Please enter valid Beneficiary Bank Name</mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+
+
+
+		<!-- Issuing bank Details -->
+		<div class="mt-20 fw-700 f-16">
+			Issuing Bank Details
+		</div>
+		<div class="row mt-20">
+			<!-- Issuing Bank Swift Code -->
+			<div class="col-md-4">
+				<mat-form-field class="w100" appearance="outline">
+					<mat-label>Swift Code</mat-label>
+
+					<input type="text" class="f-14" matInput
+					formControlName="issuingBankSwiftCode"
+					/>
+					<mat-error
+                    *ngIf="form.controls['issuingBankSwiftCode'].hasError('required')"
+                    >Swift Code required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['issuingBankSwiftCode'].hasError('pattern')"
+                    >Please enter valid Swift Code</mat-error>
+					<mat-error
+                    *ngIf="form.controls['issuingBankSwiftCode'].hasError('minlength')"
+                    >Swift Code invalid</mat-error>
+					<mat-error
+                    *ngIf="form.controls['issuingBankSwiftCode'].hasError('maxlength')"
+                    >Swift Code limit exceeded</mat-error>
+				</mat-form-field>
+			</div>
+			<!-- Issuing Bank Country -->
+			<div class="col-md-4">
+				<mat-form-field  class="w100" appearance="outline">
+					<mat-label>Country</mat-label>
+
+					<input type="text" class="f-14" matInput
+						[matAutocomplete]="issuingbankCountry"
+						formControlName="issuingBankCountry"
+						(input)="issuingbankCountryChange($event)"
+						(change)="checkAutocomplteExists($event,'issuingBankCountry')"
+						[value]="form.controls['issuingBankCountry'].value.toUpperCase()"
+						>
+						<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+					<mat-autocomplete autoActiveFirstOption #issuingbankCountry="matAutocomplete">
+						<mat-option *ngFor="let item of issuingbankCountryOptions" [value]="item">
+							{{item}}
+						</mat-option>
+					</mat-autocomplete>
+					<mat-error
+                    *ngIf="form.controls['issuingBankCountry'].hasError('required')"
+                    >Country of Issuing Bank required</mat-error>
+				</mat-form-field>
+			</div>
+
+			<!-- Issuing Bank Name -->
+			<div class="col-md-4" *ngIf="product!='BILLAVALISATION'">
+				<mat-form-field class="w100" appearance="outline">
+					<mat-label>Issuing Bank</mat-label>
+
+					<input type="text" class="f-14" matInput
+					formControlName="issuingBankName"
+					/>
+					<mat-error
+                    *ngIf="form.controls['issuingBankName'].hasError('required')"
+                    >Issuing Bank name required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['issuingBankName'].hasError('pattern')"
+                    >Please enter valid Issuing bank name</mat-error>
+				</mat-form-field>
+			</div>
+
+			<!-- Avalising Bank Name -->
+			<div class="col-md-4" *ngIf="product=='BILLAVALISATION'">
+				<mat-form-field class="w100" appearance="outline">
+					<mat-label>Avalising Bank</mat-label>
+
+					<input type="text" class="f-14" matInput
+						formControlName="issuingBankName"
+					/>
+					<mat-error
+                    *ngIf="form.controls['issuingBankName'].hasError('required')"
+                    >Avalising Bank name required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['issuingBankName'].hasError('pattern')"
+                    >Please enter valid Avalising bank name</mat-error>
+				</mat-form-field>
+			</div>
+
+			<!-- Issuing Bank Branch -->
+			<div class="col-md-4" *ngIf="product!='BILLAVALISATION'">
+				<mat-form-field class="w100" appearance="outline">
+					<mat-label>Issuing Branch</mat-label>
+					<input type="text" class="f-14" matInput
+
+					formControlName="issuingBankBranch"
+					/>
+					<mat-error
+                    *ngIf="form.controls['issuingBankBranch'].hasError('required')"
+                    >Issuing Bank Branch required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['issuingBankBranch'].hasError('pattern')"
+                    >Please enter valid Issuing Bank Branch</mat-error>
+				</mat-form-field>
+			</div>
+			<!-- Avalising Bank Branch -->
+			<div class="col-md-4" *ngIf="product=='BILLAVALISATION'">
+				<mat-form-field class="w100" appearance="outline">
+					<mat-label>Avalising Branch</mat-label>
+					<input type="text" class="f-14" matInput
+						formControlName="issuingBankBranch"
+					/>
+
+					<mat-error
+                    *ngIf="form.controls['issuingBankBranch'].hasError('required')"
+                    >Issuing Bank Branch required</mat-error>
+					<mat-error
+                    *ngIf="form.controls['issuingBankBranch'].hasError('pattern')"
+                    >Please enter valid Issuing Bank Branch</mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<!-- Submit Button -->
+		<div class="submit-btn">
+			<div class="col-md-6 text-center m-auto pt-30" >
+				<app-button
+					[name]="'NEXT UP> TRANSACTION DETAILS'"
+					[class]="'primary-btn f-16 w100'"
+					(click)="proceed()"
+				></app-button>
+			</div>
+		</div>
+	</form>
+</div>

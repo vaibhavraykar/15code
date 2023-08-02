@@ -1,0 +1,39 @@
+<div class="popup">
+    <div class="heading">
+        Reject Transaction
+        <span (click)="close(false)"><mat-icon>close</mat-icon></span>
+    </div>
+    <div class="row" style="margin: 0; padding: 20px;" [formGroup]="form">
+        <div class="content_text">
+            <p>Enter your reason for rejecting the transaction</p>
+            <div>
+        
+                <div class="w-100">
+                    <mat-form-field appearance="outline">
+                        <textarea
+                            matInput
+                            formControlName="reason"
+                        ></textarea>
+                        <mat-error *ngIf="form.controls['reason'].hasError('required')">
+                            Reason for rejection required
+                        </mat-error>
+                        </mat-form-field>
+                </div>
+                <div class="fw-700">
+            <p class="f-14">
+              Disclaimer: The benchmark/taxes as applicable shall be levied as
+              of transaction date, actual quote from the bank may differ to that
+              extent.
+            </p>
+        </div>
+  
+        </div>
+            <div class="save-btn-section" >
+              <button mat-button class="close-btn  f-12 fontBold dgrey" (click)="no()">CANCEL</button>
+  
+                <button mat-button class="save-btn  f-12 fontBold dgrey" (click)="yes()">SUBMIT</button>
+            </div>
+        </div>
+    </div>
+  </div>
+  

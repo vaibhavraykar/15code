@@ -1,0 +1,79 @@
+.filter-popups{
+  // height: 400px;
+  min-height: 293px;
+  // max-width: 400px;
+  // min-width: 400px;
+  margin-top: 15px !important;
+  ::ng-deep {
+    .mat-calendar-controls {
+      margin: 0 !important;
+    }
+  }
+}
+
+// .mat-calendar {
+//   width: 200px;
+// }
+.calender-class {
+  display: flex;
+}
+::ng-deep {
+  .mat-calendar-table-header th {
+    padding: 0 !important;
+  }
+.mat-mdc-menu-content{
+  width: 35.5rem !important;
+}
+.mat-mdc-menu-panel.mat-mdc-menu-panel{
+  max-width: none;
+  max-height: none;
+  background: transparent !important;
+  box-shadow: none !important;  
+}
+.filter-popups {
+  button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled) {
+  font-size: 12px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  }
+  .mat-calendar-arrow {
+      display: none !important;
+  }
+  .mat-calendar-body-label {
+      visibility: hidden;
+  }
+  .mat-calendar-header {
+      padding: 0!important;
+      // margin-top: 10px !important;
+  }
+  .mat-calendar-previous-button::after, .mat-calendar-next-button::after {
+      height: 8px !important;
+      top: -4px !important;
+  }
+  button:not(:disabled), [type=button]:not(:disabled) {
+   height: 28px !important;
+
+  }
+  .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix {
+      padding-top: 15px !important;
+  }
+  .mat-calendar-table-header-divider::after {
+      background: transparent;
+  }
+}
+}
+
+.range-class{
+  border: 1px solid #9c9c9c !important;
+  width: 245px;
+    height: 270px;
+}
+.calenderClass {
+  position: absolute;
+  top: 5%;
+  right: 0;
+}
+.mat-mdc-menu-panel .mat-mdc-menu-panel{
+  background: transparent !important;
+  box-shadow: none !important;  
+}

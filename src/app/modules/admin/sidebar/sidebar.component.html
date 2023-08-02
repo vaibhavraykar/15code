@@ -1,0 +1,332 @@
+<div class="sidebar-wrapper l-blue-bg" #autoAdjust>
+  <mat-sidenav-container [ngClass]="(isOpen == true) ? 'toggle-open' : 'toggle-close'">
+    <mat-sidenav #sideNav mode="side" opened class="col-md-2"  style="background:#0f3c9c;height:100%;">
+      <mat-nav-list>
+        <li class="menu cpointer" *ngIf="!isOpen" style="padding-top: 20px;">
+          <img src="../../../../assets/images/icons/hamburger-menu.png" matTooltip="Menu" (click)="openSidebar()">
+        </li>
+        <li class="row m0 openMenu" *ngIf="isOpen"
+          style="padding-top: 20px; margin-bottom: 30px; margin-left: 0 !important; margin-right: 0 !important;">
+          <div class="col-9 col-md-9 f-22 fontBold white-text">Menu</div>
+          <div class="col-3 col-md-3 cpointer" (click)="closeSidebar()"><mat-icon>close</mat-icon></div>
+        </li>
+        <li (click)="goTo('Dashboard')" class="menuLi" >
+          <div class="d-flex justify-content-center">
+            <div class="img-cont">
+              <img src="../../../assets/images/factoring/sidebar-Dashboard.svg" *ngIf="isClose" matTooltip="Dashboard">
+              <img src="../../../assets/images/factoring/sidebar-Dashboard.svg" *ngIf="isOpen">
+
+            </div>
+            <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+              Dashboard
+            </div>
+          </div>
+        </li>
+        <!--
+              <li (click)="goTo('New Transaction')" class="menuLi">
+                  <div class="d-flex justify-content-center">
+                    <div class="img-cont">
+                      <img src="../../../assets/images/factoring/sidabar-Active trans.svg">
+                    </div>
+                    <div class="f-16 fontRegular white-text" *ngIf="isOpen">Active Transaction</div>
+                  </div>
+              </li>
+              <li (click)="goTo('Transactions')" class="menuLi">
+                <div class="d-flex justify-content-center">
+                  <div class="img-cont">
+                    <img src="../../../assets/images/factoring/sidebar-Previous.svg">
+                  </div>
+                  <div class="f-16 fontRegular white-text" *ngIf="isOpen">Previous Transaction</div>
+                </div>
+            </li>
+            <li (click)="goTo('Transaction Preview')" class="menuLi">
+              <div class="d-flex justify-content-center">
+                <div class="img-cont">
+                  <img src="../../../assets/images/factoring/sideba-Saved.svg">
+                </div>
+                <div class="f-16 fontRegular white-text" *ngIf="isOpen">Saved Transaction</div>
+              </div>
+            </li> -->
+        <!-- <li class="menuLi" (click)="goTo('New Transaction')">
+              <div class="d-flex justify-content-center">
+                <div class="img-cont">
+                  <img src="../../../assets/images/factoring/sidebar-New trns.svg">
+                </div>
+                <div class="f-16 fontRegular white-text" *ngIf="isOpen">New Transactions</div>
+              </div>
+            </li> -->
+        <!-- <li (click)="goTo('Transaction Details')" class="menuLi">
+            <div class="d-flex justify-content-center">
+              <div class="img-cont">
+                <img src="../../../../assets/images/factoring/sidabar-Active trans.svg" alt="">
+                 <img src="../../../../assets/images/factoring/sidebar-Active trans.svg">
+              </div>
+              <div class="f-16 fontRegular white-text" *ngIf="isOpen">All Transactions</div>
+            </div>
+          </li> -->
+        <li *ngIf="myRole != 'CUSTOMER_RM' && myRole != 'BANK_RM' && myRights.includes('TRANSACTIONS')">
+          <mat-accordion class="f-16 fontRegular white-text">
+            <mat-expansion-panel class="bgColour f-16 fontRegular white-text">
+              <mat-expansion-panel-header [ngClass]="{'matContentBlock':isClose}">
+                <div class="img-cont" style="margin-top:0%">
+                  <i class="fa fa-fw fa-tasks" *ngIf="isClose" matTooltip="All Transactions" ></i>
+                  <i class="fa fa-fw fa-tasks" *ngIf="isOpen"></i>
+
+                </div>
+                <!-- <mat-panel-title class="f-16 fontRegular white-text" *ngIf="isOpen"> Transactions </mat-panel-title> -->
+                <div class="f-16 fontRegular white-text" *ngIf="isOpen"> All Transactions</div>
+              </mat-expansion-panel-header>
+              <mat-accordion>
+                <mat-expansion-panel class="bgColour">
+                  <mat-expansion-panel-header class="mat-expansion-inside" [ngClass]="{'matContentBlock':isClose}">
+                    <div class="img-cont" style="margin-top:0%">
+                      <i class="fa fa-fw fa-exchange" *ngIf="isClose" matTooltip="Primary Transactions"></i>
+                      <i class="fa fa-fw fa-exchange" *ngIf="isOpen"></i>
+
+                    </div>
+                    <div class="f-16 fontRegular white-text" *ngIf="isOpen"> Primary Transactions</div>
+                  </mat-expansion-panel-header>
+                  <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Transaction List')" *ngIf="isClose">
+                    <span class="f-16 fontRegular white-text" *ngIf="isClose" ><i class="fa fa-fw fa-exchange" matTooltip = "FI"></i></span>
+                  </a>
+                  <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Transaction List')" *ngIf="isOpen">
+                    <span class="f-16 fontRegular white-text" style="padding-top: 11px;">FI(LC,BG,BR etc...)</span>
+                  </a>
+                  <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Transaction Details')" *ngIf="isClose">
+                    <span class="f-16 fontRegular white-text" *ngIf="isClose" ><i class="fa fa-fw fa-exchange" matTooltip = "Factoring"></i></span>
+                  </a>
+                  <a mat-list-item class="sidenav__list-item list-sub-item subItem"
+                    (click)="goTo('Transaction Details')" *ngIf="isOpen">
+                    <span class="f-16 fontRegular white-text" style="padding-top: 11px;">Corporate(Factoring)</span>
+                  </a>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <!-- <a mat-list-item class="sidenav__list-item list-sub-item"  style="display: inline-block;">
+                  <span class="f-16 fontRegular white-text" *ngIf="isOpen">Secondary Transaction</span>
+                </a> -->
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
+        <li (click)="goTo('Customers')" class="menuLi" style="margin-bottom: 30px; margin-left: 0 !important; margin-right: 0 !important;" *ngIf='myRights.includes("CUSTOMERS")'>
+          <div class="d-flex justify-content-center f-16 fontRegular white-text">
+            <div class="img-cont" style="margin-top:0%">
+              <i class="fa fa-fw fa-users" *ngIf="isClose" matTooltip="Customer"></i>
+              <i class="fa fa-fw fa-users" *ngIf="isOpen"></i>
+
+            </div>
+            <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+              Customer
+            </div>
+          </div>
+        </li>
+        <li (click)="goTo('baau')" class="menuLi" style="margin-bottom: 30px; margin-left: 0 !important; margin-right: 0 !important;" *ngIf='myRights.includes("BANKS")'>
+          <div class="d-flex justify-content-center f-16 fontRegular white-text">
+            <div class="img-cont" style="margin-top:0%">
+              <i class="fa fa-fw fa-university " *ngIf="isClose" matTooltip="Digital BAAU"></i>
+              <i class="fa fa-fw fa-university " *ngIf="isOpen"></i>
+            </div>
+            <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+              Digital BAAU
+            </div>
+          </div>
+        </li>
+        <li (click)="goTo('Referrer')" class="menuLi" style="margin-bottom: 30px; margin-left: 0 !important; margin-right: 0 !important;">
+          <div class="d-flex justify-content-center f-16 fontRegular white-text">
+            <div class="img-cont" style="margin-top:0%">
+              <i class="fa fa-registered" *ngIf="isClose" matTooltip="Referrer"></i>
+              <i class="fa fa-registered" *ngIf="isOpen"></i>
+
+            </div>
+            <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+              Referrer
+            </div>
+          </div>
+        </li>
+        <li *ngIf="myRights.includes('CREATE_USER') || myRights.includes('CREATE_USER_GRANT')">
+          <mat-accordion class="f-16 fontRegular white-text">
+            <mat-expansion-panel class="bgColour f-16 fontRegular white-text">
+              <mat-expansion-panel-header [ngClass]="{'matContentBlock':isClose}">
+                <div class="img-cont" style="margin-top:0%">
+                  <i class="fa fa-fw fa-users" *ngIf="isClose" matTooltip="User Management"></i>
+                  <i class="fa fa-fw fa-users" *ngIf="isOpen"></i>
+
+                </div>
+                <div class="f-16 fontRegular white-text" *ngIf="isOpen"> User Management</div>
+              </mat-expansion-panel-header>
+              <!-- User List -->
+              <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('User List')"
+                *ngIf="isClose && myRights.includes('CREATE_USER')  || myRole == 'OPS_VIEW'" >
+                <span class="f-16 fontRegular white-text" *ngIf="isClose"><i class="fa fa-fw fa-user-plus"
+                    matTooltip="Users"></i></span>
+              </a>
+              <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('User List')"
+                *ngIf="isOpen && myRights.includes('CREATE_USER') || myRole == 'OPS_VIEW'">
+                <span class="f-16 fontRegular white-text" *ngIf="isOpen"><i class="fa fa-fw fa-user-plus"></i> Users</span>
+              </a>
+              <!-- End User List -->
+              <!-- Accept Reject User -->
+              <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Accept Reject User')"
+                *ngIf="isClose && myRights.includes('CREATE_USER_GRANT') && myRole != 'OPS_VIEW'">
+                <span class="f-16 fontRegular white-text" *ngIf="isClose"><i class="fa fa-fw fa-check-square-o"
+                    matTooltip="Accept/Reject User"></i> </span>
+              </a>
+              <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Accept Reject User')"
+                *ngIf="isOpen && myRights.includes('CREATE_USER_GRANT') && myRole != 'OPS_VIEW'">
+                <span class="f-16 fontRegular white-text" *ngIf="isOpen"><i class="fa fa-fw fa-check-square-o"></i>
+                  Accept/Reject Users</span>
+              </a>
+              <!-- End Accept Reject User -->
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
+        <li *ngIf="myRights.includes('DISCOUNT_MGMT_CREATE') || myRights.includes('DISCOUNT_MGMT_VIEW')|| myRights.includes('DISCOUNT_MGMT_GRANT')">
+          <mat-accordion class="f-16 fontRegular white-text">
+            <mat-expansion-panel class="bgColour f-16 fontRegular white-text">
+              <mat-expansion-panel-header [ngClass]="{'matContentBlock':isClose}">
+                <div class="img-cont" style="margin-top:0%">
+                  <i class="fa fa-fw fa-tags" *ngIf="isClose" matTooltip="Discount Management"></i>
+                  <i class="fa fa-fw fa-tags" *ngIf="isOpen"></i>
+
+                </div>
+                <div class="f-16 fontRegular white-text" *ngIf="isOpen"> Discount Management</div>
+              </mat-expansion-panel-header>
+              <!-- Discount management -->
+              <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Discount Coupons')"
+                *ngIf="isClose && (myRights.includes('DISCOUNT_MGMT_CREATE') || myRights.includes('DISCOUNT_MGMT_VIEW'))">
+                <span class="f-16 fontRegular white-text" *ngIf="isClose"><i class="fa fa-fw fa-tag"
+                    matTooltip="Discount Coupons"></i></span>
+              </a>
+              <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Discount Coupons')"
+                *ngIf="isOpen && (myRights.includes('DISCOUNT_MGMT_CREATE') || myRights.includes('DISCOUNT_MGMT_VIEW'))">
+                <span class="f-16 fontRegular white-text" *ngIf="isOpen"><i class="fa fa-fw fa-tag"></i> Discount Coupons</span>
+              </a>
+              <!-- ENd Discount management -->
+              <!-- Approve Reject Discount -->
+              <a  mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Accept Reject Coupons')"
+               *ngIf="isClose && myRights.includes('DISCOUNT_MGMT_GRANT')" >
+                <span class="f-16 fontRegular white-text" *ngIf="isClose"><i class="fa fa-fw fa-check-square-o"
+                    matTooltip="Accept/Reject Coupons"></i> </span>
+              </a>
+              <a  mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Accept Reject Coupons')"
+              *ngIf="isOpen && myRights.includes('DISCOUNT_MGMT_GRANT')">
+                <span class="f-16 fontRegular white-text" *ngIf="isOpen"><i class="fa fa-fw fa-check-square-o"></i>
+                  Accept/Reject Coupons</span>
+              </a>
+              <!-- End Approve Reject Discount -->
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
+        <li *ngIf="myRights.includes('SUBSCRIPTION_MGMT_VIEW') || myRights.includes('SUBSCRIPTION_MGMT_CREATE')">
+          <mat-accordion class="f-16 fontRegular white-text">
+            <mat-expansion-panel class="bgColour f-16 fontRegular white-text">
+              <mat-expansion-panel-header [ngClass]="{'matContentBlock':isClose}">
+                <div class="img-cont" style="margin-top:0%">
+                  <i class="fa fa-fw fa-money" *ngIf="isClose" matTooltip="Product Management"></i>
+                  <i class="fa fa-fw fa-money" *ngIf="isOpen"></i>
+                </div>
+                <div class="f-16 fontRegular white-text" *ngIf="isOpen"> Product Management</div>
+              </mat-expansion-panel-header>
+              <!-- Product List and creation -->
+              <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Product List')"
+                *ngIf="isClose && (myRights.includes('SUBSCRIPTION_MGMT_VIEW') || myRights.includes('SUBSCRIPTION_MGMT_CREATE'))">
+                <span class="f-16 fontRegular white-text" *ngIf="isClose"><i class="fa fa-fw fa-ticket"
+                    matTooltip="Product"></i></span>
+              </a>
+              <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Product List')"
+                *ngIf="isOpen && (myRights.includes('SUBSCRIPTION_MGMT_VIEW') || myRights.includes('SUBSCRIPTION_MGMT_CREATE'))" >
+                <span class="f-16 fontRegular white-text" *ngIf="isOpen"><i
+                    class="fa fa-fw fa-ticket"></i>Product</span>
+              </a>
+              <!--End Product List and creation -->
+              <!-- Approve Reject Product -->
+              <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Accept Reject Product')"
+                *ngIf="isClose && myRights.includes('SUBSCRIPTION_MGMT_GRANT')">
+                <span class="f-16 fontRegular white-text" *ngIf="isClose"><i class="fa fa-fw fa-check-square-o"
+                    matTooltip="Accept/Reject Product"></i> </span>
+              </a>
+              <a mat-list-item class="sidenav__list-item list-sub-item subItem" (click)="goTo('Accept Reject Product')"
+                *ngIf="isOpen && myRights.includes('SUBSCRIPTION_MGMT_GRANT')">
+                <span class="f-16 fontRegular white-text" *ngIf="isOpen"><i class="fa fa-fw fa-check-square-o"></i>
+                  Accept/Reject Product</span>
+              </a>
+              <!-- End Approve Reject Product -->
+            </mat-expansion-panel>
+          </mat-accordion>
+        </li>
+        <li *ngIf="myRights.includes('KYC_GRANT')" (click)="goTo('Grant KYC')" class="menuLi" style="margin-bottom: 30px; margin-left: 0 !important; margin-right: 0 !important;">
+          <div class="d-flex justify-content-center f-16 fontRegular white-text">
+            <div class="img-cont" style="margin-top:0%">
+              <i class="fa fa-fw fa-check-square-o" *ngIf="isClose" matTooltip="Grant KYC"></i>
+              <i class="fa fa-fw fa-check-square-o" *ngIf="isOpen"></i>
+              </div>
+              <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+                Grant KYC
+              </div>
+              </div>
+              </li>
+        <li *ngIf="myRights.includes('PAYMENT_APPROVAL')" (click)="goTo('Grant Payment')" class="menuLi" style="margin-bottom: 30px; margin-left: 0 !important; margin-right: 0 !important;">
+          <div class="d-flex justify-content-center f-16 fontRegular white-text">
+            <div class="img-cont" style="margin-top:0%">
+              <i class="fa fa-fw fa-credit-card" *ngIf="isClose" matTooltip="Grant Payment"></i>
+              <i class="fa fa-fw fa-credit-card" *ngIf="isOpen"></i>
+
+            </div>
+            <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+              Grant Payment
+            </div>
+          </div>
+        </li>
+        <li *ngIf="myRights.includes('PAYMENT_APPROVAL')"(click)="goTo('Grant Transaction')" class="menuLi" style="margin-bottom: 30px; margin-left: 0 !important; margin-right: 0 !important;">
+          <div class="d-flex justify-content-center f-16 fontRegular white-text">
+            <div class="img-cont" style="margin-top:0%">
+              <i class="fa fa-fw fa-credit-card" *ngIf="isClose" matTooltip="Grant Transaction"></i>
+              <i class="fa fa-fw fa-credit-card" *ngIf="isOpen"></i>
+
+            </div>
+            <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+              Grant Transaction
+            </div>
+          </div>
+        </li>
+        <li (click)="goTo('Assign Grant RM')" class="menuLi" style="margin-bottom: 30px; margin-left: 0 !important; margin-right: 0 !important;" *ngIf='myRights.includes("ASSIGN_RMS") || myRights.includes("GRANT_RMS")'>
+          <div class="d-flex justify-content-center f-16 fontRegular white-text">
+            <div class="img-cont" style="margin-top:0%">
+              <i class="fa fa-fw fa-handshake-o" *ngIf="isClose" matTooltip="Assign Grant RM"></i>
+              <i class="fa fa-fw fa-handshake-o" *ngIf="isOpen"></i>
+
+            </div>
+            <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+              Assign Grant RM
+            </div>
+          </div>
+        </li>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="col-md-10">
+      <div>
+        <app-header-bar></app-header-bar>
+      </div>
+      <!-- <span  ng-class="{'disabled': true}" ng-click="grid.appScope.vm.onReportEdit(row)" title="span.disabled ? 'Invalid Report, please disregard' : 'Edit'" class="icon icon-edit icon-ic_n_edit ng-scope disabled" role="button" tabindex="0">button</span>    -->
+      <!-- <div class="tabs" *ngIf="selectedMenu == 'Dashboard'">
+              Dashboard
+          </div>
+          <div class="tabs" *ngIf="selectedMenu == 'New Transaction'">
+           <app-new-transaction></app-new-transaction>
+          </div>
+          <div class="tabs" *ngIf="selectedMenu == 'Transactions'">
+            <app-transactions></app-transactions>
+         </div>
+         <div class="tabs" *ngIf="selectedMenu == 'Transaction Details'">
+          <app-transaction-details-list></app-transaction-details-list>
+       </div>
+       <div class="tabs" *ngIf="selectedMenu == 'Transaction Preview'">
+          <app-transaction-preview></app-transaction-preview>
+     </div>  -->
+      <div class="tabs">
+        <router-outlet></router-outlet>
+      </div>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

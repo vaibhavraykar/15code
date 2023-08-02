@@ -1,0 +1,40 @@
+<div class="transaction-container">
+  <div class="row">
+    <div class="heading col-xxl-2 col-xl-3 col-lg-3 col-md-5 col-12 mb-12 ">Transactional Stats</div>
+    <div class="col-xxl-3 col-xl-4 col-lg-5 col-md-6 d-flex justify-content-between wrapper-Position">
+      <div class="dateStyle">
+        {{
+        range.value.start
+        ? (range.value.start | date : "yyyy-MM-dd")
+        : "yyyy-mm-dd"
+        }}<img class="ml-6" src="../../../../../../assets/images/adminV2/blue_calender.png" (click)="picker.open()" />
+      </div>
+      <div class="dateStyle">
+        {{
+        range.value.end
+        ? (range.value.end | date : "yyyy-MM-dd")
+        : "yyyy-mm-dd"
+        }}<img class="ml-6" src="../../../../../../assets/images/adminV2/blue_calender.png" (click)="picker.open()" />
+      </div>
+      <mat-form-field appearance="outline" style="max-width: 0px; opacity: 0">
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="Start date" />
+          <input matEndDate formControlName="end" placeholder="End date" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker (closed)="dateChange($event)"></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class=" col-lg-6  col-12 mt-25">
+      <div class="tabel-heading text-center mb-12">Cumulative Transaction Amount Vs Count</div>
+      <div style="height: 420px;background: white;"></div>
+    </div>
+
+    <div class=" col-lg-6  col-12 mt-25">
+      <div class="tabel-heading text-center mb-12">Average Number of quotes/ Transaction</div>
+      <div style="height: 420px;background: white;;"></div>
+    </div>
+  </div>
+</div>

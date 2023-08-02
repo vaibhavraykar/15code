@@ -1,0 +1,418 @@
+<div class="edit-transaction" style="padding: 40px 10px;">
+    <div class="mt-30 px-5 py-2 col-md-8 m-auto">
+        <span class="f-22 fontBold dgrey">
+            Edit Transaction
+        </span>
+        <!-- <div class="d-flex align-center">
+            <div>
+                you are
+            </div>
+             <div>
+                <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="1">Applicant</mat-radio-button>
+                    <mat-radio-button value="2">Beneficiary</mat-radio-button>
+                </mat-radio-group>
+             </div>
+        </div> -->
+        <!-- <div class="row">
+            <span class="f-14 fontBold blueText">Applicant</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Name'" [name]="'Name'"></app-inputtext>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" >
+                        <label class="f-12 fontRegular grey">Country</label>
+                        <mat-select placeholder="Country" class="f-14">
+                          <mat-option *ngFor="let item of country" [value]="item.value">
+                            {{item.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Contact person'" [name]="'Contact person'"></app-inputtext>
+                </div>
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Email ID'" [name]="'Email ID'"></app-inputtext>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <span class="f-14 fontBold blueText">Beneficiary</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Name'" [name]="'Name'"></app-inputtext>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" >
+                        <label class="f-12 fontRegular grey">Country</label>
+                        <mat-select placeholder="Country" class="f-14">
+                          <mat-option *ngFor="let item of country" [value]="item.value">
+                            {{item.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Contact person'" [name]="'Contact person'"></app-inputtext>
+                </div>
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Email ID'" [name]="'Email ID'"></app-inputtext>
+                </div>
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Bank'" [name]="'Bank'"></app-inputtext>
+                </div>
+
+
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Swift Code'" [name]="'Swift Code'"></app-inputtext>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" >
+                        <label class="f-12 fontRegular grey">Bank Country</label>
+                        <mat-select placeholder="Bank Country" class="f-14">
+                            <mat-option *ngFor="let item of bcountry" [value]="item.value">
+                            {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <span class="f-14 fontBold blueText">Product Details</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Issuance bank'" [name]="'Issuance bank'"></app-inputtext>
+                </div>
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Branch'" [name]="'Branch'"></app-inputtext>
+                </div>
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Swift code'" [name]="'Swift code'"></app-inputtext>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" >
+                        <label class="f-12 fontRegular grey">Country</label>
+                        <mat-select placeholder="Country" class="f-14">
+                          <mat-option *ngFor="let item of country" [value]="item.value">
+                            {{item.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" >
+                        <label class="f-12 fontRegular grey">Product</label>
+                        <mat-select placeholder="Product" class="f-14">
+                          <mat-option *ngFor="let item of product" [value]="item.value">
+                            {{item.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Amount'" [name]="'Amount'"></app-inputtext>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                        <label class="f-12 fontRegular grey">Issuance date</label>
+                        <input matInput [matDatepicker]="picker" placeholder="Issuance date" class="f-14">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                        <label class="f-12 fontRegular grey">LC negotiation date</label>
+                        <input matInput [matDatepicker]="picker1" placeholder="LC negotiation date" class="f-14">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                        <label class="f-12 fontRegular grey">Last shipment date</label>
+                        <input matInput [matDatepicker]="picker2" placeholder="Last shipment date" class="f-14">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" >
+                        <label class="f-12 fontRegular grey">Goods / Services</label>
+                        <mat-select placeholder="Goods / Services" class="f-14">
+                          <mat-option *ngFor="let item of service" [value]="item.value">
+                            {{item.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <span class="f-14 fontBold blueText">Tenour of Differed Payment</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Usance (Days)'" [name]="'Usance (Days)'"></app-inputtext>
+                </div>
+                <div class="col-md-6 textarea">
+                    <mat-form-field appearance="outline" >
+                        <label class="f-12 fontRegular grey">Payment term to seller as per LC</label>
+                        <textarea matInput placeholder="Payment term to seller as per LC"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <span class="f-14 fontBold blueText">Other Details</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" >
+                        <label class="f-12 fontRegular grey">Country</label>
+                        <mat-select placeholder="Country" class="f-14">
+                          <mat-option *ngFor="let item of country" [value]="item.value">
+                            {{item.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" >
+                        <label class="f-12 fontRegular grey">Port of loading</label>
+                        <mat-select placeholder="Port of loading" class="f-14">
+                          <mat-option *ngFor="let item of port" [value]="item.value">
+                            {{item.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" >
+                        <label class="f-12 fontRegular grey">Port of discharge</label>
+                        <mat-select placeholder="Port of discharge" class="f-14">
+                          <mat-option *ngFor="let item of discharge" [value]="item.value">
+                            {{item.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'Charges are on'" [name]="'Charges are on'"></app-inputtext>
+                </div>
+
+
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                        <label class="f-12 fontRegular grey">Customer quote validity</label>
+                        <input matInput [matDatepicker]="picker" placeholder="Customer quote validity" class="f-14">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-checkbox class="example-margin f-14 fontBold dgrey">ESG Compliant?</mat-checkbox>
+                </div>
+                <div class="col-md-6">
+                   <app-file-upload></app-file-upload>
+                </div>
+            </div>
+        </div> -->
+
+
+        <div class="row ">
+            <mat-radio-group  (change)="onRadioSelection($event)" [(ngModel)]="selectedUser">
+                <mat-radio-button value="ASSIGNER" >Assignor</mat-radio-button>
+                <mat-radio-button value="DEBTOR" >Debtor</mat-radio-button>
+            </mat-radio-group>
+        </div>
+            <div class="row">
+                <div class="col-md-6">
+                   <div class="col-md-10 ">
+
+                            <mat-form-field appearance="outline" *ngIf="selectedUser=='ASSIGNOR'" >
+                                <!-- <mat-label>Assigner</mat-label> -->
+                                <label class="f-12 fontRegular grey" >Assignor</label>
+                                <mat-select placeholder="Assigner" class="f-14"
+                                (selectionChange)="assignerChange($event)" [formControl]="assigners">
+                                <mat-option *ngFor="let item of group_companies" [value]="item.id">
+                                    {{item.companyName}}
+                                </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+
+
+                            <app-inputtext *ngIf="selectedUser=='DEBTOR'" [value]="viewData.factoringUserType" (updateOutEvent)="updatedAssigner($event)" [type]="'text'" [required]="true" [placeHolder]="'Assignor'" [name]="'Assignor'" style="width: 100%;" ></app-inputtext>
+
+
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                   <div class="col-md-10">
+
+                            <mat-form-field appearance="outline"  *ngIf="selectedUser=='DEBTOR'">
+                                <!-- <mat-label>Assignor</mat-label> -->
+                                <label class="f-12 fontRegular grey" >Debtor</label>
+                                <mat-select placeholder="Debtor" class="f-14"
+                                (selectionChange)="debtorChange($event)" [formControl]="debtors">
+                                <mat-option *ngFor="let item of group_companies" [value]="item.id">
+                                    {{item.companyName}}
+                                </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+
+
+                            <app-inputtext *ngIf="selectedUser=='ASSIGNER'" [value]="viewData.factoringUserType" (updateOutEvent)="updatedDebtor($event)" [type]="'text'" [required]="true" [placeHolder]="'Debtor'" [name]="'Debtor'" style="width: 100%;"></app-inputtext>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                   <div class="col-md-10">
+                        <app-inputtext [value]="viewData.amount" [type]="'number'" [required]="true" (updateOutEvent)="updatedAmount($event)"  [name]="'Amount'" style="width: 100%;" ></app-inputtext>
+                   </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-10">
+                        <app-inputtext [value]="viewData.invoiceNumber" [type]="'text'" [required]="true" (updateOutEvent)="updatedInvoice($event)" [placeHolder]="'Invoice Number'" [name]="'Invoice Number'" style="width: 100%;" ></app-inputtext>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-10">
+                        <mat-form-field appearance="outline">
+                            <!-- <mat-label>Date</mat-label> -->
+                            <label class="f-12 fontRegular grey">Date</label>
+                            <input matInput [matDatepicker]="picker" class="f-14" placeholder="Date" [formControl]="date"
+                            (dateChange)="updateDate($event)"
+                            >
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-10">
+                        <app-inputtext [type]="'text'" [value]="viewData.tenor" [required]="true" (updateOutEvent)="updatedTenor($event)" [placeHolder]="'Tenour'" [name]="'Tenour'" style="width: 100%;" ></app-inputtext>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-10">
+                        <mat-form-field appearance="outline">
+                            <!-- <mat-label>Due Date</mat-label> -->
+                            <label class="f-12 fontRegular grey">Date</label>
+                            <input matInput [matDatepicker]="picker1" class="f-14" placeholder="Due Date" [formControl]="dueDate"
+                            (dateChange)="updateDueDate($event)"
+                            >
+                            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-10">
+                        <mat-form-field appearance="outline" >
+                            <!-- <mat-label>Underling Goods</mat-label> -->
+                            <label class="f-12 fontRegular grey">Underlying Goods</label>
+                            <mat-select placeholder="Underlying Goods" class="f-14" [formControl]="goods" (selectionChange)="goodsChange($event)">
+                              <mat-option *ngFor="let item of all_goods" [value]="item.name" >
+                                {{item.name}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-10">
+                        <mat-form-field appearance="outline" >
+                            <!-- <mat-label>Charges are on</mat-label> -->
+                            <label class="f-12 fontRegular grey">Charges are on</label>
+                            <mat-select placeholder="Charges are on" class="f-14" [formControl]="chargesOn" (selectionChange)="chargesChange($event)">
+                              <mat-option *ngFor="let item of charges" [value]="item.name" >
+                                {{item.name}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="col-md-10">
+                        <app-inputtext [type]="'text'" [value]="viewData.gracePeriod" [required]="true" (updateOutEvent)="updatedGracePeriod($event)" [placeHolder]="'Grace Period'" [name]="'Grace Period'" style="width: 100%;" ></app-inputtext>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-10">
+                        <mat-form-field appearance="outline" >
+                            <!-- <mat-label>Country of Origin</mat-label> -->
+                            <label class="f-12 fontRegular grey">Country of Origin</label>
+                            <mat-select placeholder="Country of Origin" class="f-14" [formControl]="countryOrigin" (selectionChange)="countryOriginChange($event)">
+                              <mat-option *ngFor="let item of countries" [value]="item.countryName">
+                                {{item.countryName}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-10">
+                        <mat-form-field appearance="outline" >
+                            <!-- <mat-label>Country of Discharge</mat-label> -->
+                            <label class="f-12 fontRegular grey">Country of Discharge</label>
+                            <mat-select placeholder="Country of Discharge" class="f-14" [formControl]="countryDischarge" (selectionChange)="countryDischargeChange($event)">
+                              <mat-option *ngFor="let item of countries" [value]="item.countryName">
+                                {{item.countryName}}
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-10">
+                        <mat-form-field appearance="outline">
+                            <!-- <mat-label>Due Date</mat-label> -->
+                            <label class="f-12 fontRegular grey">Due Date</label>
+                            <input matInput [matDatepicker]="picker2" placeholder="Due Date" class="f-14"
+                            [formControl]="validityDate" (dateChange)="updateValidityDate($event)"
+                            >
+                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-10">
+                        <mat-checkbox [checked]="viewData.isESGCompliant" (change)="toggleESG($event)">ESG Compliant?</mat-checkbox>
+
+                </div>
+            </div>
+            <div class="row d-flex justify-content-end">
+                <div class="col-md-6">
+                    <div class="col-md-10">
+                        <div class="mt-30 text-center" >
+                            <app-button [name]="'Save'" [class]="'primary-btn f-16 w100'" [type]="'button'" (click)="save()" ></app-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>

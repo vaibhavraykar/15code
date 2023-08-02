@@ -1,0 +1,31 @@
+<div class="transaction-detail-popup">
+    <div class="heading">
+        Transaction Bifurcation
+        <span (click)="close()"><mat-icon>close</mat-icon></span>
+    </div>
+    <div class="row inner_container" >
+        <div class="darkText">Active Transactions:</div>
+        <div class="discriptionText mt-10">
+           {{discriptionText}}
+        </div>
+        <!-- <div class="discriptionText">
+           {{discriptionText}}
+        </div> -->
+        <div class="darkText mt-20">Rejected Transactions:</div>
+        <div class="discriptionText mt-10">
+           {{discriptionText1}}</div>
+        <!-- <div class="discriptionText">
+           {{discriptionText}}</div> -->
+            <div class="darkText mt-20">Expired Transactions: </div>
+            <div class="discriptionText mt-10">
+              {{discriptionText3}}</div>
+            <!-- <div class="discriptionText">
+              {{discriptionText}}</div> -->
+              <!-- <div class="darkText mt-20">Bank Transaction</div>
+              <div class="discriptionText mt-10">
+                {{discriptionText}}</div>
+              <div class="discriptionText">
+                {{discriptionText}}</div> -->
+    </div>
+
+</div>

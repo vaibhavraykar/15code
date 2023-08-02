@@ -1,0 +1,173 @@
+<div class="sidebar-wrapper l-blue-bg" #autoAdjust>
+    <mat-sidenav-container [ngClass]="(isOpen == true) ? 'toggle-open' : 'toggle-close'">
+        <mat-sidenav #sideNav mode="side" opened class="col-md-2">
+            <mat-nav-list>
+                <li class="menu cpointer" *ngIf="!isOpen" style="padding-top: 20px;">
+                    <img src="../../../../assets/images/icons/hamburger-menu.png" (click)="openSidebar()"
+                    #tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Menu"
+                    >
+                </li>
+                <li class="row m0 openMenu" *ngIf="isOpen" style="padding-top: 20px; margin: 0 0 30px 0;">
+                    <div class="col-9 col-md-9 f-22 fontBold white-text">
+                        <!-- Menu -->
+                        <img src="../../../../assets/images/icons/hamburger-menu.png" style="width:20px" (click)="openSidebar()">
+                    </div>
+                    <div class="col-3 col-md-3 cpointer" (click)="closeSidebar()"><mat-icon>close</mat-icon></div>
+                </li>
+
+                <li (click)="goTo('Dashboard')" class="menuLi">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-cont">
+                            <img src="../../../assets/images/factoring/sidebar-Dashboard.svg"
+                            *ngIf="isOpen">
+                            <img src="../../../assets/images/factoring/sidebar-Dashboard.svg"
+                            *ngIf="!isOpen"
+                            #tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Dashboard"
+                            >
+                        </div>
+                        <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+                            Dashboard
+                        </div>
+                    </div>
+                </li>
+
+                <!-- <li (click)="goTo('Transaction Available')" class="menuLi">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-cont">
+                            <img src="../../../assets/images/factoring/sidebar-Dashboard.svg">
+                        </div>
+                        <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+                            Transaction Available
+                        </div>
+                    </div>
+                </li> -->
+
+                <li class="menuLi" style="padding-right: 0 !important">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-cont mt-10" (click)="openSideBar()">
+                            <img src="../../../assets/images/factoring/sidebar-Previous.svg" 
+                            *ngIf="isOpen"
+                            />
+                            <img src="../../../assets/images/factoring/sidebar-Previous.svg" 
+                            *ngIf="!isOpen"
+                            #tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Primary Transaction"
+                            />
+                        </div>
+                        <div *ngIf="isOpen">
+
+                            <mat-expansion-panel  (opened)="panelOpenState = true"
+                                (closed)="panelOpenState = false" class="bgclr">
+                                <mat-expansion-panel-header class="bgclr">
+                                    <mat-panel-title class="f-15 fontRegular white-text " style="margin-right: 10px !important;">
+                                        Primary Transaction
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <mat-accordion multi="false">
+                                    <p class="f-15 fontRegular white-text" (click)="goTo('New Transaction')">
+                                        New Request
+                                    </p>
+                                    <p class="f-15 fontRegular white-text" (click)="goTo('Active Transaction')">
+                                        Active Transactions
+                                    </p>
+                                    <p class="f-15 fontRegular white-text" (click)="goTo('Transaction History')">
+                                        Transaction History
+                                    </p>
+                                    <p class="f-15 fontRegular white-text" (click)="goTo('Saved Transactions')">
+                                        Saved Transactions
+                                    </p>
+                                    <p class="f-15 fontRegular white-text" (click)="goTo('All Transaction')">
+                                        All Transactions
+                                    </p>
+                                </mat-accordion>
+                            </mat-expansion-panel>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="menuLi" style="padding-right: 0 !important">
+                    <div class="d-flex justify-content-center">
+                        <div class="img-cont mt-10" (click)="openSideBar()">
+                            <img src="../../../assets/images/factoring/sidabar-Active trans.svg" 
+                            *ngIf="isOpen"
+                            />
+                            <img src="../../../assets/images/factoring/sidabar-Active trans.svg"
+                            *ngIf="!isOpen"
+                            #tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Secondary Distribution"
+                            />
+                        </div>
+                        <div *ngIf="isOpen">
+
+                            <mat-expansion-panel  (opened)="panelOpenState = true"
+                                (closed)="panelOpenState = false" class="bgclr">
+                                <mat-expansion-panel-header class="bgclr">
+                                    <mat-panel-title class="f-15 fontRegular white-text">
+                                        Secondary Distribution
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <mat-accordion multi="false">
+                                    <p class="mb-0">
+                                        <mat-expansion-panel (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = false" class="bgclr">
+                                            <mat-expansion-panel-header class="bgclr">
+                                                <mat-panel-title class="f-15 fontRegular white-text">Selling
+                                                    Institution</mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <p (click)="goTo('Transaction Details')"
+                                                class="f-15 fontRegular white-text">
+                                                New Transaction
+                                            </p>
+                                            <p class="f-15 fontRegular white-text" (click)="goTo('Selling Active Transaction')">
+                                                Active Transaction
+                                            </p>
+                                            <p class="f-15 fontRegular white-text" (click)="goTo('Selling Transaction Details')">
+                                              Transaction Details
+                                          </p>
+                                            <p class="f-15 fontRegular white-text" (click)="goTo('Selling Saved Transaction')">
+                                                Saved Transaction
+                                            </p>
+                                        </mat-expansion-panel>
+                                    </p>
+                                    <p class="mb-0">
+                                        <mat-expansion-panel (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = false" class="bgclr">
+                                            <mat-expansion-panel-header class="bgclr">
+                                                <mat-panel-title class="f-15 fontRegular white-text">Buying
+                                                    Institution</mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <p class="f-15 fontRegular white-text" (click)="goTo('Buying New Request')">New Request</p>
+                                            <p class="f-15 fontRegular white-text" (click)="goTo('Buying Active Transaction')">
+                                                Active Transaction
+                                            </p>
+                                            <p class="f-15 fontRegular white-text" (click)="goTo('Buying Transaction Details')">
+                                                Transaction Details
+                                            </p>
+                                            <p class="f-15 fontRegular white-text" (click)="goTo('Buying Saved Transaction')">
+                                                Saved Transaction
+                                            </p>
+                                        </mat-expansion-panel>
+                                    </p>
+                                </mat-accordion>
+                            </mat-expansion-panel>
+                        </div>
+                    </div>
+                </li>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content class="col-md-10">
+            <div>
+                <app-header></app-header>
+            </div>
+            <div class="tabs">
+                <router-outlet></router-outlet>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

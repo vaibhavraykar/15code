@@ -1,0 +1,150 @@
+<div class="quote-detail-container mt-30">
+    <div class="">
+        <div class="d-flex align-items-center mb-20">
+            <mat-icon style="cursor: pointer;" (click)="back()">keyboard_backspace</mat-icon>
+            <div class="ml-12 darkBlackText">Viewing Quotation details of {{this.idDetails?.transactionId}}</div>
+        </div>
+
+
+        <div style="padding:8px" class="admin-quote-wrapper">
+            <div class="quote-details-container">
+                <div style="margin: 0px 24px 24px 24px; " class="mainContainer">
+                    <div class=" subContainer" style="padding: 10px 14px 4px 15px;">
+                        <div class="row mt-15">
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                <div class="light-text mb-4">Requirement</div>
+                                <div class="dark-text">{{this.idDetails?.requirementType | titlecase}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                <div class="light-text mb-4">Amount</div>
+                                <div class="dark-text">{{this.idDetails?.lcvalue|number :'1.2-2' ||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                <div class="light-text mb-4">Currency</div>
+                                <div class="dark-text">{{this.idDetails?.lccurrency||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                <div class="light-text mb-4">Usance Days</div>
+                                <div class="dark-text">{{this.idDetails?.usanceDays||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Issuing Bank</div>
+                                <div class="dark-text">{{this.idDetails?.bankName||'NA'}}</div>
+                            </div>
+                        <!-- </div>
+                    </div>
+                    <div class=" subContainer" style="padding: 10px 14px 15px 15px;">
+                        <div class="row"> -->
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15"
+                                *ngIf="this.idDetails.requirementType === 'DISCOUNTING' || this.idDetails.requirementType === 'CONFIRMANDDISCOUNT' || this.idDetails.requirementType === 'BILLAVALISATION' || this.idDetails.requirementType === 'BANKER' || this.idDetails.requirementType === 'REFINANCE'">
+                                <div class="light-text mb-4">Applicable Benchmark (if any)</div>
+                                <div class="dark-text">{{this.idDetails?.applicableBenchmark||'NA'}}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15"
+                                *ngIf="this.idDetails.requirementType === 'BANKER'">
+                                <div class="light-text mb-4">Banker's Acceptance charges p.a. (Spread over benchmark)
+                                </div>
+                                <div class="dark-text">{{this.idDetails?.bankAcceptCharges}}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15"
+                                *ngIf="this.idDetails.requirementType === 'REFINANCE'">
+                                <div class="light-text mb-4">Refinancing charges p.a. (Spread over benchmark)</div>
+                                <div class="dark-text">{{this.idDetails?.refinancingCharges}}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15"
+                                *ngIf="this.idDetails.requirementType === 'BILLAVALISATION' || this.idDetails.requirementType === 'DISCOUNTING' || this.idDetails.requirementType === 'CONFIRMANDDISCOUNT'">
+                                <div class="light-text mb-4">Discounting Charges P.A.(Spread over benchmark)</div>
+                                <div class="dark-text">{{this.idDetails?.discountingCharges}}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15"
+                                *ngIf="this.idDetails.requirementType === 'BANKGUARANTEE'">
+                                <div class="light-text mb-4">BG Commission p.a.</div>
+                                <div class="dark-text">{{this.idDetails?.confirmationCharges||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15"
+                                *ngIf="this.idDetails.requirementType === 'CONFIRMATION' || this.idDetails.requirementType === 'CONFIRMANDDISCOUNT'">
+                                <div class="light-text mb-4">Confirmation Commission p.a.</div>
+                                <div class="dark-text">{{this.idDetails?.confirmationCharges||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15"
+                                *ngIf="this.idDetails.requirementType === 'BANKGUARANTEE'">
+                                <div class="light-text mb-4">Commission charges applicable from date of issuance till
+                                    expiry date</div>
+                                <div class="dark-text">{{this.idDetails?.usanceDays||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15"
+                                *ngIf="this.idDetails.requirementType === 'BANKGUARANTEE'">
+                                <div class="light-text mb-4">Commission charges applicable from date of issuance till
+                                    claim expiry
+                                    date</div>
+                                <div class="dark-text">{{this.idDetails?.confChgsIssuanceToClaimExp}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15"
+                                *ngIf="this.idDetails.requirementType === 'CONFIRMATION' || this.idDetails.requirementType === 'CONFIRMANDDISCOUNT'">
+                                <div class="light-text mb-4">Confirmation charges applicable from date of issuance till
+                                    Negotiation
+                                    date</div>
+                                <div class="dark-text">{{this.idDetails?.confChgsIssuanceToNegot}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15"
+                                *ngIf="this.idDetails.requirementType === 'CONFIRMATION' || this.idDetails.requirementType === 'CONFIRMANDDISCOUNT'">
+                                <div class="light-text mb-4">Confirmation charges applicable from date of issuance till
+                                    date of
+                                    maturity</div>
+                                <div class="dark-text">{{this.idDetails?.confChgsIssuanceToMatur}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15"
+                                *ngIf="this.idDetails.requirementType === 'BANKGUARANTEE' || this.idDetails.requirementType === 'CONFIRMATION'">
+                                <div class="light-text mb-4">Minimum Transaction Charges (If any)</div>
+                                <div class="dark-text">{{this.idDetails?.minTransactionCharges |number :'1.2-2'}}</div>
+                            </div>
+                        </div>
+                    <!-- </div>
+                    <div class=" subContainer" style="padding: 10px 14px 15px 15px;"> -->
+                        <div class="row"
+                            *ngIf="this.idDetails.requirementType === 'BANKER' || this.idDetails.requirementType === 'DISCOUNTING' || this.idDetails.requirementType === 'CONFIRMANDDISCOUNT'">
+                            <span class="f-14 fontBold mt-15">Negotiation Charges p.a.</span> <br>
+                            <span style="font-size: xx-small;">*Higher of the two will be considered</span>
+
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                <div class="light-text mb-4">Negotiation Charges(Fixed)</div>
+                                <div class="dark-text">{{this.idDetails?.negotiationChargesFixed|number :'1.2-2'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                <div class="light-text mb-4">Negotiation Charges(%)</div>
+                                <div class="dark-text">{{this.idDetails?.negotiationChargesPerct}} %</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" subContainer" style="padding: 4px 14px 15px 15px;">
+                        <div class="row">
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                <div class="light-text mb-4">Other Charges (If any)</div>
+                                <div class="dark-text">{{this.idDetails?.otherCharges||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                <div class="light-text mb-4">Validity</div>
+                                <div class="dark-text">{{this.idDetails?.validity||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                <div class="light-text mb-4">Total Quote</div>
+                                <div class="dark-text">{{this.idDetails?.totalQuote|number :'1.0-2' ||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                <div class="light-text mb-4">Quote Status</div>
+                                <div class="dark-text">{{this.idDetails?.status| titlecase}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" subContainer" style="padding: 10px 14px 15px 15px;">
+                        <div class="mt-30">
+                            <b>Disclaimer: </b> The applicable benchmark will be applicable as of transaction date,
+                            actual quote from the bank may differ to that extent.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

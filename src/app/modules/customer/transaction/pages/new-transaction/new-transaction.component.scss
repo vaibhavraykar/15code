@@ -1,0 +1,94 @@
+::ng-deep .mat-mdc-tab-body-content {
+    overflow: hidden !important;
+}
+
+.visited_both {
+    ::ng-deep .mdc-tab-indicator__content,
+    ::ng-deep .mdc-tab-indicator--active .mdc-tab-indicator__content {
+      opacity: 1 !important;
+      border-color: var(--yellow) !important;
+    }
+    ::ng-deep .mdc-tab__text-label {
+      color: var(--yellow) !important;
+    }
+    ::ng-deep .mat-mdc-tab-disabled .mdc-tab__text-label {
+      color: initial !important;
+    }
+    ::ng-deep .mat-mdc-tab-disabled .mdc-tab-indicator__content--underline {
+        border-color: initial !important;
+      }
+  }
+
+  .visited_one {
+    ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active {
+      ::ng-deep .mdc-tab-indicator__content--underline {
+        border-color: var(--blue) !important;
+      }
+      ::ng-deep .mdc-tab__text-label {
+        color: var(--blue) !important;
+      }
+    }
+  }
+.new-transaction-tab{
+  margin-top: 30px;
+  padding: 30px 40px 40px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	border-radius: 10px;
+  max-width: 1030px;
+  margin: auto;
+  // padding: 30px 40px 40px;
+	// margin-top: 40px;
+	// margin-bottom: 20px;
+	// border-radius: 10px;
+  ::ng-deep{
+    h6.title {
+      color: #8e8e8e;
+      font-size: 14px;
+      font-weight: 400;
+      margin-top: 32px;
+      margin-bottom: 4px;
+    }
+    .mat-mdc-tab.mdc-tab {
+			margin: 0 2px;
+		}
+
+		.mdc-tab-indicator .mdc-tab-indicator__content--underline {
+			border-top-width: 4px;
+			border-color: rgba(0, 50, 160, 0.1);
+			opacity: 1;
+		}
+		.mdc-tab-indicator--active .mdc-tab-indicator__content {
+			border-color: #0032a0;
+		}
+		.mat-mdc-tab-header-pagination-controls-enabled
+			.mat-mdc-tab-header-pagination {
+			width: 30px;
+		}
+		.mat-mdc-tab .mdc-tab__text-label {
+			display: inline-flex;
+			align-items: center;
+			font-size: 16px;
+			letter-spacing: normal;
+		}
+		.mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active
+			.mdc-tab__text-label {
+			color: #0032a0;
+		}
+		.primary-btn {
+			max-width: 350px;
+		}
+
+		.submit-btn {
+			.primary-btn {
+				min-height: 47px !important;
+				height: auto !important;
+			}
+		}
+		@media screen and (max-width: 767px) {
+			padding: 30px 10px;
+			margin-top: 20px;
+			margin-bottom: 10px;
+		}
+  }
+}

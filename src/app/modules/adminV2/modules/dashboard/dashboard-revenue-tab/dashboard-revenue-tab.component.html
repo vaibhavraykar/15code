@@ -1,0 +1,187 @@
+<div class="reveneue-main-container">
+  <div class="row justify-content-between d-flex align-items-center" style="margin-bottom: 18px">
+    <div class="headingText col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12 mb-12">
+      Flows(mn) & Revenue
+    </div>
+    <div class="col-xxl-3 col-xl-4 col-lg-5 col-md-6 justify-content-between wrapper-Position mb-12">
+      <div class="dateStyle">
+        {{
+        range.value.start
+        ? (range.value.start | date : "yyyy-MM-dd")
+        : "yyyy-mm-dd"
+        }}<img class="ml-6" src="../../../../../../assets/images/adminV2/uit_calender.svg" (click)="picker.open()" />
+      </div>
+      <div class="dateStyle addMT">
+        {{
+        range.value.end
+        ? (range.value.end | date : "yyyy-MM-dd")
+        : "yyyy-mm-dd"
+        }}<img class="ml-6" src="../../../../../../assets/images/adminV2/uit_calender.svg" (click)="picker.open()" />
+      </div>
+      <mat-form-field appearance="outline" style="max-width: 0px; opacity: 0">
+        <mat-date-range-input [formGroup]="range2" [rangePicker]="picker2">
+          <input matStartDate formControlName="start" placeholder="Start date" />
+          <input matEndDate formControlName="end" placeholder="End date" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker2 (closed)="dateChange($event)"></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+  </div>
+  <ul>
+    <li>
+      <div class="numberStyle">$ 10,045.36</div>
+      <div class="dullText widthChange">Total flows for transaction</div>
+    </li>
+    <li>
+      <div class="numberStyle">$ 202.58</div>
+      <div class="dullText widthChange">Total flows for quotes received</div>
+    </li>
+    <li>
+      <div class="numberStyle">$ 89.23</div>
+      <div class="dullText widthChange">Total flows for quotes accepted</div>
+    </li>
+    <li>
+      <div class="numberStyle">$ 21578</div>
+      <div class="dullText widthChange">31 Subscriptions Customers</div>
+    </li>
+    <li>
+      <div class="numberStyle">$ 3616</div>
+      <div class="dullText widthChange">9 Subscriptions BAAC</div>
+    </li>
+    <li class="borderNone">
+      <div class="numberStyle">$ 835</div>
+      <div class="dullText widthChange">13 Subscriptions BAAU</div>
+    </li>
+  </ul>
+</div>
+<div class="reveneue-main-container mt-20" style="background: #f8f9fd !important">
+  <div class="row justify-content-between d-flex align-items-center" style="margin-bottom: 18px">
+    <div class="headingText col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-12 mb-12">
+      Country Analysis
+    </div>
+    <div class="col-xxl-3 col-xl-4 col-lg-5 col-md-6 d-flex justify-content-between wrapper-Position mb-12">
+      <div class="dateStyle">
+        {{
+        range.value.start
+        ? (range.value.start | date : "yyyy-MM-dd")
+        : "yyyy-mm-dd"
+        }}<img class="ml-6" src="../../../../../../assets/images/adminV2/uit_calender.svg" (click)="picker.open()" />
+      </div>
+      <div class="dateStyle">
+        {{
+        range.value.end
+        ? (range.value.end | date : "yyyy-MM-dd")
+        : "yyyy-mm-dd"
+        }}<img class="ml-6" src="../../../../../../assets/images/adminV2/uit_calender.svg" (click)="picker.open()" />
+      </div>
+      <mat-form-field appearance="outline" style="max-width: 0px; opacity: 0">
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="Start date" />
+          <input matEndDate formControlName="end" placeholder="End date" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker (closed)="dateChange($event)"></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="tabel-wraper">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="countryName">
+        <th mat-header-cell cdkDrag *matHeaderCellDef>
+          Country Name
+          <img src="../../../../../assets/images/adminV2/fluent_arrow.svg" class="cPointer" />
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.countryName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalCustomers">
+        <th mat-header-cell cdkDrag *matHeaderCellDef>
+          Total Customers
+          <img src="../../../../../assets/images/adminV2/fluent_arrow.svg" class="cPointer" />
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.totalCustomers }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalUnderwriters">
+        <th mat-header-cell cdkDrag *matHeaderCellDef>
+          Total BAAU
+          <img src="../../../../../assets/images/adminV2/fluent_arrow.svg" class="cPointer" />
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.totalUnderwriters }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalTransactions">
+        <th mat-header-cell cdkDrag *matHeaderCellDef>
+          Total Transactions
+          <img src="../../../../../assets/images/adminV2/fluent_arrow.svg" class="cPointer" />
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.totalTransactions }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="cumulativeValue">
+        <th mat-header-cell cdkDrag *matHeaderCellDef class="text-end">
+          Cumulative Value (USD)
+          <img src="../../../../../assets/images/adminV2/fluent_arrow.svg" class="cPointer" />
+        </th>
+        <td mat-cell *matCellDef="let element" class="text-end">
+          {{ element.cumulativeValue }}
+        </td>
+      </ng-container>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="10" style="text-align: center">
+          No Record Found.
+        </td>
+      </tr>
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns"></tr>
+    </table>
+  </div>
+  <div class="pagination_section">
+    <mat-paginator #paginator hidden [length]="10" [pageSize]="20" [pageSizeOptions]="[10, 25, 50, 100]"
+      [showFirstLastButtons]="true" [ngTemplateOutlet]="customPaginator" (page)="paginationEmitter($event)"
+      [ngTemplateOutletContext]="{
+        length: 10,
+        pageSize: 10,
+        pageIndex: 0
+      }">
+    </mat-paginator>
+  </div>
+  <ng-template #customPaginator let-length="length" let-pageSize="pageSize" let-pageIndex="pageIndex">
+    <div class="paginator-container mt-10">
+      <div class="paginator-page-size f-12">
+        Rows Per Page
+        <mat-form-field appearance="outline">
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+          <mat-select [(value)]="paginator.pageSize" (selectionChange)="changeEntriesSize($event)">
+            <mat-option *ngFor="let option of paginator.pageSizeOptions" [value]="option">{{ option }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="paginator-buttons">
+        <button mat-icon-button [disabled]="paginator.pageIndex === 0" (click)="paginator.previousPage()">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <div class="paginator-range">
+          {{ pageIndex * pageSize + 1 }} -
+          {{
+          (pageIndex + 1) * pageSize > paginator.length
+          ? paginator.length
+          : (pageIndex + 1) * pageSize
+          }}
+          Of
+          {{ paginator.length }}
+        </div>
+        <button mat-icon-button [disabled]="
+            paginator.pageIndex >= paginator.length / paginator.pageSize - 1
+          " (click)="paginator.nextPage()">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,22 @@
+<div class="all-transaction active-transaction">
+    <div class="row">
+        <div class="col-md-9 search">
+            <input type="text" placeholder="Search" [formControl]="searchInput" (input)="search($event)">
+            <mat-icon>search</mat-icon>
+        </div>
+        <div class="col-md-3 search-option">
+            <img src="../../../../../assets/images/icons/more.svg" >
+            <img  src="../../../../../../assets/images/icons/filter.svg" />
+            <img src="../../../../../../assets/images/icons/download.svg" />
+        </div>
+    </div>
+    <div class="row">
+        <span class="f-22 fontBold dgrey mt-30 mb-3">Quotes Not Accepted</span>
+        <div class="mt-30 table-view">
+            <app-table
+                [dataSource]="dataSource"
+                [displayedColumns]="displayedCoulumns"
+            ></app-table>
+        </div>
+    </div>
+</div>

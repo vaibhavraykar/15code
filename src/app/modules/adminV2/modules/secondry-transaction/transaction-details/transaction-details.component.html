@@ -1,0 +1,25 @@
+<div class="all-detail-container mt-30">
+    <div class="">
+            <div class="d-flex align-items-center mb-20" >
+                <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+                <div class="ml-12 darkBlackText" >Viewing details for {{transactionId}}</div>
+              </div>
+              <div class="all-details-tab-container">
+                <mat-tab-group>
+                    <mat-tab>
+                    <ng-template mat-tab-label>
+                        <p class="tabHeadingStyle">Transaction Details</p>
+                    </ng-template>
+                    <app-sec-trans-details [transactionDetails]="transactionDetails"></app-sec-trans-details>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <p class="tabHeadingStyle">Bank Details</p>
+                    </ng-template>
+                    <app-sec-bank-details [transactionDetails]="transactionDetails"></app-sec-bank-details>
+                </mat-tab>
+
+                </mat-tab-group>
+              </div>
+    </div>
+</div>

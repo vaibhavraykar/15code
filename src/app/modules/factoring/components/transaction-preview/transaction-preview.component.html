@@ -1,0 +1,22 @@
+<div style="padding: 20px 10px;">
+    <span class="f-22 fontBold dgrey">Transactions Preview</span>
+
+    <div class="mt-30 table-view">
+        <!-- <app-accordion [displayedColumns]="displayedColumns" style="width: 100%;"></app-accordion> -->
+        <app-table [dataSource]="dataSource" [page]="pageIndex" [totalItems]="dataLength"
+            [viewEdit]="true"
+            [displayedColumns]="displayColumns" [selectOption]="true" [viewComment]="true" 
+            (selectedTransactions)="selectedTransactions($event)" (editSelected)="selectedTransaction($event)"
+            (pageNextHandler)="pageNext($event)" (pagePreviousHandler)="pagePrevious($event)"
+            [pageData]="page"></app-table>
+
+    </div>
+    <div class="col-md-12 addpos">
+        <div class="col-md-2">
+            <div class="mt-20 text-center">
+                <app-button [name]="'Confirm'" [class]="'primary-btn f-16 w100'" [type]="'button'"
+                    *ngIf="dataSource?.length>0" (click)="confirm()"></app-button>
+            </div>
+        </div>
+    </div>
+</div>

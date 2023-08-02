@@ -1,0 +1,16 @@
+<div>
+    <div class="list row">
+        <div class="col-md-3 headingstyle">Automated BAAU</div>
+        <div class="col-md-6"></div>
+        <div class="col-md-3">
+          <button mat-raised-button class="primary-btn bttn f-16 w-80" (click)="newAutoBaau()">New Automated BAAU</button>
+        </div>
+      </div>
+</div>
+
+<div class="container-wrapper mt-10 automatedbaau-list">
+    <app-automated-baau-table #customTable [tableStructure]="tableStructure"
+    (combinedEmitter)="tableEventEmitter($event)">
+
+  </app-automated-baau-table>
+</div>

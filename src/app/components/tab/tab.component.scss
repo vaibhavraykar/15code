@@ -1,0 +1,42 @@
+
+.visited_both {
+    ::ng-deep {
+      .mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab__text-label {
+        color: var(--yellow) !important;
+      }
+  
+      .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active
+        .mdc-tab-indicator__content--underline {
+        border-color: var(--yellow) !important;
+      }
+  
+      .mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab__text-label {
+        color: var(--yellow) !important;
+      }
+      .mdc-tab-indicator__content,
+      .mdc-tab-indicator--active .mdc-tab-indicator__content {
+        opacity: 1 !important;
+        border-color: var(--yellow) !important;
+      }
+      .mdc-tab__text-label {
+        color: var(--yellow) !important;
+      }
+  
+      // .mdc-tab-indicator__content{
+      //     border-color: var(--yellow) !important;
+      // }
+    }
+  }
+  
+  .visited_one {
+    ::ng-deep {
+      .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active {
+        .mdc-tab-indicator__content--underline {
+          border-color: var(--blue) !important;
+        }
+        .mdc-tab__text-label {
+          color: var(--blue) !important;
+        }
+      }
+    }
+  }

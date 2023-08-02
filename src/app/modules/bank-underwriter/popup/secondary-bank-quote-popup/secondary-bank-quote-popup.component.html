@@ -1,0 +1,245 @@
+<div class="vas-popup">
+  <div class="heading">
+    Bank Quote
+    <span (click)="close()" style="cursor: pointer"
+      ><mat-icon>close</mat-icon></span
+    >
+  </div>
+  <ng-container [ngSwitch]="viewType">
+    <ng-container *ngSwitchDefault>
+      <ng-container *ngTemplateOutlet="default"></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="'placeNewQuoteFunded'">
+      <ng-container *ngTemplateOutlet="placeNewQuoteFunded"></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="'placeNewQuoteUnfunded'">
+      <ng-container *ngTemplateOutlet="placeNewQuoteUnfunded"></ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+<ng-template #default>
+  <div class="row" style="margin: 0; padding: 20px">
+    <div class="mt-10">
+      <div class="row">
+        <div class="col-md-8 grey f-12">Transaction ID</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformation?.transactionId }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Currency</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformation?.lCCurrency }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Participation Amount</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.participationAmount | number }}
+        </div>
+      </div>
+
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">
+          Bank Quote Validity
+          <img
+            matTooltip="The date before Bank needs to accept the quote."
+            src="../../../../../../assets/images/icons/Icon-info.svg"
+          />
+        </div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.validity }}
+        </div>
+      </div>
+
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Offered Price</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformation?.offeredPrice |number}}
+        </div>
+      </div>
+      <div class="row mt-20">
+        <p class="f-12">
+          Disclaimer: The benchmark/taxes as applicable shall be levied as of
+          transaction date, actual quote from the bank may differ to that
+          extent.
+        </p>
+      </div>
+      <div class="acc-btn col-md-6 m-auto">
+        <div class="text-center mt-30">
+          <app-button
+            [name]="'ACCEPT QUOTE'"
+            [class]="'primary-btn f-16 w100'"
+            [type]="'button'"
+            (click)="acceptQuotation()"
+          ></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #placeNewQuoteFunded>
+  <div class="row" style="margin: 0; padding: 20px">
+    <div class="mt-10">
+      <div class="row">
+        <div class="col-md-8 grey f-12">Transaction ID</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformation?.transactionId }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Currency</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformation?.lCCurrency }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Participation Amount</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.participationAmount | number }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Applicable Benchmark (if any)</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.applicableBenchmark }}%
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Risk margin spread over benchmark</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.riskBenchmark }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Other Charges (if any)</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.otherCharges }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">
+          Minimum Transaction Charges (if any)
+        </div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.minTransactionCharges }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">
+          Bank Quote Validity
+          <img
+            matTooltip="The date before Bank needs to accept the quote."
+            src="../../../../../../assets/images/icons/Icon-info.svg"
+          />
+        </div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.validity }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Total Quote</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.totalQuote | number }}
+        </div>
+      </div>
+      <div class="row mt-20">
+        <p class="f-12">
+          Disclaimer: The benchmark/taxes as applicable shall be levied as of
+          transaction date, actual quote from the bank may differ to that
+          extent.
+        </p>
+      </div>
+      <div class="acc-btn col-md-6 m-auto">
+        <div class="text-center mt-30">
+          <app-button
+            [name]="'ACCEPT QUOTE'"
+            [class]="'primary-btn f-16 w100'"
+            [type]="'button'"
+            (click)="acceptQuotation()"
+          ></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #placeNewQuoteUnfunded>
+  <div class="row" style="margin: 0; padding: 20px">
+    <div class="mt-10">
+      <div class="row">
+        <div class="col-md-8 grey f-12">Transaction ID</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformation?.transactionId }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Currency</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformation?.lCCurrency }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Participation Amount</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.participationAmount |number }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Participation Commission/Fee p.a</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          
+          {{ transactionInformationDetails?.participationCommission }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Other Charges (if any)</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.otherCharges }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">
+          Minimum Transaction Charges (if any)
+        </div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.minTransactionCharges }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">
+          Bank Quote Validity
+          <img
+            matTooltip="The date before Bank needs to accept the quote."
+            src="../../../../../../assets/images/icons/Icon-info.svg"
+          />
+        </div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.validity }}
+        </div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-md-8 grey f-12">Total Quote</div>
+        <div class="col-md-4 dgrey f-14" style="text-align: end">
+          {{ transactionInformationDetails?.totalQuote | number }}
+        </div>
+      </div>
+      <div class="row mt-20">
+        <p class="f-12">
+          Disclaimer: The benchmark/taxes as applicable shall be levied as of
+          transaction date, actual quote from the bank may differ to that
+          extent.
+        </p>
+      </div>
+      <div class="acc-btn col-md-6 m-auto">
+        <div class="text-center mt-30">
+          <app-button
+            [name]="'ACCEPT QUOTE'"
+            [class]="'primary-btn f-16 w100'"
+            [type]="'button'"
+            (click)="acceptQuotation()"
+          ></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

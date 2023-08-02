@@ -1,0 +1,64 @@
+.transaction-detail-popup {
+    max-width: 540px;
+    border-radius: 10px !important;
+
+    .heading {
+        width: 100%;
+        font: normal normal bold 20px/24px Lato;
+        letter-spacing: 0.4px;
+        color: #FFFFFF;
+        opacity: 1;
+        background-color: var(--yellow);
+        text-align: center;
+        padding: 15px;
+
+        span {
+            position: absolute;
+            border: 2px solid #fff;
+            border-radius: 50px;
+            width: 30px;
+            height: 30px;
+            right: 10px;
+            top: 12px;
+
+            .mat-icon {
+                padding-top: 2px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .darkText {
+        letter-spacing: 0.32px;
+        font-weight: bold;
+        color: #292929;
+        font-size: 16px;
+        line-height: 24px;
+        font-family: Lato;
+        text-align: left;
+    }
+
+    .discriptionText {
+        text-align: left;
+        font-size: 14px;
+        line-height: 24px;
+        font-family: Lato;
+        font-weight: normal;
+        letter-spacing: 0.28px;
+        color: #292929;
+    }
+}
+@media(max-width:488px){
+    .transaction-detail-popup {
+        .heading {
+            text-align: start;
+        }
+    }
+}
+
+.inner_container{
+  margin: 0;
+  padding: 20px;
+  overflow-y: auto;
+  height: 495px;
+}

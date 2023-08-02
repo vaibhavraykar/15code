@@ -1,0 +1,123 @@
+<div class="subscription py-3" style="background-color: #fff;">
+    <div class="summary row"  style="margin-top: 20px">
+        <div class="col-md-6 m-auto">
+                        <div class="cart" style="border: none !important;">
+                            <div class="f-20 text-center fw-600 mb-20">Order Details</div>
+                            <div class="">
+                                Payment for
+                            </div>
+                            <div class="heading d-flex align-items-center justify-content-between " style="word-wrap: break-word;"
+                                *ngFor="let item of selectedTransactionDetails"
+                            >
+                                <span class="d-flex align-items-center justify-content-between w-100"
+                                    style="word-wrap: break-word;"
+                                    *ngIf="subscriberType!=='BANK_AS_UNDERWRITER'">
+                                    <div class="title-head col-7">
+                                        {{item?.transactionId}}
+                                    </div>
+                                    <div class="col-5" style="text-align: right">
+                                        USD {{item?.chargableAmount | number:'1.2-2'}}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="heading d-flex align-items-center justify-content-between " style="word-wrap: break-word;"
+                                *ngFor="let item of selectedTransactionDetails"
+                            >
+                                <span class="d-flex align-items-center justify-content-between w-100" 
+                                    style="word-wrap: break-word;"
+                                    *ngIf="subscriberType==='BANK_AS_UNDERWRITER'">
+                                    <div class="title-head col-7">
+                                        {{getMonth(item?.month)}} {{item?.year}}
+                                    </div>
+                                    <div class="col-5" style="text-align: right">
+                                        USD {{item?.price | number:'1.2-2'}}
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="mt-10" style="border-top: 1px dashed #c5cbef;">
+                                <div class=" mt-10 d-flex align-items-center justify-content-between">
+                                    <div class="f-12 fw-900">Subtotal</div>
+                                    <div class=" f-12 fw-900 ">
+                                        USD {{subtotal | number:'1.2-2'}}
+                                    </div>
+                                </div>
+                                <div class="row mt-10 code">
+                                    <div class="col-md-7">
+                                        <mat-form-field class="w100" appearance="outline">
+                                            <mat-label>Coupon code</mat-label>
+                                            <input type="text" class="f-14" matInput
+                                            [formControl]="couponCode"
+                                            (input)="couponCodeHandler($event)"
+                                            />
+                                            <span matSuffix 
+                                                (click)="removeCoupon()"
+                                                *ngIf="couponSuccessMessage"
+                                            >
+                                                <img style="width:30px;height:30px;margin:7px" src="../../../../../assets/images/customer/close.png" />
+                                            </span>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <button mat-button class="Add-btn" style="width: 100% !important;"
+                                        [disabled]="enableCouponButton"
+                                        (click)="applyDiscount()"
+                                        >APPLY</button>
+                                    </div>
+                                </div>
+                                <div class="row mt-10" 
+                                    *ngIf="couponSuccessMessage"
+                                >Coupon applied successfully.</div>
+                            </div>
+                            <div class="mt-10" style="border-top: 1px dashed #c5cbef;">
+                                <div class="d-flex mt-20  justify-content-between align-items-center">
+                                    <div class=" d-flex f-12 fw-900"><img src="../../../../../assets/images/customer/discount.png" style="margin-right: 5px; width: 20px;" />Discount</div>
+                                    <div class=" f-12 fw-900 textAlignRight">
+                                        USD {{this.discount?this.discount:0 | number :'1.2-2'}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-20">
+                                <div class="d-flex justify-content-between align-items-center mt-10 total">
+                                    <div class=" f-14 fw-900" style="padding-left: 0;">Grand Total</div>
+                                    <div class="f-14 fw-900 textAlignRight" style="padding-right: 0;">
+                                        USD {{grandTotal|number:'1.2-2'}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-20 radio-style">
+                                <div class="f-14 fw-600">Payment Option</div>
+
+
+                                <div class="mt-10">
+                                    <mat-radio-group aria-label="Select a payment option:">
+                                        <mat-radio-button
+                                            (change)="onRadioChange($event)"
+                                            *ngFor="let item of paymentMethods" value="{{item.value}}"
+                                            [hidden]="item.value=='PAYPAL'?(grandTotal>0?false:true):false"
+                                        >
+                                        {{item.name}}
+                                    </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>            
+                </div>
+                <div class="col-md-6 m-auto">
+                    <div class="px-3 mb-3">
+                        <span class="yellow-txt" (click)="sendEmailPopup()">Click here</span> to receive bank details to initiate wire transfer payment. 
+                        We will send you an email on your registered email address. Once you successfully transfer the payment, 
+                        please share your transaction ID/transaction details on tradesupport@360tf.trade
+                    </div>
+                </div>
+                <div class="col-md-12" >
+
+                    <div class="col-md-3 text-center m-auto"  style="padding:0px 10px;">
+                        <app-button
+                        (click)="createRequest()"
+                            [name]="'SEND REQUEST'"
+                            [class]="'primary-btn f-16 w100'"
+                        ></app-button>
+                    </div>
+                </div>
+</div>

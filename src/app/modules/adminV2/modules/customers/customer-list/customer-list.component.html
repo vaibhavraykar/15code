@@ -1,0 +1,7 @@
+<div class="">
+    <span class="headingstyle">Customer</span>
+</div>
+<div class="container-wrapper mt-10 customer-list">
+    <app-customer-table #customTable [tableStructure]="tableStructure"
+    (combinedEmitter)="tableEventEmitter($event)"></app-customer-table>
+</div>

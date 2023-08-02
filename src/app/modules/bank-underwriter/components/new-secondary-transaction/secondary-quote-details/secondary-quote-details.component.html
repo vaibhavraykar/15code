@@ -1,0 +1,290 @@
+<div class="quote-page col-md-8 m-auto" style="background-color: #fff">
+  <div class="main-title f-20 fontBold dgey mt-20 mb-3 d-flex align-items-center">
+    <mat-icon (click)="goBack()" style="cursor: pointer">keyboard_backspace</mat-icon>
+    <b style="margin-left: 5px">Quote Details</b>
+  </div>
+  <div class="px-3 py-3">
+    <div class="col-md-11 m-auto" style="background-color: #efecea">
+      <div class="px-4 py-4">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row flex-direction-col text-align-responsive">
+              <div class="f-12 fw-600 dgrey col-md-5 pl-0-mobile full-width">
+                Product
+              </div>
+              <div class="f-12 fw-400 grey full-width col-md-7" style="padding-left: 0; word-break: break-word">
+                {{ transactionDetails?.requirementType }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row flex-direction-col text-align-responsive">
+              <div class="f-12 fw-600 dgrey col-md-5 pl-0-mobile full-width margin-top-mobile">
+                Transaction ID
+              </div>
+              <div class="f-12 fw-400 grey full-width col-md-7" style="padding-left: 0; word-break: break-word">
+                {{ transactionId }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-md-6">
+            <div class="row flex-direction-col text-align-responsive">
+              <div class="f-12 fw-600 dgrey col-md-5 pl-0-mobile full-width">
+                Amount
+              </div>
+              <div class="f-12 fw-400 grey full-width col-md-7" style="padding-left: 0; word-break: break-word">
+                {{ transactionDetails?.lCValue | number:'1.2-2' }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row flex-direction-col text-align-responsive">
+              <div class="f-12 fw-600 dgrey col-md-5 pl-0-mobile full-width margin-top-mobile">
+                Currency
+              </div>
+              <div class="f-12 fw-400 grey full-width col-md-7" style="padding-left: 0; word-break: break-word">
+                {{ transactionDetails?.lCCurrency }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-md-6">
+            <div class="row flex-direction-col text-align-responsive">
+              <div class="f-12 fw-600 dgrey col-md-5 pl-0-mobile full-width">
+                Obligor Bank
+              </div>
+              <div class="f-12 fw-400 grey full-width col-md-7" style="padding-left: 0; word-break: break-word">
+                {{ transactionDetails?.obligorBank }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row flex-direction-col text-align-responsive">
+              <div class="f-12 fw-600 dgrey col-md-5 pl-0-mobile full-width margin-top-mobile">
+                Tenor
+              </div>
+              <div class="f-12 fw-400 grey full-width col-md-7" style="padding-left: 0; word-break: break-word">
+                {{
+                transactionDetails?.usanceDays
+                ? transactionDetails?.usanceDays
+                : 0
+                }}
+                days
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-md-6">
+            <div class="row flex-direction-col text-align-responsive">
+              <div class="f-12 fw-600 dgrey col-md-5 pl-0-mobile full-width">
+                Distributing Bank
+              </div>
+              <div class="f-12 fw-400 grey full-width col-md-7"
+                style="padding-left: 0; word-break: break-word; padding-left: 0">
+                bank
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row flex-direction-col text-align-responsive">
+              <div class="f-12 fw-600 dgrey col-md-5 pl-0-mobile full-width margin-top-mobile">
+                Participation Basis
+              </div>
+              <div class="f-12 fw-400 grey full-width col-md-7" style="padding-left: 0; word-break: break-word">
+                {{ transactionDetails?.secTransactionType |titlecase }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-11 m-auto">
+      <div class="mt-30 preview-transaction-container">
+        <ng-container *ngFor="let item of transactionInformationDetails;let i = index">
+        <mat-accordion>
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="dgrey fontBold f-16">
+                Quote : {{i+1}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-container [ngSwitch]="getViewType(transactionInformationDetails)">
+              <ng-container *ngSwitchDefault>
+                <ng-container *ngTemplateOutlet="default"></ng-container>
+              </ng-container>
+              <ng-container *ngSwitchCase="'placeNewQuoteFunded'">
+                <ng-container *ngTemplateOutlet="placeNewQuoteFunded"></ng-container>
+              </ng-container>
+              <ng-container *ngSwitchCase="'placeNewQuoteUnfunded'">
+                <ng-container *ngTemplateOutlet="placeNewQuoteUnfunded"></ng-container>
+              </ng-container>
+            </ng-container>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <ng-template #default>
+          <div class="mt-20 mb-32" style="padding: 0 24px !important">
+            <div class="row mt-10">
+              <div class="col-md-8 grey f-12">Participation Amount</div>
+              <div class="col-md-4 dgrey f-14" style="text-align: end">
+                {{ item?.participationAmount | number:'1.2-2'  }}
+              </div>
+            </div>
+            <div class="row mt-10">
+              <div class="col-md-8 grey f-12">
+                Bank Quote Validity
+                <img matTooltip="The date before which customer needs to accept the quote."
+                  src="../../../../../../assets/images/icons/Icon-info.svg" />
+              </div>
+              <div class="col-md-4 dgrey f-14" style="text-align: end">
+                {{ item?.validity|date:'dd-MM-yyyy' }}
+              </div>
+            </div>
+            <div class="row mt-10">
+              <div class="col-md-8 grey f-12">Offered Price</div>
+              <div class="col-md-4 dgrey f-14" style="text-align: end">
+                {{ item?.offeredPrice |number:'1.2-2'}}
+              </div>
+            </div>
+            <div class="row mt-20">
+              <p class="f-12">
+                Disclaimer: The benchmark/taxes as applicable shall be levied as of
+                transaction date, actual quote from the bank may differ to that extent.
+              </p>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #placeNewQuoteFunded>
+          <div class="row" style="margin: 0; padding: 20px">
+            <div class="mt-10">
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">Participation Amount</div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.participationAmount | number:'1.2-2' }}
+                </div>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">Applicable Benchmark (if any)</div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.applicableBenchmark }}%
+                </div>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">Risk margin spread over benchmark</div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.riskBenchmark }}
+                </div>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">Other Charges (if any)</div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.otherCharges }}
+                </div>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">
+                  Minimum Transaction Charges (if any)
+                </div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.minTransactionCharges|number:'1.2-2' }}
+                </div>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">
+                  Bank Quote Validity
+                  <img matTooltip="The date before which customer needs to accept the quote."
+                    src="../../../../../../assets/images/icons/Icon-info.svg" />
+                </div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.validity |date:'dd-MM-yyyy'}}
+                </div>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">Total Quote</div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.totalQuote | number:'1.2-2' }}
+                </div>
+              </div>
+              <div class="row mt-20">
+                <p class="f-12">
+                  Disclaimer: The benchmark/taxes as applicable shall be levied as of
+                  transaction date, actual quote from the bank may differ to that
+                  extent.
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #placeNewQuoteUnfunded>
+          <div class="row" style="margin: 0; padding: 20px">
+            <div class="mt-10">
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">Participation Amount</div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.participationAmount | number:'1.2-2' }}
+                </div>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">Participation Commission/Fee p.a</div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.participationCommission |number:'1.2-2'}}
+                </div>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">Other Charges (if any)</div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.otherCharges|number:'1.2-2' }}
+                </div>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">
+                  Minimum Transaction Charges (if any)
+                </div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.minTransactionCharges|number:'1.2-2' }}
+                </div>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">
+                  Bank Quote Validity
+                  <img matTooltip="The date before which customer needs to accept the quote."
+                    src="../../../../../../assets/images/icons/Icon-info.svg" />
+                </div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.validity|date:'dd-MM-yyyy' }}
+                </div>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-8 grey f-12">Total Quote</div>
+                <div class="col-md-4 dgrey f-14" style="text-align: end">
+                  {{ item?.totalQuote | number:'1.2-2' }}
+                </div>
+              </div>
+              <div class="row mt-20">
+                <p class="f-12">
+                  Disclaimer: The benchmark/taxes as applicable shall be levied as of
+                  transaction date, actual quote from the bank may differ to that
+                  extent.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 text-center m-auto">
+            <div class="mt-10" *ngIf="item?.quotationStatus === 'ACCEPTED'" >
+              <app-button
+                [name]="'REJECT'"
+                [class]="'primary-btn f-16 w100'"
+                style="text-transform: uppercase"
+                (click)="rejectQuote($event,item?.quotationId)"
+              ></app-button>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

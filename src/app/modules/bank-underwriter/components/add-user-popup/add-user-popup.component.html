@@ -1,0 +1,320 @@
+<div class="vas-popup">
+    <div class="heading">
+        Add User
+        <span (click)="close()"><mat-icon>close</mat-icon></span>
+    </div>
+    <div class="row" style="margin: 0; padding: 20px;max-height: 80vh;overflow-y: auto;">
+        <div class=" fw-700 f-16" style="margin-bottom: 10px;">Enter details of an Authorized user</div>
+        <form [formGroup]="form">
+        <div class="row">
+
+        <div class="col-md-6 mt-10">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input
+                type="text"
+                class="f-14"
+                formControlName="firstName"
+                matInput/>
+                <mat-error *ngIf="form.controls['firstName'].hasError('required')">First Name is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 mt-10">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input
+                type="text"
+                class="f-14"
+                formControlName="lastName"
+                matInput/>
+                <mat-error *ngIf="form.controls['lastName'].hasError('required')">Last Name is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 mt-10">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Email Id</mat-label>
+              <input
+                type="text"
+                class="f-14"
+                formControlName="emailId"
+                matInput/>
+                <mat-error *ngIf="form.controls['emailId'].hasError('required')">Email is required</mat-error>
+                <mat-error *ngIf="form.controls['emailId'].hasError('pattern')">Enter Valid Email ID</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 mt-10">
+            <mat-form-field
+              class="w100"
+              appearance="outline"
+              (click)="matAutocompleteCountryObservers()"
+              >
+              <mat-label>Select Country</mat-label>
+              <input
+                type="text"
+                class="f-14"
+                [matAutocomplete]="selectCountry"
+                formControlName="selectCountry"
+                [value]="(form.controls['selectCountry'].value|uppercase)"
+                (change)="checkCountry($event,'selectCountry')"
+                matInput/>
+              <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+              <mat-autocomplete
+              (closed)="checkCountry($event,'selectCountry')"
+              autoActiveFirstOption
+              #selectCountry="matAutocomplete"
+
+            >
+              <mat-option
+                *ngFor="let item of selectCountryList | async"
+                [value]="item"
+              >
+                {{ item }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="form.controls['selectCountry'].hasError('required')">Country field is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 mt-10">
+          <mat-form-field class="w100" appearance="outline" [floatLabel]="countryCode?'always':'auto'">
+
+              <mat-label >Mobile No.</mat-label>
+              <span matTextPrefix >
+                {{countryCode}}&nbsp;</span>
+              <input
+                type="text"
+                class="f-14"
+                (input)="typeOnlyNumber($event, 'mobileNumber')"
+                formControlName="mobileNumber"
+
+                matInput/>
+                <!-- placeholder="Mobile No." -->
+                <mat-error *ngIf="form.controls['mobileNumber'].hasError('required')">Mobile No is required</mat-error>
+                <mat-error *ngIf="form.controls['mobileNumber'].hasError('minlength')">Mobile No is not valid</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 mt-10">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Landline No.</mat-label>
+              <input
+                type="text"
+                class="f-14"
+                (input)="typeOnlyNumber($event, 'landlineNumber')"
+                formControlName="landlineNumber"
+                (paste)="pasteHandler($event)"
+                (change)="telechecker($event)"
+                matInput/>
+                <mat-error *ngIf="form.controls['landlineNumber'].hasError('required')">Landline No is required</mat-error>
+                <mat-error *ngIf="form.controls['landlineNumber'].hasError('minlength')">Landline No is not valid</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row d-flex">
+                <div class="col-md-8">
+                    <mat-form-field class="w100" appearance="outline" (click)="matAutocompleteCountryCurrencyObservers()">
+                        <mat-label>Minimum Value of LC</mat-label>
+                        <input
+                        type="text"
+                        class="f-14"
+                        formControlName="minimumLcValue"
+                        [value]="formatAmount(form.controls['minimumLcValue'].value)"
+                        (paste)="onPaste($event)" (keydown)="onKeyDown($event)" (blur)="onBlur('minimumLcValue')"
+                        (input)="form.controls['minimumLcValue'].setValue(parseAmount($event))"
+                        matInput/>
+                      <mat-error *ngIf="form.controls['minimumLcValue'].hasError('required')">Min LC Value is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field
+                    class="w100"
+                    appearance="outline">
+                    <mat-label>Ccy</mat-label>
+                    <input
+                    type="text"
+                    class="f-14"
+                    matInput
+                    [matAutocomplete]="currencyDropdown"
+                    formControlName="currency"
+                    (change)="checkCountryExistsPorts($event,'currency')"
+                  />
+                  <mat-error style="white-space: pre;" *ngIf="form.controls['currency'].hasError('required')">Currency is required</mat-error>
+                  <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                  <mat-autocomplete
+                    autoActiveFirstOption
+                    #currencyDropdown="matAutocomplete"
+                  >
+                    <mat-option
+                      *ngFor="let item of currencyList$ | async"
+                      [value]="item"
+                    >
+                      {{ item }}
+                    </mat-option>
+                  </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Countries interested</mat-label>
+              <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+
+              <mat-select style="display: none;" formControlName="countryIntrested" multiple 
+                (closed)="closemenu(search2)">
+                <!-- <mat-select-trigger>
+                  <mat-chip-listbox>
+                    <mat-chip [removable]="true" (removed)="onToppingRemoved(0)">
+                      {{ form.controls['countryIntrested'].value[0] }}
+
+                      <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                    <mat-chip *ngIf="form.controls['countryIntrested'].value.length >= 2">
+                      +{{ form.controls['countryIntrested'].value.length - 1 }} more
+                    </mat-chip>
+                  </mat-chip-listbox>
+                </mat-select-trigger> -->
+                <mat-form-field  class="w-100 ml-1 mr-1" appearance="outline">
+                  <input #search2 (keydown)="$event.stopPropagation()" matInput placeholder="Search" (input)="filterOptions($event)">
+                </mat-form-field>
+                <mat-checkbox [style.paddingLeft]="'5px'"
+                  [checked]="form.controls['countryIntrested']?.value?.length === countryList?.length"
+                  (change)="selectAllOptions($event)">
+                  {{ form.controls['countryIntrested']?.value?.length === countryList?.length ? 'Unselect All' : 'Select
+                  All' }}
+                </mat-checkbox>
+                <mat-option *ngFor="let c of filteredCountryList" [value]="c"
+                  (click)="onSelectionChangeCountryInterest($event,c)"
+                >
+                  <div style="padding: 2% 0;">
+                    <div class="my-1">{{ c }}</div>
+                  </div>
+                </mat-option>
+              </mat-select>
+
+              <mat-chip-listbox>
+                <mat-chip *ngIf="form.controls['countryIntrested'].value.length >0" [removable]="true" (removed)="onToppingRemoved(0)">
+                  {{ form.controls['countryIntrested'].value[0] }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <mat-chip *ngIf="form.controls['countryIntrested'].value.length >= 2">
+                  +{{ form.controls['countryIntrested'].value.length - 1 }} more
+                </mat-chip>
+              </mat-chip-listbox>
+              <mat-error style="margin-left:7px" *ngIf="form.controls['countryIntrested'].hasError('required')">Countries interested is
+                Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 mt-10">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Blacklisted Goods/Commodities</mat-label>
+              <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+
+              <mat-select style="display:none" formControlName="blacklistedGoods" multiple
+                (closed)="closemenu3(searchGood)">
+                <mat-form-field class="w-100 ml-1 mr-1" appearance="outline">
+                  <input #searchGood (keydown)="$event.stopPropagation()" matInput placeholder="Search" (input)="filterOptions3($event)">
+                </mat-form-field>
+                  <div (click)="selectAllOptions3('')">
+                    <mat-checkbox [style.paddingLeft]="'5px'"
+                    style="pointer-events: none;"
+                    checked="false"
+                    (change)="selectAllOptions3($event)">
+                    {{ 'None' }}
+                  </mat-checkbox>
+                  </div>
+                <mat-option *ngFor="let c of typesOfGoodsListfilter" [value]="c"
+                  (click)="onSelectionChange3($event,c)"
+                >
+                  <div style="padding: 2% 0;">
+                    <div class="my-1">{{ c }}</div>
+                  </div>
+                </mat-option>
+                <mat-option hidden value="None"></mat-option>
+              </mat-select>
+              <mat-chip-listbox>
+                <mat-chip *ngIf="form.controls['blacklistedGoods'].value.length >0" [removable]="true" (removed)="onToppingRemoved3(0)">
+                  {{ form.controls['blacklistedGoods'].value[0] }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <mat-chip *ngIf="form.controls['blacklistedGoods'].value.length >= 2">
+                  +{{ form.controls['blacklistedGoods'].value.length - 1 }} more
+                </mat-chip>
+              </mat-chip-listbox>
+              <mat-error *ngIf="form.controls['blacklistedGoods'].hasError('required')">Blacklisted Goods/Commodities is
+                Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 mt-10">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Beneficiary Countries intrested</mat-label>
+              <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+
+              <mat-select style="display: none;" formControlName="benificiaryCountry" multiple 
+                (closed)="closemenu2(search3)">
+                <!-- <mat-select-trigger>
+                  <mat-chip-listbox>
+                    <mat-chip [removable]="true" (removed)="onToppingRemoved2(0)">
+                      {{ form.controls['benificiaryCountry'].value[0] }}
+
+                      <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                    <mat-chip *ngIf="form.controls['benificiaryCountry'].value.length >= 2">
+                      +{{ form.controls['benificiaryCountry'].value.length - 1 }} more
+                    </mat-chip>
+                  </mat-chip-listbox>
+                </mat-select-trigger> -->
+                <mat-form-field class="w-100 ml-1 mr-1" appearance="outline">
+                  <input matInput (keydown)="$event.stopPropagation()"  #search3 placeholder="Search" (input)="filterOptions2($event)">
+                </mat-form-field>
+                <mat-checkbox [style.paddingLeft]="'5px'"
+                  [checked]="form.controls['benificiaryCountry']?.value?.length === countryList2?.length"
+                  (change)="selectAllOptions2($event)">
+                  {{ form.controls['benificiaryCountry']?.value?.length === countryList2?.length ? 'Unselect All' : 'Select
+                  All' }}
+                </mat-checkbox>
+                <mat-option *ngFor="let c of filteredCountryList2" [value]="c"
+                  (click)="onSelectionChange2($event,c)"
+                >
+                  <div style="padding: 2% 0;">
+                    <div class="my-1">{{ c }}</div>
+                  </div>
+                </mat-option>
+              </mat-select>
+              <mat-chip-listbox>
+                <mat-chip *ngIf="form.controls['benificiaryCountry'].value.length >0" [removable]="true" (removed)="onToppingRemoved2(0)">
+                  {{ form.controls['benificiaryCountry'].value[0] }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <mat-chip *ngIf="form.controls['benificiaryCountry'].value.length >= 2">
+                  +{{ form.controls['benificiaryCountry'].value.length - 1 }} more
+                </mat-chip>
+              </mat-chip-listbox>
+              <mat-error *ngIf="form.controls['benificiaryCountry'].hasError('required')">Beneficiary Countries is
+                Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 mt-10"
+            *ngIf="displayOtherField"
+          >
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Other Goods</mat-label>
+              <input
+                type="text"
+                class="f-14"
+
+                (input)="typeOnlyAlphabet($event,'otherGoods')"
+                formControlName="otherGoods"
+                matInput/>
+                <mat-error *ngIf="form.controls['otherGoods'].hasError('required')">Other Goods is required</mat-error>
+            </mat-form-field>
+          </div>
+
+       </div>
+      </form>
+        <div class="text-center button-style d-flex" >
+            <div class="col-md-3 mt-10">
+                <button mat-raised-button class="primary-btn" (click)="invite()">INVITE USER</button>
+            </div>
+        </div>
+
+    </div>
+</div>

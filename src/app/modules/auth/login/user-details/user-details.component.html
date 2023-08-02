@@ -1,0 +1,38 @@
+<div class="" id="userDetailsVerify">
+    <div class="">
+        
+    <img (click)="close()" src="../../../../../assets/images/icons/Icon-close_black.svg" class="close">
+    </div>
+
+<div class="verify-details-container  d-flex flex-column justify-content-center align-items-center">
+    <div class="col-md-10">
+        <div class="text-center apt15">
+            <img src="../../../../../assets/images/icons/verify.png" />
+        </div>
+
+        <p class="text-center fontBold f-14">Please verify your details below</p>
+        <form action="" class="example-form">
+            <div class="row rm">
+                <div class="mt-20">
+                    <div class="">
+                        <app-inputtext [type]="'email'" [required]="true" [name]="'Email ID'"
+                            (focusOutEvent)="emailIDHandler($event)"></app-inputtext>
+                    </div>
+                </div>
+
+                <div class=" mt-20">
+                    <div class="">
+                        <app-inputtext [type]="'text'" [required]="true" [name]="'Name'"
+                            (focusOutEvent)="nameHandler($event)"></app-inputtext>
+                    </div>
+                </div>
+            </div>
+            <div class="fontRegular f-12 error mt-10" *ngIf="errorMessage">{{errorMessage}}</div>
+            <div class="addPd">
+                <app-button [name]="'SUBMIT'" [class]="'primary-btn f-16 w100'" [type]="'submit'"
+                    (click)="sendOTP()"></app-button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>

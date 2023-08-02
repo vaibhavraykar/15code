@@ -1,0 +1,23 @@
+<div class="popup">
+    <div class="heading">
+        Reject Transaction
+        <span (click)="close()"><mat-icon>close</mat-icon></span>
+    </div>
+    <div class="row" style="margin: 0; padding: 20px;">
+        <div class="content_text">
+            <p>Enter your reason for rejecting the transaction.</p>
+            <div>
+                <form [formGroup]="form">
+            <mat-form-field   appearance="outline" class="example-full-width">
+                <textarea matInput placeholder="Remarks (Optional)"
+                formControlName="comment"></textarea>
+            </mat-form-field>
+        </form>
+        </div>
+        <P>Disclaimer: 1 Transaction Credit will be refunded if you reject this transaction.</P>
+            <div class="save-btn-section">
+                <button mat-button class="save-btn  f-12 fontBold dgrey" (click)="closeTransaction()">REJECT TRANSACTION</button>
+            </div> 
+        </div>
+    </div>   
+</div>

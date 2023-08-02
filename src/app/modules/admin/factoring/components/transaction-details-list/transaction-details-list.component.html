@@ -1,0 +1,232 @@
+<!-- <div style="padding: 40px 10px;">
+    <span class="f-22 fontBold dgrey">Transactions Details</span>
+
+    <div class="mt-30">
+        <!-- <app-table *ngIf="dataSource?.length>0" [dataSource]="dataSource" [displayedColumns]="displayColumns" [viewComment]="true"></app-table> -        <app-table (pageNextHandler)="pageNext($event)" (pagePreviousHandler)="pagePrevious($event)" [pageData]="page" 
+            [dataSource]="dataSource" [displayedColumns]="displayColumns" [viewComment]="true"
+            (commentSelected)="commentSelected($event)"
+            [totalItems]="dataLength" 
+            (editSelected)="selectedTransaction($event)" [showComments]="true" [view]="true" [FactselectOption]="true" (sendEmailIdSelected)="send($event)"></app-table>
+    </div>
+</div> -->
+<!-- <div [ngClass]="isLogoutClick == false ? 'pd-isLogout' : 'pd-isNtLogout'" >
+    <div class="row">
+        <div class="col-md-10">
+            <span class="f-22 fontBold dgrey">Factor Details</span>
+        </div>
+        <div class="col-md-2">
+            <app-button
+            [name]="'Add Factor'"
+            [class]="'primary-btn f-16 w-100'"
+            class="btnResize" (click)="openModel()"
+            ></app-button>
+        </div>
+
+    </div>
+
+    <div class="mt-30">
+        <app-table (pageNextHandler)="pageNext($event)" (pagePreviousHandler)="pagePrevious($event)" [pageData]="page" 
+            [dataSource]="dataSource" [displayedColumns]="displayColumns" [viewComment]="true"
+            (commentSelected)="commentSelected($event)"
+            [totalItems]="dataLength" 
+            (viewSelectedForAdminUser)="selectedUser($event)" [showComments]="false" [view]="false" [onlyview]="true" [acceptRejectFact]="true"></app-table>
+    </div>
+</div> -->
+<div style="padding: 20px 10px;">
+  <div class="row">
+    <div class="col-md-10">
+      <span class="f-22 fontBold dgrey">Transactions Details</span>
+    </div>
+    <!-- <div class="col-md-2">
+      <mat-form-field appearance="outline" class="w100">
+        <mat-label>Transaction Status</mat-label>
+        <mat-select>
+          <mat-option value="ACCEPTED">Quote Accepted</mat-option>
+          <mat-option value="REJECTED">Quote Not Accepted</mat-option>
+          <mat-option value="CLOSED">Transaction Closed</mat-option>
+          <mat-option value="PROCESSING">Transaction Under Processed</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+
+  </div>
+<!-- <form [formGroup]="transctionListForm"> -->
+  <div class="mt-30 table-container">
+    <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="User ID">
+            <th mat-header-cell *matHeaderCellDef > User ID </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.user.userId}}
+            </td>
+          </ng-container>
+    <ng-container matColumnDef="Assignor/Seller">
+      <th mat-header-cell *matHeaderCellDef > Assignor/Seller </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.factoringUserType=='DEBTOR'?element.debtorToAssignor:element.groupComapany.companyName}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Debtor/Buyer">
+        <th mat-header-cell *matHeaderCellDef > Debtor/Buyer </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.factoringUserType=='DEBTOR'?element.groupComapany.companyName:element.assignorToDebtor}}
+        </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="Invoice Number">
+        <th mat-header-cell *matHeaderCellDef >Invoice Number</th>
+        <td mat-cell *matCellDef="let element">
+            {{element.invoiceNumber}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Amount">
+        <th mat-header-cell *matHeaderCellDef >Amount</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.amount | amount}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Financing Period">
+        <th mat-header-cell *matHeaderCellDef >Financing Period</th>
+        <td mat-cell *matCellDef="let element">
+            {{element.finicingPeriod}}
+        </td>
+      </ng-container>
+    <ng-container matColumnDef="Transaction ID">
+        <th mat-header-cell *matHeaderCellDef >Transaction ID</th>
+        <td mat-cell *matCellDef="let element">
+            {{element.transactionId}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Transaction Status" class="selectFact" >
+        <th mat-header-cell *matHeaderCellDef >Transaction Status</th>
+        <td mat-cell *matCellDef="let element;let i = index">
+            <mat-form-field appearance="outline" style="margin-top: 2%;"  class="selectFact">
+                <mat-select class="f-12" (selectionChange)="transactionStatusChange($event.value,element.id)" [value]="element.factorStatus">
+                  <mat-option value="ACCEPTED">Quote Accepted</mat-option>
+                  <mat-option value="REJECTED">Quote Not Accepted</mat-option>
+                  <mat-option value="CLOSED">Transaction Closed</mat-option>
+                  <mat-option value="PROCESSING">Transaction Under Processed</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </td>
+      </ng-container>
+    <ng-container matColumnDef="Select Factor" class="selectFact">
+        <th mat-header-cell *matHeaderCellDef >Select Factor</th>
+        <td mat-cell *matCellDef="let element;let i = index">
+            <mat-form-field appearance="outline" style="margin-top: 2%;" class="selectFact" >
+                <mat-select class="f-12"  (selectionChange)="selectedFactor($event.value,i)" [(ngModel)]="factorEntity[i]"  multiple>
+                  <mat-option #matOption *ngFor="let data of selectFactorList;let j = index"
+                  [value]="data.companyName">{{data.companyName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Factor Pricing">
+        <th mat-header-cell *matHeaderCellDef >Factor Pricing</th>
+        <td mat-cell *matCellDef="let element">
+
+          <ng-container *ngIf="element.eligibleFactoringTransactionDto && element.eligibleFactoringTransactionDto.length > 0">
+            <ng-container *ngIf="countEligibleTransactions(element.eligibleFactoringTransactionDto) > 0">
+              <i style="cursor:pointer; color: blue;" (click)="viewDetailsFact(element.id)">
+                {{ countEligibleTransactions(element.eligibleFactoringTransactionDto) }}
+              </i>
+            </ng-container>
+          </ng-container>
+          <ng-template [ngIf]="countEligibleTransactions(element.eligibleFactoringTransactionDto) === 0">
+            0
+          </ng-template>
+
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef >Action</th>
+        <td mat-cell *matCellDef="let element">
+            <div mat-button [matMenuTriggerFor]="menu">
+                <img src="../../../assets/images/icons/3dots.png"
+                    style="width: 20px;height: 20px; cursor: pointer;" alt="">
+            </div>
+            <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="edit(element.id)"
+                    class="f-12 fontRegular dgrey">View</button>
+                <button mat-menu-item (click)="comment(element)"
+                    class="f-12 fontRegular dgrey">Message</button>
+            </mat-menu> 
+           </td>
+      </ng-container>
+      <ng-container matColumnDef="Submit">
+        <th mat-header-cell *matHeaderCellDef >Submit</th>
+        <td mat-cell *matCellDef="let element;let i = index">
+            <button mat-raised-button class="primary-btn f-12 w-100" (click)="send(element.id,factorEntity[i],i, element.factorEntity)">Submit</button>
+        </td>
+      </ng-container>
+    
+      <!-- <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+                    <i class="fa fa-eye" style="cursor:pointer" (click)="view(element)"></i> 
+                    <i *ngIf="element.status == 'Pending'"class="fa fa-check-circle" matTooltip="Approve" style="color: forestgreen; cursor:pointer"></i>
+                    <i *ngIf="element.status == 'Pending'" class="fa fa-times-circle" matTooltip="Reject" style="color: red; cursor:pointer"></i>
+                    <i *ngIf="element.status == 'INACTIVE'"class="fa fa-check-circle" matTooltip="Approve" style="color: forestgreen; cursor:pointer"></i>
+                    <i *ngIf="element.status == 'ACTIVE'" class="fa fa-times-circle" matTooltip="Reject" style="color: red; cursor:pointer"></i>
+
+        </td>
+      </ng-container> -->
+    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+  </table>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <mat-paginator  (page)= "onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]">
+    </mat-paginator>
+  </div>
+  <div class="col-md-10">
+    <div class="pagination" style="float: right;">
+      <div class="f-12 fontBold grey mx-3"> {{getPage()+' ' }} of {{page?.totalElements}}</div>
+      <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="page?.index === 0 ?'#292929a1':'#EB7203'"
+          [style.pointer-events]="page?.index === 0?'none':'auto'">
+          arrow_back_ios
+      </mat-icon> 
+    
+       <mat-icon class="pointer" (click)="pageNext()"
+          [style.pointer-events]="last===page?.totalElements?'none':'auto'"
+          [style.color]="last===page?.totalElements ?'#292929a1':'#EB7203'"
+          [style.pointer-events]="last===page?.totalElements ?'none':'auto'" style="margin-left: 10px;">
+          arrow_forward_ios
+      </mat-icon>
+    </div>
+   </div>
+</div>
+
+<!-- </form> -->
+
+</div>
+<ng-template #callAPIDialog>
+  <div class="text-center">
+    <div class="heading">Add Message
+      <span class="circle-icon">
+        <mat-icon (click)="closeComment()" mat-dialog-close>
+            <img src="../../../assets/images/icons/Icon-close.svg">
+        </mat-icon>
+    </span>
+  </div>
+      <div class="" style="padding: 15px;">
+        <img src="../../../assets/images/icons/logo.png" alt="" style="height:30px;width:50px">
+    </div>
+    <div style="padding: 0 20px 20px 20px; text-align: left;">
+      <!-- Add Message: -->
+      <div>                
+          <mat-form-field>
+              <textarea matInput [formControl]="form" maxlength="255" rows="4">
+              </textarea>
+              <mat-hint>Max 255 character</mat-hint>
+              <mat-error *ngIf="form?.hasError('maxlength') && !errorHandling('required') || errorHandling('required')">
+                  Max 255 character
+              </mat-error>
+          </mat-form-field>
+       </div>
+       <div class="update-btn">                       
+          <app-button  [name]="'Update'" [class]="'primary-btn f-16'" [type]="'submit'" (click)="updateComment()"></app-button>
+      </div>
+  </div>  
+  </div>
+</ng-template>

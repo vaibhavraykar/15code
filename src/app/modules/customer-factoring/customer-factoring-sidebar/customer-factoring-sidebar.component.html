@@ -1,0 +1,89 @@
+<div class="sidebar-wrapper l-blue-bg" #autoAdjust>
+
+    <mat-sidenav-container [ngClass]="(isOpen == true) ? 'toggle-open' : 'toggle-close'">
+  
+      <mat-sidenav #sideNav mode="side" opened class="col-md-2">
+  
+        <mat-nav-list>
+  
+          <li class="menu cpointer" *ngIf="!isOpen" style="padding-top: 20px;">
+  
+            <img src="../../../../assets/images/icons/hamburger-menu.png" matTooltip="Menu" (click)="openSidebar()">
+  
+          </li>
+  
+          <li class="row m0 openMenu" *ngIf="isOpen"
+            style="padding-top: 20px; margin-bottom: 30px; margin-left: 0 !important; margin-right: 0 !important;">
+  
+            <div class="col-9 col-md-9 f-22 fontBold white-text">Menu</div>
+  
+            <div class="col-3 col-md-3 cpointer" (click)="closeSidebar()"><mat-icon>close</mat-icon></div>
+  
+          </li>
+          <li (click)="goTo('NewRequest')" class="menuLi">
+
+            <div class="d-flex justify-content-center"> 
+  
+              <div class="img-cont">
+  
+                <img src="../../../assets/images/factoring/sidebar-Dashboard.svg" *ngIf="isClose" matTooltip="New Request">
+  
+                <img src="../../../assets/images/factoring/sidebar-Dashboard.svg" *ngIf="isOpen">
+              </div>
+              <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+                New request
+              </div>
+  
+            </div>
+  
+          </li>
+          <li (click)="goTo('ActiveTran')" class="menuLi">
+
+            <div class="d-flex justify-content-center">
+  
+              <div class="img-cont">
+  
+                <img src="../../../assets/images/factoring/sidebar-Dashboard.svg" *ngIf="isClose" matTooltip="Active Transaction">
+  
+                <img src="../../../assets/images/factoring/sidebar-Dashboard.svg" *ngIf="isOpen">
+              </div>
+              <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+                Active Transaction
+              </div>
+  
+            </div>
+  
+          </li>
+          <li (click)="goTo('HisTran')" class="menuLi">
+
+            <div class="d-flex justify-content-center">
+  
+              <div class="img-cont">
+  
+                <img src="../../../assets/images/factoring/sidebar-Dashboard.svg" *ngIf="isClose" matTooltip="Transaction History">
+  
+                <img src="../../../assets/images/factoring/sidebar-Dashboard.svg" *ngIf="isOpen">
+              </div>
+              <div class="f-16 fontRegular white-text" *ngIf="isOpen">
+                Transaction History
+              </div>
+  
+            </div>
+  
+          </li>
+        </mat-nav-list>
+  
+      </mat-sidenav>
+      <mat-sidenav-content class="col-md-10">
+        <div>
+          <app-header-bar-cust-factor></app-header-bar-cust-factor>
+        </div>
+        <div class="tabs">
+          <router-outlet></router-outlet>
+        </div>
+
+      </mat-sidenav-content>
+  
+    </mat-sidenav-container>
+  
+  </div>

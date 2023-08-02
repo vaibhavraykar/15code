@@ -1,0 +1,23 @@
+<div class="congratulation-wrapper white-bg text-center">
+    <div>
+        <div>
+            <img src="../../../../../assets/images/factoring/Congratulatins.svg" />
+        </div>
+        <div class="f-22 fontBold blueText mt-40">
+            Congratulation
+        </div>
+        <div class="f-16 fontRegular fw-600 dgrey mt-20">
+          <span *ngIf="!from">Your transaction has been successfully Placed!</span>
+          <span *ngIf="from === 'selling_clone'">Your transaction has been successfully Placed!</span>
+          <span *ngIf="from === 'selling_new'">Your transaction has been successfully Placed!</span>
+            <span *ngIf="from === 'selling_edit'">Your transaction has been successfully Updated!</span>
+            <span *ngIf="from === 'buying'">Your Quote has been placed successfully!</span>
+        </div>
+        <div class="text-center px-4 px-2 col-md-12 m-auto">
+            <div class="mt-40 text-center">
+                <app-button [name]="'GO TO ACTIVE TRANSACTION'" [class]="'primary-btn f-16 w100'" [type]="'button'" (click)="gotoTransact()"></app-button>
+            </div>
+        </div>
+    </div>
+</div>
+

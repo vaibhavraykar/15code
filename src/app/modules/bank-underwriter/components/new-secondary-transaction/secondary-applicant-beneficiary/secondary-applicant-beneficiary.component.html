@@ -1,0 +1,198 @@
+<div class="applicant-beneficiary-details px-4">
+  <h6 class="title text-center mb-32">
+    Fill in the details for Applicant & Beneficiary
+  </h6>
+
+  <form [formGroup]="form">
+    <div class="mt-20 fw-700 f-16">Applicant Details</div>
+    <section class="row mt-20">
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline" (click)="matAutocompleteCountryObservers()">
+          <mat-label>Country</mat-label>
+
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            [matAutocomplete]="applicantCountry"
+            formControlName="applicantCountryName"
+            (change)="checkCountryExistsPorts($event,'applicantCountryName')"
+            
+            
+          />
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+          <mat-autocomplete
+            autoActiveFirstOption
+            #applicantCountry="matAutocomplete"
+          >
+            <mat-option
+              *ngFor="let item of applicantCountryList | async"
+              [value]="item"
+            >
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error   *ngIf="form.controls['applicantCountryName'].hasError('required')">Country required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline">
+          <mat-label> Applicant's Name </mat-label>
+
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            formControlName="applicantName"
+          />
+          <mat-error *ngIf="form.controls['applicantName'].hasError('required')"
+            >Applicant Name Required</mat-error
+          >
+          <mat-error *ngIf="form.controls['applicantName'].hasError('pattern')"
+            >Please enter valid Applicant Name</mat-error
+          >
+        </mat-form-field>
+      </div>
+    </section>
+    <div class="mt-20 fw-700 f-16">Beneficiary Details</div>
+    <section class="row mt-20">
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline" (click)="matAutocompleteCountryObservers()">
+          <mat-label>Country</mat-label>
+
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            [matAutocomplete]="beneficiaryCountry"
+            formControlName="beneficiaryCountryName"
+            (change)="checkCountryExistsPorts($event,'beneficiaryCountryName')"
+          />
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+          <mat-autocomplete
+            autoActiveFirstOption
+            #beneficiaryCountry="matAutocomplete"
+          >
+            <mat-option
+              *ngFor="let item of beneficiaryCountryList | async"
+              [value]="item"
+            >
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error    *ngIf="form.controls['beneficiaryCountryName'].hasError('required')">Beneficiary Country Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline">
+          <mat-label>Beneficiary's Name</mat-label>
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            formControlName="beneficiaryName"
+          />
+          <mat-error
+            *ngIf="form.controls['beneficiaryName'].hasError('required')"
+            >Beneficiary Name Required</mat-error
+          >
+          <mat-error
+            *ngIf="form.controls['beneficiaryName'].hasError('pattern')"
+            >Please enter valid Beneficiary Name</mat-error
+          >
+        </mat-form-field>
+      </div>
+    </section>
+    <div class="mt-20 fw-700 f-16">Obligor Bank Details</div>
+    <section class="row mt-20">
+      <div class="col-md-6">
+        <mat-form-field [style.pointerEvents]="editForm?'none':'auto'" class="w100" appearance="outline" (click)="matAutocompleteCountryObservers()">
+          <mat-label>Country</mat-label>
+
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            [matAutocomplete]="beneficiarybankcountry"
+            formControlName="beneficiaryBankCountry"
+            (change)="checkCountryExistsPorts($event,'beneficiaryBankCountry')"
+          >
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+          <mat-autocomplete
+            autoActiveFirstOption
+            #beneficiarybankcountry="matAutocomplete"
+          >
+            <mat-option
+              *ngFor="let item of beneficiarybankCountryList | async"
+              [value]="item"
+            >
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error  *ngIf="form.controls['beneficiaryBankCountry'].hasError('required')">Country Of Obligor Bank Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline">
+          <mat-label>Obligor Bank</mat-label>
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            formControlName="beneficiaryBankName"
+          />
+          <mat-error
+            *ngIf="form.controls['beneficiaryBankName'].hasError('required')"
+            >Obligor Bank Name Required</mat-error
+          >
+          <mat-error
+            *ngIf="form.controls['beneficiaryBankName'].hasError('pattern')"
+            >Please enter valid Obligor Bank Name</mat-error>
+        </mat-form-field>
+      </div>
+    </section>
+    <div class="mt-20 fw-700 f-16">Applicable Law</div>
+    <section class="row mt-20">
+      <mat-radio-group
+        aria-label="Select an option"
+        style="flex-wrap: nowrap !important; display: flex; align-items: center"
+        formControlName="applicableLaw"
+      >
+        <mat-radio-button value="UK">UK</mat-radio-button>
+        <mat-radio-button value="USA">USA</mat-radio-button>
+        <mat-radio-button value="Other">Other</mat-radio-button>
+        <mat-error *ngIf="errors.applicableLaw">Required</mat-error>
+      </mat-radio-group>
+      <mat-form-field
+        class="w-25 mt-1"
+        appearance="outline"
+        *ngIf="form.value.applicableLaw === 'Other'"
+      >
+        <input
+          type="text"
+          class="f-14"
+          matInput
+          formControlName="otherApplicableLaw"
+        />
+        <mat-error  *ngIf="form.controls['otherApplicableLaw'].hasError('required')">This Field is required.</mat-error>
+      </mat-form-field>
+    </section>
+    <!-- <div class="mt-20 fw-700 f-16">Comments</div>
+    <section class="row mt-20">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Enter details</mat-label>
+        <textarea matInput formControlName="comments"></textarea>
+      </mat-form-field>
+    </section> -->
+    <div class="submit-btn">
+      <div class="col-md-6 text-center m-auto pt-30">
+        <app-button
+          [name]="'NEXT UP > TRANSACTION DETAILS'"
+          [class]="'primary-btn f-16 w100'"
+          (click)="submit()"
+        ></app-button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,455 @@
+<div class="text-center px-4 py-2  m-auto bd business-details" >
+    <div class="mt-30 row d-flex justify-content-center align-items-center">
+
+        <form  [formGroup]="businessForm" style="padding:0px 20px;">
+        <div class="row" *ngIf="subscriber=='BANK'">
+            <!-- Bank Name Field -->
+            <div class="col-md-4" >
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Bank Name</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey"  formControlName="bankName">
+                    <mat-error
+                    *ngIf="businessForm.controls['bankName']?.hasError('required')">Bank Name is required</mat-error>
+                    <mat-error
+                *ngIf="businessForm.controls['bankName']?.hasError('pattrn')"
+                >Bank Name is invalid</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row" *ngIf="subscriber=='BANK_AS_UNDERWRITER'">
+            <div class="col-md-4">
+
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Bank Name</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey"
+                    type="text"
+                    formControlName="bankName"
+                    >
+                    <mat-error
+                    *ngIf="businessForm.controls['bankName']?.hasError('required')"
+                    >Bank Name is required</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['bankName']?.hasError('pattern')"
+                    >Bank Name is invalid</mat-error>
+                </mat-form-field>
+
+            </div>
+            <div class="col-md-4">
+
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Branch Name</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey"
+                    formControlName="branchName"
+                    >
+                    <mat-error
+                    *ngIf="businessForm.controls['branchName']?.hasError('required')"
+                    >Branch Name is required</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['branchName']?.hasError('pattern')"
+                    >Branch Name is invalid</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Swift Code</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey"
+                    formControlName="swiftCode"
+                    >
+                    <mat-error
+                    *ngIf="businessForm.controls['swiftCode']?.hasError('required')"
+                    >Swift Code is required</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['swiftCode']?.hasError('pattern')"
+                    >Swift Code is invalid</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row" *ngIf="subscriber=='BANK_AS_UNDERWRITER'">
+            <div class="col-md-4">
+
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Designation</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey"
+                    formControlName="designation"
+                    >
+                    <mat-error
+                    *ngIf="businessForm.controls['designation']?.hasError('required')"
+                    >Designation is required</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['designation']?.hasError('pattern')"
+                    >Designation is invalid</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Min LC Value</mat-label>
+                    <input type="text" matInput formControlName="minLCValue"
+                    [value]="formatAmount(businessForm.controls['minLCValue'].value)"
+                    (paste)="onPaste($event)" (keydown)="onKeyDown($event)" (blur)="onBlur('minLCValue')"
+                    (input)="businessForm.controls['minLCValue'].setValue(parseAmount($event))"
+                    >
+                    <mat-error *ngIf="businessForm.controls['minLCValue'].hasError('required')">Min LC Value required</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+
+                <mat-form-field class="w100" appearance="outline">
+                    <mat-label>Currency</mat-label>
+
+                    <input type="text" class="f-14" matInput formControlName="currency"
+                        [matAutocomplete]="currencyDropdown"
+                        (input)="currencyChange($event)"
+                        (change)="checkAutocomplete($event,'currency')"
+                        >
+                        <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                    <mat-autocomplete  #currencyDropdown="matAutocomplete"
+                        >
+                        <mat-option *ngFor="let item of currencyOptions" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="businessForm.controls['currency'].hasError('required')">Currency is required</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="subscriber=='BANK_AS_UNDERWRITER'">
+            <div class="col-md-4 add-label-pd">
+
+                <mat-form-field class="w100" appearance="outline">
+                    <mat-label>Blacklisted Goods/Commodities</mat-label>
+
+                    <input type="text" class="f-14" matInput formControlName="blacklistedGoods"
+                        [matAutocomplete]="goodsDropdown"
+                        (input)="goodsChange($event)"
+                        (change)="checkAutocomplete($event,'blacklistedGoods')">
+                        <mat-icon matSuffix style="background:white !important;z-index:1 !important">keyboard_arrow_down</mat-icon>
+                    <mat-autocomplete  #goodsDropdown="matAutocomplete"
+                    [displayWith]="displayGoods">
+                        <mat-option *ngFor="let item of goodsOptions" [value]="selectedGoods">
+                            <div class="" (click)="optionClicked($event, item)">
+                                <mat-checkbox [checked]="item.selected" (change)="toggleSelection($event, item)" (click)="$event.stopPropagation()">
+                                    {{item.name}}
+                                </mat-checkbox>
+                            </div>
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="businessForm.controls['blacklistedGoods'].hasError('required')">Blacklisted Goods/Commodities required</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4 add-label-pd">
+
+                <mat-form-field class="w100" appearance="outline" (click)="resetCountry()">
+                    <mat-label>Beneficiary Countries Interested</mat-label>
+
+                    <input type="text" class="f-14" matInput formControlName="beneficiaryCountry"
+                            [matAutocomplete]="benecountryDropdown"
+                            (input)="beneCountryChange($event)"
+                            (change)="checkAutocomplete($event,'beneficiaryCountry')"
+                            >
+                            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                        <mat-autocomplete  #benecountryDropdown="matAutocomplete"
+                        [displayWith]="displayBeneCountries"
+                            >
+                            <mat-option *ngFor="let item of beneficiaryCountryOptions" [value]="selectedBeneficiaryCountries">
+                                <div class="" (click)="optionClickedBeneCountry($event, item)">
+                                    <mat-checkbox [checked]="item.selected" (change)="toggleBeneCountrySelection($event, item)" (click)="$event.stopPropagation()">
+                                        {{item.name}}
+                                    </mat-checkbox>
+
+                                </div>
+                            </mat-option>
+                        </mat-autocomplete>
+                    <mat-error *ngIf="businessForm.controls['beneficiaryCountry'].hasError('required')">Beneficiary Country is required</mat-error>
+                </mat-form-field>
+
+            </div>
+        </div>
+
+        <div class="row" *ngIf="subscriber=='BANK_AS_UNDERWRITER'&&selectedOtherTypeGoods">
+            <div class="col-md-4">
+                <mat-form-field class="w100" appearance="outline">
+                    <mat-label>Other Goods Type</mat-label>
+
+                    <input type="text" class="f-14"
+                        matInput
+                        [formControl]="otherGoods"
+                        >
+
+                    <mat-error *ngIf="this.otherGoods.hasError('required')">Other Goods Type required</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="subscriber=='CUSTOMER'">
+            <div class="col-md-8 radio-style" >
+                <div class="max-content">
+                    <div class="col-md-12">
+                        <mat-radio-group aria-label="Select an option"
+                        formControlName="registerType">
+                            <mat-radio-button
+                                *ngFor="let item of registerType"
+                                value="{{item.value}}"
+                                (change)="onRadioChange($event)"
+                                >{{item.name}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Company Name</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey"
+                    formControlName="companyName"
+                    >
+                    <mat-error
+                    *ngIf="businessForm.controls['companyName']?.hasError('required')"
+                    >Company Name is required</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['companyName']?.hasError('pattern')"
+                    >Company Name is invalid</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+    <ng-container *ngIf="subscriber!='BANK_AS_UNDERWRITER'?true:false" formArrayName="userDetailsForm">
+        <!-- User Details Form -->
+        <div class="row"
+            *ngFor="let user of userDetailsArrayParams().controls;let i=index"
+            [formGroupName]="i"
+        >
+            <div class="d-flex f-14 align-items-center justify-content-between " style="margin-bottom: 20px;">
+                <div class="">
+                    User {{i>0?i+1:''}} Details
+                </div>
+                <div class="" style="margin-top:7px"
+                    (click)="deleteItem(i)"
+                    *ngIf="i>0"
+                >
+                    <mat-icon >highlight_off</mat-icon>
+                </div>
+            </div>
+                <div class="col-md-4" >
+                    <mat-form-field appearance="outline" class="w100">
+                        <mat-label>MD/CEO/Owner's First Name</mat-label>
+                        <input matInput class="f-14 fontRegular dgrey"
+                        formControlName="firstName"
+                        >
+                        <mat-error></mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline" class="w100">
+                        <mat-label>MD/CEO/Owner's Last Name</mat-label>
+                        <input matInput class="f-14 fontRegular dgrey"
+                        formControlName="lastName"
+                        >
+                        <mat-error></mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline" class="w100">
+                        <mat-label>Designation</mat-label>
+                        <input matInput class="f-14 fontRegular dgrey"
+                        formControlName="designation"
+                        >
+                        <mat-error></mat-error>
+                    </mat-form-field>
+                </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-3 m-auto">
+                <div class="col-md-12 m-auto mt-20">
+                    <app-button [name]="'ADD MORE'" (click)="addMore()" [class]="'primary-btn f-16 w-100'" [type]="'button'"class="btnResize"></app-button>
+                </div>
+            </div>
+        </div>
+
+    </ng-container>
+
+        <div class="fw-500 f-16 d-flex align-items-center"
+            style="padding:0px 20px;margin-top:20px;">
+            Registered address details
+            <span class="notification-icon"
+            *ngIf="editable"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="To change business country,contact customer support."
+						>
+							<img
+								src="../../../../assets/images/icons/Icon-info.svg"
+								alt="icon"
+							/>
+			</span>
+        </div>
+
+        <div class="row" style="margin-top:20px;">
+            <!-- Select Country Dropdown -->
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Select Country</mat-label>
+                    <input type="text" class="f-14" matInput formControlName="selectedCountry"
+                                    [matAutocomplete]="countryDropdown"
+                                    (input)="countryChange($event)"
+                                    (change)="checkAutocomplete($event,'selectedCountry')"
+                                    >
+                                    <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                                <mat-autocomplete  #countryDropdown="matAutocomplete"
+                                    >
+                                    <mat-option *ngFor="let item of countryOptions" [value]="item.countryName">
+                                        {{item.countryName}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-error
+                                *ngIf="businessForm.controls['selectedCountry']?.invalid"
+                                >Country required</mat-error>
+                    </mat-form-field>
+            </div>
+
+            <!-- Province/State field -->
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Province/State</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey"
+                    formControlName="state"
+                    >
+                    <mat-error
+                    *ngIf="businessForm.controls['state']?.hasError('required')"
+                    >Province/State is required</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['state']?.hasError('pattern')"
+                    >Province/State is invalid</mat-error>
+                </mat-form-field>
+            </div>
+            <!-- City Field -->
+            <div class="col-md-4">
+
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>City</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey"
+                    formControlName="city"
+                    >
+                    <mat-error
+                    *ngIf="businessForm.controls['city']?.hasError('required')"
+                    >City is required</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['city']?.hasError('pattern')"
+                    >City is invalid</mat-error>
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <!-- AddressLine 1 Field  -->
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Address line 1</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey"
+                    formControlName="addressLine1"
+                    >
+                    <mat-error
+                    *ngIf="businessForm.controls['addressLine1']?.hasError('required')"
+                    >Address Line 1 is required</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['addressLine1']?.hasError('pattern')"
+                    >Address Line 1 is invalid</mat-error>
+                </mat-form-field>
+            </div>
+            <!-- Addresssline 2 Field -->
+            <div class="col-md-4">
+
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Address line 2</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey"
+                    formControlName="addressLine2"
+                    >
+                    <mat-error
+                    *ngIf="businessForm.controls['addressLine2']?.hasError('required')"
+                    >Address Line 2 is required</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['addressLine2']?.hasError('pattern')"
+                    >Address Line 2 is invalid</mat-error>
+                </mat-form-field>
+            </div>
+            <!-- Addresssline 3 Field -->
+            <div class="col-md-4">
+
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Address line 3/Landmark</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey"
+                    formControlName="addressLine3"
+                    >
+                    <mat-error
+                    *ngIf="businessForm.controls['addressLine3']?.hasError('required')"
+                    >Address Line 3 is required</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['addressLine3']?.hasError('pattern')"
+                    >Address Line 3 is invalid</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Pincode Field -->
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Pin code / Zip Code</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey"
+                    maxlength="10"  minlength="5"
+                    formControlName="pincode"
+                    (paste)="pasteHandler($event)"
+                    >
+                    <mat-error
+                    *ngIf="businessForm.controls['pincode']?.hasError('required')"
+                    >Pin code/Zip Code is required</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['pincode']?.hasError('pattern')"
+                    >Pin code/Zip Code is invalid</mat-error>
+                    <mat-error *ngIf="businessForm?.hasError('minlength')">
+                    Min 5 charachter
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <!-- Telephone Field -->
+            <div class="col-md-4">
+
+                <mat-form-field appearance="outline" class="w100">
+                    <mat-label>Telephone</mat-label>
+                    <input matInput class="f-14 fontRegular dgrey" type="text"
+                    formControlName="telephone"
+                    (keypress)="telephoneHandler($event)"
+                    (paste)="pasteHandler($event)"
+                    (change)="telechecker($event)"
+                    >
+                    <mat-error
+                    *ngIf="businessForm.controls['telephone']?.hasError('required')"
+                    >Telephone is required</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['telephone']?.hasError('minlength')"
+                    >Telephone is atleast of 7 digits</mat-error>
+                    <mat-error
+                    *ngIf="businessForm.controls['telephone']?.hasError('pattrn')"
+                    >Telephone is invalid</mat-error>
+                </mat-form-field>
+            </div>
+
+
+        </div>
+
+        <div class="row ">
+            <div class="col-md-5 m-auto mt-20">
+            <app-button
+                [name]="'SUBMIT'"
+                [class]="'primary-btn f-16 w-100'"
+                class="btnResize"
+                (click)="submit()"
+            ></app-button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>

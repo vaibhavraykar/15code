@@ -1,0 +1,111 @@
+.filter-popup {
+    width: 80vw;
+    height: 530px;
+    position: relative;
+    overflow-x: hidden;
+    .f-16 {
+        font-size: 16px;
+        color: #292929;
+        font-weight: 500;
+        padding: 10px 20px;
+    }
+    .filter-content {
+        display: flex;
+        padding: 20px 20px 0;
+        position: relative;
+
+        .col-md-4 {
+            width: 22%;
+            margin: 1%;
+        }
+        .col-md-1 {
+            width: 6%;
+            img {
+                margin-top: 20px;
+            }
+        }
+    }
+    .add-filter {
+        color: #EB7203;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 0px 30px 0 30px;
+
+    }
+    .action-btn {
+        position: absolute;
+        width: 100%;
+        bottom: 6%;
+        padding: 0px 30px 0 30px;
+        .col-md-5 {
+            color: #EB7203;
+        }
+        .col-md-7 {
+            justify-content: right;
+        }
+    }
+    ::ng-deep {
+        .mat-mdc-icon-button svg {
+            color: #EB7203 !important;
+        }
+        .mat-mdc-outlined-button:not(:disabled) {
+            border-color: #EB7203 !important;
+        }
+        .mat-mdc-select-arrow svg, .mat-mdc-select-arrow-wrapper {
+            display: none !important;
+        }
+        .mat-icon {
+            color: #EB7203;
+        }
+        ::ng-deep .mdc-notched-outline {
+            *{
+
+            border: none;
+            }
+        }
+        .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper, .mat-mdc-text-field-wrapper {
+            border: 1px solid #D0D0D0 !important;
+            border-radius: 0px !important;
+        }
+        .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before, .mdc-text-field--filled .mdc-line-ripple::after {
+            display: none;
+        }
+    }
+}
+::ng-deep{
+  .filter-popup{
+    .mat-mdc-menu-panel{
+    margin-top: 15px;
+    height: 183px !important;
+    width: 360px !important;
+    }
+    .mat-mdc-menu-panel .mat-mdc-menu-panel{
+      max-width: 400px!important;
+      max-height:400px!important;
+    }
+  }
+}
+.filter-wrapper {
+    height: 380px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.cdk-overlay-pane {
+    top: 0 !important;
+}
+.date-wrapper {
+    // ::ng-deep {
+//   .cdk-overlay-connected-position-bounding-box {
+//     top: 280px !important;
+//     right: 192px !important;
+//   }
+// }
+}
+@media screen and (max-width: 600px) {
+    .filter-popup .filter-content {
+        display: block !important;
+    }
+    .filter-popup .filter-content .col-md-4 {
+        width: 100% !important;
+    }
+}

@@ -1,0 +1,86 @@
+<div class="view-transaction" style="padding: 20px 10px;">
+    <span class="f-22 fontBold dgrey">Referrer Details</span>
+
+    <div class="col-md-8 m-auto">
+        <div class="boxShadow">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="yellow-txt f-14 fontBold">User ID</div>
+                         <div class="label-text">{{data.personalDetails?.username}}</div>
+                    </div>
+                    <div class="col-md-1" style="padding:0px" (click)="back()">
+                        <!-- <div class="f-14 fontBold dgrey cpointer back">
+                            <mat-icon (click)="back()">keyboard_arrow_left</mat-icon> 
+                            <span (click)="back()">Back</span>
+                        </div> -->
+                        <div class="imgDiv f-14 fontBold dgrey cpointer">
+                            <mat-icon >keyboard_arrow_left</mat-icon>Back 
+                        </div>                
+                    </div>
+                </div>
+               
+            </div>
+            <div class="mt-20" style="padding: 10px;">
+                <span class="f-14 fontBold heading" style="color:var(--yellow)">Personal Details</span>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">First Name</div>
+                        <div class="info">{{data.personalDetails?.firstName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Last Name</div>
+                        <div class="info">{{data.personalDetails?.lastName}}    
+                    </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Email</div>
+                        <div class="info"> {{data.personalDetails?.email}}
+                    </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Mobile Number</div>
+                        <div class="info">{{data.personalDetails?.mobileNumber}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">{{data.personalDetails?.country}}</div>
+                    </div>
+                    <div class="col-md-3" *ngFor="let emailList of data.personalDetails?.additionalEmails;let i=index">
+                        <div class="label-text">Additional Email Id {{i+1}}</div>
+                        <div class="info">{{emailList?.additionalEmail}}</div>
+                    </div>
+                </div><br>
+                <div class="f-14 fontBold heading mt-10" style="color:var(--yellow);">Business Details</div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Company Name</div>
+                        <div class="info">{{data.businessDetails?.companyName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Entity Type</div>
+                        <div class="info">{{data.businessDetails?.entityType}}</div>
+                    </div>
+                </div><br>
+                <span class="f-14 fontBold heading mt-10" *ngIf="data.businessDetails?.rmUser">RM Details</span>
+                <div class="row mt-10" *ngIf="data.businessDetails?.rmUser">
+                    <div class="col-md-3">
+                        <div class="label-text">First Name</div>
+                        <div class="info">{{data.businessDetails?.rmUser?.firstName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Last Name</div>
+                        <div class="info">{{data.businessDetails?.rmUser?.lastName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Designation</div>
+                        <div class="info">{{data.businessDetails?.rmUser?.designation}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,175 @@
+<div class="all-detail-container mt-30">
+    <div class="">
+      <div class="d-flex align-items-center mb-20">
+        <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+        <div class="ml-12 darkBlackText">Viewing details for {{viewData?.transactionId}}</div>
+      </div>
+      <div class="all-details-tab-container">
+        <div style="padding:24px" class="admin-user-wrapper">
+          <div class="admin-user-container">
+                  <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+                        <div class="row ">
+                            <!-- <div *ngIf="priTran"> -->
+                                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                    <div class="light-text mb-4">Requirement</div>
+                                    <div class="dark-text">{{viewData?.requirementType | titlecase}}</div>
+                                </div>
+                                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                    <div class="light-text mb-4">Amount</div>
+                                    <div class="dark-text"></div>
+                                </div>
+                                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                    <div class="light-text mb-4">IB</div>
+                                    <!-- <div class="dark-text">{{viewData?.usanceDays}} days</div> -->
+                                </div>
+                                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                    <div class="light-text mb-4">Tenor</div>
+                                    <div class="dark-text">{{viewData?.usanceDays || 'NA'}} days</div>
+                                </div>
+                            <!-- </div> -->
+                            <!-- <div *ngIf="secTran">
+                                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                    <div class="light-text mb-4">Product</div>
+                                    <div class="dark-text">{{viewData?.requirementType | titlecase}}</div>
+                                </div>
+                                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                    <div class="light-text mb-4">Amount</div>
+                                    <div class="dark-text"></div>
+                                </div>
+                                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                    <div class="light-text mb-4">Obligor Bank</div>
+                                    <div class="dark-text"></div>
+                                </div>
+                                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                    <div class="light-text mb-4">Tenor</div>
+                                    <div class="dark-text">{{viewData?.usanceDays || 'NA'}}days</div>
+                                </div>
+                                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                    <div class="light-text mb-4">Distributing Bank</div>
+                                    <div class="dark-text"></div>
+                                </div>
+                                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                    <div class="light-text mb-4">Participation Basis</div>
+                                    <div class="dark-text"></div>
+                                </div>
+                            </div> -->
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                <div class="light-text mb-4">Currency of quote</div>
+                                <div class="dark-text">{{viewData?.currency || 'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="(viewData?.requirementType === 'CONFIRMATION' || viewData?.requirementType === 'CONFIRMANDDISCOUNT') && priTran">
+                                <div class="light-text mb-4">Confirmation Commission p.a.</div>
+                                <div class="dark-text">{{viewData?.confirmationCharges }}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="(viewData?.requirementType === 'CONFIRMATION' || viewData?.requirementType === 'CONFIRMANDDISCOUNT') && priTran">
+                                <div class="light-text mb-4">Confirmation charges applicable from date of issuance till Negotiation date</div>
+                                <div class="dark-text">{{viewData?.confChgsIssuanceToNegot || 'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="(viewData?.requirementType === 'CONFIRMATION' || viewData?.requirementType === 'CONFIRMANDDISCOUNT') && priTran">
+                                <div class="light-text mb-4">Confirmation charges applicable from date of issuance till date of maturity</div>
+                                <div class="dark-text">{{viewData?.confChgsIssuanceToMatur || 'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="viewData?.requirementType === 'BANKGUARANTEE'">
+                                <div class="light-text mb-4">BG Commission p.a.</div>
+                                <div class="dark-text">{{viewData?.ConfirmationCharges}}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="viewData?.requirementType === 'BANKGUARANTEE'">
+                                <div class="light-text mb-4">Commission Charges applicable from date of issuance till expiry date</div>
+                                <div class="dark-text">{{viewData?.confChgsIssuanceToexp == false ? 'NO' : 'YES'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="viewData?.requirementType === 'BANKGUARANTEE'">
+                                <div class="light-text mb-4">Commission Charges from Date of Issuance till claim expiry date</div>
+                                <div class="dark-text">{{viewData?.confChgsIssuanceToClaimExp == false ? 'NO' : 'YES'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"  *ngIf="viewData?.participationAmount && secTran">
+                                <div class="light-text mb-4">Participation Amount</div>
+                                <div class="dark-text">{{viewData?.participationAmount }}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"  *ngIf="viewData?.secondaryTrType != 'Funded' && secTran">
+                                <div class="light-text mb-4">Participation Commission/Fee p.a</div>
+                                <div class="dark-text">{{viewData?.applicableBenchmark }}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"  *ngIf="viewData?.requirementType === 'Discounting' || viewData?.requirementType === 'CONFIRMANDDISCOUNT' || viewData?.requirementType === 'REFINANCE' || viewData?.requirementType === 'BANKER' || viewData?.requirementType === 'BILLAVALISATION' || viewData?.requirementType === requirement || viewData?.requirementType === 'CONFIRMATION' || viewData?.requirementType === 'Trade Loan'">
+                                <div class="light-text mb-4">Applicable Benchmark (if any)</div>
+                                <div class="dark-text">{{viewData?.applicableBenchmark }}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"  *ngIf="(viewData?.requirementType === 'Discounting' || viewData?.requirementType === 'CONFIRMANDDISCOUNT' || viewData?.requirementType === 'REFINANCE' || viewData?.requirementType === 'BANKER' || viewData?.requirementType === 'BILLAVALISATION' || viewData?.requirementType === requirement || viewData?.requirementType === 'CONFIRMATION' || viewData?.requirementType === 'Trade Loan')">
+                                <textarea rows="5"
+                                placeholder="Comments for applicable benchmark (optional), e.g. 6 months Libor, 1 month Euribor" value={{viewData?.commentsBenchmark}}  readonly="true"></textarea>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"  *ngIf="viewData?.discountingCharges && secTran">
+                                <div class="light-text mb-4">Risk margin spread over benchmark</div>
+                                <div class="dark-text">{{viewData?.applicableBenchmark }}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="(viewData?.requirementType === 'Discounting' || viewData?.requirementType === 'CONFIRMANDDISCOUNT' || viewData?.requirementType === 'BILLAVALISATION') && priTran">
+                                <div class="light-text mb-4">Discounting charges p.a. (Spread over benchmark)</div>
+                                <div class="dark-text">{{viewData?.discountingChargesPA}}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="viewData?.requirementType === 'REFINANCE' && priTran">
+                                <div class="light-text mb-4">Refinancing charges p.a. (Spread over benchmark)</div>
+                                <div class="dark-text">{{viewData?.refinancingCharges}}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="(viewData?.requirementType === 'BANKER' || viewData?.requirementType === requirement) && priTran">
+                                <div class="light-text mb-4">Banker's Acceptance charges p.a. (Spread over benchmark)</div>
+                                <div class="dark-text">{{viewData?.bankerAcceptCharges}}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"*ngIf="(viewData?.requirementType === 'Discounting' || viewData?.requirementType === 'CONFIRMANDDISCOUNT' || viewData?.requirementType === 'BANKER')">
+                                <div class="light-text mb-4">Negotiation Charges p.a.</div>
+                                <div class="dark-text"></div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="(viewData?.requirementType === 'Discounting' || viewData?.requirementType === 'CONFIRMANDDISCOUNT' || viewData?.requirementType === 'BANKER' || viewData?.requirementType === requirement)">
+                                <div class="light-text mb-4">Negotiation Charges (Fixed)</div>
+                                <div class="dark-text">{{viewData?.negotiationChargesFixed || 'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="(viewData?.requirementType === 'Discounting' || viewData?.requirementType === 'CONFIRMANDDISCOUNT' || viewData?.requirementType === 'BANKER' || viewData?.requirementType === requirement)">
+                                <div class="light-text mb-4">Negotiation Charges (%)
+                                    <small>*Higher of the two will be considered</small>
+                                </div>
+                                <div class="dark-text">{{viewData?.negotiationChargesPerct}}%</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="viewData?.otherCharges">
+                                <div class="light-text mb-4">Other Charges (If any)</div>
+                                <div class="dark-text">{{viewData?.otherCharges || 'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="viewData?.specifyTypeOfCharges">
+                                <textarea rows="5"
+                                placeholder="Specify the type charge (Swift, P&T, etc)" value={{viewData?.specifyTypeOfCharges}}  readonly="true"></textarea>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="viewData?.minTransactionCharges">
+                                <div class="light-text mb-4">Minimum Transaction Charges (If any)</div>
+                                <div class="dark-text">{{viewData?.minTransactionCharges || 'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="viewData?.validity">
+                                <div class="light-text mb-4">Validity</div>
+                                <div class="dark-text">{{viewData?.validity | date : 'dd-MM-y'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="viewData?.totalQuote">
+                                <div class="light-text mb-4">Total Quote</div>
+                                <div class="dark-text">{{viewData?.totalQuote |number :'1.2-2'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="viewData?.termConditionComments">
+                                <div class="light-text mb-4">Other terms & Conditions</div>
+                                <div class="dark-text">{{viewData?.termConditionComments || 'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="viewData?.commentsBenchmark">
+                                <textarea rows="5"
+                                placeholder="e.g. Discounting commission applicable from the date of discounting until the maturity date of the bill(s)." value={{viewData?.commentsBenchmark}}  readonly="true"></textarea>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="viewData?.status">
+                                <div class="light-text mb-4">Quote Status</div>
+                                <div class="dark-text" *ngIf="viewData?.status == 'Placed'">{{viewData?.validity > todaysDate ? 'Placed' : 'Expired'}}</div>
+                                <div class="dark-text" *ngIf="viewData?.status != 'Placed'">{{viewData?.status | titlecase}}</div>
+                            </div>
+                            
+                        </div>
+                        <div class="mt-30">
+                            <b>Disclaimer: </b> The applicable benchmark will be applicable as of transaction
+                              date, actual quote
+                              from the bank may differ to that extent.
+                        </div>
+                  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

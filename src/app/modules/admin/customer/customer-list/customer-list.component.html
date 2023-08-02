@@ -1,0 +1,175 @@
+<div style="padding: 20px 10px;">
+  <div class="row">
+    <div class="col-md-3"  style="width:8%">
+      <span class="f-22 fontBold dgrey">Customer</span>
+  </div>&nbsp;&nbsp;
+  <div class="col-md-6">
+    <mat-radio-group aria-label="Select an option" (change)="onChangeRadio()" [(ngModel)]="selectedUser" style="padding: 0px !important;">
+      <mat-radio-button value="CUSTOMER">Customer</mat-radio-button>
+      <mat-radio-button  value="BANK">Bank as a Customer</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <!-- <div class="col-md-1"></div> -->
+  <div class="col-md-2" *ngIf="selectedUser" style="margin-right: 10px;" >
+    <div class="filterDropdown mt-10"> 
+      <mat-form-field appearance="outline" >
+      <mat-select (selectionChange)="onStatusChange($event)" [ngModel]="status">
+      <mat-option value="ALL">All</mat-option>
+      <mat-option value="ACTIVE">Approved</mat-option>
+      <mat-option value="PENDING">Pending</mat-option>
+      <mat-option value="REJECTED">Rejected</mat-option>
+      </mat-select>
+      </mat-form-field>
+  </div>
+  </div>
+  <div class="col-md-2 mt-10" *ngIf="selectedUser" style="margin-left: 16px;" >
+    <mat-form-field appearance="outline" class="w100">
+      <mat-label>Search User ID</mat-label>
+      <input type="text" matInput [formControl]="searchTerm"  oninput="this.value = this.value.trim()" [matAutocomplete]="auto" (keydown.space)="$event.preventDefault()">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let searchTerm of searchDataList"  [value]="searchTerm" (onSelectionChange)="getDataByUserId(searchTerm)">
+          {{searchTerm}}
+        </mat-option>
+      </mat-autocomplete>
+  </mat-form-field>
+  </div>
+<!--  [disabled]="searchTerm === 'No Record Found'" -->
+  </div>
+  
+  <div class="mt-30 table-container" *ngIf="displayTable">
+      <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef > User ID </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.personalDetails?.username}}
+              </td>
+            </ng-container>
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef > First Name </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.personalDetails?.firstName}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef > Last Name </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.personalDetails?.lastName}}
+          </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="mobileNumber">
+          <th mat-header-cell *matHeaderCellDef >Mobile</th>
+          <td mat-cell *matCellDef="let element">
+              {{element.personalDetails?.mobileNumber}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef >Email</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.personalDetails?.email}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Business Country">
+            <th mat-header-cell *matHeaderCellDef >Business Country</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.businessDetails?.addressDetails?.registeredCountry}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="companyName">
+            <th mat-header-cell *matHeaderCellDef >Company Name</th>
+            <td mat-cell *matCellDef="let element">
+              {{selectedUser != 'BANK' ? element.businessDetails?.companyName : element.businessDetails?.bankName}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="pending order">
+            <th mat-header-cell *matHeaderCellDef >Pending Order</th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="element.pendingOrders == 0">
+                0
+              </ng-container>  
+              <ng-container *ngIf="element.pendingOrders != 0">
+                <td  style="color:blue;cursor: pointer;" (click)="getPlanAndPaymentDetails('PENDING',element.personalDetails?.username)"> 
+                  {{element.pendingOrders}}
+                </td>
+              </ng-container> 
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="total order">
+            <th mat-header-cell *matHeaderCellDef >Total Order</th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="element.totalOrders == 0">
+                0
+              </ng-container>  
+              <ng-container *ngIf="element.totalOrders != 0">
+                <td  style="color:blue;cursor: pointer;" (click)="getPlanAndPaymentDetails(element,element.personalDetails?.username)"> 
+                  {{element.totalOrders}}
+                </td>
+              </ng-container> 
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="totaltxn">
+            <th mat-header-cell *matHeaderCellDef >Total Txn</th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="element.transactionCount == 0">
+                0
+              </ng-container>  
+              <ng-container *ngIf="element.transactionCount != 0">
+                <td  style="color:blue;cursor: pointer;" (click)="getTotalTxn(element.businessDetails?.id)"> 
+                  {{element.transactionCount}}
+                </td>
+              </ng-container> 
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="kycStatus">
+            <th mat-header-cell *matHeaderCellDef >KYC</th>
+            <td mat-cell *matCellDef="let element;let i = index">
+              <ng-container *ngIf="element.kycDetails.length <= 0">
+                Not Uploaded
+              </ng-container>  
+              <ng-container *ngIf="element.kycDetails.length > 0">
+                <td style="color:blue;cursor: pointer;" (click)="getKycDetails(element.personalDetails?.username)">
+                  <!-- {{element.kycDetails.length <= 0 ? 'Not Uploaded' : (element.kycDetails[0]?.documentList[0]?.kycStatus == 'PENDING' || element.kycDetails[1]?.documentList[0]?.kycStatus == 'PENDING') ? 'Pending' : (element.kycDetails[0]?.documentList[0]?.kycStatus == 'MAKER_APPROVED' || element.kycDetails[1]?.documentList[0]?.kycStatus == 'MAKER_APPROVED') ? 'Pending' : (element.kycDetails[0]?.documentList[0]?.kycStatus == 'REJECTED' || element.kycDetails[1]?.documentList[0]?.kycStatus == 'REJECTED')? 'Pending':'Approved'}} -->
+                {{element.kycDetails[0]?.documentList[0]?.kycStatus == 'ACTIVE' && element.kycDetails[1]?.documentList[0]?.kycStatus == 'ACTIVE' ? 'Approved' : (element.kycDetails[0]?.documentList[0]?.kycStatus == 'REJECTED' || element.kycDetails[1]?.documentList[0]?.kycStatus == 'REJECTED') ? 'Rejected' : 'Pending'}}
+                </td>
+              </ng-container> 
+            </td>
+          </ng-container>
+        <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef >View</th>
+          <td mat-cell *matCellDef="let element">
+                <i class="fa fa-eye" style="cursor:pointer" (click)="viewDetails(element.personalDetails?.username)"></i> 
+              <mat-menu #menu="matMenu">
+                <!-- (click)="edit(element.id)" -->
+                      <!-- <button mat-menu-item 
+                      class="f-12 fontRegular dgrey" (click)="view(element)">View/Edit</button> -->
+              </mat-menu> 
+             </td>
+        </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+    
+    </table>
+  </div>
+  <div class="row" *ngIf="displayTable">
+    <div class="col-md-2">
+      <mat-paginator  (page)= "onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]">
+      </mat-paginator>
+    </div>
+    <div class="col-md-10">
+      <div class="pagination" style="float: right;">
+        <div class="f-12 fontBold grey mx-3"> {{getPage()+' ' }} of {{page?.totalElements}}</div>
+        <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="page?.index === 0 ?'#292929a1':'#EB7203'"
+            [style.pointer-events]="page?.index === 0?'none':'auto'">
+            arrow_back_ios
+        </mat-icon> 
+      
+         <mat-icon class="pointer" (click)="pageNext()"
+            [style.pointer-events]="last===page?.totalElements?'none':'auto'"
+            [style.color]="last===page?.totalElements ?'#292929a1':'#EB7203'"
+            [style.pointer-events]="last===page?.totalElements ?'none':'auto'" style="margin-left: 10px;">
+            arrow_forward_ios
+        </mat-icon>
+      </div>
+     </div>
+  </div>
+  </div>

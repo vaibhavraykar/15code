@@ -1,0 +1,26 @@
+<div class="status-container w-840">
+    <div class="">
+        <div class="d-flex  row">
+            <div *ngFor="let card of firstrowcardsProduct; let i = index" class="mt-24 col-xxl-4 col-xl-5 col-lg-6 pr-0 cPointer">
+                <div class="sub-status-firstcontainer ">
+                    <div class="d-flex justify-content-between align-items-center mb-6 ">
+                        <div class="numberStyle">{{ card.totalNumber|number:'2.0-0' }}</div>
+                        <img src="{{ card.imageUrl }}" alt="" style="width: 24px; height: 24px" />
+                    </div>
+                    <div class="sub-text-style">{{ card.name }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex row ">
+            <div *ngFor="let card of secondrowcardsProduct; let i = index" class="col-xxl-4 col-xl-5 col-lg-6 pr-0 mt-24 cPointer">
+                <div class="sub-status-second-container">
+                    <div class="d-flex justify-content-between align-items-center mb-6">
+                        <div class="numberStyle">{{ card.totalNumber|number:'2.0-0' }}</div>
+                        <img src="{{ card.imageUrl }}" alt="" style="width: 24px; height: 24px" />
+                    </div>
+                    <div class="sub-text-style m-w-70">{{ card.name }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

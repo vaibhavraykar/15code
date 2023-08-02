@@ -1,0 +1,82 @@
+<div class="all-detail-container mt-30">
+    <div class="">
+      <div class="d-flex align-items-center mb-20">
+        <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+        <div class="ml-12 darkBlackText">Viewing details for {{data?.personalDetails?.firstName}} {{data?.personalDetails?.lastName}}</div>
+      </div>
+      <div class="all-details-tab-container">
+        <div style="padding:24px" class="admin-user-wrapper">
+          <div class="admin-user-container">
+                  <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+                    <div class="row">
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">First Name</div>
+                            <div class="dark-text">{{data?.personalDetails?.firstName}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Last Name</div>
+                            <div class="dark-text">{{data?.personalDetails?.lastName}}    
+                        </div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Email</div>
+                            <div class="dark-text"> {{data?.personalDetails?.email}}
+                        </div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Mobile Number</div>
+                            <div class="dark-text">{{data?.personalDetails?.mobileNumber}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Account Status</div>
+                            <div class="dark-text">{{ (data?.kycDetails?.[0]?.documentList[0]?.kycStatus == 'ACTIVE' && data?.kycDetails?.[1]?.documentList[0]?.kycStatus == 'ACTIVE') ? 'Active' : (data?.kycDetails?.[0]?.documentList[0]?.kycStatus == 'REJECTED' || data?.kycDetails?.[1]?.documentList[0]?.kycStatus == 'REJECTED') ? 'Rejected' : 'Pending' }}
+                            </div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Landline No.</div>
+                            <div class="dark-text">{{data?.personalDetails?.landLineNumber}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Company Name</div>
+                            <div class="dark-text">{{data?.businessDetails?.companyName}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Country</div>
+                            <div class="dark-text">{{data?.personalDetails?.country}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Subscription Validity</div>
+                            <!-- <div class="dark-text">{{data?.businessDetails?.rmUser?.lastName}}</div> -->
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Plan</div>
+                            <!-- <div class="dark-text">{{data?.businessDetails?.rmUser?.designation}}</div> -->
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Subscription Fee Paid</div>
+                            <!-- <div class="dark-text">{{data?.businessDetails?.entityType}}</div> -->
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Referrer Earning</div>
+                            <!-- <div class="dark-text">{{data?.businessDetails?.rmUser?.firstName}}</div> -->
+                        </div>
+                    <span class="f-14 fontBold heading" style="color:var(--yellow)">RM Details</span>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">First Name</div>
+                            <div class="dark-text">{{data?.businessDetails?.rmUser?.firstName}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Last Name</div>
+                            <div class="dark-text">{{data?.businessDetails?.rmUser?.lastName}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Designation</div>
+                            <div class="dark-text">{{data?.businessDetails?.rmUser?.designation}}</div>
+                        </div>
+                    </div>
+                  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

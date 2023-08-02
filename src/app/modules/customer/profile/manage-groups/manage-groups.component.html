@@ -1,0 +1,147 @@
+<div class="manage">
+    <div class="f-22 fontBold dgrey mt-20 mb-3 m-auto" style="text-align: center;">Manage Group Companies</div>
+    <div class="row" style="margin: 10px;">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="row white-bg">
+                <div class="col-md-6 add-rborder">
+                    <div class="f-12 lgrey">Group Companies Slots Available</div>
+                    <div class="f-14 yellow-txt">{{totalSubsidiaries}}</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="f-12 lgrey">Group Companies Slots Utilized</div>
+                    <div class="f-14 yellow-txt">{{utilizedSubsidiaries}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="d-flex w-100 table-filters mt-20">
+        <div class="search-bar">
+            <form>
+                <mat-form-field appearance="outline" class="w-100">
+                    <input matInput type="text" placeholder="Search"
+                    [(ngModel)]="searchValue"
+                    [ngModelOptions]="{standalone:true}"
+                    (keyup)="searchFilter($event.target)">
+                    <mat-icon matPrefix>search</mat-icon>
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="search-option">
+            <!-- <img src="../../../../../assets/images/icons/filter.svg" /> -->
+            <img src="../../../../../../assets/images/icons/refresh.svg" (click)="refresh()"/>
+            <img src="../../../../../../assets/images/icons/download.svg" (click)="downloadCompanies()"/>
+            <div class="">
+			<button
+                (click)="addCoompany()"
+				class="primary-btn f-16 w100"
+				style="border:0px;border-radius: 5px;height: 40px;"
+			>ADD COMPANY</button>
+		</div>
+        </div>
+    </div>
+    <div class="active-transaction mt-30">
+        <!-- <span class="f-22 fontBold dgrey mt-30 mb-3">Previous Transactions</span> -->
+        <div class="mt-30 table-container" >
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="company">
+                  <th mat-header-cell *matHeaderCellDef> Company </th>
+                  <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef> Payment Date </th>
+                  <td mat-cell *matCellDef="let element">
+                    <span *ngIf="!element.date"> {{element.date }}</span>
+                    <span *ngIf="element.date"> {{element.date | date :'YYYY-MM-dd'}}</span> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="country">
+                  <th mat-header-cell *matHeaderCellDef> Country </th>
+                  <td mat-cell *matCellDef="let element"> {{element.country|uppercase}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef> Status </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="">
+                        <!-- <button></button> -->
+                        {{element.status}}
+                    </div>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="kycStatus">
+                    <th mat-header-cell *matHeaderCellDef> KYC Status </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="">
+                            <!-- <button> -->
+                                {{element?.kycStatus}}
+
+                            <!-- </button> -->
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr class="mat-row" *matNoDataRow>
+                        <td
+                            class="mat-cell text-center"
+                            [attr.colspan]="displayedColumns.length"
+                        >
+                            No Records Found.
+                        </td>
+                </tr>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+        </div>
+        <div class="d-flex pageSize align-items-center">
+                <div class=" pageSizeChange justify-content-start d-flex">
+                    <mat-paginator  (page)= "onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]" [pageSize]="5"
+                        *ngIf="totalItems>5"
+                    >
+                    </mat-paginator>
+                </div>
+                <div class="">
+                    <div
+                    class="pagination  justify-content-end"
+                    *ngIf="dataSource?.data?.length > 0"
+                >
+                    <div class="f-12 fontBold grey mx-3">
+                    {{ getPage() + " " }} of {{ page?.totalElements }}
+                    </div>
+                    <mat-icon
+                    class="pointer"
+                    (click)="pagePrevious()"
+                    [style.color]="page?.index === 0 ? '#292929a1' : '#EB7203'"
+                    [style.pointer-events]="page?.index === 0 ? 'none' : 'auto'"
+                    >
+                    arrow_back_ios
+                    </mat-icon>
+                    <mat-icon
+                    class="pointer"
+                    (click)="pageNext()"
+                    [style.pointer-events]="last === page?.totalElements ? 'none' : 'auto'"
+                    [style.color]="last === page?.totalElements ? '#292929a1' : '#EB7203'"
+                    [style.pointer-events]="last === page?.totalElements ? 'none' : 'auto'"
+                    style="margin-left: 10px"
+                    >
+                    arrow_forward_ios
+                    </mat-icon>
+                </div>
+                </div>
+                </div>
+    </div>
+    <div class="submit-btn text-center" style="margin-top: 70px;">
+		<!-- <div class="col-md-3 m-auto">
+			<app-button
+                (click)="addCoompany()"
+				[name]="'ADD COMPANY'"
+				[class]="'primary-btn f-16 w100'"
+				[type]="'button'"
+			></app-button>
+		</div> -->
+	</div>
+</div>

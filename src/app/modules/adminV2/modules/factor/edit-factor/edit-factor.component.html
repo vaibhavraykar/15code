@@ -1,0 +1,130 @@
+<div class="all-detail-container mt-30 createAutomated">
+  <div class="">
+    <div class="d-flex align-items-center mb-20">
+      <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+      <div class="ml-12 darkBlackText">Edit Factor</div>
+    </div>
+    <div class="all-details-tab-container">
+      <div style="padding:24px" class="admin-user-wrapper">
+        <div class="mt-30 admin-user-container">
+          <form [formGroup]="manageForm">
+            <div class="row">
+            <!-- Factor Name Field -->
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput pd-r-0">
+                    <mat-form-field appearance="outline" class="w100">
+                        <mat-label>Factor Name</mat-label>
+                        <input type="text" matInput formControlName="companyName" readonly>
+                    </mat-form-field>
+                </div>
+            <!-- Factor Country Field -->
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput pd-r-0">
+                    <mat-form-field appearance="outline" class="w100">
+                        <mat-label>Factor Country</mat-label>
+                        <mat-select formControlName="country" >
+                          <mat-option *ngFor="let item of countries" [value]="item.countryName">{{item.countryName }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="manageForm.controls['country'].hasError('required')">Factor Country required</mat-error>
+                      </mat-form-field>
+                </div>
+                <!-- First Name Field -->
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>First Name</mat-label>
+                            <input type="text" matInput formControlName="firstName" (keypress)="textOnly($event)">
+                            <mat-error *ngIf="manageForm.controls['firstName'].hasError('required')">first Name required</mat-error>
+                        </mat-form-field>
+                    </div>
+                <!-- Last Name Field -->
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Last Name</mat-label>
+                            <input type="text" matInput formControlName="lastName"  (keypress)="textOnly($event)">
+                            <mat-error *ngIf="manageForm.controls['lastName'].hasError('required')">Last Name required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- Email ID Field -->
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Email ID</mat-label>
+                            <input type="text" matInput formControlName="email">
+                        </mat-form-field>
+                    </div>
+                <!-- Mobile Number Field -->
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Mobile Number</mat-label>
+                            <input type="text" matInput formControlName="mobileNo" minlength=10 maxlength=10 (keypress)="isNumberKey($event)">
+                            <mat-error *ngIf="manageForm.controls['mobileNo'].hasError('required')">Mobile Number required</mat-error>
+                        </mat-form-field>
+                    </div>
+            </div>
+            <!--Additional Details-->
+            <div><br>
+                <form [formGroup]="manageSubFormArray">
+                <div class="row" style="padding:0px">
+                    <div class="col-md-10">
+                      <h6 class="heading f-16 fontBold dgrey">Add Additional Details</h6><br>
+                    </div>
+                    <div class="col-md-2" style="padding:0px">
+                        <button mat-raised-button class="primary-btn f-14 w-100" (click)="additionalUser()">+ Add</button>
+
+                    </div>
+                  </div><br>
+                <div formArrayName="details"
+                *ngFor="let item of manageSubFormArray.get('details')['controls']; let i = index;">
+
+                <div [formGroupName]="i">
+                    <div class="row">
+                        <!-- First Name Field -->
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                            <mat-form-field appearance="outline" class="w100">
+                                <mat-label>First Name</mat-label>
+                                <input type="text" matInput formControlName="firstName" (keypress)="textOnly($event)">
+                            </mat-form-field>
+                        </div>
+                         <!-- Last Name Field -->
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                            <mat-form-field appearance="outline" class="w100">
+                                <mat-label>Last Name</mat-label>
+                                <input type="text" matInput formControlName="lastName" (keypress)="textOnly($event)">
+                            </mat-form-field>
+                        </div>
+                        <!-- Email ID Field -->
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                            <mat-form-field appearance="outline" class="w100">
+                                <mat-label>Email ID</mat-label>
+                                <input type="email" matInput formControlName="email" email >
+                            </mat-form-field>
+                        </div>
+                    <!-- Last Name Field -->
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 newInput">
+                            <mat-form-field appearance="outline" class="w100">
+                                <mat-label>Mobile Number</mat-label>
+                                <input type="text" matInput formControlName="mobileNo" minlength=10 maxlength=10 (keypress)="isNumberKey($event);">
+                            </mat-form-field>
+                        </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                        <span (click)="deleteUser(i,item)"><i class="fa fa-trash-o fa-lg"
+                            aria-hidden="true"></i></span>
+                      </div>
+                    </div>
+                </div>
+
+              </div>
+            </form>
+            </div>
+
+            <div class="row" style="justify-content: end;">
+              <div class="col-md-1 mt-10">
+                <button mat-raised-button class="approveBtn" (click)="submit()">Save</button>
+              </div>
+              <div class="col-md-1 mt-10">
+                <button mat-raised-button class="rejectBtn">Cancel</button>
+              </div>
+            </div>
+        </form> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

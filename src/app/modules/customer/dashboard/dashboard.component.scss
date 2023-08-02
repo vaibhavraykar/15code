@@ -1,0 +1,380 @@
+// .highlight-section{
+//     box-shadow: 0px 2px 16px rgba(34, 34, 34, 0.15);
+//     .highlight-text{
+//         background: #efeeee;
+//         border-radius: 40px 999em 999em 40px;
+//     }
+//     --bs-gutter-x:0px;
+// }
+// .color-box{
+//     width: 10px;
+//     height: 10px;
+// }
+
+// .yearSelect{
+
+//     .mat-form-field-appearance-outline .mat-form-field-outline {
+//         border: 1px solid var(--secondary-color) !important;
+//     }
+//     ::ng-deep .mat-mdc-select{
+//         height: 32px !important;
+//         display: flex !important;
+//     }
+//     ::ng-deep .mat-mdc-select-arrow svg{
+//         fill: var(--secondary-color) !important;
+//     }
+//     ::ng-deep{
+//         .mat-mdc-form-field-subscript-wrapper{
+//             display: none;
+//         }
+//     }
+//     ::ng-deep .mat-mdc-select-value{
+//         padding-left: 15px;
+//         color: var(--primary-color) !important;
+//     }
+    
+//     ::ng-deep .mat-mdc-select-arrow-wrapper{
+//         padding: 0 12px;
+//     }
+//     ::ng-deep .mat-mdc-form-field-infix{
+//         min-height: 0px;
+//     }
+// }
+
+// ::ng-deep .mat-mdc-icon-button{
+//     top: -11px;
+//     right: -7px;
+// }
+
+// .datePicker{
+//     ::ng-deep .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper{
+//         height: 32px  !important;
+//     }
+//     ::ng-deep{
+//         .mat-mdc-form-field-infix{
+//                 padding-top: 5px !important;
+//             }
+//     }
+// }
+.dashboard-wrapper {
+    display: flex;
+    .sidebar {
+        width: 60px;
+    }
+    .main-content {
+        width: calc(100% - 60px);
+        padding: 10px 25px 20px 20px;
+        .arrow {
+            width: 18px;
+            height: 18px;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        .col-4 {
+            width: 35%;
+            padding: 15px;
+            margin-right: 15px;
+        }
+        .upContent {
+            .col-md-6:nth-child(1) {
+                width: 48% !important;
+                margin-right: 2%;
+            }
+        }        
+        .card-wrapper {
+            .card-details {
+                position: relative;
+            }
+        }
+        .rowCard {
+            padding: 20px;
+            .textRight {
+                display: flex;
+                justify-content: right;
+                .rightText {
+                    width: 48%;
+                }
+            }
+        }
+        .service-wrapper {  
+            box-shadow: 0px 3px 6px #00000029;   
+            .serviceText {
+                border-top-right-radius: 50px;
+                border-bottom-right-radius: 50px;
+            }
+            .buttonStyle {
+                width: 212px;
+            }
+            .btnstyle {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }
+        }   
+        .investing-wrapper {
+            .investing {
+                align-items: center;
+                padding-top: 20px;
+                .col-md-2 {
+                    text-align: center;
+                    padding: 10px 27px;
+                }
+                .rate-text {
+                    padding-left: 10%;
+                }
+            }
+            .dashboard-table {
+                width: 90%;
+            }
+           
+            ::ng-deep {
+                table .mat-mdc-header-cell {
+                    font-size: 14px;
+                    color: var(--grey);
+                    font-family: 'Lato', sans-serif;
+                    font-weight: bold;
+                    opacity: 0.8;
+                }
+                .mdc-data-table__cell:nth-child(1) {
+                    color: var(--blue);
+                }
+                .mat-mdc-table .mdc-data-table__header-row {
+                    height: 35px;
+                }
+                .mat-mdc-table .mdc-data-table__row {
+                    height: 35px;
+                }
+            }
+        }  
+        .counttext {
+            display: flex;
+            align-items: center;
+        }
+        
+        .left-info {
+            width: 30%;
+        }
+        .right-info {
+            width: 70%;
+        }
+        
+    }    
+    ::ng-deep {    
+         .right-info {
+            .chart1 {
+                .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+                    padding-left: 0;
+                }
+                button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled) {
+                    svg {
+                        * {
+                            color: var(--yellow);
+                        }
+                    }
+                }
+                .mdc-icon-button {
+                    background-color: #FDF1E5;
+                }
+                .mat-mdc-form-field-icon-suffix {
+                    position: absolute;
+                    right: 0;
+                }
+                .mdc-notched-outline {
+                    *{
+                      border: none;
+                    }
+                }
+                button:not(:disabled), [type=button]:not(:disabled) {
+                    height: inherit !important;
+                }
+                .mat-date-range-input-separator {
+                    position: absolute;
+                    left: 37%;
+                    top: 36%;
+                    margin-right: 0;
+                    margin-left: 0;
+                    font-size: 12px;
+                    font-family: 'Lato', sans-serif;
+                    font-weight: 600;
+                }
+                .mat-date-range-input-wrapper {
+                    overflow: inherit !important;
+                    max-width: inherit !important
+                }
+                .mat-date-range-input-wrapper {
+                    position: relative;
+                    input {
+                        border: 1px solid var(--lgrey);
+                        padding: 10px 5px;
+                        height: 34px;
+                        width: 103px;
+                        position: absolute;
+                        left: 36%;
+                        font-size: 12px;
+                        color: var(--dgrey);
+                        font-family: 'Lato', sans-serif;
+                    }    
+                               
+                }
+            }
+         }
+         .checkbox {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            margin-top: 5px;
+            margin-bottom: 7px;
+         }
+        .datePicker {
+            button:not(:disabled), [type=button]:not(:disabled) {
+                height: inherit !important;
+            }
+            .mat-date-range-input-separator {
+                position: absolute;
+                left: 10%;
+                top: 36%;
+                margin-right: 0;
+                margin-left: 0;
+                font-size: 12px;
+                font-family: 'Lato', sans-serif;
+                font-weight: 600;
+            }
+            .mat-date-range-input-wrapper {
+                overflow: inherit !important;
+                max-width: inherit !important
+            }
+            .mat-date-range-input-wrapper {
+                position: relative;
+                input {
+                    border: 1px solid var(--lgrey);
+                    padding: 10px 5px;
+                    height: 34px;
+                    width: 103px;
+                    position: absolute;
+                    left: 8%;
+                    font-size: 12px;
+                    color: var(--dgrey);
+                    font-family: 'Lato', sans-serif;
+                }    
+                           
+            }
+           
+        }
+       
+        // button:not(:disabled), [type=button]:not(:disabled) {
+        //     width: 89% !important;
+        // }
+        .selectdropdown {
+            .mdc-notched-outline {
+                height: 31px !important;
+            }
+            .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+            }
+            .mat-mdc-text-field-wrapper {
+                height: 31px !important;
+                width: 92px !important;
+                border: 2px solid var(--yellow);
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+            .mat-mdc-form-field-infix {
+                min-height: 31px !important;
+            }
+            ::ng-deep .mdc-notched-outline {
+                *{
+                  border: none;
+                }
+            }
+            .mat-mdc-select-value-text {
+                span {
+                    font-size: 14px;
+                    color: var(--blue);
+                }
+            }
+        }
+
+        .datePicker {
+            .mdc-notched-outline {
+                *{
+                  border: none;
+                }
+            }
+        }
+       
+        .mat-mdc-select-trigger {
+            margin-top: 2px !important;
+        }
+       
+        .borderBottom {
+            .mat-mdc-form-field {
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+                padding-top: 20px;
+            }            
+        }
+        .datePicker {
+            button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled) {
+                svg {
+                    * {
+                        color: var(--yellow);
+                    }
+                }
+            }
+            .mdc-icon-button {
+                background-color: #FDF1E5;
+            }
+            .mat-mdc-form-field-icon-suffix {
+                position: absolute;
+                right: 33px;
+            }
+            // .mat-mdc-icon-button .mat-mdc-button-ripple {
+            //     * {
+            //         color: var(--yellow);
+            //     }
+            // }
+            // .mat-date-range-input-inner {
+            //     border: 1px solid grey;
+            //     text-align: center;
+            //     padding: 11px 13px;
+            //     width: 140px;
+            // }
+            // .mat-date-range-input-wrapper {
+
+            // }
+        }
+    }
+}
+::ng-deep {
+    .mat-mdc-table {
+        border: 1px solid rgb(174, 173, 173, 0.5) !important;
+        border-left: none !important;
+    }
+    
+    .dashboard-wrapper {
+        .main-content {
+            .investing-wrapper {
+                padding-bottom: 20px;
+                .mdc-data-table__cell:nth-child(1), .mdc-data-table__cell:nth-child(2), .mdc-data-table__cell:nth-child(3), .mdc-data-table__cell:nth-child(4), .mdc-data-table__cell:nth-child(5), .mdc-data-table__cell:nth-child(6), .mdc-data-table__cell:nth-child(7), .mdc-data-table__cell:nth-child(8), .mdc-data-table__cell:nth-child(9)  {
+                    .showImg {
+                        display: none !important;
+                    }
+                }
+                // .mat-mdc-header-cell {
+                //     border-top: 1px solid rgb(174, 173, 173, 0.5);
+                // }
+            }
+        }
+    }
+}
+::ng-deep .dashboard-wrapper .main-content .investing-wrapper .mdc-data-table__cell:nth-child(10) {
+    display: flex !important;
+    padding: 10px;
+    .showImg {
+        display: block !important;
+        margin-left: 10px;
+    }
+}

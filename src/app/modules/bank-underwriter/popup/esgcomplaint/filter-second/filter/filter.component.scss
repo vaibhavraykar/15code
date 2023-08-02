@@ -1,0 +1,104 @@
+.popup {
+  width: 540px;
+  height: auto;
+  border-radius: 10px !important;
+  .heading {
+    width: 100%;
+    font: normal normal bold 20px/24px Lato;
+    letter-spacing: 0.4px;
+    color: #ffffff;
+    opacity: 1;
+    background-color: var(--yellow);
+    text-align: center;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .heading-text {
+    color: #292929;
+    font: normal normal bold 16px/24px Lato;
+    letter-spacing: 0.32px;
+    color: #292929;
+  }
+  .description {
+    color: #292929;
+    font: normal normal normal 14px/24px Lato;
+    letter-spacing: 0.28px;
+    color: #292929;
+  }
+}
+::ng-deep {
+  .mdc-dialog__surface {
+    overflow-x: hidden !important;
+  }
+  .mdc-dialog__surface::-webkit-scrollbar {
+    width: 5px;
+  }
+  .mdc-dialog__surface::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  .mdc-dialog__surface::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  .mdc-dialog__surface::-webkit-scrollbar-thumb:hover {
+    background: #727272;
+  }
+  //
+  .mdc-text-field--outlined .mdc-notched-outline {
+    opacity: 0.5;
+  }
+  //
+}
+
+.checkContainer {
+  //   pointer-events: none;
+  ::ng-deep {
+    .mdc-checkbox__background {
+      border-color: transparent !important;
+      background-color: transparent !important;
+    }
+    .mdc-checkbox__checkmark {
+      color: #73bf45 !important;
+    }
+    .mat-mdc-checkbox-ripple,
+    .mdc-checkbox__ripple {
+      background-color: transparent !important;
+    }
+    .mat-mdc-checkbox
+      .mdc-checkbox
+      .mdc-checkbox__native-control:enabled:checked
+      ~ .mdc-checkbox__background {
+      border-color: transparent !important;
+      background-color: transparent !important;
+    }
+  }
+}
+.checkContainer {
+  cursor: pointer;
+}
+//
+
+// .popup {
+//     ::ng-deep {
+//     .mat-mdc-form-field {
+//         width: 100% !important;
+//     }
+//     .mat-mdc-raised-button .mdc-button__label {
+//         letter-spacing: 0;
+//         text-transform: uppercase;
+//         display: flex !important;
+//     }
+//     .mat-mdc-text-field-wrapper {
+//         padding: 0 10px !important;
+//     }
+//     }
+// }
+// ::ng-deep .pe-none {
+//     pointer-events: none;
+// }
+// .no_wrap {
+//     flex-wrap: nowrap;
+//     @media (max-width: 768px) {
+//     flex-wrap: wrap;
+//     }
+// }

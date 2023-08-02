@@ -1,0 +1,105 @@
+@import '../../../../components/table/table.component.scss';
+
+.filter-text {
+    color: #EB7203;
+    font-size: 12px;
+    margin-top: 7px;
+    cursor: pointer;
+    img {
+        width: 12px;
+        margin-right: 5px;
+    }
+}
+
+  .cdk-text-field-autofill-monitored:not(:-webkit-autofill) {
+    border: none !important;
+    border-radius: none !important;
+    margin-left: none !important;
+    margin-bottom: none !important;
+  }
+  .heading {
+    background-color: var(--yellow);
+    color: var(--white);
+    padding: 15px;
+    position: relative;
+    .circle-icon {
+        position: absolute;
+        right: 8px;
+        top: 5px;
+        cursor: pointer;
+    }
+  }
+
+  .general-popup {
+    .header {
+        background-color: #0032A0;
+        color: #fff;
+        height: 56px;
+        padding: 18px 30px;
+        .mat-icon {
+            position: absolute;
+            right: 2%;
+        }
+    }
+    .bttn{
+        border: 1px solid #EB7203;
+        margin-left: 18px;
+    }
+    
+    .main-container {
+        padding: 15px 30px;
+        .button-style {
+            margin-top: 18px;
+            .mat-mdc-raised-button:not(:disabled) {
+                height: 32px !important;
+                width: 80px !important;
+            }
+            .mat-mdc-outlined-button:not(:disabled) {
+                border-color: 1px solid var(--yellow) !important;
+                height: 32px !important;
+                width: 80px !important;
+            }
+            .mat-mdc-outlined-button.mat-unthemed {
+                --mdc-outlined-button-label-text-color: var(--yellow) !important;
+            }
+        }
+        p {
+            margin-top: 0.5rem;
+            font-family: 'Lato';
+            color: #000;
+        }
+        input::placeholder {
+            color:#727272;
+        }  
+        ::ng-deep {
+            .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+            .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+                font-size: 12px !important;
+            }
+        }      
+    }.commAmt{
+    .mdc-text-field {
+      padding: 0px !important;
+    }
+  }
+  .col-md-7{
+    width: 64%;
+    margin-bottom: 2px;
+  }
+  .col-md-4{
+    width: 33.33%;
+    justify-content: center !important;
+  }
+}
+.green-text {
+    color: #73BF45;
+  }
+  
+  .orange-text {
+    color: #EB7203;
+  }
+  
+  

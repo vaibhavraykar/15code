@@ -1,0 +1,33 @@
+
+<div class="fileupload d-flex">
+    <!-- <input type="file" class="file-upload" onchange="console.log(event.target.files)">   -->
+    <mat-form-field style="width: 100% !important;">
+        <label>Other Banks</label>
+        <div class="myfilebrowser">
+    
+          <mat-toolbar>
+    
+            <!-- Readonly Input to show File names -->
+            <input matInput [(ngModel)]="myfilename" readonly name="memberContactNo" />
+    
+            <!-- Browse Button -->
+            <!-- <button mat-flat-button color="primary">
+              Browse
+            </button> -->
+            <span class="browse">Browse Files</span>
+    
+          </mat-toolbar>
+    
+          <!-- Fetch selected filed on change -->
+          <input type="file" #UploadFileInput id="fileUpload" (change)="fileChangeEvent($event)" name="fileUpload"
+            multiple="multiple" accept="image/*" />
+    
+        </div>
+    
+    </mat-form-field>
+    <div style="margin-left: 20px; margin-top: 40px;">
+        <button mat-stroked-button>Upload</button>
+    </div>
+    
+</div>
+<span class="f-12 yellow-txt">Download sample files</span>

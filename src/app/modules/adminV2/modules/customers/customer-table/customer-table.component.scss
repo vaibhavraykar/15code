@@ -1,0 +1,56 @@
+@import '../../../components/table/table.component.scss';
+.filter-text {
+  color: #EB7203;
+  font-size: 12px;
+  margin-top: 7px;
+  cursor: pointer;
+  img {
+      width: 12px;
+      margin-right: 5px;
+  }
+}
+.planAndPayment{
+  color:#eb7203;
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) { 
+  .justify-end {
+    // justify-content: left!important;
+    .row {
+      width: 100% !important;
+      .transactionType {
+        width: 100% !important;
+        .mat-mdc-form-field {
+          width: 100% !important;
+        }
+      }      
+    }
+  }
+  .customer-container {
+    .justify-end{
+      justify-content:none !important;
+    }
+    .paginator-container {
+      align-items: inherit !important;
+      position: relative;
+      display: flex !important;
+      ::ng-deep .mat-mdc-text-field-wrapper {
+        width: 54px !important;
+        margin-left: 10px !important;
+        padding-left: 5px !important;
+      }
+    }
+    .paginator-buttons {
+      position: inherit; 
+      display: inherit !important;
+      align-items: center;
+       margin-top: inherit !important;
+    }
+    .paginator-page-size {
+      display: flex;
+    }
+  }
+ 
+}
+
+

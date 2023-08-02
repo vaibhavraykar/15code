@@ -1,0 +1,22 @@
+<div class="file-upload">
+    <mat-form-field>
+
+        <div class="myfilebrowser cpointer">
+    
+          <mat-toolbar>
+    
+            <input matInput [(ngModel)]="myfilename" readonly name="memberContactNo" />
+    
+           
+            <app-button  [name]="name?name:'UPLOAD TRANSACTION'" [class]="'primary-btn f-16'" [type]="'submit'" class="btn-style"></app-button>
+    
+          </mat-toolbar>
+    
+
+          <input type="file" #UploadFileInput id="fileUpload" (change)="fileChangeEvent($event)" name="fileUpload"
+            multiple="multiple" [accept]="accept"  />
+    
+        </div>
+    
+    </mat-form-field>
+</div>

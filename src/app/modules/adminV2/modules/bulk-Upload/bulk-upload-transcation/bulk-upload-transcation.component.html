@@ -1,0 +1,84 @@
+<div class="report-container report-cont mt-30">
+    <div class="">
+        <div class="d-flex align-items-center mb-20">
+            <div class="ml-12 darkBlackText">Bulk Upload </div>
+        </div>
+
+
+    </div>
+    <div class="container-wrapper mt-10">
+        <div class="inner-container">
+
+            <ul>
+                <li style="display: flex; align-items: center;">
+                    <div>
+                      <button mat-raised-button class="primary-btn"  (click)="sample()">Sample Download</button>
+                    </div>
+                  </li>
+            <li style="display: flex; align-items: center;">
+                <div>
+                  <button mat-raised-button class="primary-btn" (click)="uploadfile()">Upload Bulk Transactions</button>
+                </div>
+              </li>
+              
+            </ul>
+            </div>
+    </div>
+
+    <div class="main-report" *ngIf="downloads">
+        <div class="option-check mt-10">
+            <div class="row mt-10">
+                <div class="col-md-4  pd-r-0 chip anotextra" *ngIf="download">
+                    <mat-form-field appearance="outline" class="w100 newInput">
+                        <mat-label>Sample Download</mat-label>
+                        <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                        <mat-select [(ngModel)]="reportType">
+                            <mat-option value="CONFIRMATION">Confirmation</mat-option>
+                            <mat-option value="DISCOUNTING">Discounting</mat-option>
+                            <mat-option value="CONFIRMANDDISCOUNT">Confirmation & Discounting</mat-option>
+                            <mat-option value="REFINANCE">Refinancing</mat-option>
+                            <mat-option value="BANKER">Bankers Acceptance</mat-option>
+                            <mat-option value="BANKGUARANTEE">Bank Guarantee</mat-option>
+                            <mat-option value="BILLAVALISATION">Avalisation</mat-option>
+                          
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="col-md-6 fileupload d-flex newInput uploadstyle" *ngIf="!download">
+                
+                    <mat-form-field appearance="outline" style="width: 100% !important;">
+                   
+                      <div class="myfilebrowser"> 
+                        <mat-toolbar>
+                  
+                          <input matInput style="font-size:14px;margin-top:11%" [(ngModel)]="myfilename2" 
+                            name="file" />
+                          <span class="browse" style="margin-top:11%" >{{myfilename2}}</span>
+                        </mat-toolbar>
+                      
+                        <input type="file" #UploadFileInput id="fileUpload" (change)="upload($event)"
+                          name="fileUpload" accept=".xlsx, .xls, .csv"  />
+                      </div>
+   
+
+                    </mat-form-field>
+                    <div style="margin-left: 20px; margin-top: 20px;">
+                      <button mat-stroked-button class="rejectBtn"
+                       
+                       (click)="fileupload()" >Upload</button>
+                    </div>
+
+                  </div>
+                <div class="row downbttn" *ngIf="download">
+                    <div class="col-md-5 hearCoupon mb-20 mt-10">
+                        <div class="d-flex justify-content-end">
+                            <button mat-raised-button class="primary-btn" style="width: 25%;"
+                                (click)="submitDownload(reportType)">Download</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

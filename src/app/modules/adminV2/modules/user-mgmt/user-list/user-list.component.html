@@ -1,0 +1,13 @@
+<div>
+    <div class="list row">
+      <div class="col-md-3 headingstyle">User</div>
+      <div class="col-md-7"></div>
+      <div class="col-md-2">
+        <button mat-raised-button class="primary-btn bttn f-16 w-80" (click)="addUser()">Add New User</button>
+      </div>
+    </div>
+    <div class="user-wrapper mt-10 user-list">
+      <app-user-mgmt-table #customTable [tableStructure]="tableStructure"
+        (combinedEmitter)="tableEventEmitter($event)"></app-user-mgmt-table>
+    </div>
+  </div>

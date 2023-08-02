@@ -1,0 +1,145 @@
+<div class="filter-popup">
+  <div class="f-16"> Filter Data</div>
+  <hr />
+  <div>
+    <div class="filter-wrapper">
+
+      <div class="filter-content" *ngFor="let item of filterForm; let i = index;">
+        <ng-container>
+          <div class="col-6 col-md-4">
+            <mat-form-field class="w100">
+              <mat-label>Field</mat-label>
+              <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+              <mat-select [(ngModel)]="item.field" (selectionChange)="selectionChangeField($event,i)">
+                <mat-option *ngFor="let field of fields" [value]="field.value" >
+                  {{ field.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-6 col-md-4">
+            <mat-form-field class="w100">
+              <mat-label>Field Type</mat-label>
+              <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+              <mat-select [(ngModel)]="item.fieldType">
+                <mat-option *ngFor="let fieldType of getFieldType()" [value]="fieldType">
+                  {{ fieldType }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-6 col-md-4">
+            <mat-form-field class="w100">
+              <mat-label>Operator</mat-label>
+              <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+              <mat-select [(ngModel)]="item.operator">
+                <mat-option *ngFor="let operator of getOperators(item.fieldType)" [value]="operator">
+                  {{ getTransformedOperator(operator) |uppercase }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-6 col-md-4">
+            <div [ngSwitch]="getType(i)">
+              <div *ngSwitchCase="'boolean'">
+                <mat-form-field class="w100">
+                  <mat-label>Value</mat-label>
+                  <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                  <mat-select [(ngModel)]="item.value">
+
+                    <mat-option value="true">
+                      True
+                    </mat-option>
+                    <mat-option value="false">
+                      False
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+              </div>
+              <div *ngSwitchCase="'date'">
+                <mat-form-field class="w100">
+                  <mat-label>Value</mat-label>
+                  <input matInput
+                    [value]="filterForm[i].from&& filterForm[i].to?filterForm[i].from +' '+ 'AND' + ' '+filterForm[i].to:''"
+                    readonly />
+                  <mat-datepicker-toggle matIconSuffix [matMenuTriggerFor]="dateMenu" #menuTrigger="matMenuTrigger"
+                    (click)="dateOpen=true;open(i)"></mat-datepicker-toggle>
+                </mat-form-field>
+
+              </div>
+              <div *ngSwitchCase="'date_single'">
+                <mat-form-field class="w100">
+                  <mat-label>Value</mat-label>
+                  <input matInput
+                    [value]="filterForm[i].from||''"
+                    readonly />
+                  <mat-datepicker-toggle matIconSuffix [matMenuTriggerFor]="dateMenu_single" #menuTrigger2="matMenuTrigger"
+                    (click)="dateOpen2=true;open(i)"></mat-datepicker-toggle>
+                </mat-form-field>
+
+              </div>
+              <div *ngSwitchCase="'number_range'" style="display: flex;" >
+                <mat-form-field class="w100" style="width: 50%; margin-right: 4px;">
+                  <mat-label>Value (From)</mat-label>
+                  <input matInput [(ngModel)]="item.value" name="value" placeholder="From" />
+                </mat-form-field>
+                <mat-form-field class="w100" style="width: 50%;">
+                  <mat-label>Value (To)</mat-label>
+                  <input matInput [(ngModel)]="item.valueTo" name="valueTo" placeholder="To" />
+                </mat-form-field>
+              </div>
+              <div *ngSwitchCase="'number_single'">
+                <mat-form-field class="w100">
+                  <mat-label>Value</mat-label>
+                  <input matInput [(ngModel)]="item.value" name="value" />
+                </mat-form-field>
+              </div>
+              <div *ngSwitchDefault>
+                <mat-form-field class="w100">
+                  <mat-label>Value</mat-label>
+                  <input matInput [(ngModel)]="item.value" name="value" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <img *ngIf="filterForm.length>1" (click)="removeRow(i)"
+              src="../../../../../../../assets/images/adminV2/delete-icon.png" />
+          </div>
+        </ng-container>
+
+      </div>
+      <div class="add-filter" (click)="addItem()">
+        ++ Filter
+      </div>
+
+      <div class="action-btn  d-flex">
+        <div class="col-5 col-md-5" style="cursor:pointer" (click)="clearAll()">
+          Clear All Filters
+        </div>
+        <div class="col-7 col-md-7 d-flex">
+          <div class="col-md-3">
+            <button mat-raised-button class="primary-btn f-14" (click)="applyFilter()">Apply Filter</button>
+          </div>
+          <div class="col-md-2" style="margin-left: 20px;">
+            <button mat-stroked-button class="f-14 w100" (click)="cancel()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-menu [hasBackdrop]="true" #dateMenu="matMenu" yPosition="below" xPosition="after">
+    <div (click)="$event.stopPropagation()">
+      <app-datepicker [inputData]="getCurrentDateData()" *ngIf="dateOpen"
+        (dateEmit)="dateEmit($event,dateMenu)"></app-datepicker>
+    </div>
+
+  </mat-menu>
+  <mat-menu [hasBackdrop]="true" #dateMenu_single="matMenu" yPosition="below" xPosition="after">
+    <div (click)="$event.stopPropagation()">
+      <app-datepicker [inputData]="getCurrentDateData2()" *ngIf="dateOpen2"
+        (dateEmit)="dateEmit2($event,dateMenu)"></app-datepicker>
+    </div>
+
+  </mat-menu>

@@ -1,0 +1,129 @@
+<div>
+    <div class="table-container" style="margin-bottom: 15px;">
+        <table mat-table [dataSource]="tableDataSource">
+
+            <!-- <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null"
+                                [checked]="selection.isSelected(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container> -->
+
+            <ng-container *ngFor="let columns of displayedColumns" matColumnDef="{{columns}}">
+                <th mat-header-cell *matHeaderCellDef>
+                    <ng-container *ngIf=" columns === 'Select'">
+                        <mat-checkbox [checked]="selectdID?.length===tableDataSource?.data?.length"
+                            (change)="selectionAllChange($event)">
+                        </mat-checkbox>
+
+                    </ng-container>
+                    <ng-container *ngIf=" columns !== 'Select'">
+                        {{columns}}
+                    </ng-container>
+
+                </th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <div class="" *ngIf="element[columns]!='View' && columns != 'Pricing'">
+                        {{columns=='Validity Date'||columns=='Date'||columns == 'Due
+                        Date'?(element[columns]):element[columns]}}
+                    </div>
+                    <div class="" *ngIf="element[columns]=='View' && !acceptReject">
+                        <div mat-button [matMenuTriggerFor]="menu">
+                            <img src="../../../assets/images/icons/3dots.png"
+                                style="width: 20px;height: 20px; cursor: pointer;" alt="">
+                        </div>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="edit(element['Transaction ID'])"
+                                class="f-12 fontRegular dgrey" *ngIf="viewEdit">View/Edit</button>
+                                <button mat-menu-item (click)="delete(element['Transaction ID'])"
+                                class="f-12 fontRegular dgrey" *ngIf="viewDelete">Delete</button>
+                                <button mat-menu-item (click)="edit(element['Transaction ID'])"
+                                class="f-12 fontRegular dgrey" *ngIf="view">View</button>
+                                <button *ngIf="showDownload" mat-menu-item (click)="download(element)"
+                                    class="f-12 fontRegular dgrey">Download</button>
+                            <button *ngIf="showComments" mat-menu-item (click)="comment(element)"
+                                class="f-12 fontRegular dgrey">Message</button>
+                                <!--For User Management-->
+                                <button mat-menu-item (click)="onlyviewforAdmin(element['EMP ID'])"
+                                class="f-12 fontRegular dgrey" *ngIf="onlyview">View</button>
+                                <!--End User Management-->
+                                <!--For Accept Reject Admin User-->
+                            <button mat-menu-item (click)="updateStatusForAdmin(element['EMP ID'],'ACTIVE')"
+                                class="f-12 fontRegular dgrey" *ngIf="acceptReject">Active</button>
+                            <button mat-menu-item (click)="updateStatusForAdmin(element['EMP ID'], 'INACTIVE')"
+                                class="f-12 fontRegular dgrey" *ngIf="acceptReject">Inactive</button>
+                                <!--End Accept Reject Admin User-->
+                        </mat-menu>
+                    </div>
+                    <!--For Accept Reject Admin User-->
+                    <div class="" *ngIf="element[columns]=='View' && acceptReject">
+                        <div >
+                            <i (click)="onlyviewforAdmin(element['EMP ID'])" class="fa fa-eye" style="cursor:pointer" matTooltip="View"></i> 
+                            <i (click)="updateStatusForAdmin(element['EMP ID'],'ACTIVE')" *ngIf="(element['status']=='PENDING') && approveBydata[i].makerApprovedBy != loginuserName" class="fa fa-check-circle" matTooltip="Approve" style="color: forestgreen; cursor:pointer"></i>
+                            <i (click)="updateStatusForAdmin(element['EMP ID'], 'REJECTED')" *ngIf="(element['status']=='PENDING') && approveBydata[i].makerApprovedBy != loginuserName"class="fa fa-times-circle" matTooltip="Reject" style="color: red; cursor:pointer"></i>
+                            <i (click)="updateStatusForAdmin(element['EMP ID'],'ACTIVE')" *ngIf="(element['status']=='INACTIVE')" class="fa fa-check" matTooltip="Active" style="color: forestgreen; cursor:pointer "></i>
+                            <i (click)="updateStatusForAdmin(element['EMP ID'], 'INACTIVE')" *ngIf="(element['status']=='ACTIVE')"class="fa fa-times" matTooltip="Inactive" style="color: red; cursor:pointer"></i>
+                            <i *ngIf="(element['status']=='REJECTED')"class="fa fa-times-rectangle" matTooltip="Rejected" style="color: red; cursor:pointer"></i>
+                            <i *ngIf="element['status']=='PENDING' && approveBydata[i].makerApprovedBy == loginuserName"class="fa fa-lock" matTooltip="You are not authorized to perform this action" style="color: forestgreen; cursor:pointer"></i>
+
+                        </div>
+                    </div>
+                    <!--End Accept Reject Admin User-->
+                    <div class="" *ngIf="columns=='Select'">
+                        <mat-checkbox (change)="selectionChange($event,element)"
+                            [checked]="selectdID.includes(element['Transaction ID'])">
+                        </mat-checkbox>
+                    </div>
+                    <div *ngIf="imageShow" class="showImg">
+                        <img src="../../../assets/images/icons/clock.png" />
+                    </div>
+                    <div *ngIf="columns=='Pricing'">
+                        <span [ngClass]="element.Pricing !== 0 ? 'pricing' : ''"(click)="viewPricing(element['Transaction ID'])">{{element.Pricing}}</span>
+                    </div>
+                </td>
+            </ng-container>
+
+
+
+            <tr class="mat-row " *matNoDataRow>
+                <td class="mat-cell text-center " [attr.colspan]="displayedColumns.length">
+                    No Records Found.
+                </td>
+            </tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+
+    </div>
+    <div class="pagination" *ngIf="dataSource?.length>5">
+        <div class="f-12 fontBold grey mx-3"> {{getPage()+' ' }} of {{pageData?.totalElements}}</div>
+        <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="pageData?.index === 0 ?'#292929a1':'#EB7203'"
+            [style.pointer-events]="pageData?.index === 0?'none':'auto'">
+            arrow_back_ios
+        </mat-icon>
+        <mat-icon class="pointer" (click)="pageNext()"
+            [style.pointer-events]="last===pageData?.totalElements?'none':'auto'"
+            [style.color]="last===pageData?.totalElements ?'#292929a1':'#EB7203'"
+            [style.pointer-events]="last===pageData?.totalElements ?'none':'auto'" style="margin-left: 10px;">
+            arrow_forward_ios
+        </mat-icon>
+
+        <!-- <div>
+            <div class="f-12 fontBold grey">1 to 5 of 100</div>
+        </div> -->
+        <!-- <div>
+            <mat-paginator #paginator [length]="totalItems" [pageIndex]="page" [pageSize]="5"
+                (page)="handlePageEvent($event)" [showFirstLastButtons]="false"></mat-paginator>
+        </div> -->
+
+    </div>
+</div>

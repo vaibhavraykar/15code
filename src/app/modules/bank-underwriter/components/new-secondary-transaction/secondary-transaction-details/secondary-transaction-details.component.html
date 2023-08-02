@@ -1,0 +1,326 @@
+<div class="transaction-details px-4">
+  <h6 class="title text-center mb-32">Fill in your transaction details</h6>
+  <form [formGroup]="form">
+    <div class="fw-700 f-16">
+      Underlying Transaction : {{ state?.requirementType || "" }}
+    </div>
+    <section class="row mt-20">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-12 col-sm-5">
+            <mat-form-field class="w100" appearance="outline" (click)="matAutocompleteCountryCurrencyObservers()">
+              <mat-label>Currency</mat-label>
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                [matAutocomplete]="currencyDropdown"
+                formControlName="currency"
+                (change)="checkCountryExistsPorts($event,'currency')"
+              />
+              <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+              <mat-autocomplete
+                autoActiveFirstOption
+                #currencyDropdown="matAutocomplete"
+              >
+                <mat-option
+                  *ngFor="let item of currencyList$ | async"
+                  [value]="item"
+                >
+                  {{ item }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error  *ngIf="form.controls['currency'].hasError('required')">Currency Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-7">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Amount</mat-label>
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                formControlName="amount"
+                [value]="formatAmount(form.controls['amount'].value)"
+                (paste)="onPaste($event)" (keydown)="onKeyDown($event)" (blur)="onBlur('amount')"
+                (input)="form.controls['amount'].setValue(parseAmount($event))"
+              />
+              <mat-error *ngIf="form.controls['amount'].hasError('required')">Amount Required</mat-error>
+              <!-- <mat-error *ngIf="form.controls['amount'].hasError('pattern')">Enter a valid Amount.</mat-error> -->
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="">
+          <mat-form-field appearance="outline" class="w100">
+            <mat-label>Target Booking Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker1"
+              formControlName="targetBookingDate"
+              [min]="type=='edit'?state?.lCBookingDate:today"
+              [max]="form.controls['transactionMaturityDate'].value"
+              (dateChange)="updateMaturityMinDate()"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="form.controls['targetBookingDate'].hasError('required')">Target Booking Required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w100">
+          <mat-label>Transaction Maturity Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker2"
+            formControlName="transactionMaturityDate"
+            [min]="type=='edit'?state?.lCBookingDate:maturityMinDate"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <mat-error *ngIf="form.controls['transactionMaturityDate'].hasError('required')">Transaction Maturity Date Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6" style="pointer-events: none;">
+        <mat-form-field class="w100" appearance="outline">
+          <mat-label>Tenor</mat-label>
+          <input type="text" class="f-14" matInput formControlName="tenor" />
+          <mat-error >Tenor Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline" (click)="matAutocompleteGoodsObservers()">
+          <mat-label>Types Of Goods</mat-label>
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            [matAutocomplete]="goodsType"
+            formControlName="typeOfGood"
+            (change)="checkCountryExistsPorts($event,'typeOfGood')"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+          <mat-autocomplete autoActiveFirstOption #goodsType="matAutocomplete">
+            <mat-option
+              *ngFor="let item of typesOfGoods$ | async"
+              [value]="item"
+            >
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error  *ngIf="form.controls['typeOfGood'].hasError('required')" >Type Of Good Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w100">
+          <mat-label>Transaction Validity</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker3"
+            formControlName="transactionValidity"
+            [min]="today"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker3"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+          <mat-error *ngIf="form.controls['transactionValidity'].hasError('required')">Transaction Validity Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6" *ngIf="form.get('typeOfGood').value === 'Others'">
+        <mat-form-field class="w100" appearance="outline">
+          <mat-label>Enter Other Type Of Goods</mat-label>
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            formControlName="otherGoodsType"
+          />
+          <mat-error *ngIf="form.controls['otherGoodsType'].hasError('required')">Please Enter The Others Goods Name</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <div class="col-md-12 d-flex justify-content-between">
+          <mat-checkbox formControlName="esgCompliant"
+            >ESG Compliant?</mat-checkbox
+          >
+          <span class="notification-icon"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Environmental, Social and Governance"
+            >
+            <img
+            style="width: 16px;"
+              src="../../../../assets/images/icons/Icon-info.svg"
+              alt="icon"
+            />
+          </span>
+        </div>
+      </div>
+    </section>
+    <div class="fw-700 f-16 mt-30">Shipment Details</div>
+    <div class="row mt-20">
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline" (click)="matAutocompleteCountryCurrencyObservers()">
+          <mat-label>Country Of Port Of Loading</mat-label>
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            [matAutocomplete]="countryOfloading"
+            formControlName="loadingCountry"
+            (change)="checkCountryExistsPorts($event,'loadingCountry');fetchCountryPort('loading')"
+          />
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+          <mat-autocomplete
+            autoActiveFirstOption
+            #countryOfloading="matAutocomplete"
+            (optionSelected)="fetchCountryPort('loading')"
+          >
+            <mat-option
+              *ngFor="let item of countryLoadingList$ | async"
+              [value]="item"
+            >
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error  *ngIf="form.controls['loadingCountry'].hasError('required')">Loading Country Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline" (click)="fetchCountryPort(type)">
+          <mat-label> Port Of Loading</mat-label>
+
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            [matAutocomplete]="countryOfloadingPort"
+            formControlName="loadingCountryport"
+            (change)="checkCountryExistsPorts($event,'loadingCountryport')"
+          />
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+          <mat-autocomplete
+            autoActiveFirstOption
+            #countryOfloadingPort="matAutocomplete"
+            (optionSelected)="selectedPort($event,'loadingCountryport')"
+          >
+            <mat-option
+              *ngFor="let item of countryLoadingPort$ | async"
+              [value]="item"
+            >
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="form.controls['loadingCountryport'].hasError('required')">Loading Country Port Required</mat-error>
+          <mat-error *ngIf="!form.controls['loadingCountryport'].hasError('required')
+							&& form.controls['loadingCountryport'].invalid">
+								Discharge port and Loading Port cannot be same.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline" (click)="matAutocompleteCountryCurrencyObservers()">
+          <mat-label>Country Of Port Of Discharge</mat-label>
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            [matAutocomplete]="countryOfdischarge"
+            formControlName="dischargeCountry"
+            (change)="checkCountryExistsPorts($event,'dischargeCountry');fetchCountryPort('discharge')"
+          />
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+          <mat-autocomplete
+            autoActiveFirstOption
+            #countryOfdischarge="matAutocomplete"
+            (optionSelected)="fetchCountryPort('discharge')"
+          >
+            <mat-option
+              *ngFor="let item of countryDischargeList$ | async"
+              [value]="item"
+            >
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="form.controls['dischargeCountry'].hasError('required')">Discharge Country Required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline">
+          <mat-label> Port Of Discharge</mat-label>
+
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            [matAutocomplete]="countryOfdischargePort"
+            formControlName="dischargeCountryport"
+            (change)="checkCountryExistsPorts($event,'dischargeCountryport')"
+          />
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+          <mat-autocomplete
+            autoActiveFirstOption
+            #countryOfdischargePort="matAutocomplete"
+            (optionSelected)="selectedPort($event,'dischargeCountryport')"
+          >
+            <mat-option
+              *ngFor="let item of countryDischargePort$ | async"
+              [value]="item"
+            >
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="form.controls['dischargeCountryport'].hasError('required')">Discharge Country Port Required</mat-error>
+          <mat-error *ngIf="!form.controls['dischargeCountryport'].hasError('required')
+							&& form.controls['dischargeCountryport'].invalid">
+								Discharge port and Loading Port cannot be same.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline" (click)="matAutocompleteCountryCurrencyObservers()">
+          <mat-label>Final Destination Of Goods</mat-label>
+
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            [matAutocomplete]="goodsDestination"
+            formControlName="destinationGoods"
+            (change)="checkCountryExistsPorts($event,'destinationGoods')"
+          />
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+          <mat-autocomplete
+            autoActiveFirstOption
+            #goodsDestination="matAutocomplete"
+          >
+            <mat-option
+              *ngFor="let item of countryList$ | async"
+              [value]="item"
+            >
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="form.controls['destinationGoods'].hasError('required')">Goods Destination Required</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="submit-btn">
+      <div class="col-md-6 text-center m-auto">
+        <app-button
+          [name]="'NEXT > PRICING'"
+          [class]="'primary-btn f-16 w100'"
+          (click)="submit()"
+        ></app-button>
+      </div>
+    </div>
+  </form>
+</div>

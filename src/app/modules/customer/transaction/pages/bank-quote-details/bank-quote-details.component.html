@@ -1,0 +1,74 @@
+<div class="bank-wrapper d-flex">
+    <div class="col-md-3 left-container">
+        <div class="heading-text d-flex align-items-center">
+            <mat-icon (click)="goBack()" style="cursor: pointer">keyboard_backspace</mat-icon>
+            <div class="ms-1">Transaction Details</div>
+        </div>
+        <div class="description">
+            <div>
+                <div class="title-text f-14 fw-900 dgrey mt-10">
+                    Transaction ID:
+                </div>
+                <div class="value-text grey f-14">
+                    {{transactionId}}
+                </div>
+                <div class="title-text f-14 fw-900 dgrey mt-10">
+                    Transaction Amount:
+                </div>
+                <div class="value-text grey f-14">
+                    {{transactionDetails?.lCValue|number}}
+                </div>
+                <div class="title-text f-14 fw-900 dgrey mt-10">
+                    Applicant:
+                </div>
+                <div class="value-text grey f-14">
+                    {{transactionDetails?.userType!='Applicant'?transactionDetails?.applicantName:transactionDetails?.applicantName}}
+                </div>
+                <div class="title-text f-14 fw-900 dgrey mt-10">
+                    Benificiary:
+                </div>
+                <div class="value-text grey f-14">
+                    {{transactionDetails?.userType=='Applicant'?transactionDetails?.beneName:transactionDetails?.beneName}}
+                </div>
+                <div class="title-text f-14 fw-900 dgrey mt-10">
+                    Transaction Validity:
+                </div>
+                <div class="value-text grey f-14">
+                    {{transactionDetails?.validity|date: 'dd/MM/yyyy'}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 right-container px-3">
+        <div class="heading-text ">
+            <div class="ms-1">Bank Quotes</div>
+        </div>
+        <div class="cart" *ngFor="let quote of quoteDetails">
+            <div class="row d-flex" style="border-bottom: 1px solid #d6cdcd">
+                <div class="header-name f-14 dgrey col-md-11">
+                    Bank Name: ******
+                </div>
+                <div class="col-md-1 f-12 blueText" style="text-align: right;">
+                    AAA
+                </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-between desc">
+                <div class=" grey f-14">
+                    Quotes placed till date: <span class="yellow-txt fw-900">{{quote?.totalQuotationCount}}</span>
+                </div>
+                <div class=" grey f-14">
+                    Quotes for {{(quote?.goodsType?.toLowerCase()=='others'&&quote?.otherGoodsType)?quote?.otherGoodsType:quote?.goodsType}}: <span class="yellow-txt fw-900">{{quote?.totalGoodsTypeCount}}</span>
+                </div>
+                <div class=" grey f-14">
+                    Quote Amount: <span class="yellow-txt fw-900">{{quote.totalQuote|number}}</span>
+                </div>
+                <div class=" grey f-14">
+                    Valid till: <span class="dgrey fw-900">{{quote.validity|date: 'dd/MM/yyyy'}}</span>
+                </div>
+            </div>
+            <div class="mt-30 text-center col-lg-2 col-md-3 view-btn">
+                <div mat-stroked-button class="primary-btn cpointer" [style.pointerEvents]="quote.status==='FREEZE'?'none':'all'"  (click)="open(quote?.quotationId)">View & Accept</div>
+            </div>
+        </div>
+    </div>
+</div>

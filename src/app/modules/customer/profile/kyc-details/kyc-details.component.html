@@ -1,0 +1,213 @@
+<div class="row kyc-details-component">
+		<form [formGroup]="kycForm">
+			<div class="row">
+				<div class="col-md-6">
+					<!-- Business Details Section -->
+					<div class="fw-700 f-16 mb-20">Bussiness KYC</div>
+					<mat-form-field class="w100" appearance="outline">
+						<mat-label>Country</mat-label>
+						<input
+							type="text"
+							class="f-14"
+							matInput
+							[matAutocomplete]="countryDropdown"
+							formControlName="businessKycCountry"
+							(input)="businessCountryChange($event)"
+							(change)="checkAutocomplete($event,'businessKycCountry')"
+						/>
+						<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+						<mat-autocomplete
+							autoActiveFirstOption
+							#countryDropdown="matAutocomplete"
+						>
+							<mat-option *ngFor="let item of businessCountryOptions" [value]="item.countryName">
+								{{ item.countryName }}
+							</mat-option>
+						</mat-autocomplete>
+						<mat-error
+                    *ngIf="kycForm.controls['businessKycCountry']?.hasError('required')"
+                    >Business KYC Country is required</mat-error>
+					</mat-form-field>
+
+					<mat-form-field class="w100" appearance="outline">
+						<mat-label>Valid document</mat-label>
+						<input
+							type="text"
+							class="f-14"
+							matInput
+							[matAutocomplete]="businessDocumentDropdown"
+							formControlName="businessKycDocument"
+							(input)="businessDocumentChange($event)"
+							(change)="checkAutocomplete($event,'businessKycDocument')"
+						/>
+						<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+						<mat-autocomplete
+							autoActiveFirstOption
+							#businessDocumentDropdown="matAutocomplete"
+						>
+							<mat-option *ngFor="let item of businessDocumentOptions" [value]="item.value">
+								{{ item.value }}
+							</mat-option>
+						</mat-autocomplete>
+						<mat-error
+                    *ngIf="kycForm.controls['businessKycDocument']?.hasError('required')"
+                    >Business KYC Document Type is required</mat-error>
+					</mat-form-field>
+
+					<div class="d-flex align-items-center help-icon">
+						<div class="mr-5">
+							<img
+								src="../../../../assets/images/icons/Icon-info.svg"
+								height="15"
+								alt="icon"
+							/>
+						</div>
+
+						<span class="f-12"
+							>Upload only in (pdf, jpeg, png, tiff) format.</span
+						>
+					</div>
+
+					<div class="upload-button-content mt-4" *ngIf="(businessStatus&&businessStatus==='REJECTED')||!businessStatus">
+						<div class="upload-button">
+							<label>{{businessFileName==''?'Upload Document':businessFileName}}</label>
+							<div *ngIf="businessFileName!=''" (click)="deleteBusinessFile()"><img style="width:30px;height:30px" src="../../../../../assets/images/customer/close.png" /></div>
+
+							<app-file-upload
+								[name]="'Upload'"
+								[accept]="'.jpg,.jpeg,.png,.pdf,.tiff'"
+								(onUpload)="uploadBussinessKYCDoc($event)"
+							></app-file-upload>
+						</div>
+						<!-- <div class="input-error-alert" *ngIf="!kycForm.controls['businessKycFile'].value">
+							<div class="error">Please upload file.</div>
+						</div> -->
+						<div class="d-flex align-items-center help-icon mt-2">
+							<div class="mr-5">
+								<img
+									src="../../../../assets/images/icons/Icon-info.svg"
+									height="15"
+									alt="icon"
+								/>
+							</div>
+
+							<span class="f-12">File should be less than 20MB</span>
+              <mat-error *ngIf="this.kycForm.controls['businessKycFileType'].hasError('invalid')" class="mx-3">Invalid file format.</mat-error>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="col-md-6">
+
+					<!-- Personal Documents Seciton -->
+					<div class="fw-700 f-16 mb-20">Perosnal KYC</div>
+					<mat-form-field class="w100" appearance="outline">
+						<mat-label>Country</mat-label>
+						<input
+							type="text"
+							class="f-14"
+							matInput
+							[matAutocomplete]="countryPersonalDropdown"
+							formControlName="personalKycCountry"
+							(input)="personalCountryChange($event)"
+							(change)="checkAutocomplete($event,'personalKycCountry')"
+						/>
+						<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+						<mat-autocomplete
+							autoActiveFirstOption
+							#countryPersonalDropdown="matAutocomplete"
+						>
+							<mat-option *ngFor="let item of personalCountryOptions" [value]="item.countryName">
+								{{ item.countryName }}
+							</mat-option>
+						</mat-autocomplete>
+						<mat-error
+                    *ngIf="kycForm.controls['personalKycCountry']?.hasError('required')"
+                    >Personal KYC Country is required</mat-error>
+					</mat-form-field>
+
+					<mat-form-field class="w100" appearance="outline">
+						<mat-label>Valid document</mat-label>
+						<input
+							type="text"
+							class="f-14"
+							matInput
+							[matAutocomplete]="personalDocumentsDropdown"
+							formControlName="personalKycDocument"
+							(input)="personalDocumentChange($event)"
+							(change)="checkAutocomplete($event,'personalKycDocument')"
+						/>
+						<mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+						<mat-autocomplete
+							autoActiveFirstOption
+							#personalDocumentsDropdown="matAutocomplete"
+						>
+							<mat-option *ngFor="let item of personalDocumentOptions" [value]="item.value">
+								{{ item.value }}
+							</mat-option>
+						</mat-autocomplete>
+						<mat-error
+                    *ngIf="kycForm.controls['personalKycDocument']?.hasError('required')"
+                    >Personal KYC Document Type is required</mat-error>
+					</mat-form-field>
+
+					<div class="d-flex align-items-center help-icon">
+						<div class="mr-5">
+							<img
+								src="../../../../assets/images/icons/Icon-info.svg"
+								height="15"
+								alt="icon"
+							/>
+						</div>
+
+						<span class="f-12"
+							>Upload only in (pdf, jpeg, png, tiff) format.</span
+						>
+					</div>
+
+					<div class="upload-button-content mt-4" *ngIf="(peronalStatus&&peronalStatus==='REJECTED')||!peronalStatus">
+						<div class="upload-button">
+							<label>{{personalFileName==''?'Upload Document':personalFileName}}</label>
+							<div *ngIf="personalFileName!=''" (click)="deletePersonalFile()"><img style="width:30px;height:30px" src="../../../../../assets/images/customer/close.png" /></div>
+
+							<app-file-upload
+								[name]="'Upload'"
+								[accept]="'.jpg,.jpeg,.png,.pdf,.tiff'"
+								(onUpload)="uploadPersonalKYCDoc($event)"
+							></app-file-upload>
+						</div>
+						<!-- <div class="input-error-alert" *ngIf="!kycForm.controls['personalKycFile'].value">
+							<div class="error">Please upload file.</div>
+						</div> -->
+						<div class="d-flex align-items-center help-icon mt-2">
+							<div class="mr-5">
+								<img
+									src="../../../../assets/images/icons/Icon-info.svg"
+									height="15"
+									alt="icon"
+								/>
+							</div>
+
+							<span class="f-12">File should be less than 20MB</span>
+              <mat-error *ngIf="this.kycForm.controls['personalKycFileType'].hasError('invalid')" class="mx-3">Invalid file format.</mat-error>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="submit-btn">
+						<div class="col-md-6 text-center m-auto">
+							<span class="f-14 " style="color:red" *ngIf="showUploadError">{{errorMessage}}</span>
+							<app-button
+								[name]="isbusinessKycRejected && ispersonalKycRejected?'Continue':'Submit'"
+								[class]="'primary-btn f-16 w100'"
+								(click)="submit()"
+							></app-button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</form>
+	</div>
+

@@ -1,0 +1,7 @@
+<div class="">
+    <span class="headingstyle">Secondary Transaction</span>
+</div>
+<div class="container-wrapper mt-10 secondary-list">
+    <app-secondary-table #customTable [tableStructure]="tableStructure"
+    (combinedEmitter)="tableEventEmitter($event)"></app-secondary-table>
+</div>

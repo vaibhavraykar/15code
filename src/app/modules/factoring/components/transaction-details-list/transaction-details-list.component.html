@@ -1,0 +1,10 @@
+<div style="padding: 20px 10px;">
+        <span class="f-22 fontBold dgrey">Transactions Details</span>
+
+    <div class="mt-30">
+        <!-- <app-table *ngIf="dataSource?.length>0" [dataSource]="dataSource" [displayedColumns]="displayColumns" [viewComment]="true"></app-table> -->
+        <app-table (pageNextHandler)="pageNext($event)" (pagePreviousHandler)="pagePrevious($event)" [pageData]="page"
+            [dataSource]="dataSource" [page]="pageIndex" [totalItems]="dataLength" [displayedColumns]="displayColumns"
+            [viewComment]="true"  (editSelected)="selectedTransaction($event)" [viewEdit]="true" (viewPrice)="viewPrice($event)"></app-table>
+    </div>
+</div>

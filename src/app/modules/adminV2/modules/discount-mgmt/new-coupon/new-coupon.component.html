@@ -1,0 +1,129 @@
+<div class="new-coupon-container coupon-cont mt-30">
+    <div class="">
+        <div class="d-flex align-items-center mb-20">
+            <mat-icon style="cursor: pointer;" (click)="back()">keyboard_backspace</mat-icon>
+            <div class="ml-12 darkBlackText">Create New Coupon</div>
+        </div>
+    </div>
+    <div class="main-coupon">
+        <div class="option-check mt-10">
+            <mat-radio-group aria-label="Select an option" style="padding: 0px !important; margin-top: 17px" formControlName="applicableEntityType" (change)="onApplicableEntityTypeChange($event)">
+                <mat-radio-button value="CUSTOMER">Customer</mat-radio-button>
+                <mat-radio-button value="BANK">BAAC</mat-radio-button>
+                <mat-radio-button value="BANK_AS_UNDERWRITER">BAAU</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="option-check mt-10">
+            <div class="col-md-4 inline-radio d-flex">
+                <span style="margin-right: 4px;">Prepaid</span>
+                <mat-slide-toggle class="togg-bttn custom-toggle" [(ngModel)]="prepaid" (change)="onChangeTypeRadio($event)">Postpaid</mat-slide-toggle>
+            </div>
+        </div>
+
+        <div *ngIf="this.prepaidValue" class="sub-main mt-30 row d-flex justify-content-center align-items-center">
+            <form [formGroup]="personalForm">
+                <div class="row">
+                    <div class="col-md-4  pd-r-0 chip extra">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Discount Type</mat-label>
+                            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            <mat-select formControlName="durationType" (selectionChange)="onDiscountTypeChange($event)">
+                                <mat-option value="FIXED">Fixed</mat-option>
+                                <mat-option value="PERCENTAGE">Percentage(%)</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0 extra">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Currency</mat-label>
+                            <input type="text" matInput formControlName="currency" readonly>
+                            <mat-error *ngIf="personalForm.controls['currency'].hasError('required')">Currency
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0 extra" *ngIf="selectedDiscountType == 'FIXED'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Fix Amount</mat-label>
+                            <input type="text" matInput formControlName="fixAmount" (keypress)="numberonly($event)">
+                            <mat-error *ngIf="personalForm.controls['fixAmount'].hasError('required')">Amount
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0 extra" *ngIf="selectedDiscountType == 'PERCENTAGE'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Discount Percentage</mat-label>
+                            <input type="text" matInput formControlName="discountPercentage"
+                                (keypress)="percentOnly($event)">
+                            <mat-error *ngIf="personalForm.controls['discountPercentage'].hasError('required')">Discount
+                                Percentage required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0 extra" *ngIf="selectedDiscountType == 'PERCENTAGE'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Max Discount</mat-label>
+                            <input type="text" matInput formControlName="maxDiscount" (keypress)="numberonly($event)">
+                            <mat-error *ngIf="personalForm.controls['maxDiscount'].hasError('required')">Max Discount
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4  pd-r-0 extra">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Quantity</mat-label>
+                            <input type="text" matInput formControlName="quantity" (keypress)="numberonly($event)">
+                            <mat-error *ngIf="personalForm.controls['quantity'].hasError('required')">Quantity
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0 extra">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Coupon Code</mat-label>
+                            <input type="text" matInput formControlName="couponCode" (keypress)="textOnly($event)">
+                            <mat-error *ngIf="personalForm.controls['couponCode'].hasError('required')">Coupon Code
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0 chip dropSize extraexpands">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            <mat-label>Products</mat-label>
+                            <mat-select formControlName="product">
+                                <div>
+                                    <div class="search-box">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <input matInput type="text" placeholder="Search">
+                                            <img src="../../../../../assets/images/adminV2/search-normal.svg" />
+                                        </mat-form-field>
+                                    </div>
+                                    <mat-option *ngFor="let item of productlist"
+                                        [value]="item">{{item.planName}}</mat-option>
+                                </div>
+                            </mat-select>
+                            <mat-error *ngIf="personalForm.controls['product'].hasError('required')">Product
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row hear">
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="d-flex justify-content-end">
+                        <button mat-raised-button class="primary-btn" style="width: 30%;"
+                          (click)="submitNewCoupon()">Save</button>
+                        <button mat-raised-button class="bttn" style="width: 30%;" (click)="cancelForm()">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                <!-- <div class="row">
+                    <div class="col-md-5 hearCoupon mb-20">
+                        <div class="d-flex justify-content-end">
+                            <button mat-raised-button class="primary-btn" style="width: 25%;"
+                                (click)="submitNewCoupon()">Save</button>
+                            <button mat-raised-button class="bttn" style="width: 25%;"
+                                (click)="cancelForm()">Cancel</button>
+                        </div>
+                    </div>
+                </div> -->
+            </form>
+        </div>
+    </div>
+</div>

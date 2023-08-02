@@ -1,0 +1,619 @@
+<div class="susbcription-wrapper ">
+    <div class="py-4" *ngIf="!renewPlanView">
+        <div class="col-md-6 col-10 col-lg-4 m-auto">
+            <div class="f-20 text-center fw-600 mb-20">Subscription Details</div>
+            <div class="cart " style="border: none !important"
+
+            >
+                <fieldset>
+                    <legend>
+                        <div class="rec-update textCenter">Purchased Plan</div>
+                    </legend>
+
+                    <div class="heading mt-10" style="display: block">
+                            <div class="title-head text-center" style="word-break: break-all;">
+                                <!-- {{subscriptionPlanDetail?.productDetails?.planName}} -->
+                                {{subscriptionPlanDetail?.planName}}
+                            </div>
+                            <!-- <div class="pay text-center" *ngIf="planType!=='POSTPAID'">
+                                For {{subscriptionPlanDetail?.duration}}
+                                    {{subscriptionPlanDetail?.durationType}}
+                            </div> -->
+                        </div>
+
+                        <div class="mt-10" style="border-top: 1px dashed #c5cbef;" >
+                            <div class="mt-10 px-3">
+                                <span class="f-12 fw-600">Plan benefits</span>
+                                <ul class="mt-10">
+                                    <li class="d-flex align-items-center justify-content-between"
+                                        *ngFor="let benefit of subscriptionPlanDetail?.productBenefits"
+                                    >
+                                        <div class="f-12 d-flex" style="font: italic normal normal 14px/24px Lato;opacity: 0.6;">
+                                            <mat-icon>check</mat-icon>
+                                            {{benefit?.benefit}}
+                                        </div>
+                                        <div class="f-12 fw-600 textAlignRight">
+                                            {{benefit?.value}}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-20" *ngIf="planType!=='POSTPAID'">
+                            <div class="d-flex justify-content-between align-items-center mt-10 total">
+                                <div class=" f-14 fw-900" style="padding-left: 0;">Amount paid including tax</div>
+                                <div class="f-14 fw-900 textAlignRight" style="padding-right: 0;">
+                                    {{subscriptionPlanDetail?.currency+" "+(subscriptionPlanDetail?.price | number :'1.2-2')}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-10 px-3">
+                            <ul>
+                                <li class="mt-10 d-flex justify-content-between align-items-center">
+                                    <div class=" pay-style">Date</div>
+                                    <div class=" textAlignRight ostyle">
+                                        {{orderDetails?.createdOn  | date}}
+                                    </div>
+                                </li>
+                                <li class="mt-10 d-flex justify-content-between align-items-center">
+                                    <div class=" pay-style">Payment Transaction ID</div>
+                                    <div class=" textAlignRight ostyle">
+                                        {{orderDetails?.order}}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                </fieldset>
+                <div class="px-4 mt-30">
+                    <!-- <div class="f-14 text-center"
+                        *ngIf="orderDetails?.paymentDetails?.[0]?.modeOfPayment==='WIRE_TRANSFER'"
+                    >
+                        The account details where the payment needs to
+                        be made has been sent to your registered email ID.
+                        Kindly make the payment and wait for the approval.
+                        It usually takes up 48 hours to approve the payment.
+                        For more clarification contact us at tradesupport@360tf.trade
+                    </div> -->
+                    <div class="f-14 text-center">
+                        <!-- *ngIf="orderDetails?.paymentDetails?.[0]?.modeOfPayment==='PAYPAL'"
+                    > -->
+                        A receipt with payment transaction ID has been sent to <span class="yellow-txt">{{email}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="row mt-30 col-md-8 col-8 m-auto">
+                <div class=" m-auto">
+                    <div class="row">
+                        <!-- <div class="col-md-6 text-center m-auto button-style">
+                            <div class="mt-10">
+                                <button mat-stroked-button class="f-16 w100"
+                                    (click)="downloadPayment()"
+                                >
+                                    DOWNLOAD RECEIPT
+                                </button>
+                            </div>
+                        </div> -->
+                        <div class="col-md-4 text-center m-auto">
+                            <div class="mt-10">
+                                <app-button
+                                [name]="'NEXT'"
+                                [class]="'primary-btn f-16 w100'"
+                                style="text-transform: uppercase;"
+                                (click) = "goToDashboard()"
+                            ></app-button>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4 text-center m-auto">
+                            <div class="mt-10">
+                                <app-button
+                                [name]="'DOWNLOAD RECIEPT'"
+                                [class]="'primary-btn f-14 w100'"
+                                style="text-transform: uppercase;"
+                                (click) = "downloadPayment()"
+                                [disable]="planType==='POSTPAID'"
+                                [ngStyle]="{'opacity':planType==='POSTPAID'?'0.7':'1'}"
+                            ></app-button>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4 text-center m-auto">
+                            <div class="mt-10">
+                                <app-button
+                                [name]="'RENEW PLAN'"
+                                [class]="'primary-btn f-16 w100'"
+                                style="text-transform: uppercase;"
+                                (click) = "renewPlan()"
+                            ></app-button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class=" col-md-10 m-auto px-3">
+            <div class="f-18 fw-500 mt-30">Previous Payment Details</div>
+            <div class="mt-10 table-container">
+                <table mat-table [dataSource]="dataSource">
+                    <ng-container
+                        *ngFor="let columns of displayColumns"
+                        matColumnDef="{{ columns }}"
+                    >
+                        <th mat-header-cell
+                            *matHeaderCellDef
+                        >
+                            <ng-container>
+                                {{columns}}
+                            </ng-container>
+                        </th>
+                        <td mat-cell *matCellDef="let element; let i=index">
+                            <div class=""
+                                *ngIf="columns!=='Action'"
+                            >
+                                {{element[columns]}}
+                            </div>
+                            <div class="yellow-txt cpointer"
+                                *ngIf="columns==='Action'"
+                                (click) ="downloadIndividualFile(element['Action'])"
+                            >
+                                <img
+                                src="../../../../../assets/images/icons/action-download.svg"
+                                alt="">
+                                Reciept
+                            </div>
+                        </td>
+                    </ng-container>
+                    <tr class="mat-row" *matNoDataRow>
+                        <td
+                            class="mat-cell text-center"
+                            [attr.colspan]="displayColumns.length"
+                        >
+                            No Records Found.
+                        </td>
+                    </tr>
+                    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+                </table>
+            </div>
+            <div class="d-flex pageSize align-items-center">
+                <div class=" pageSizeChange justify-content-start d-flex">
+                    <mat-paginator  (page)= "onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]" [pageSize]="5"
+                        *ngIf="totalItems>5"
+                    >
+                    </mat-paginator>
+                </div>
+                <div class="">
+                    <div
+                    class="pagination  justify-content-end"
+                    *ngIf="dataSource?.length > 0"
+                >
+                    <div class="f-12 fontBold grey mx-3">
+                    {{ getPage() + " " }} of {{ page?.totalElements }}
+                    </div>
+                    <mat-icon
+                    class="pointer"
+                    (click)="pagePrevious()"
+                    [style.color]="page?.index === 0 ? '#292929a1' : '#EB7203'"
+                    [style.pointer-events]="page?.index === 0 ? 'none' : 'auto'"
+                    >
+                    arrow_back_ios
+                    </mat-icon>
+                    <mat-icon
+                    class="pointer"
+                    (click)="pageNext()"
+                    [style.pointer-events]="last === page?.totalElements ? 'none' : 'auto'"
+                    [style.color]="last === page?.totalElements ? '#292929a1' : '#EB7203'"
+                    [style.pointer-events]="last === page?.totalElements ? 'none' : 'auto'"
+                    style="margin-left: 10px"
+                    >
+                    arrow_forward_ios
+                    </mat-icon>
+                </div>
+                </div>
+                </div>
+        </div>
+    </div>
+    <div class="py-4 renew-plan" *ngIf="renewPlanView">
+        <div class="col-md-10 m-auto">
+            <div class="subscription" *ngIf="subscriptionView">
+                <div class="back">
+                    <span class="f-14 fontBold yellow-txt cpointer back"
+                    (click)="backToSubView()"
+                    >
+                        <mat-icon>keyboard_backspace</mat-icon> Back
+                    </span>
+                </div>
+                    <div class="row m-auto" style="margin: 20px 0">
+                    <div class="f-20 text-center fw-600 mb-20">Subscription Plans</div>
+                    <div class="">
+                        <div class="f-16 fw-600 mb-10 mt-10">VALUE PROPOSITION</div>
+                        <div class="">
+                            <p>
+                                Welcome to 360tf, where importers, exporters,
+                                and banks unite for seamless trade finance solutions!
+                                As the world's largest corporate-to-bank connector,
+                                our cutting-edge platform revolutionizes the way you
+                                discover trade finance product prices. Say goodbye to
+                                inefficiencies and welcome transparency, swift turnaround
+                                times, reduced manual effort, and an impeccable audit trail,
+                                all thanks to our digital prowess.
+                            </p>
+                            <p>
+                                Wait, there’s more! In addition to our core features,
+                                we offer an array of value-added services tailored for
+                                both corporates and banks. Get ready for an unparalleled
+                                trade finance experience that leaves behind all the hassles.
+                                Write to
+                                <span class="yellow-txt">
+                                    <a href="mailto:tradesupport@360tf.trade" class="yellow-txt" style="color:var(--yellow);text-decoration: none;">tradesupport@360tf.trade</a>
+                                </span>
+                                to learn more about our value added services.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6" *ngFor="let item of filteredSubscriptionPlans;let i=index"
+                    (click)="addSubscriptionPlan(item?.productId)"
+                    >
+                        <div
+                        class="cart"
+                        [ngClass]="{'clicked':selectedSubscriptionPlanDetails==item}"
+                        >
+                            <div class="heading justify-content-between align-items-center px-2" style="word-break: break-word;" >
+                                <div class="title-head col-7">{{item.planName}}</div>
+                                <div class="col-5" style="text-align: right">
+                                    <button mat-button class="payment-btn"
+                                [ngClass]="{'payment-btn-action':selectedSubscriptionPlanDetails==item}"
+                                    >USD {{item?.price}}</button>
+                                </div>
+                            </div>
+
+                            <div class="mt-10 px-2" *ngIf="item.productBenefits">
+                                <span class="f-14 fw-600">Plan benefits</span>
+                                <ul class="mt-10">
+                                    <li *ngFor="let plans of item.productBenefits">
+
+                                        <div class="col-7 d-flex f-12" style="opacity:0.6;font: italic normal normal 14px/24px Lato;"><mat-icon>check</mat-icon>{{plans.benefit}}</div>
+                                        <div class="col-5 fw-600 f-12">{{plans.value}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 m-auto text-center f-16 errorMsg" *ngIf="filteredSubscriptionPlans.length==0">No active plans available.</div>
+                </div>
+                <div class="col-md-8 m-auto" style="padding:0px 10px">
+                    <div class="submit-btn d-flex aling-items-center justify-content-between px-4 cpointer"
+                            (click)="goToVAAS()">
+                        <div class="">USD {{selectedSubscriptionPlanDetails?.price || 0.00}}</div>
+                        <div class=""
+                        >RENEW</div>
+                    </div>
+                </div>
+            </div>
+            <div class="vas" *ngIf="vaasPlanView">
+                <div class="back">
+                    <span class="f-14 fontBold yellow-txt cpointer back"
+                    (click)="backToSubsPlanView()"
+                    >
+                        <mat-icon>keyboard_backspace</mat-icon> Back
+                    </span>
+                </div>
+                <div class="title-head mt-10 text-center" style="margin-bottom: 20px;">Select Add-ons for this plan</div>
+                <div class="col-md-6 m-auto" *ngFor="let item of filteredVaasPlans;let i=index"
+                    (click)="updateVaasPlansSelected(item?.productId)"
+                >
+                    <div class="cart"
+                        [ngClass]="{'clicked':selectedVaasPlan.includes(item.productId)}"
+                    >
+                        <div  class="plan-description">
+                            <div class="plans-details mt-10 d-flex align-items-center justify-content-between px-3">
+                                <div class="f-12">{{item.planName}}</div>
+                                <div class="btn-style">
+                                    <button mat-button class="Add-btn"
+
+                                    >ADD | {{item.currency + item.price}}</button>
+                                </div>
+                            </div>
+                            <div class="mt-10">
+                                <ul *ngIf="item.productBenefits">
+                                    <li *ngFor="let benefits of item.productBenefits;let j=index">
+
+                                    <div class="col-7 fw-12 d-flex" style="font: italic normal normal 14px/24px Lato;opacity:0.6;" ><mat-icon>check</mat-icon>{{item.productBenefits[j].benefit}}</div>
+                                    <div class="col-5 fw-12 fw-600">{{item.productBenefits[j].value}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 m-auto d-flex justify-content-end">
+                    <!-- <div class="submit-btn d-flex justify-content-between align-items-center px-4 cpointer"
+                            (click)="goToPaymentDetails()">
+                        <div class="" style="text-align: left">
+                            USD {{totalVaasAmount}}
+                        </div>
+                        <div class=""
+                        >NEXT</div>
+                    </div> -->
+                    <div class=" " >
+                            <div class="mt-10">
+                                <button
+                                [class]="'primary-btn f-14 w100'"
+                                style="text-transform: uppercase; border:0px"
+                                (click) = "goToPaymentDetails()"
+                                >
+                                    SKIP
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class=" " style="margin-left:10px">
+                            <div class="mt-10">
+                                <button
+                                [class]="'primary-btn f-16 w100'"
+                                style="text-transform: uppercase; border:0px"
+                                (click) = "goToPaymentDetails()"
+                            >
+                                NEXT
+                            </button>
+                            </div>
+
+                        </div>
+                </div>
+            </div>
+            <div class="subscription" *ngIf="paymentDetailView">
+                <div class="back">
+                    <span class="f-14 fontBold yellow-txt cpointer back"
+                    (click)="backToVAS()"
+                    >
+                        <mat-icon>keyboard_backspace</mat-icon> Back
+                    </span>
+                </div>
+                <div class="summary row"  style="margin-top: 20px">
+                    <div class="col-md-6 m-auto">
+                        <div class="cart" style="border: none !important;">
+                            <div class="heading d-flex align-items-center justify-content-between " style="word-wrap: break-word;" >
+                                <div class="title-head col-7">
+                                    {{selectedSubscriptionPlanDetails?.planName}}
+                                </div>
+                                <div class="col-5" style="text-align: right">
+                                    <button mat-button class="payment-btn-action">
+                                        {{selectedSubscriptionPlanDetails?.currency +" " +selectedSubscriptionPlanDetails?.price}}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mt-10" *ngIf="selectedSubscriptionPlanDetails?.productBenefits">
+                                <span class="f-14 fw-600">Plan benefits</span>
+                                <ul class="mt-10">
+                                    <li
+                                        *ngFor="let plans of selectedSubscriptionPlanDetails?.productBenefits"
+                                    >
+                                        <div class="col-7 d-flex f-12" style="opacity:0.6;font: italic normal normal 14px/24px Lato;"><mat-icon>check</mat-icon>
+                                            {{plans.benefit}}
+                                        </div>
+                                        <div class="col-5 f-12 fw-600">
+                                            {{plans.value}}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="plan-description"
+                                *ngIf="selectedVaasPlanDetail?.length>0"
+                            >
+                                <div class="title-head mt-10">Advisory services</div>
+                                <div class="plans-details mt-10 d-flex align-items-center justify-content-between"
+                                    *ngFor="let plan of selectedVaasPlanDetail;let v=index"
+                                >
+                                    <div class="f-12">
+                                        {{plan?.planName}}
+                                        <span class="pay">
+                                            {{plan?.currency+""+plan?.price}}
+                                        </span></div>
+                                    <div class="btn-style">
+                                        <div
+                                            (click)="updateVaasPlansSelected(plan?.productId)"
+                                        ><img src="../../../../../assets/images/customer/close.png" /></div>
+                                        <div
+                                        (click)="backToVAS()"
+                                        style="margin-left: 10px;"><img src="../../../../../assets/images/customer/reverse.png" /></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="mt-10" style="border-top: 1px dashed #c5cbef;">
+                                <div class=" mt-10 d-flex align-items-center justify-content-between">
+                                    <div class="f-12 fw-900">Subtotal</div>
+                                    <div class=" f-12 fw-900 ">
+                                        {{selectedSubscriptionPlanDetails?.currency}}{{subtotal|number:'1.2-2'}}
+                                    </div>
+                                </div>
+                                <div class="row mt-10 code">
+                                    <div class="col-md-7">
+                                        <mat-form-field class="w100" appearance="outline">
+                                            <mat-label>Coupon code</mat-label>
+                                            <input type="text" class="f-14" matInput
+                                            [formControl]="couponCode"
+                                            (input)="couponCodeHandler($event)"
+                                            />
+                                            <span matSuffix
+                                                (click)="removeCoupon()"
+                                                *ngIf="couponSuccessMessage"
+                                            >
+                                                <img style="width:30px;height:30px;margin:7px" src="../../../../../assets/images/customer/close.png" />
+                                            </span>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <button mat-button class="Add-btn" style="width: 100% !important;"
+                                        [disabled]="enableCouponButton"
+                                        (click)="applyDiscount()"
+                                        >APPLY</button>
+                                    </div>
+                                </div>
+                                <div class="row mt-10"
+                                    *ngIf="couponSuccessMessage"
+                                >Coupon applied successfully.</div>
+                            </div>
+                            <div class="mt-10" style="border-top: 1px dashed #c5cbef;">
+                                <div class="d-flex mt-20  justify-content-between align-items-center">
+                                    <div class=" d-flex f-12 fw-900"><img src="../../../../../assets/images/customer/discount.png" style="margin-right: 5px; width: 20px;" />Discount</div>
+                                    <div class=" f-12 fw-900 textAlignRight">
+                                        {{selectedSubscriptionPlanDetails?.currency}}{{this.discount?this.discount:0 | number :'1.2-2'}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-20">
+                                <div class="d-flex justify-content-between align-items-center mt-10 total">
+                                    <div class=" f-14 fw-900" style="padding-left: 0;">Grand Total</div>
+                                    <div class="f-14 fw-900 textAlignRight" style="padding-right: 0;">
+                                        {{selectedSubscriptionPlanDetails?.currency}}{{grandTotal|number:'1.2-2'}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-20 radio-style">
+                                <div class="f-14 fw-600">Payment Option</div>
+
+
+                                <div class="mt-10">
+                                    <mat-radio-group aria-label="Select a payment option:">
+                                        <mat-radio-button
+                                            (change)="onRadioChange($event)"
+                                            *ngFor="let item of paymentMethods" value="{{item.value}}"
+                                        >
+                                        {{item.name}}
+                                    </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" style="min-height: 20px;">
+                    <div class="f-14 fw-400 text-center" style="color:red"
+                    *ngIf="showPaymentMethodSelectionError"
+                    >Please select payment mode</div>
+                </div>
+                <div class="col-md-6 m-auto">
+                    <div class="px-3 mb-3">
+                        <span class="yellow-txt" (click)="sendEmailPopup()">Click here</span> to receive bank details to initiate wire transfer payment.
+                        We will send you an email on your registered email address. Once you successfully transfer the payment,
+
+                        please share your transaction ID/transaction details on <span class="yellow-txt">
+                        <a href="mailto:tradesupport@360tf.trade" class="yellow-txt" style="color:var(--yellow);text-decoration: none;">tradesupport@360tf.trade</a></span>
+
+                    </div>
+                </div>
+                <div class="col-md-12" >
+
+                    <div class="col-md-6 text-center m-auto"  style="padding:0px 10px;">
+                        <app-button
+                            [name]="'Make Payment'"
+                            [class]="'primary-btn f-16 w100'"
+                            (click)="goToSummary()"
+                        ></app-button>
+                    </div>
+                </div>
+            </div>
+            <div class="subscription" *ngIf="paymentSummaryView">
+                <div class="summary row"  style="margin: 20px 0">
+                    <div class="m-auto" *ngFor="let planOrdered of orderDetails?.orderLines;let i = index;">
+                        <div class="cart col-md-6 m-auto" style="border: none !important" *ngIf="planOrdered.productDetails['productType']=='SUBSCRIPTION_PLAN'">
+                            <div class="rec-update col-md-6 m-auto textCenter">Purchased Plan</div>
+                            <div class="heading mt-10" style="display: block">
+                                <div class="title-head col-md-6 m-auto textCenter" style="word-wrap: break-word;">{{planOrdered.productDetails['planName']}}</div>
+                                <div class="pay col-md-6 m-auto textCenter">for {{planOrdered.productDetails['duration']+" "+planOrdered.productDetails['durationType']}}</div>
+                            </div>
+
+                            <div class="mt-10" style="border-top: 1px dashed #c5cbef;" *ngIf="planOrdered.productDetails['productBenefits']">
+                                <div class="mt-10">
+                                    <span class="f-12 fw-600">Plan benefits</span>
+                                    <ul class="mt-10 ">
+                                        <li class="d-flex align-items-center justify-content-between" *ngFor="let b of planOrdered.productDetails['productBenefits'];let j=index;">
+
+                                            <div class="f-12 d-flex" style="font: italic normal normal 14px/24px Lato;opacity: 0.6;"><mat-icon>check</mat-icon>{{planOrdered.productDetails['productBenefits'][j].benefit}}</div>
+                                            <div class="f-12 fw-600 textAlignRight">{{planOrdered.productDetails['productBenefits'][j].value}}</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-20" >
+                                <div class="mt-10">
+                                    <span class="f-12 fw-600">VAS Plans</span>
+                                    <div class="" *ngFor="let plan of allPlans">
+                                        <div class="title-head">{{plan?.productDetails?.planName}}</div>
+                                        <span class="f-12 fw-600">Plan benefits</span>
+                                        <ul class="mt-10 ">
+                                            <li class="d-flex align-items-center justify-content-between" *ngFor="let b of plan?.productDetails?.productBenefits
+                                            ;let j=index;">
+
+                                                <div class="f-12 d-flex" style="font: italic normal normal 14px/24px Lato;opacity: 0.6;"><mat-icon>check</mat-icon>{{b?.benefit}}</div>
+                                                <div class="f-12 fw-600 textAlignRight">{{b?.value}}</div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-20">
+                                <div class="d-flex justify-content-between align-items-center mt-10 total">
+                                    <div class=" f-14 fw-900" style="padding-left: 0;">Amount paid including tax</div>
+                                    <div class="f-14 fw-900 textAlignRight" style="padding-right: 0;">{{orderDetails.paymentDetails[0].currency+" "+(orderDetails.paymentDetails[0].totalPrice | number :'1.2-2')}}</div>
+                                </div>
+                            </div>
+                            <div class="mt-10">
+                                <ul>
+                                    <li class="mt-10 d-flex justify-content-between align-items-center">
+                                        <div class=" pay-style">Date and time</div>
+                                        <div class=" textAlignRight ostyle">{{orderDetails.createdOn  | date}}</div>
+                                    </li>
+                                    <li class="mt-10 d-flex justify-content-between align-items-center">
+                                        <div class=" pay-style">Payment tax. ID</div>
+                                        <div class=" textAlignRight ostyle">{{orderDetails.paymentDetails[0].pid}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="f-14" style="margin-top: 50px;" *ngIf="orderDetails?.paymentDetails[0]?.modeOfPayment==='WIRE_TRANSFER'">
+
+                                The account details where the payment needs to be made has been sent to your registered email ID. Kindly make the payment and wait for the approval. It usually takes up 48 hours to approve the payment. For more clarification contact us at
+                                <span class="yellow-txt"><a href="mailto:tradesupport@360tf.trade" class="yellow-txt" style="color:var(--yellow);text-decoration: none;">tradesupport@360tf.trade</a>
+                                </span>
+
+                            </div>
+                            <div class="f-14" style="margin-top: 50px;" *ngIf="orderDetails?.paymentDetails[0]?.modeOfPayment==='PAYPAL'">
+                                A receipt with payment transaction ID has been sent to <span class="yellow-txt">{{email}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 m-auto">
+                        <div class="row">
+                            <div class="col-md-6 text-center m-auto button-style" *ngIf="orderDetails?.status=='COMPLETED'">
+                                <div class="mt-10">
+                                    <button mat-stroked-button class="f-16 w100" (click)="downloadPayment()">Download Reciept/Invoice</button>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 text-center m-auto">
+                                <div class="mt-10">
+                                    <app-button
+                                    [name]="'GO TO DASHBOARD'"
+                                    [class]="'primary-btn f-16 w100'"
+                                    style="text-transform: uppercase;"
+                                    (click)="goToDashboard()"
+                                ></app-button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

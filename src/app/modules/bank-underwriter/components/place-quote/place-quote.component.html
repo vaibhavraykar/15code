@@ -1,0 +1,976 @@
+<!-- <div class="current-page">
+    <div class="">
+        <div class="main-title f-22 fontBold dgey"><b>Place a quote</b></div>
+        <div class="container">
+            <div class="d-flex  mt-10">
+                <div class="d-flex col-md-3">
+                    <div class="label-text">Product</div>
+                    <div class="info">{{transactionDetails?.requirementType}}</div>
+                </div>
+                <div class="d-flex col-md-3">
+                    <div class="label-text">Transaction ID</div>
+                    <div class="info">{{transactionId}}</div>
+                </div>
+                <div class="d-flex col-md-3">
+                    <div class="label-text">Amount</div>
+                    <div class="info">{{transactionDetails?.lCValue}}</div>
+                </div>
+                <div class="d-flex col-md-3">
+                    <div class="label-text"> Issuance Bank</div>
+                    <div class="info">{{transactionDetails?.lCIssuanceBank}}</div>
+                </div>
+            </div>
+            <div class="d-flex mt-10">
+                <div class="d-flex col-md-3">
+                    <div class="label-text"> Tenor</div>
+                    <div class="info">{{transactionDetails?.usanceDays}} days</div>
+                </div>
+            </div>
+        </div>
+
+        <form [formGroup]="quoteForm" class="col-md-8 m-auto">
+             <div class="section2">
+                <div class="divisions">
+                    <span  class="title fontBold blueText">Confirmation Commission p.a</span>
+                    <div class="box info ">
+                        <div class="box-details box-width">
+                            <mat-form-field appearance="outline" class="example-full-width input-field2  f-12 fontBold dgrey" >
+                                <mat-label>Percentage</mat-label>
+                                <input matInput
+                                >
+                            </mat-form-field>
+                        </div>
+                        <div class="box-details box-width">
+                            <div class="cc-details rightside-box ">
+                                <mat-radio-group aria-label="Select an option" class="">
+                                    <mat-radio-button value="1"  class="smallradio">Confirmation charges applicable from date of issuance till negotiation date</mat-radio-button>
+                                    <mat-radio-button value="2"  class="smallradio">Confirmation charges applicable from date of issuance till date of maturity</mat-radio-button>
+                                </mat-radio-group>
+                                    <img (click)="latestacceptedtransactions()"  src="../../../../../../assets/images/icons/Icon-info.svg" class="info-icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="divisions">
+                    <span class="fontBold blueText">Other Charges (if any)</span>
+                    <div class="box info ">
+                        <div class="box-details box-width">
+                            <mat-form-field   appearance="outline" appearance="outline" class="example-full-width input-field2">
+                                <mat-label>Amount</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </div>
+                        <div class="box-details box-width rightside-box">
+                        <mat-form-field   appearance="outline" >
+                            <textarea matInput placeholder="Specify the type of charge (Swift, P&T, etc)"></textarea>
+                        </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="divisions">
+                    <span  class="fontBold blueText"> Minimum Transaction Charges (if any)</span>
+                    <div class="box info ">
+                        <div class="box-details box-width">
+                            <mat-form-field   appearance="outline" class="example-full-width input-field2">
+                                <mat-label>Amount</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="divisions">
+                    <span class="fontBold blueText">Bank Quote Validity
+                        <img (click)="latestacceptedtransactions()"  src="../../../../../../assets/images/icons/Icon-info.svg" class="bank-info-icon" >
+                    </span>
+                    <div class="box info ">
+                        <div class="box-details box-width">
+                            <mat-form-field  appearance="outline" >
+                                <mat-label>DD/MM/YYYY</mat-label>
+                                <input matInput [matDatepicker]="picker1">
+                                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="divisions">
+                    <span class="fontBold blueText">Other terms and condition
+                    </span>
+                    <div class="box info ">
+                        <div class="box-details box-width">
+                            <mat-form-field   appearance="outline" class="example-full-width">
+                                <textarea matInput placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)."></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="divisions">
+                    <p><span class="fontBold blueText">Disclaimer:</span>
+                    <div class="box info ">
+                        <div class="box-details box-width">
+                            <p>The benchmark/taxes as applicable shall be levied as of transaction date, actual quote from the bank may differ to that extent.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="divisions">
+                    <div class="box">
+                        <div class="box-details box-width">
+                            <div class="save-btn-section">
+                                <button mat-button class="save-btn  f-12 fontBold dgrey" (click)="save()">SAVE / GENERATE QUOTES</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </form>
+    </div>
+</div> -->
+
+<div class="quote-page col-md-8 m-auto" style="background-color: #fff">
+  <div class="main-title f-20 fontBold dgey mt-20 mb-3 d-flex align-items-center" *ngIf="!preview">
+    <mat-icon (click)="goBackPage()" >keyboard_backspace</mat-icon>
+    <b style="margin-left:5px">Place a quote</b>
+  </div>
+  <div class="main-title f-20 fontBold dgey mt-20 mb-3 d-flex align-items-center" *ngIf="preview">
+    <mat-icon (click)="goBack()"  >keyboard_backspace</mat-icon>
+    <b style="margin-left:5px">Preview</b>
+  </div>
+  <div class="px-3 py-3">
+    <div class="col-md-11 m-auto" style="background-color: #efecea">
+      <div class="px-4 py-4">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey">Product</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{ productName }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey">Transaction ID</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{ transactionId }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey">Amount</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{ transactionDetails?.lCValue |number:'1.2-2'}}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey">Currency</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{ transactionDetails?.lCCurrency }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey" *ngIf="productName!='AVALISATION'">Issuance Bank</div>
+              <div class="f-12 fw-600 dgrey" *ngIf="productName=='AVALISATION'">AB</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{ transactionDetails?.lCIssuanceBank }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey">Tenor</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{
+                  transactionDetails?.usanceDays
+                    ? transactionDetails?.usanceDays
+                    : 0
+                }}
+                days
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="productName=='AVALISATION'">
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey">Type of Bill</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{ transactionDetails?.billType }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-11 m-auto" *ngIf="quoteForm && !preview">
+      <form [formGroup]="quoteForm" class="mt-20">
+        <!-- Confirmation Charges Section -->
+        <div class="row">
+          <div
+            class="col-md-6"
+            *ngIf="product == 'CONFIRMATION' || product == 'CONFIRMANDDISCOUNT'"
+          >
+            <div class="mt-20 fw-700 f-14">Confirmation Commission p.a</div>
+          </div>
+          <div class="col-md-6" *ngIf="product == 'BANKGUARANTEE'">
+            <div class="mt-20 fw-700 f-14">BG Commission p.a</div>
+          </div>
+          <div
+            class="col-md-6"
+            *ngIf="
+              product == 'BANKGUARANTEE' ||
+              product == 'CONFIRMATION' ||
+              product == 'CONFIRMANDDISCOUNT'
+            "
+          >
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Percentage</mat-label>
+
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                formControlName="confirmationCommision"
+                (keypress)="numberInputHandler($event,'confirmationCommision')"
+								(paste)="pasteHandler($event)"
+              />
+              <mat-error *ngIf="quoteForm.controls['confirmationCommision'].hasError('required')&&product != 'BANKGUARANTEE'">
+                Confirmation Commission required
+              </mat-error>
+              <mat-error *ngIf="quoteForm.controls['confirmationCommision'].hasError('required')&&product == 'BANKGUARANTEE'">
+                BG Commission required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div
+            class="col-md-6"
+            *ngIf="
+              product == 'CONFIRMATION' ||
+              product == 'CONFIRMANDDISCOUNT'
+            "
+          >
+            <mat-radio-group
+              aria-label="Select an option"
+              class="f-12"
+              formControlName="confCharge"
+            >
+              <mat-radio-button value="1" class="f-12"
+                >Confirmation charges applicable from date of issuance till
+                negotiation date</mat-radio-button
+              >
+              <mat-radio-button value="2" class="f-12"
+                >Confirmation charges applicable from date of issuance till date
+                of maturity
+                <img matTooltip="A date on which a bill of exchange or deferred payment undertaking under a documentary credit is to be paid by the party."
+                  (click)="latestacceptedtransactions()"
+                  src="../../../../../../assets/images/icons/Icon-info.svg"
+                />
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div
+            class="col-md-6"
+            *ngIf="
+              product == 'BANKGUARANTEE'
+            "
+          >
+            <mat-radio-group
+              aria-label="Select an option"
+              class="f-12"
+              formControlName="bankCharge"
+            >
+              <mat-radio-button value="1" class="f-12"
+                >Commission applicable from date of issuance till expiry date</mat-radio-button
+              >
+              <mat-radio-button value="2" class="f-12"
+                >Commission applicable from date of issuance till claim expiry date
+                <img
+                  (click)="latestacceptedtransactions()"
+                  src="../../../../../../assets/images/icons/Icon-info.svg"
+                />
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <!-- Applicable Benchmark Section -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'DISCOUNTING' ||
+            product == 'CONFIRMANDDISCOUNT' ||
+            product == 'REFINANCE' ||
+            product == 'BANKER' ||
+            product == 'BILLAVALISATION'
+          "
+        >
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">Applicable Benchmark (if any)</div>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Percentage</mat-label>
+
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                formControlName="applicableBenchmark"
+								(paste)="pasteHandler($event)"
+                (keypress)="numberInputHandler($event,'applicableBenchmark')"
+              />
+              <mat-error *ngIf="quoteForm.controls['applicableBenchmark'].hasError('required')">
+                Applicable Benchmark required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <textarea
+                matInput
+                formControlName="commentsBenchmark"
+                placeholder="Comments for applicable benchmark(optional): Eg: 6 months libor,1 month Euribor"
+              ></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" *ngIf="product == 'BANKER'">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">
+              Banker's Acceptance Interest p.a ( spread over benchmark)
+            </div>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Percentage</mat-label>
+
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                formControlName="bankAcceptCharges"
+                (keypress)="numberInputHandler($event,'bankAcceptCharges')"
+								(paste)="pasteHandler($event)"
+              />
+              <mat-error *ngIf="quoteForm.controls['bankAcceptCharges'].hasError('required')">
+                Banker's Acceptance Interest required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Discouunting Charges -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'DISCOUNTING' ||
+            product == 'CONFIRMANDDISCOUNT' ||
+            product == 'BILLAVALISATION'
+          "
+        >
+          <div
+            class="col-md-6"
+            *ngIf="product == 'DISCOUNTING' || product == 'CONFIRMANDDISCOUNT'"
+          >
+            <div class="mt-20 fw-700 f-14">
+              Discounting Interest p.a ( spread over benchmark)
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="product == 'BILLAVALISATION'">
+            <div class="mt-20 fw-700 f-14">
+              Discount Interest p.a ( spread over benchmark)
+            </div>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Percentage</mat-label>
+
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                formControlName="discountingCharges"
+                (keypress)="numberInputHandler($event,'discountingCharges')"
+								(paste)="pasteHandler($event)"
+              />
+              <mat-error *ngIf="quoteForm.controls['discountingCharges'].hasError('required')">
+                Discount Interest p.a required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Negotiation Charges (Fixed) -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'DISCOUNTING' ||
+            product == 'CONFIRMANDDISCOUNT' ||
+            product == 'BANKER'
+          "
+        >
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">*Negotiation Charges (Fixed)</div>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Amount</mat-label>
+
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                formControlName="negotiationChargesFixed"
+                [value]="formatAmount(quoteForm.controls['negotiationChargesFixed'].value)"
+                (paste)="onPaste($event)" (keydown)="onKeyDown($event)" (blur)="onBlur('negotiationChargesFixed')"
+                (input)="quoteForm.controls['negotiationChargesFixed'].setValue(parseAmount($event))"
+              />
+              <mat-error *ngIf="quoteForm.controls['negotiationChargesFixed'].hasError('required')">
+                Negotiation Charges required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Negotiation Charges (%) -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'DISCOUNTING' ||
+            product == 'CONFIRMANDDISCOUNT' ||
+            product == 'BANKER'
+          "
+        >
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">*Negotiation Charges (%)</div>
+            <span class="f-12" style="margin-left: 10px;">*Higher of the two will be considered</span>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Percentage</mat-label>
+
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                formControlName="negotiationChargesPerct"
+                (keypress)="numberInputHandler($event,'negotiationChargesPerct')"
+								(paste)="pasteHandler($event)"
+              />
+              <mat-error *ngIf="quoteForm.controls['negotiationChargesPerct'].hasError('required')">
+                Negotiation Charges required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Refinancing Interest Field -->
+        <div class="row" *ngIf="product == 'REFINANCE'">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">
+              Refinancing Interest p.a ( spread over benchmark)
+            </div>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Percentage</mat-label>
+
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                formControlName="refinancingCharges"
+                (keypress)="numberInputHandler($event,'refinancingCharges')"
+								(paste)="pasteHandler($event)"
+              />
+              <mat-error *ngIf="quoteForm.controls['refinancingCharges'].hasError('required')">
+                Refinancing Interest p.a required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Other Charges Section -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">Other Charges (if any)</div>
+          </div>
+          <!-- Other Charges Amount -->
+          <div class="col-md-6">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Amount</mat-label>
+
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                formControlName="otherCharges"
+                [value]="formatAmount(quoteForm.controls['otherCharges'].value)"
+                (paste)="onPaste($event)" (keydown)="onKeyDown($event)" (blur)="onBlur('otherCharges')"
+                (input)="quoteForm.controls['otherCharges'].setValue(parseAmount($event))"
+              />
+              <mat-error *ngIf="quoteForm.controls['otherCharges'].hasError('required')">
+                Other Charges required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- Type of Charge -->
+          <div class="col-md-6"></div>
+          <div class="col-md-6" *ngIf="product != 'BANKER'">
+            <mat-form-field appearance="outline">
+              <textarea
+                matInput
+                formControlName="typeOfCharge"
+                placeholder="Specify the type of charge (Swift, P&T, etc)"
+              ></textarea>
+              <mat-error *ngIf="quoteForm.controls['typeOfCharge'].hasError('required')">
+                Type of Charge required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6" *ngIf="product == 'BANKER'">
+            <mat-form-field appearance="outline">
+              <textarea
+                matInput
+                formControlName="typeOfCharge"
+                placeholder="Customer needs to pay standard swift transfer charges"
+              ></textarea>
+              <mat-error *ngIf="quoteForm.controls['typeOfCharge'].hasError('required')">
+                Type of Charge required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Minimum Transaction Charges -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">
+              Minimum Transaction Charges (if any)
+            </div>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="w100" appearance="outline">
+              <mat-label>Amount</mat-label>
+
+              <input
+                type="text"
+                class="f-14"
+                matInput
+                formControlName="minimumTransactionCharge"
+                [value]="formatAmount(quoteForm.controls['minimumTransactionCharge'].value)"
+                (paste)="onPaste($event)" (keydown)="onKeyDown($event)" (blur)="onBlur('minimumTransactionCharge')"
+                (input)="quoteForm.controls['minimumTransactionCharge'].setValue(parseAmount($event))"
+              />
+              <mat-error *ngIf="quoteForm.controls['minimumTransactionCharge'].hasError('required')">
+                Minimum Transaction Charges (if any) required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Bank Quote Validity -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">
+              Bank Quote Validity
+              <img matTooltip="Date before which the customer should accept your quote"
+                (click)="latestacceptedtransactions()"
+                src="../../../../../../assets/images/icons/Icon-info.svg"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="w100 dateToggle">
+              <mat-label>DD/MM/YYYY</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="bankQuoteValidity"
+								(paste)="pasteHandler($event)"
+                [min]="getToday()"
+              />
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="quoteForm.controls['bankQuoteValidity'].hasError('required')">
+                Bank Quote Validity required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Other Terms and Conditions Field -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">Other terms and conditions</div>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <textarea
+                rows="4"
+                matInput
+                formControlName="othertnc"
+                placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s.)"
+              ></textarea>
+              <mat-error *ngIf="quoteForm.controls['othertnc'].hasError('required')">
+                Other terms and conditions required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="mt-20 fw-700 f-14">Disclaimer: The benchmark/taxes as applicable shall be levied as of transaction date, actual quote from the bank may differ to that extent.</div>
+          </div>
+        </div>
+
+        <div class="submit-btn mb-5">
+          <div class="col-md-6 text-center m-auto pt-30">
+            <app-button
+              [name]="'SAVE/GENERATE QUOTE'"
+              [class]="'primary-btn f-16 w100'"
+              (click)="save()"
+            ></app-button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Preview of Quote Drafted -->
+    <div class="col-md-11 m-auto" *ngIf="preview">
+      <div class="mt-20">
+        <!-- Confirmation Commission -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'BANKGUARANTEE' ||
+            product == 'CONFIRMATION' ||
+            product == 'CONFIRMANDDISCOUNT'
+          "
+        >
+          <div
+            class="col-md-6"
+            *ngIf="product == 'CONFIRMATION' || product == 'CONFIRMANDDISCOUNT'"
+          >
+            <div class="mt-20 fw-700 f-14">Confirmation Commission p.a</div>
+          </div>
+          <div class="col-md-6" *ngIf="product == 'BANKGUARANTEE'">
+            <div class="mt-20 fw-700 f-14">BG Commission p.a</div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.confirmationCharges }}%
+            </div>
+          </div>
+        </div>
+        <!-- Confirmation Charges applicable from date of issuance till negotiation date -->
+        <div
+          class="row"
+          *ngIf="
+            (product == 'CONFIRMATION' ||
+            product == 'CONFIRMANDDISCOUNT')&&
+            previewData?.confirmationChargesToNegotiationAmount
+          "
+        >
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">
+              Confirmation Charges applicable from date of issuance till
+              negotiation date
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.confirmationChargesToNegotiationAmount |number:'1.2-2'}}
+            </div>
+          </div>
+        </div>
+        <!-- Confirmation charges applicable from date of issuance till date of maturity-->
+        <div
+          class="row"
+          *ngIf="
+            (product == 'CONFIRMATION' ||
+            product == 'CONFIRMANDDISCOUNT')&&
+            previewData?.confirmationChargesToMaturityAmount
+          "
+        >
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">
+              Confirmation charges applicable from date of issuance till date of
+              maturity
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.confirmationChargesToMaturityAmount|number:'1.2-2' }}
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="row"
+          *ngIf="
+            product == 'BANKGUARANTEE'&&previewData?.confChgsIssuanceToexpAmount
+          "
+        >
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">
+              Commission applicable from date of issuance till expiry date
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.confChgsIssuanceToexpAmount | number:'1.2-2'}}
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="row"
+          *ngIf="
+            product == 'BANKGUARANTEE'&&previewData?.confChgsIssuanceToClaimExpAmount
+          "
+        >
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">
+              Commission applicable from date of issuance till claim expiry date
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.confChgsIssuanceToClaimExpAmount | number:'1.2-2'}}
+            </div>
+          </div>
+        </div>
+        <!-- Applicable Benchmark -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'DISCOUNTING' ||
+            product == 'CONFIRMANDDISCOUNT' ||
+            product == 'REFINANCE' ||
+            product == 'BANKER' ||
+            product == 'BILLAVALISATION'
+          "
+        >
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">Applicable Benchmark (if any)</div>
+            <div class="fw-400 f-14 grey">
+              {{ previewData?.commentsBenchmark }}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.applicableBenchmark }}%
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="product == 'BANKER'">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">
+              Banker's Acceptance Interest p.a ( spread over benchmark)
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.bankAcceptCharges }}%
+            </div>
+          </div>
+        </div>
+        <!-- Discouunting Charges -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'DISCOUNTING' ||
+            product == 'CONFIRMANDDISCOUNT' ||
+            product == 'BILLAVALISATION'
+          "
+        >
+          <div class="col-md-6" *ngIf="product == 'BILLAVALISATION'">
+            <div class="mt-20 fw-700 f-14">
+              Discount Interest p.a(spread over benchmark)
+            </div>
+          </div>
+          <div
+            class="col-md-6"
+            *ngIf="product == 'DISCOUNTING' || product == 'CONFIRMANDDISCOUNT'"
+          >
+            <div class="mt-20 fw-700 f-14">
+              Discounting Interest p.a ( spread over benchmark)
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.discountingCharges }}%
+            </div>
+          </div>
+        </div>
+        <!-- Negotiation Charges (Fixed) -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'DISCOUNTING' ||
+            product == 'CONFIRMANDDISCOUNT' ||
+            product == 'BANKER'
+          "
+        >
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">*Negotiation Charges (Fixed)</div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.negotiationChargesFixed|number:'1.2-2' }}
+            </div>
+          </div>
+        </div>
+        <!-- Negotiation Charges (%) -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'DISCOUNTING' ||
+            product == 'CONFIRMANDDISCOUNT' ||
+            product == 'BANKER'
+          "
+        >
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">*Negotiation Charges (%)</div>
+            <span class="f-12" style="margin-left: 10px;">*Higher of the two will be considered</span>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.negotiationChargesPerct }}%
+            </div>
+          </div>
+        </div>
+        <!-- Refinancing Interest Field -->
+        <div class="row" *ngIf="product == 'REFINANCE'">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">
+              Refinancing Interest p.a ( spread over benchmark)
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.refinancingCharges }}%
+            </div>
+          </div>
+        </div>
+        <!-- Other Charges -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">Other Charges(if any)</div>
+            <div class="fw-400 f-14 grey">{{ previewData?.chargesType }}</div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">{{ previewData?.otherCharges |number:'1.2-2'}}</div>
+          </div>
+        </div>
+        <!-- Minimum Transaction Charges -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">
+              Minimum Transaction Charges (if any)
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.minTransactionCharges |number:'1.2-2'}}
+            </div>
+          </div>
+        </div>
+        <!-- Bank Quote Validity -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">
+              Bank Quote Validity
+              <img matTooltip="Date before which the customer should accept your quote"
+
+                src="../../../../../../assets/images/icons/Icon-info.svg"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">{{ previewData?.validity|date:'dd-MM-yyyy' }}</div>
+          </div>
+        </div>
+        <!-- Other terms and conditions -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-14">Other terms and conditions</div>
+            <div class="fw-500 f-14 grey">
+              {{ previewData?.termConditionComments }}
+            </div>
+          </div>
+        </div>
+        <!-- Total Quote -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mt-20 fw-700 f-16">Total Quote</div>
+          </div>
+          <div class="col-md-6">
+            <div class="mt-20 fw-500 f-14">{{ previewData?.totalQuote |number:'1.2-2'}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-20">
+        <div class="col-md-6 text-center m-auto button-style">
+          <div class="mt-10">
+            <button
+              mat-stroked-button
+              class="f-16 w100 btn"
+              style="color:#EB7203 !important"
+              (click)="editQuote(previewData?.quotationId)"
+            >
+              EDIT
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-6 text-center m-auto">
+          <div class="mt-10">
+            <app-button
+              [name]="'CONFIRM'"
+              [class]="'primary-btn f-16 w100'"
+              style="text-transform: uppercase"
+              (click)="
+                confirmQuotation(transactionId, previewData?.quotationId)
+              "
+            ></app-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

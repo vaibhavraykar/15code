@@ -1,0 +1,146 @@
+// .current-page{
+//     background-color: #fff;
+//     width: 90%;
+//     margin: auto;
+//     margin-top: 10px;
+//     padding-top: 40px;
+//     border-radius: 4px;
+//         ::ng-deep {
+//         .mat-mdc-form-field {
+//             width: 100% !important;
+//         }
+//         .mat-mdc-raised-button .mdc-button__label {
+//             letter-spacing: 0;
+//             text-transform: uppercase;
+//             display: flex !important;
+//         }
+//         .mat-mdc-text-field-wrapper {
+//             padding: 0 10px !important;
+//         }
+//         }
+//     ::ng-deep .pe-none {
+//         pointer-events: none;
+//     }
+//     .no_wrap {
+//         flex-wrap: nowrap;
+//         @media (max-width: 768px) {
+//         flex-wrap: wrap;
+//         }
+//     }
+//     //
+// }
+.main-title {
+  background: transparent linear-gradient(270deg, #eb7203 0%, #ff922e 100%) 0%
+    0% no-repeat padding-box !important;
+  padding: 10px;
+  color: white;
+}
+::ng-deep .mdc-tooltip__surface {
+  background-color: #fff !important;
+  color: var(--grey) !important;
+  border: 1px solid var(--grey);
+}
+
+// .container{
+//     background-color: #efecea;
+//     width: 77%;
+//     //
+//     padding-top: 10px;
+//     padding-bottom: 10px;
+//     margin-top: 30px;
+//     margin-bottom: 30px;
+//     //
+//     .info{
+//         margin-left: 10px;
+//     }
+// }.section2{
+//     width: 85%;
+//     margin: 0 auto;
+//     margin-top: 24px;
+//     padding: 0 50px;
+//     height: auto;
+// }
+// .box{
+//     padding-bottom: 15px;
+//     display: flex;
+// }
+// .label-text {
+//     font-size: 12px;
+//     font-weight: 600;
+//     color: var(--grey);
+//     font-family: 'Lato', sans-serif !important;
+// }
+// .info {
+//     font-size: 13px;
+//     font-weight: bold;
+//     // margin-top: 5px;
+//     color: var(--dgrey);
+//     font-family: 'Lato', sans-serif !important;
+// }
+// .box-details{
+//     width: 100%;
+//     margin-top: 5px;
+// }
+// .box-width{
+//     width: 50% !important;
+// }
+// .cc-details{
+//     display: flex;
+// }
+// .rightside-box{
+//     padding-left: 2rem;
+// }
+// .info-icon{
+//     margin-top: 40px;
+// }
+// .bank-info-icon{
+//     padding-left: 5px;
+// }
+.save-btn {
+  background: #eb7203;
+  width: 100%;
+  height: 44px;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+}
+::ng-deep .mat-mdc-radio-button .mdc-form-field {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: Lato, sans-serif;
+  color: #292929;
+}
+::ng-deep {
+  .mat-datepicker-toggle-default-icon {
+    // width: 20px;
+    color: #eb7203;
+  }
+  // .mdc-button .mdc-button__label {
+  //     color: white;
+  // }
+  .mat-mdc-form-field {
+    width: 100%;
+  }
+}
+@media (max-width: 1100px) {
+  .save-btn {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+  }
+}
+
+.quote-page {
+  max-width: 800px !important;
+}
+
+.button-style {
+  .mat-mdc-outlined-button:not(:disabled) {
+    border-color: 1px solid var(--yellow) !important;
+    height: 48px !important;
+  }
+  .mat-mdc-outlined-button.mat-unthemed {
+    --mdc-outlined-button-label-text-color: var(--yellow) !important;
+  }
+}

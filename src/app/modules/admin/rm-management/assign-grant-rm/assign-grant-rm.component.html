@@ -1,0 +1,227 @@
+<div>
+    <div style="padding: 20px 10px;">
+        <!-- <div class="row"> -->
+            <div class="row">
+                <div class="col-md-1" style="width:5%">
+                    <span class="f-22 fontBold dgrey">RM</span><br>
+                </div>
+                <div class="col-md-9">
+                    <mat-radio-group aria-label="Select an option" (change)="onChangeRadio($event)" style="padding: 0px !important;">
+                        <mat-radio-button value="assign"*ngIf="myRights.includes('ASSIGN_RMS')">Assign RM</mat-radio-button>
+                        <mat-radio-button value="grant" *ngIf="myRights.includes('GRANT_RMS')">Grant RM</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="col-md-2">
+                    <div class="filterDropdown mt-10" *ngIf="assignRm || grantRm"> 
+                        <mat-form-field appearance="outline" >
+                        <mat-select (selectionChange)="onSubscriberTypeChange($event)" [ngModel]="subscriberType">
+                            <mat-option value="CUSTOMER">Customer</mat-option>
+                            <mat-option value="BANK">Bank</mat-option>
+                            <mat-option value="BANK_AS_UNDERWRITER">Bank As Underwriter</mat-option>
+                            <mat-option value="REFERRER">Referrer</mat-option>
+
+                          </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="table-container" *ngIf="assignRm">
+                <table mat-table [dataSource]="dataSource" matSort class="mt-10">
+                    <ng-container matColumnDef="Select">
+                        <th mat-header-cell *matHeaderCellDef>Select</th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-checkbox type="checkbox" (change)="onCheckboxChange($event, element)"
+                                [checked]="element.checked">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="User Id">
+                        <th mat-header-cell *matHeaderCellDef>User Id</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.personalDetails.username}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="First Name">
+                        <th mat-header-cell *matHeaderCellDef>First Name</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.personalDetails.firstName}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Last Name">
+                        <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.personalDetails.lastName}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Country">
+                        <th mat-header-cell *matHeaderCellDef>Country</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.personalDetails.country}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="User Type">
+                        <th mat-header-cell *matHeaderCellDef>User Type</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.personalDetails.subscriberType}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Company/Bank">
+                        <th mat-header-cell *matHeaderCellDef>Company/Bank</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.businessDetails.companyName}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Select RM">
+                        <th mat-header-cell *matHeaderCellDef>Select RM</th>
+                        <td mat-cell *matCellDef="let element;let i = index">
+                            <mat-form-field appearance="outline" style="margin-top: 2%;" class="selectFact"
+                                *ngIf="!commonDropdown">
+                                <mat-select class="f-12" (click)="select(element.personalDetails)"
+                                    (selectionChange)="onUserSelectionChange($event.value)">
+                                    <mat-option #matOption *ngFor="let data of selectRMList;let j = index"
+                                        [value]="data.firstName">{{data.firstName}} {{data.lastName}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" style="margin-top: 2%;" class="selectFact"
+                                *ngIf="commonDropdown">
+                                <mat-select class="f-12" (click)="select(element.personalDetails)" [disabled]="true">
+                                    <mat-option #matOption [value]="selectedIds"
+                                        *ngFor="let data of selectRMList;let j = index"
+                                        [value]="data.firstName">{{data.firstName}} {{data.lastName}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Action">
+                        <th mat-header-cell *matHeaderCellDef>Action</th>
+                        <td mat-cell *matCellDef="let element; let i = index">
+                            <button mat-raised-button class="primary-btn f-12 w-100" (click)="onSubmit()"
+                                *ngIf="!commonDropdown">Submit</button>
+                        </td>
+                    </ng-container>
+                    <tr class="mat-row " *matNoDataRow>
+                        <td class="mat-cell text-center " [attr.colspan]="assignRmColumns.length">
+                            No Records Found.
+                        </td>
+                    </tr>
+                    <tr mat-header-row *matHeaderRowDef="assignRmColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: assignRmColumns"></tr>
+                </table>
+       
+            </div>  
+
+            <div class="table-container" *ngIf="grantRm">
+                <table mat-table [dataSource]="dataSource" matSort class="mt-10">
+                    <ng-container matColumnDef="User Id">
+                        <th mat-header-cell *matHeaderCellDef>User Id</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.personalDetails.username}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="First Name">
+                        <th mat-header-cell *matHeaderCellDef>First Name</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.personalDetails.firstName}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Last Name">
+                        <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.personalDetails.lastName}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Country">
+                        <th mat-header-cell *matHeaderCellDef>Country</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.personalDetails.country}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="RM Id">
+                        <th mat-header-cell *matHeaderCellDef>RM Id</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.businessDetails?.rmUser.id}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="RM User">
+                        <th mat-header-cell *matHeaderCellDef>RM User</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.businessDetails?.rmUser.firstName}} {{element.businessDetails?.rmUser.lastName}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="User Type">
+                        <th mat-header-cell *matHeaderCellDef>User Type</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.personalDetails.subscriberType}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Company/Bank">
+                        <th mat-header-cell *matHeaderCellDef>Company/Bank</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.businessDetails.companyName}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Action">
+                        <th mat-header-cell *matHeaderCellDef>Action</th>
+                        <td mat-cell *matCellDef="let element">
+                            <i (click)="grantRmUpdate(element.personalDetails.id,'COMPLETED')"
+                                *ngIf="(element.businessDetails.rmStatusType =='MAKER_APPROVED') && element.businessDetails.rmmakerApprovedBy != loginuserName"
+                                class="fa fa-check-circle" matTooltip="Approve"
+                                style="color: forestgreen; cursor:pointer"></i>
+                            <i (click)="grantRmUpdate(element.personalDetails.id,'REJECTED')"
+                                *ngIf="(element.businessDetails.rmStatusType=='MAKER_APPROVED') && element.businessDetails.rmmakerApprovedBy != loginuserName"
+                                class="fa fa-times-circle" matTooltip="Reject" style="color: red; cursor:pointer"></i>
+                            <!-- <i *ngIf="(element.businessDetails.rmStatusType=='REJECTED')" class="fa fa-times-rectangle"
+                                matTooltip="Rejected" style="color: red; cursor:pointer"></i> -->
+                            <i *ngIf="element.businessDetails.rmStatusType =='MAKER_APPROVED' && element.businessDetails.rmmakerApprovedBy == loginuserName"
+                                class="fa fa-lock" matTooltip="You are not authorized to perform this action"
+                                style="color: forestgreen; cursor:pointer"></i>
+                        </td>
+                    </ng-container>
+                    <tr class="mat-row " *matNoDataRow>
+                        <td class="mat-cell text-center " [attr.colspan]="grantRmColumns.length">
+                            No Records Found.
+                        </td>
+                    </tr>
+                    <tr mat-header-row *matHeaderRowDef="grantRmColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: grantRmColumns"></tr>
+                </table>
+            </div>
+            <div class="row" *ngIf="displayTable">
+                <div class="col-md-2">
+                  <mat-paginator  (page)= "onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]">
+                  </mat-paginator>
+                </div>
+                <div class="col-md-10">
+                  <div class="pagination" style="float: right;">
+                    <div class="f-12 fontBold grey mx-3"> {{getPage()+' ' }} of {{page?.totalElements}}</div>
+                    <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="page?.index === 0 ?'#292929a1':'#EB7203'"
+                        [style.pointer-events]="page?.index === 0?'none':'auto'">
+                        arrow_back_ios
+                    </mat-icon> 
+                  
+                     <mat-icon class="pointer" (click)="pageNext()"
+                        [style.pointer-events]="last===page?.totalElements?'none':'auto'"
+                        [style.color]="last===page?.totalElements ?'#292929a1':'#EB7203'"
+                        [style.pointer-events]="last===page?.totalElements ?'none':'auto'" style="margin-left: 10px;">
+                        arrow_forward_ios
+                    </mat-icon>
+                  </div>
+                 </div>
+              </div>
+              <div class="row mt-10" *ngIf="commonDropdown && assignRm">
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" style="margin-top: 1%;  margin-right: 10px;" class="selectFact">
+                
+                        <mat-select class="f-12" placeholder="Select RM for multiple" (selectionChange)="onUserSelectionChange($event.value)">
+                            <mat-option #matOption *ngFor="let data of selectRMList;let j = index"
+                                [value]="data.firstName">{{data.firstName}} {{data.lastName}}</mat-option>
+                        </mat-select>
+                </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <button mat-raised-button class="primary-btn f-12" style="width: 200px; margin-top: 1%;"
+                (click)="onSubmitMultiple()">Submit</button>
+                </div>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,263 @@
+<div class="view-transaction" style="padding: 20px 10px">
+  <div class="mt-30 px-5 py-2 m-auto">
+    <div class="f-14 fontBold dgrey cpointer back d-flex align-items-center">
+      <div class="d-flex align-items-center" (click)="back()">
+        <mat-icon>keyboard_backspace</mat-icon>
+        <div class="" style="margin-top: 5px">Back</div>
+      </div>
+    </div>
+    <div class="boxShadow">
+      <div class="transaction" style="margin-top: 30px">
+        <div class="col-md-11">
+          <div class="yellow-txt f-14 fontBold">Transaction ID</div>
+          <div class="label-text">{{ transactionId }}</div>
+        </div>
+      </div>
+
+      <div class="mt-20 " style="padding: 10px">
+        <span class="f-14 fontBold blueText" style="margin-top: 20px"
+          >Applicant
+        </span>
+        <div class="row">
+          <div class="col-md-3" >
+            <div class="label-text">Name</div>
+            <div class="info">{{ transactionDetails?.applicantName |titlecase}}</div>
+          </div>
+          <div class="col-md-3" >
+            <div class="label-text">Country</div>
+            <div class="info">{{ transactionDetails?.applicantCountry |titlecase }}</div>
+          </div>
+        </div>
+        <div class="f-14 fontBold blueText mt-10">Beneficiary</div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="label-text">Name</div>
+            <div class="info">{{ transactionDetails?.beneName |titlecase }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Country</div>
+            <div class="info">{{ transactionDetails?.beneCountry |titlecase }}</div>
+          </div>
+        </div>
+
+        <div class="f-14 fontBold blueText mt-10">Obligor Bank Details</div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="label-text">Bank</div>
+            <div class="info">{{ transactionDetails?.obligorBank |titlecase}}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Bank Country</div>
+            <div class="info">{{ transactionDetails?.obligorCountry |titlecase }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Applicable Law</div>
+            <div class="info">{{ transactionDetails?.applicableLaw=="Other"?transactionDetails?.otherLaw:transactionDetails?.applicableLaw  }}</div>
+          </div>
+        </div>
+        <div class="f-14 fontBold blueText mt-10">Transaction Details</div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="label-text">Participation Basis</div>
+            <div class="info">{{ transactionDetails?.secTransactionType  |titlecase }}/{{ transactionDetails?.participationBasis  |titlecase}}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Product</div>
+            <div class="info">{{ transactionDetails?.requirementType |titlecase }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Amount</div>
+            <div class="info">{{ transactionDetails?.lCValue |number:'1.2-2'  }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Currency</div>
+            <div class="info">{{ transactionDetails?.lCCurrency  }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Target Booking Date</div>
+            <div class="info">{{ transactionDetails?.lCBookingDate |date:'dd-MM-yyyy' }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">
+              Transaction Maturity date of underlying transaction
+            </div>
+            <div class="info">{{ transactionDetails?.lCMaturityDate |date:'dd-MM-yyyy' }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Tenor</div>
+            <div class="info">{{ transactionDetails?.usanceDays  }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Customer Quote Validity
+              <span>
+                <img
+                matTooltip="The date before which the bank needs to place the quote"
+								src="../../../../assets/images/icons/Icon-info.svg"
+								height="15"
+								alt="icon"
+                style="max-width:auto;margin-left: 2px;margin-bottom: 3px;"
+							/>
+              </span>
+            </div>
+            <div class="info">{{ transactionDetails?.validity |date:'dd-MM-yyyy' }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">ESG Compliant ?
+              <span class="notification-icon"
+							matTooltip="Environmental, Social and Governance"
+						>
+							<img
+								src="../../../../assets/images/icons/Icon-info.svg"
+								height="15"
+								alt="icon"
+                style="max-width:auto;margin-left: 2px;margin-bottom: 3px;"
+							/>
+						</span>
+            </div>
+            <div class="info">{{ transactionDetails?.isESGComplaint  }}</div>
+          </div>
+        </div>
+        <div class="f-14 fontBold blueText mt-10">Shipment Details</div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="label-text">Loading Country</div>
+            <div class="info">{{ transactionDetails?.loadingCountry |titlecase  }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Port of Loading</div>
+            <div class="info">{{ transactionDetails?.loadingPort  }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Discharge Country</div>
+            <div class="info">{{ transactionDetails?.dischargeCountry |titlecase }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Port of discharge</div>
+            <div class="info">{{ transactionDetails?.dischargePort  }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Final Destination of Goods</div>
+            <div class="info">{{ transactionDetails?.finalDestinationOfGoods |titlecase }}</div>
+          </div>
+          <div class="col-md-3">
+            <div class="label-text">Types of Goods</div>
+            <div class="info">{{transactionDetails?.goodsType=="Others"?transactionDetails?.otherGoodsType:transactionDetails?.goodsType}}</div>
+        </div>
+        </div>
+
+
+        <div class="f-14 fontBold blueText mt-10">
+            <div class="f-14 fontBold blueText mt-10">Pricing</div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="label-text">Commission Scheme</div>
+                <div class="info">{{ transactionDetails?.commissionScheme  }}</div>
+              </div>
+              <div class="col-md-3">
+                <div class="label-text">Minimum Partiticipation Amount</div>
+                <div class="info">{{ transactionDetails?.minParticipationAmt | number:'1.2-2'  }}</div>
+              </div>
+              <div class="col-md-3">
+                <div class="label-text">Retention Amount</div>
+                <div class="info">{{ transactionDetails?.retentionAmt  | number:'1.2-2' }}</div>
+              </div>
+              <div class="col-md-3">
+                <div class="label-text">Offered Price</div>
+                <div class="info">{{ getValue(transactionDetails?.offeredPrice  )}}</div>
+              </div>
+              <div class="col-md-3" *ngIf="transactionDetails?.secTransactionType=='FUNDED'">
+                <div class="label-text">Benchmark</div>
+                <div class="info">{{ transactionDetails?.benchmark || '-' }}</div>
+              </div>
+              <div class="col-md-3">
+                <div class="label-text">Any Other Conditions</div>
+                <div class="info">{{ transactionDetails?.otherCondition ||'-' }}</div>
+              </div>
+
+            </div>
+          </div>
+
+
+        <div class="f-14 fontBold blueText mt-10">
+            Select Bank</div>
+        <div class="row selectBanks">
+          <div class="col-md-3" >
+            <div class="label-text">
+              Select Bank
+                <span class="infoShow">
+                  <img
+                  class="pointer"
+                  [matTooltipClass]="'toolTipStyle'"
+                  [matTooltip]="joinPartnerBank (transactionDetails?.partnerBankList)"
+                    src="../../../../assets/images/icons/Icon-info.svg"
+                    height="15"
+                    alt="icon"
+                    style="max-width:auto;margin-left: 2px;margin-bottom: 3px;"
+                  />
+                </span>
+
+              </div>
+
+          </div>
+        </div>
+
+        <div class="row justify-content-center mt-5" *ngIf="from==='activetransaction'">
+            <div class="col-md-10 m-auto">
+                <div class="row">
+                    <div class="col-md-6 text-center m-auto button-style" >
+                        <div class="mt-10">
+                            <button (click)="cancelTransaction()" mat-stroked-button class="f-16 w100 ">CANCEL
+                                TRANSACTION</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center m-auto">
+                        <div class="mt-10">
+                            <app-button  [name]="'EDIT'" [class]="'primary-btn f-16 w100'"
+                                style="text-transform: uppercase;" (click)="editTransaction()"></app-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row justify-content-center mt-5" *ngIf="from==='sellingTransactionDetails'">
+            <div class="col-md-10 m-auto">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center m-auto button-style" *ngIf="transactionDetails?.transactionStatus==='REJECTED'">
+                        <div class="mt-10">
+                            <button  mat-stroked-button class="f-16 w100 " (click)="reopen()">REOPEN</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 text-center m-auto button-style" *ngIf="transactionDetails?.transactionStatus==='EXPIRED'&&this.showEdit">
+                        <div class="mt-10">
+                            <button  mat-stroked-button class="f-16 w100 " (click)="editTransaction()">EDIT</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center m-auto" *ngIf="transactionDetails?.transactionStatus!=='WITHDRAWN'&&transactionDetails?.transactionStatus!=='ACTIVE'&&transactionDetails?.transactionStatus!=='CANCELLED'">
+                        <div class="mt-10">
+                            <app-button  [name]="'CLONE'" [class]="'primary-btn f-16 w100'"
+                                style="text-transform: uppercase;" (click)="cloneTransaction()" ></app-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+                <!-- <div class="row justify-content-center mt-5" *ngIf="from==='sellingTransactionDetails'">
+            <div class="col-md-10 m-auto">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center m-auto">
+                        <div class="mt-10">
+                            <app-button  [name]="'VIEW QUOTE'" [class]="'primary-btn f-16 w100'"
+                                style="text-transform: uppercase;" (click)="viewQuote()"></app-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

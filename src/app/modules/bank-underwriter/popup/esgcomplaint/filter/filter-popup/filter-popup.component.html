@@ -1,0 +1,84 @@
+<div class="popup">
+  <div class="heading">
+    View by
+    <span (click)="close()"><mat-icon>close</mat-icon></span>
+  </div>
+
+  <ng-container *ngIf="data?.filterType !=='additional_user'">
+    <div class="row" style="margin: 0; padding: 20px;">
+      <div class="content_text" *ngIf="data?.from =='newReqeuest'">
+        <p class="checkContainer" (click)="issuanceCountry._onInputClick()">
+          Issuance Countries Interested
+          <mat-checkbox #issuanceCountry class="checkbox" [checked]="!isbeneficiaryCountry"  (change)="selectionChange($event,'issuanceCountry')"></mat-checkbox>
+        </p>
+        <p class="checkContainer" (click)="beneficiaryCountry._onInputClick()">
+          Beneficiary Countries Interested
+          <mat-checkbox #beneficiaryCountry class="checkbox" [checked]="isbeneficiaryCountry" (change)="selectionChange($event,'bene_country')"></mat-checkbox>
+        </p>
+
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="data?.filterType ==='additional_user'&& fromPage==''">
+    <div class="sidebar">
+      <mat-sidenav-container>
+        <mat-sidenav mode="side" opened class="col-md-2">
+          <mat-nav-list>
+            <li class="addBorderBottom">
+              <div class="d-flex justify-content-left f-14 cpointer"
+                [ngClass]="selectedMenu == 'additional_user' ? 'activeclass' : 'removeclass'">
+                Additional User
+              </div>
+            </li>
+
+          </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content class="col-md-10">
+
+          <div class="tabs f-14 lgrey" *ngIf="selectedMenu == 'additional_user'">
+            <ul>
+              <li *ngFor="let items of additionalUsers" [ngClass]="items.id==selectedUser?'isClicked':''"
+                (click)="checkedTheUser(items)">{{items.additionalEmail}}</li>
+            </ul>
+          </div>
+
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="data?.filterType ==='additional_user'&& fromPage=='secondary_transaction'">
+    <div class="sidebar">
+      <mat-sidenav-container>
+        <mat-sidenav mode="side" opened class="col-md-2">
+          <mat-nav-list>
+            <li class="addBorderBottom">
+              <div class="d-flex justify-content-left f-14 cpointer"
+                [ngClass]="selectedMenu == 'additional_user' ? 'activeclass' : 'removeclass'">
+                Additional User
+              </div>
+            </li>
+
+          </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content class="col-md-10">
+
+          <div class="tabs f-14 lgrey" *ngIf="selectedMenu == 'additional_user'">
+            <ul>
+              <li *ngFor="let items of additionalUsers" [ngClass]="items.id==selectedUser?'isClicked':''"
+                (click)="checkedTheUser(items)">{{items.additionalEmail}}</li>
+            </ul>
+          </div>
+
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </div>
+  </ng-container>
+  <div class="d-flex justify-content-end" style="margin-right: 20px;" *ngIf="data?.from =='newReqeuest'">
+    <app-button
+      [name]="'Apply'"
+      [class]="'primary-btn f-16'"
+      [type]="'submit'"
+      (click)="submit()"
+    ></app-button>
+  </div>
+</div>

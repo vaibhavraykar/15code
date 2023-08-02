@@ -1,0 +1,30 @@
+<div class="popup">
+    <div class="text-center cpopup">
+        <div class="heading">
+            <span class="circle-icon">
+                <mat-icon mat-dialog-close (click)="close()">
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <!-- <div class="img-container">
+            <img src="../../../assets/images/icons/Icon-info.svg" />
+        </div> -->
+        <div class="error-msg">
+            <div class="mt-20">
+                <p class="f-16"> Congratulations!
+                    <br>
+                    Password reset link is sent to your registered email id.
+                </p>
+            </div>
+
+            <div class="col-md-12 text-center px-4 px-2 justify-content-center" style="display: flex !important;">
+                <div class="mt-30 text-center" style="width: 260px;">
+                    <div>
+                        <app-button [name]="'Ok'" [class]="'primary-btn f-16 w100'" (click)="backtoLogin()"></app-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

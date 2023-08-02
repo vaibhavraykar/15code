@@ -1,0 +1,19 @@
+.white-bg {
+    padding: 20px;
+    min-height: 80vh;
+   
+    .section-div {
+       padding-top: 20px;
+    }
+    .stroke-btn {
+        button {
+            border-color: var(--yellow);
+            color: var(--yellow);
+            font-size: 16px;
+            font-weight: 600;
+            .mat-icon { 
+                color: var(--yellow);
+            }
+        }
+    }
+}

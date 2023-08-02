@@ -1,0 +1,32 @@
+<div class="chip">
+    <form [formGroup]="form">
+    <mat-form-field class="w100" appearance="outline">
+        <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+        <label>Region Allocated</label>
+        <mat-select formControlName="selectBankName" multiple>
+
+          <mat-select-trigger>
+            <mat-chip-listbox>
+              <mat-chip *ngFor="let bank of (form.controls['selectBankName'].value)?.slice(0,2)"
+                [removable]="true" (removed)="onToppingRemoved(bank)">
+                {{ getbankName(bank) }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+              <ng-container *ngIf="(form.controls['selectBankName'].value) > 2">
+                <span>+{{form.controls['selectBankName'].value?.length - 2}} more</span>
+              </ng-container>
+            </mat-chip-listbox>
+          </mat-select-trigger>
+          <div>
+            <div class="search-box">
+                <mat-form-field appearance="outline" class="w-100">
+                    <input matInput type="text" placeholder="Search">
+                    <img src="../../../../../assets/images/adminV2/search-normal.svg" />
+                </mat-form-field>
+            </div>
+            <mat-option *ngFor="let bank of partnersBankList" [value]="bank.id">{{ bank.firstName }}</mat-option>
+          </div>
+        </mat-select>
+      </mat-form-field>
+    </form>
+</div>

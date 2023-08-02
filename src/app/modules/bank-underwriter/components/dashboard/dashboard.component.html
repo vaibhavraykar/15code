@@ -1,0 +1,170 @@
+<ng-container *ngIf="show">
+  <section class="mt-30 row bank-Underwriter-Dashboard-container">
+    <div class="row" style="padding: 14px 20px">
+      <div class="container-box-size pointer col-3 ml-15 mt-10">
+        <div class="row container-background container-padding">
+          <p class="numberStyle p-0 m-0">{{dashboardData?. newRequest ||'0'}}</p>
+          <div class="d-flex justify-content-between mt-10 align-items-end p-0">
+            <p class="col-5 textStyle p-0 m-0">New Request</p>
+            <img class="p-0 m-0 arrowimgStyle" src="../../../../../../assets/images/icons/right-arrow.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="container-box-size pointer col-3 ml-15 mt-10">
+        <div class="row container-background container-padding">
+          <p class="numberStyle p-0 m-0">{{dashboardData?.quoteAcceptanceAwaited ||'0'}}</p>
+          <div class="d-flex justify-content-between mt-10 align-items-end p-0">
+            <p class="textStyle p-0 m-0">Quote Acceptance Awaited</p>
+            <img class="p-0 m-0 arrowimgStyle" src="../../../../../../assets/images/icons/right-arrow.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="container-box-size pointer col-3 ml-15 mt-10">
+        <div class="row container-background container-padding">
+          <p class="numberStyle p-0 m-0">{{dashboardData?.quotesLost ||'0'}}</p>
+          <div class="d-flex justify-content-between mt-10 align-items-end p-0">
+            <p class="col-5 textStyle p-0 m-0">Quote Lost</p>
+            <img class="p-0 m-0 arrowimgStyle" src="../../../../../../assets/images/icons/right-arrow.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="container-box-size pointer col-3 ml-15 mt-10" hidden>
+        <div class="row container-background container-padding">
+          <p class="numberStyle p-0 m-0">{{dashboardData?.transactionClosed ||'0'}}</p>
+          <div class="d-flex justify-content-between mt-10 align-items-end p-0">
+            <p class="col-5 textStyle p-0 m-0 ml-mb-0">Transaction Closed</p>
+            <img class="p-0 m-0 arrowimgStyle" src="../../../../../../assets/images/icons/right-arrow.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-30 row graph-container" style="background: #ffffff; padding: 16px 13px">
+      <div class="d-flex justify-content-between align-items-center flex-direction-changeOPtion">
+        <div class="darkBlackText">Country-wise Transaction Stats</div>
+        <div class="d-flex selectOPtion margin-top-mb">
+          <div class="selectdropdown">
+          <ng-container>
+            <mat-form-field appearance="outline">
+              <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+              <mat-select class="f-14" placeholder="Product Requirement" [(ngModel)]="selectedProduct"
+                (selectionChange)="changeProduct()">
+                <ng-container *ngFor="let i of products">
+                  <mat-option  [value]="i?.key">{{i?.value |titlecase}}</mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
+          </div>
+          <div class="selectdropdown">
+          <ng-container>
+            <mat-form-field appearance="outline" class="ml-15 selectOPtion-margin-change">
+              <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+              <mat-select class="f-14" placeholder="Select a Country" [(ngModel)]="selectedCountry"
+                (selectionChange)="changeCountry()">
+                <ng-container *ngFor="let i of countries">
+                  <mat-option [value]="i"> {{i}} </mat-option>
+                </ng-container>
+
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
+          </div>
+        </div>
+      </div>
+      <div style="height:400px ;display: flex ;">
+        <div class="chartContainer">
+          <app-bar-chart #barChart *ngIf="chartData" [chartData]="chartData"></app-bar-chart>
+          <!-- <div style="height:50px;width: 30px;background-color: blue;"></div> -->
+        </div>
+        <div class="legends" style="cursor: pointer;">
+          <div (click)="selectLegend('available')" [style.fontWeight]="selectedLegend==='available'?'bold':'300'" style="margin-bottom: 10px;color: rgb(117, 117, 117);"><span
+              class="leg_1"></span> &nbsp; Transaction Available</div>
+          <div (click)="selectLegend('quote')" [style.fontWeight]="selectedLegend==='quote'?'bold':'300'" style="margin-bottom: 10px;color: rgb(117, 117, 117);"><span
+              class="leg_2" [style.fontWeight]="700"></span> &nbsp; Transaction Quote</div>
+        </div>
+        <!-- <img src="../../../../../../assets/images/graphImageUi.png" alt="" /> -->
+      </div>
+    </div>
+    <div class="dashboard-tabel">
+      <section class="mt-30 dateStyle" style="padding: 14px 16px; background: #ffffff">
+        <div class="darkBlackText f-14 l-24">Latest Accepted Transactions</div>
+        <div class="darkLightText f-12 l-24 mt-10">
+          (This Dashboard is a summary of all the accepted transactions, wherein
+          default status is kept as Open. In case the requirement has got
+          fulfilled we request you update the status to closed)
+        </div>
+        <div class="table-container mt-20" style="padding-bottom: 20px !important">
+          <table mat-table [dataSource]="newDataSource">
+            <ng-container *ngFor="let columns of displayColumns" matColumnDef="{{ columns }}">
+              <th mat-header-cell *matHeaderCellDef>
+                <ng-container>
+                  {{ columns }}
+                </ng-container>
+              </th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                <div [ngSwitch]="columns">
+                  <div *ngSwitchCase="'Date'"><div>
+                    {{ element[columns]| date :'dd-MM-yyyy' }}
+                  </div></div>
+                  <div *ngSwitchDefault><div>
+                    {{ element[columns] }}
+                  </div></div>
+                </div>
+                <div class="transactionStatusStyle" *ngIf="columns === 'Transaction Status'">
+                  <ng-container>
+                    {{ element['Status'] }}
+                  </ng-container>
+                  <!-- <ng-container> -->
+                    <!-- <mat-form-field appearance="outline" class="ml-15 selectOPtion-margin-change"> -->
+                      <!-- <mat-select class="f-14" value="open">
+                        <mat-option value="open"> open </mat-option>
+                        <mat-option value="close">close</mat-option>
+                      </mat-select> -->
+                      <!-- <mat-select  name="statusAccepted"
+                      [(value)]="selected"
+                      (selectionChange)="closeQuotation($event,element['Transaction ID'])">
+                      <mat-option  [value]="'Open'">
+                          Open
+                      </mat-option> -->
+                      <!-- <mat-option  [value]="'Close'">
+                          Close
+                      </mat-option> -->
+                      <!-- </mat-select>
+                    </mat-form-field>
+                  </ng-container> -->
+                </div>
+              </td>
+            </ng-container>
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell text-center" [attr.colspan]="displayColumns.length">
+                No Records Found.
+              </td>
+            </tr>
+            <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+          </table>
+        </div>
+        <div class="pagination mt-10 " *ngIf="newDataSource?.data?.length > 0">
+
+          <div class="f-12 fontBold grey mx-3">
+            {{ getPage() + " " }} of {{ page?.totalElements }}
+          </div>
+          <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="page?.index === 0 ? '#292929a1' : '#EB7203'"
+            [style.pointer-events]="page?.index === 0 ? 'none' : 'auto'">
+            arrow_back_ios
+          </mat-icon>
+          <mat-icon class="pointer" (click)="pageNext()" [style.pointer-events]="
+              last === page?.totalElements ? 'none' : 'auto'
+            " [style.color]="last === page?.totalElements ? '#292929a1' : '#EB7203'" [style.pointer-events]="
+              last === page?.totalElements ? 'none' : 'auto'
+            " style="margin-left: 10px">
+            arrow_forward_ios
+          </mat-icon>
+        </div>
+      </section>
+    </div>
+  </section>
+</ng-container>
+<!-- <div class="container">
+
+</div> -->

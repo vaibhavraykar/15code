@@ -1,0 +1,113 @@
+<div class="users-detail-container mt-30">
+  <div class="">
+    <div class="d-flex align-items-center mb-20">
+      <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+      <div class="ml-12 darkBlackText">Viewing User details of {{idDetails?.firstName}} {{idDetails?.lastName}}</div>
+    </div>
+
+
+    <div style="padding:8px" class="admin-users-wrapper">
+      <div class="users-details-container">
+
+        <!-- <div class=""> -->
+        <div style="margin: 0px 24px 24px 24px; " class="mainContainer">
+          <div class="row">
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+              <div class="dark-text head">User Details</div>
+            </div>
+          </div>
+          <div class=" subContainer" style="padding: 10px 14px 15px 15px;">
+            <div class="row">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra extra mt-15">
+                <div class="light-text mb-4">Employee Id</div>
+                <div class="dark-text">{{this.idDetails?.userId||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                <div class="light-text mb-4">First Name</div>
+                <div class="dark-text">{{this.idDetails?.firstName||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                <div class="light-text mb-4">Last Name</div>
+                <div class="dark-text">{{this.idDetails?.lastName||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                <div class="light-text mb-4">Email ID</div>
+                <div class="dark-text">{{this.idDetails?.email||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                <div class="light-text mb-4">Mobile Number</div>
+                <div class="dark-text">{{this.idDetails?.countryExt||'NA'}} {{this.idDetails?.mobileNo}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                <div class="light-text mb-4">Department</div>
+                <div class="dark-text">{{this.idDetails?.department||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                <div class="light-text mb-4">Designation</div>
+                <div class="dark-text">{{this.idDetails?.designation||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                <div class="light-text mb-4">Reporting Manager</div>
+                <div class="dark-text">{{this.idDetails?.reportingManager||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15" *ngIf="idDetails?.makerApprovedBy">
+                <div class="light-text mb-4">Maker Approved By</div>
+                <div class="dark-text">{{this.idDetails?.makerApprovedBy||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15" *ngIf="idDetails?.makerApprovalDate">
+                <div class="light-text mb-4">Maker Approved Date</div>
+                <div class="dark-text">{{this.makerDate.split(' GMT')[0]||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15" *ngIf="idDetails?.checkerApprovedBy">
+                <div class="light-text mb-4">Checker Approved By</div>
+                <div class="dark-text">{{this.idDetails?.checkerApprovedBy||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15" *ngIf="idDetails?.checkerApprovalDate">
+                <div class="light-text mb-4">Checker Approved Date</div>
+                <div class="dark-text">{{this.checkerDate.split(' GMT')[0]||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                <div class="light-text mb-4">Region Allocated</div>
+                <div class="dark-text" style="color:#EB7203;cursor:pointer" *ngIf="this.idDetails?.countryList?.length > 3"
+                  (click)="viewCountry()">View</div>
+                <div class="dark-text" *ngIf="this.idDetails?.countryList?.length <= 3">{{countryList||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                <div class="light-text mb-4">Role</div>
+                <div class="dark-text">{{roleInfo||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                <div class="light-text mb-4">Status</div>
+                <div class="dark-text">{{this.idDetails?.status||'NA'}}
+                  <span *ngIf="idDetails?.status == 'INACTIVE' && idDetails?.userId != loginuserName" class="stat"
+                    (click)="changeStatus(idDetails?.id,'ACTIVE')">Change</span>
+                  <span *ngIf="idDetails?.status == 'ACTIVE' && idDetails?.userId != loginuserName" class="stat"
+                    (click)="changeStatus(idDetails?.id,'INACTIVE')">Change</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #callAPIDialog>
+  <div class="text-center">
+    <div class="headingMessage">Selected Country
+      <span class="circle-icon">
+        <mat-icon (click)="close()" mat-dialog-close>
+          <img src="../../../assets/images/icons/Icon-close.svg">
+        </mat-icon>
+      </span>
+    </div>
+    <div style="padding: 0 20px 20px 20px; text-align: left;">
+      <div>
+        {{countryList}}
+      </div>
+    </div>
+  </div>
+</ng-template>

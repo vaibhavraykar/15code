@@ -1,0 +1,75 @@
+.vas-popup {
+    width: 540px;
+    border-radius: 10px !important;
+    .heading {
+        width: 100%;
+        font: normal normal bold 20px/24px Lato;
+        letter-spacing: 0.4px;
+        color: #FFFFFF;
+        opacity: 1;
+        background-color: var(--yellow);
+        text-align: center;
+        padding: 15px;
+        span {
+            position: absolute;
+            border: 2px solid #fff;
+            border-radius: 50px;
+            width: 30px;
+            height: 30px;
+            right: 10px;
+            top: 12px;
+            .mat-icon {
+                padding-top: 2px;
+            }
+        }
+    }
+    .text-item {
+        color: var(--blue);
+        text-align: center;
+        margin-top: 50px;
+    }  
+    // .acc-btn {
+    //     width: 80%;
+    //     margin: auto;
+    // }
+    .addbg {
+        background-color: #F3F3F3;
+        display: flex;
+        align-items: center;
+    }  
+}
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 15px !important;
+}
+::ng-deep {
+    .data-wrapper {
+        height: 200px;
+        overflow-y: auto;
+    }
+    .cdk-overlay-pane:not(.mat-mdc-select-panel-above) .mdc-menu-surface.mat-mdc-select-panel {
+        border-radius: 5px !important;
+    }
+    .cdk-overlay-pane:not(.mat-mdc-select-panel-above) .mdc-menu-surface.mat-mdc-select-panel {
+        box-shadow: none !important;
+        border: 1px solid #D0D0D0;
+        margin-top: 5px;
+    }
+    .mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+        background: #70C247;
+    }
+    ::-webkit-scrollbar {
+        width: 5px;
+      }
+    
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+      }
+       
+      ::-webkit-scrollbar-thumb {
+        background: #888; 
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: #727272; 
+      }
+}

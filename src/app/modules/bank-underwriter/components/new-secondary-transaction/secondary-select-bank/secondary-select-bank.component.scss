@@ -1,0 +1,11 @@
+.applicant-pricing-details {
+  ::ng-deep {
+    .mat-mdc-select-arrow-wrapper {
+      opacity: 0 !important;
+    }
+  }
+}
+::ng-deep.mat-primary .mat-pseudo-checkbox-checked,
+.mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: #eb7203 !important;
+}

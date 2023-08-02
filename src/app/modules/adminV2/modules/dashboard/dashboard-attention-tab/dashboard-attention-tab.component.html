@@ -1,0 +1,58 @@
+<div class="status-container">
+  <div class="">
+    <div class="d-flex align-items-center flex-wrap ">
+      <p class="headingStyle mr-20 mt-24">Pending Requests</p>
+      <div class="selectDroupdown mt-24 col-xl-2">
+        <mat-form-field appearance="outline" class="w-100" >
+          <mat-select placeholder="ALL" (selectionChange)="transactionTypeChange($event)">
+            <mat-option *ngFor="let item of pendingReqOpts" [value]="item.value">
+                        {{ item.viewValue }}
+                      </mat-option>
+            <mat-option></mat-option>
+          </mat-select>
+          <img src="../../../../../assets/images/adminV2/darrow.svg" style="margin-top: -10px" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="d-flex row">
+      <div *ngFor="let card of firstrowcardsProduct; let i = index" class="col-xxl-2 col-xl-3  col-lg-4 col-md-5 pr-0 mt-24 cPointer">
+        <div class="sub-status-firstcontainer">
+          <div class="d-flex justify-content-between align-items-center mb-6">
+            <div class="numberStyle">{{ card.totalNumber |number:'2.0-0'}}</div>
+            <img src="{{ card.imageUrl }}" alt="" style="width: 24px; height: 24px" />
+          </div>
+          <div class="sub-text-style">{{ card.name }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex row">
+      <div *ngFor="let card of secondrowcardsProduct; let i = index" class="col-xxl-2 col-xl-3  col-lg-4 col-md-5 pr-0 mt-24 cPointer">
+        <div class="sub-status-second-container">
+          <div class="d-flex justify-content-between align-items-center mb-6">
+            <div class="numberStyle">{{ card.totalNumber }}</div>
+            <img src="{{ card.imageUrl }}" alt="" style="width: 24px; height: 24px" />
+          </div>
+          <div class="sub-text-style m-w-80">{{ card.name }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="status-container mt-26 m-w-750">
+  <div class="">
+    <div class="d-flex align-items-center" style="padding-top: 24px">
+      <p class="headingStyle mr-20">Approvals (Exclusive) Pending Requests</p>
+    </div>
+    <div class="d-flex row">
+      <div *ngFor="let card of thirdrowcardsProduct; let i = index" class="col-xxl-4 col-xl-5 col-lg-4 col-md-5 pr-0 mt-24 cPointer">
+        <div class="sub-status-firstcontainer">
+          <div class="d-flex justify-content-between align-items-center mb-6">
+            <div class="numberStyle">{{ card.totalNumber|number:'2.0-0' }}</div>
+            <img src="{{ card.imageUrl }}" alt="" style="width: 24px; height: 24px" />
+          </div>
+          <div class="sub-text-style">{{ card.name }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

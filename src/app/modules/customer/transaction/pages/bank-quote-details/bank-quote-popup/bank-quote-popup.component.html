@@ -1,0 +1,304 @@
+<div class="vas-popup">
+    <div class="heading">
+        Bank Quote - Breakup
+        <span (click)="close()"><mat-icon>close</mat-icon></span>
+    </div>
+    <div class="row" style="margin: 0;padding: 20px;">
+        <div class="data-wrapper">
+            <div class="grey f-12">
+                Transaction ID
+            </div>
+            <div class="dgrey f-14">
+                {{transactionId}}
+            </div>
+            <div class="grey f-12">
+                Issuance Bank
+            </div>
+            <div class="dgrey f-14">
+                {{quoteDetails?.lCIssuanceBank}}
+            </div>
+            <div class="grey f-12">
+                Bank quote validity
+            </div>
+            <div class="dgrey f-14">
+                {{quoteDetails?.quotationsList[0]?.validity|date: 'dd/MM/yyyy'}}
+            </div>
+            <div class="mt-10">
+                <!-- Transaction Amount -->
+                <div class="row" >
+                    <div class="col-md-8 grey f-12">
+                        Transaction amount
+                    </div>
+                    <div class="col-md-4 dgrey f-14" style="text-align:end">
+                        {{quoteDetails?.lCValue|number:'1.2-2'}}
+                    </div>
+                </div>
+                <!-- Currency -->
+                <div class="row" >
+                    <div class="col-md-8 grey f-12">
+                        Currency
+                    </div>
+                    <div class="col-md-4 dgrey f-14" style="text-align:end">
+                        {{quoteDetails?.lCCurrency}}
+                    </div>
+                </div>
+                <!--  Quotes placed till date -->
+                <!-- <div class="row" >
+                    <div class="col-md-8 grey f-12">
+                        Quotes placed till date
+                    </div>
+                    <div class="col-md-4 dgrey f-14" style="text-align:end">
+                        {{quoteDetails?.quotationsList[0]?.totalQuotationCount}}
+                    </div>
+                </div> -->
+                <!-- Quotes for Goods -->
+                <!-- <div class="row" >
+                    <div class="col-md-8 grey f-12">
+                        Quotes for {{(quoteDetails?.goodsType?.toLowerCase()=='others'&&quoteDetails?.otherGoodsType)?quoteDetails?.otherGoodsType:quoteDetails?.goodsType}}
+                    </div>
+                    <div class="col-md-4 dgrey f-14" style="text-align:end">
+                        {{quoteDetails?.quotationsList[0]?.totalGoodsTypeCount}}
+                    </div>
+                </div> -->
+                <!-- Applicant -->
+                <div class="row" >
+                    <div class="col-md-8 grey f-12">
+                        Applicant
+                    </div>
+                    <div class="col-md-4 dgrey f-14" style="text-align:end">
+                        {{this.quoteDetails?.userType!='Applicant'?this.quoteDetails?.applicantName:this.quoteDetails?.applicantName}}
+                    </div>
+                </div>
+                <!-- Benificiary -->
+                <div class="row" >
+                    <div class="col-md-8 grey f-12">
+                        Benificiary
+                    </div>
+                    <div class="col-md-4 dgrey f-14" style="text-align:end">
+                        {{this.quoteDetails?.userType=='Applicant'?this.quoteDetails?.beneName:this.quoteDetails?.beneName}}
+                    </div>
+                </div>
+                <!-- Transaction validity -->
+                <!-- <div class="row" >
+                    <div class="col-md-8 grey f-12">
+                        Transaction validity
+                    </div>
+                    <div class="col-md-4 dgrey f-14" style="text-align:end">
+                        {{this.quoteDetails?.validity}}
+                    </div>
+                </div> -->
+                <!-- Quote Data -->
+                <!-- Confirmation Commission -->
+                <div class="row" *ngIf="
+                    product == 'BANKGUARANTEE' ||
+                    product == 'CONFIRMATION' ||
+                    product == 'CONFIRMANDDISCOUNT'
+                    "
+                >
+                    <div class="col-md-8 grey f-12" *ngIf="product == 'CONFIRMATION' || product == 'CONFIRMANDDISCOUNT'">
+                        Confirmation commission P.A
+                    </div>
+                    <div class="col-md-8 grey f-12" *ngIf="product == 'BANKGUARANTEE'">
+                        Confirmation commission P.A
+                    </div>
+                    <div class="col-md-4 dgrey f-14" style="text-align:end">
+                        {{quoteDetails?.quotationsList[0].confirmationCharges |number:'1.2-2'}}
+                    </div>
+                </div>
+                <!-- Confirmation Charges applicable from date of issuance till negotiation date -->
+                <div class="row" *ngIf="(product == 'CONFIRMATION' || product == 'CONFIRMANDDISCOUNT')&&quoteDetails?.quotationsList[0]?.confirmationChargesToNegotiationAmount">
+                    <div class="col-md-8 grey f-12">
+                        Confirmation charges applicable from date of issuance till negotiation date
+                    </div>
+                    <div class="col-md-4 dgrey f-14" style="text-align:end">
+                        {{quoteDetails?.quotationsList[0].confirmationChargesToNegotiationAmount|number:'1.2-2'}}
+                    </div>
+                </div>
+                <!-- Confirmation charges applicable from date of issuance till date of maturity-->
+                <div
+                    class="row"
+                    *ngIf="(product == 'CONFIRMATION' || product == 'CONFIRMANDDISCOUNT')&&quoteDetails?.quotationsList[0]?.confirmationChargesToMaturityAmount"
+                    >
+                    <div class="col-md-8 grey f-12">
+                        <div class="">
+                        Confirmation charges applicable from date of issuance till date of
+                        maturity
+                        </div>
+                    </div>
+                    <div class="col-md-4 dgrey f-14">
+                        <div class="" style="text-align:end">
+                        {{ quoteDetails?.quotationsList[0]?.confirmationChargesToMaturityAmount |number:'1.2-2' }}
+                        </div>
+                    </div>
+                </div>
+                <!-- For Bank Guarnatee Product -->
+                <div class="row" *ngIf="(product == 'BANKGUARANTEE')&&quoteDetails?.quotationsList[0]?.confChgsIssuanceToexpAmount">
+                <div class="col-md-8 grey f-12">
+                    <div class="">
+                    Commission applicable from date of issuance till expiry date
+                    </div>
+                </div>
+                <div class="col-md-4 dgrey f-14">
+                    <div class="" style="text-align:end">
+                    {{ quoteDetails?.quotationsList[0]?.confChgsIssuanceToexpAmount |number:'1.2-2' }}
+                    </div>
+                </div>
+                </div>
+                <div class="row" *ngIf="(product == 'BANKGUARANTEE')&&quoteDetails?.quotationsList[0]?.confChgsIssuanceToClaimExpAmount">
+                    <div class="col-md-8 grey f-12">
+                        <div class="">
+                        Commission applicable from date of issuance till claim expiry date
+                        </div>
+                    </div>
+                    <div class="col-md-4 dgrey f-14">
+                        <div class="" style="text-align:end">
+                        {{ quoteDetails?.quotationsList[0]?.confChgsIssuanceToClaimExpAmount |number:'1.2-2'}}
+                        </div>
+                    </div>
+                </div>
+                <!-- Applicable Benchmark -->
+                <div
+                    class="row"
+                    *ngIf="
+                        product == 'DISCOUNTING' ||
+                        product == 'CONFIRMANDDISCOUNT' ||
+                        product == 'REFINANCE' ||
+                        product == 'BANKER' ||
+                        product == 'BILLAVALISATION'
+                    "
+                    >
+                    <div class="col-md-8 grey f-12">
+                        <div class="">Applicable Benchmark (if any)</div>
+                    </div>
+                    <div class="col-md-4 f-14 dgrey">
+                        <div class="" style="text-align:end">
+                        {{ quoteDetails?.quotationsList[0]?.applicableBenchmark |number:'1.2-2' }}%
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="product == 'BANKER'">
+                    <div class="col-md-8 grey f-12">
+                        <div class="">
+                        Banker's Acceptance Interest p.a ( spread over benchmark)
+                        </div>
+                    </div>
+                    <div class="col-md-4 f-14 dgrey">
+                        <div class="" style="text-align:end">
+                        {{ quoteDetails?.quotationsList[0]?.bankAcceptCharges }}%
+                        </div>
+                    </div>
+                </div>
+                <!-- Discouunting Charges -->
+                <div
+                    class="row"
+                    *ngIf="
+                        product == 'DISCOUNTING' ||
+                        product == 'CONFIRMANDDISCOUNT' ||
+                        product == 'BILLAVALISATION'
+                    "
+                    >
+                    <div class="col-md-8 grey f-12" *ngIf="product == 'BILLAVALISATION'">
+                        <div class="">
+                        Discount Interest p.a(spread over benchmark)
+                        </div>
+                    </div>
+                    <div
+                        class="col-md-8 grey f-12"
+                        *ngIf="product == 'DISCOUNTING' || product == 'CONFIRMANDDISCOUNT'"
+                    >
+                        <div class="">
+                        Discounting Interest p.a ( spread over benchmark)
+                        </div>
+                    </div>
+                    <div class="col-md-4 dgrey f-14">
+                        <div class="" style="text-align:end">
+                        {{ quoteDetails?.quotationsList[0]?.discountingCharges }}%
+                        </div>
+                    </div>
+                </div>
+                <!-- Negotiation Charges (Fixed) -->
+                <div
+                 class="row"
+                    *ngIf="
+                        product == 'DISCOUNTING' ||
+                        product == 'CONFIRMANDDISCOUNT' ||
+                        product == 'BANKER'
+                    "
+                    >
+                    <div class="col-md-8 grey f-12">
+                        <div class="">*Negotiation Charges (Fixed)</div>
+                    </div>
+                    <div class="col-md-4 dgrey f-14">
+                        <div class="" style="text-align:end">
+                        {{ quoteDetails?.quotationsList[0]?.negotiationChargesFixed |number:'1.2-2' }}
+                        </div>
+                    </div>
+                    </div>
+            <!-- Negotiation Charges (%) -->
+            <div
+              class="row"
+              *ngIf="
+                product == 'DISCOUNTING' ||
+                product == 'CONFIRMANDDISCOUNT' ||
+                product == 'BANKER'
+                "
+                >
+                <div class="col-md-8 grey f-12">
+                    <div class="">*Negotiation Charges (%)</div>
+                </div>
+                <div class="col-md-4 dgrey f-14">
+                    <div class="" style="text-align:end">
+                    {{ quoteDetails?.quotationsList[0]?.negotiationChargesPerct }}%
+                    </div>
+                </div>
+                </div>
+                <!-- Refinancing Interest Field -->
+                <div class="row" *ngIf="product == 'REFINANCE'">
+                <div class="col-md-8 grey f-12">
+                    <div class="">
+                    Refinancing Interest p.a ( spread over benchmark)
+                    </div>
+                </div>
+                <div class="col-md-4 dgrey f-14">
+                    <div class="" style="text-align:end">
+                    {{ quoteDetails?.quotationsList[0]?.refinancingCharges }}%
+                    </div>
+                </div>
+                </div>
+                <!-- Other Charges -->
+                <div class="row" >
+                    <div class="col-md-8 grey f-12">
+                        Other charges (if any)
+                    </div>
+                    <div class="col-md-4 dgrey f-14" style="text-align:end">
+                        {{this.quoteDetails?.quotationsList[0].otherCharges|number:'1.2-2'}}
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="col-md-8 grey f-12">
+                        Minimum transaction charges (if any)
+                    </div>
+                    <div class="col-md-4 dgrey f-14" style="text-align:end">
+                        {{this.quoteDetails?.quotationsList[0]?.minTransactionCharges?this.quoteDetails?.quotationsList[0]?.minTransactionCharges:0|number:'1.2-2'}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+       <div>
+            <!-- Total Quote Amount -->
+            <div class="row addbg mt-20">
+                <div class="col-md-8 dgrey f-14 fw-900" style="padding: 15px">
+                    Total Quote Amount
+                </div>
+                <div class="col-md-4 dgrey f-14 fw-900" style="text-align:end">{{quoteDetails?.quotationsList[0].totalQuote|number:'1.2-2'}}</div>
+            </div>
+            <div class="acc-btn  col-md-6 m-auto">
+                <div class="text-center mt-30">
+                    <app-button [name]="'ACCEPT QUOTE'" [class]="'primary-btn f-16 w100'" [type]="'button'" (click)="acceptQuotation()"></app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

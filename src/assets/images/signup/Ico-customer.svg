@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="26" viewBox="0 0 24 26">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2523" data-name="Rectangle 2523" width="24" height="26" transform="translate(0 0)" fill="#0032a0"/>
+    </clipPath>
+  </defs>
+  <g id="Ico-customer" transform="translate(0 0)">
+    <g id="Group_17200" data-name="Group 17200" transform="translate(0 0)" clip-path="url(#clip-path)">
+      <path id="Path_2539" data-name="Path 2539" d="M20.82,15a7.5,7.5,0,1,0-7.5-7.5,7.508,7.508,0,0,0,7.5,7.5m0-13a5.5,5.5,0,1,1-5.5,5.5A5.507,5.507,0,0,1,20.82,2" transform="translate(-8.82 0)" fill="#0032a0"/>
+      <path id="Path_2540" data-name="Path 2540" d="M17.992,43.271a9.318,9.318,0,0,1-1.937,1.252,10.015,10.015,0,0,1,5.9,8.129H2.05a10.015,10.015,0,0,1,5.9-8.129,9.318,9.318,0,0,1-1.937-1.252A12,12,0,0,0,0,53.652v1H24v-1a12,12,0,0,0-6.008-10.381" transform="translate(0 -28.652)" fill="#0032a0"/>
+    </g>
+  </g>
+</svg>

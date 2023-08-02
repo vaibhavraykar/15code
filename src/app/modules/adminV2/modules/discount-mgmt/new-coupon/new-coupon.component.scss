@@ -1,0 +1,250 @@
+@import '../../../components/chips-dropdown/chips-dropdown.component.scss';
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+    margin-left: 16px;
+  }
+
+  .new-coupon-container {
+    // padding: 30px 25px 23px 24px;
+
+    .ml-12 {
+        margin-left: 12px;
+    }
+
+    .mb-20 {
+        margin-bottom: 20px;
+    }
+    .bttn{
+        border: 1px solid #EB7203;
+        margin-left: 18px;
+    }
+    .hearCoupon{
+        margin-left: 60%;
+    }
+
+
+    .darkBlackText {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+        color: #292929;
+    }
+}
+.main-coupon{
+    background-color: #F8F9FD;
+    height: 73vh;
+
+    .mt-10{
+        margin-top: 10px;
+    }
+    .sub-main{
+        margin: 4%;
+        
+        .mb-20{
+            margin-bottom: 20px;
+        }
+        .hear{
+            text-align: end;
+            justify-content: end ;
+        }
+    }
+}
+.option-check{
+    margin-left: 4%;
+    margin-right: 4%;
+    display: flex;
+    justify-content: flex-start;
+    
+    :host ::ng-deep .mat-slide-toggle-bar {
+        display: flex;
+        justify-content: space-between;
+        background-color: #EB7203;
+      }
+      .custom-toggle .mat-slide-toggle-bar {
+        background-color: #EB7203 !important;
+      }
+      
+      .custom-toggle .mat-slide-toggle-thumb {
+        background-color: #EB7203 !important;
+      }
+      
+      .left-label {
+        order: 1;
+      }
+      
+      .right-label {
+        order: 2;
+      }
+    
+}
+
+.mr-2{
+    width: 100%;
+}
+.extra{
+    width: 25% !important;
+}
+.extraexpands{
+    width: 50% !important;
+}
+
+.chip {
+    ::ng-deep {
+        .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+            border: 1px solid #D0D0D0;
+            border-radius: 0px;
+        }
+        .mat-mdc-form-field-icon-suffix>.mat-icon {
+            color: #EB7203 !important;
+        }
+        .mat-mdc-select-arrow {
+            display: none !important;
+        }
+    }
+   
+}
+
+.search-box {
+    margin: 0 20px;
+    img {
+        position: absolute;
+        left: -30px;
+        top: 7px;
+    }
+    &::before {
+        content: "";
+        height: 16px;
+        width: 1px;
+        background-color: #696969;
+        position: absolute;
+        left: -6px;
+        top: 7px;
+        
+    }
+    ::ng-deep {
+       
+        .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+        }
+        .mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+            background: #EB7203 !important;
+            background-color: #EB7203 !important;
+        }
+        .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+            padding-top: 2px !important;
+            padding-bottom: 0 !important;
+        }
+        .mat-mdc-form-field-flex {
+            height: 32px !important;
+        }
+        ::ng-deep .mdc-notched-outline {
+            *{
+              border: none;
+            }
+        }
+        .mat-mdc-text-field-wrapper {
+            background-color: #F2F2F2 !important; 
+            border-radius: 7px;
+            border: 1px solid #D0D0D0;
+            margin-top: 10px;
+        }
+        .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+            margin-left: 25px !important;                
+            
+        }
+       
+        .mat-mdc-form-field-input-control {
+            font-size: 0.8em;
+        }
+    }
+}
+.newInput{
+    ::ng-deep{
+        .mdc-text-field {
+            background-color: #fff ;
+          }
+          .mdc-text-field {
+            border: 1px solid #D0D0D0;
+          }
+          label{
+            font-size:11px;
+            color:#727272;
+          }
+        .mdc-text-field--outlined
+        {
+           border-radius: 0 0 0 0 ;
+        }
+        .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading{
+            border-radius:0px ;
+        }
+        .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing{
+            border-radius:0px ;
+        }
+        .mdc-notched-outline__notch{
+            border-radius:0px ;
+        }
+        .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+            padding-top: 16px  !important;
+            padding-bottom: 16px !important;
+        }
+    }
+}
+
+::ng-deep .mdc-switch__track{
+    height: 24px !important;
+    width: 80px !important;
+    border-radius: 35px !important;
+    border: 1.5px solid #EB7203;
+}
+
+::ng-deep .mat-mdc-slide-toggle .mdc-switch{
+    // top: 0px !important;
+    // right: 0px !important;
+    position: relative;
+    width: 46px !important;
+}
+
+  .mat-mdc-slide-toggle {
+  --mdc-switch-disabled-selected-handle-color: #EB7203 !important;
+  --mdc-switch-disabled-unselected-handle-color: #EB7203 !important;
+  --mdc-switch-disabled-selected-track-color: #EB7203 !important;
+  --mdc-switch-disabled-unselected-track-color: #EB7203 !important;
+  --mdc-switch-unselected-focus-state-layer-color: #EB7203 !important;
+  --mdc-switch-unselected-pressed-state-layer-color: #EB7203 !important;
+  --mdc-switch-unselected-hover-state-layer-color: #EB7203 !important;
+  --mdc-switch-unselected-focus-track-color: #fff;
+  --mdc-switch-unselected-hover-track-color: #fff;
+  --mdc-switch-unselected-pressed-track-color: #fff;
+  --mdc-switch-unselected-track-color: #fff;
+  --mdc-switch-unselected-focus-handle-color: #EB7203;
+  --mdc-switch-unselected-hover-handle-color: #EB7203;
+  --mdc-switch-unselected-pressed-handle-color: #EB7203;
+  --mdc-switch-handle-surface-color: var(--mdc-theme-surface, #EB7203);
+  --mdc-switch-unselected-handle-color: #EB7203;
+  --mdc-switch-selected-icon-color: #EB7203;
+  --mdc-switch-disabled-selected-icon-color: #EB7203;
+  --mdc-switch-disabled-unselected-icon-color: #EB7203;
+  --mdc-switch-unselected-icon-color: #EB7203;
+  }
+  .mat-mdc-slide-toggle.mat-accent {
+    --mdc-switch-selected-focus-state-layer-color: #EB7203;
+    --mdc-switch-selected-handle-color: #EB7203;
+    --mdc-switch-selected-hover-state-layer-color: #EB7203;
+    --mdc-switch-selected-pressed-state-layer-color: #EB7203;
+    --mdc-switch-selected-focus-handle-color: #EB7203;
+    --mdc-switch-selected-hover-handle-color: #EB7203;
+    --mdc-switch-selected-pressed-handle-color: #EB7203;
+    --mdc-switch-selected-focus-track-color: #fff;
+    --mdc-switch-selected-hover-track-color: #fff;
+    --mdc-switch-selected-pressed-track-color: #fff;
+    --mdc-switch-selected-track-color: #fff;
+  }
+  .coupon-cont {
+    ::ng-deep {
+        .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {
+            background-color: #fff !important;
+        }
+    }
+}

@@ -1,0 +1,91 @@
+<div class="quote-detail-container mt-30">
+    <div class="">
+        <div class="d-flex align-items-center mb-20">
+            <mat-icon style="cursor: pointer;" (click)="back()">keyboard_backspace</mat-icon>
+            <div class="ml-12 darkBlackText">Viewing Quotation details of {{this.idDetails?.transactionId}}</div>
+        </div>
+
+
+        <div style="padding:8px" class="admin-quote-wrapper">
+            <div class="quote-details-container">
+
+                <div style="margin: 0px 24px 24px 24px; " class="mainContainer">
+                    <div class=" subContainer" style="padding: 10px 14px 15px 15px;">
+                        <div class="row mt-15">
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Requirement</div>
+                                <div class="dark-text">{{this.idDetails?.requirementType| titlecase}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Amount</div>
+                                <div class="dark-text">{{ this.idDetails?.transactionAmount |number :'1.2-2'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Obligor Bank</div>
+                                <div class="dark-text">{{this.idDetails?.bankName}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Tenor</div>
+                                <div class="dark-text">{{this.idDetails?.usanceDays||'NA'}}</div>
+                            </div>
+                        <!-- </div>
+                    </div>
+                    <div class=" subContainer" style="padding: 10px 14px 15px 15px;">
+                        <div class="row"> -->
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Distributing Bank</div>
+                                <div class="dark-text">{{this.idDetails?.distributedBank}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Participation Basis</div>
+                                <div class="dark-text">
+                                    {{this.idDetails?.secTransactionType| titlecase}}/{{this.idDetails?.participationBasis| titlecase}}
+                                </div>
+                            </div>
+                        <!-- </div>
+                    </div>
+                    <div class=" subContainer" style="padding: 10px 14px 15px 15px;">
+                        <div class="row"> -->
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Participation Amount</div>
+                                <div class="dark-text">{{this.idDetails?.participationAmount|number :'1.0-2'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Participation Commission/Fee p.a
+                                </div>
+                                <div class="dark-text">{{this.idDetails?.participationCommission}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Other Charges (If any)</div>
+                                <div class="dark-text">{{this.idDetails?.otherCharges||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Total Quote</div>
+                                <div class="dark-text">{{this.idDetails?.totalQuote|number :'1.0-2'}}</div>
+                            </div>
+                        <!-- </div>
+                    </div>
+                    <div class=" subContainer" style="padding: 10px 14px 15px 15px;">
+                        <div class="row"> -->
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Validity</div>
+                                <div class="dark-text">{{this.idDetails?.validity}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15">
+                                <div class="light-text mb-4">Quote Status</div>
+                                <div class="dark-text">{{this.idDetails?.quotationStatus| titlecase}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" subContainer" style="padding: 10px 14px 15px 15px;">
+                        <div class="mt-30">
+                            <b>Disclaimer: </b> The applicable benchmark will be applicable as of transaction date,
+                            actual quote from the bank may differ to that extent.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

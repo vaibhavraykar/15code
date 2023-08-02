@@ -1,0 +1,59 @@
+<div class="report-container report-cont mt-30">
+    <div class="">
+        <div class="d-flex align-items-center mb-20">
+            <div class="ml-12 darkBlackText">Reports</div> 
+        </div>
+    </div>
+    <div class="main-report">
+        <div class="option-check mt-10">
+            <div class="row mt-10">
+                <div class="col-md-4  pd-r-0 chip anotextra">
+                    <mat-form-field appearance="outline" class="w100 newInput">
+                        <mat-label>Report Type</mat-label>
+                        <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                        <mat-select [(ngModel)]="reportType">
+                            <mat-option value="Customer Trxn Report">Customer Trxn Report</mat-option>
+                            <mat-option value="Quoted Transaction Report">Quoted Transaction Report</mat-option>
+                            <mat-option value="Payment & Subscription Report">Payment & Subscription Report</mat-option>
+                            <mat-option value="Trxn Expiry Report">Trxn Expiry Report</mat-option>
+                            <mat-option value="New User Status Report">New User Status Report</mat-option>
+                            <mat-option value="User Subscription Renewal">User Subscription Renewal</mat-option>
+                            <mat-option value="Discount Coupon Report">Discount Coupon Report</mat-option>
+                            <mat-option value="Product Requirement Report">Product Requirement Report</mat-option>
+                            <mat-option value="Referrer Report">Referrer Report</mat-option>
+                            <mat-option value="Customer RM Performance Report">Customer RM Performance Report</mat-option>
+                            <mat-option value="Bank RM Performance Report(cust)">Bank RM Performance Report(cust)</mat-option>
+                            <mat-option value="Bank RM Performance Report(uw)">Bank RM Performance Report(uw)</mat-option>
+                            <mat-option value="Country wise Report">Country wise Report</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4  pd-r-0 extra">
+                    <mat-form-field appearance="outline" class="w100 newInput">
+                        <mat-label>User Id</mat-label>
+                        <input type="text" [(ngModel)]="userId" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 pd-r-0 extra">
+                    <mat-form-field appearance="outline" class="w100 newInput">
+                      <mat-label>Date Range</mat-label>
+                      <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate [(ngModel)]="dateFrom" placeholder="Start Date">
+                        <input matEndDate [(ngModel)]="dateTo" placeholder="End Date">
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+                  </div>
+            </div>
+            <div class="row downbttn">
+                <div class="col-md-5 hearCoupon mb-20 mt-10">
+                    <div class="d-flex justify-content-end">
+                        <button mat-raised-button class="primary-btn" style="width: 25%;"
+                            (click)="submitDownload()">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

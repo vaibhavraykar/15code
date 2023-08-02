@@ -1,0 +1,305 @@
+<div class="row">
+  <div class="search-box col-md-3">
+    <mat-form-field appearance="outline" class="w-100">
+      <input matInput type="text" placeholder="Search in table" (keyup)="applyFilter($event)" />
+      <img src="../../../../../assets/images/adminV2/carbon_search.svg" />
+    </mat-form-field>
+  </div>
+  <ng-container>
+    <div class="col-md-9 d-flex justify-end">
+      <div class="row">
+        <div class=" transactionType" *ngIf="tableStructure?.transaction?.showTransType">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select [(ngModel)]="tableStructure.transaction.selectedTransactionType" placeholder="Transaction Type"
+              (selectionChange)="transactionType($event)">
+              <mat-option *ngFor="let item of tableStructure?.transaction?.transactionsOption" [value]="item.value">
+                {{ item.viewValue }}
+              </mat-option>
+            </mat-select>
+            <img src="../../../../../assets/images/adminV2/darrow.svg" />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</div>
+<div class="table-wrapper">
+  <table mat-table [dataSource]="tableStructure.dataSource" class="mat-elevation-z8 f-12" style="min-width: max-content" matSort
+    (matSortChange)="announceSortChange($event)" matSortDisableClear>
+    <ng-container *ngFor="let col of tableStructure.displayColumns" [matColumnDef]="col">
+      <container-element [ngSwitch]="col">
+        <ng-container *ngSwitchCase="'more'">
+          <th mat-header-cell *matHeaderCellDef>
+            <img src="../../../../../assets/images/adminV2/more-filter.svg" #matMenuTriggerFilter
+              [matMenuTriggerFor]="columnMenu" (menuOpened)="onMenuOpened()" (menuClosed)="onMenuClosed()" />
+          </th>
+          <td mat-cell *matCellDef="let element"></td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'select'">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? toggleAllRows() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'Transaction Status'">
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">Transaction Status</div>
+          </th>
+          <td mat-cell *matCellDef="let element">
+              <mat-form-field appearance="outline" class="newDrop wid">
+                <!-- (selectionChange)="transactionStatusChange($event.value,element.id)" [value]="element.factorStatus" -->
+                <mat-select class="f-12" (selectionChange)="transactionStatusChange($event.value,element['Action'].id)" [value]="element['Action'].factorStatus">
+                  <mat-option value="ACCEPTED">Quote Accepted</mat-option>
+                  <mat-option value="REJECTED">Quote Not Accepted</mat-option>
+                  <mat-option value="CLOSED">Transaction Closed</mat-option>
+                  <mat-option value="PROCESSING">Transaction Under Processed</mat-option>
+                </mat-select>
+                  <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                </mat-form-field>
+          </td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'Select Factor'">
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">Select Factor</div>
+          </th>
+          <td mat-cell *matCellDef="let element;let i = index">
+            <mat-form-field appearance="outline" class="newDrop" >
+              <mat-select class="f-12"  (selectionChange)="selectedFactor($event.value,element.Action.index)" [(ngModel)]="factorEntity[element.Action.index]"  multiple>
+                <mat-option #matOption *ngFor="let data of selectFactorList;let j = index"
+                [value]="data.companyName">{{data.companyName}}</mat-option>
+              </mat-select>
+              <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+          </mat-form-field>
+          </td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'Submit'">
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">Submit</div>
+          </th>
+          <td mat-cell *matCellDef="let element;let i = index">
+            <button mat-raised-button class="approveBtn" (click)="send(element['Action'].id,factorEntity[element.Action.index],element.Action.index, element['Action'].factorEntity)">Submit</button>
+          </td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'Factor Pricing'">
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">Factor Pricing</div>
+          </th>
+          <td mat-cell *matCellDef="let element;let i = index">
+            <span [ngClass]="{'planAndPayment' : element['Factor Pricing'] != 0 }"(click)="element['Factor Pricing'] != 0 ? viewFactorDetails(element) : ''">{{element['Factor Pricing']}}</span>
+          </td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'Action'">
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">Action</div>
+          </th>
+          <!-- <td mat-cell *matCellDef="let element"><span class="planAndPayment"
+              (click)="viewDetails(element)">Details</span></td> -->
+
+          <td mat-cell *matCellDef="let element">
+            <div [ngSwitch]="element['Action'].from">
+              <div *ngSwitchCase="'corporateList'">
+                <ng-container *ngTemplateOutlet="corporateList;context:{element:element}"></ng-container>
+
+              </div>
+              <div *ngSwitchDefault>
+
+                <img src="../../../../../assets/images/adminV2/action.svg" (click)="viewDetails(element)" />
+              </div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <th mat-header-cell *matHeaderCellDef>
+            <div style="display: flex" class="filter-div">
+              {{ namingColumn(col) }}
+              <div class="img-style">
+                <img src="../../../../../assets/images/adminV2/fluent_arrow.svg" mat-sort-header />
+                <img src="../../../../../assets/images/adminV2/filter.svg" #matMenuTriggerFilter
+                  [matMenuTriggerFor]="filterMenu" [matMenuTriggerData]="{ filter: col }" />
+                <div class="img-notification" *ngIf="isFilterApplied(col)">
+                  <span>{{ isFilterApplied(col) }}</span>
+                </div>
+              </div>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element[col] }}</td>
+        </ng-container>
+      </container-element>
+    </ng-container>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="10" style="text-align: center">
+        No Record Found.
+      </td>
+    </tr>
+
+    <tr mat-header-row *matHeaderRowDef="tableStructure.displayColumns"></tr>
+    <tr #tableRow mat-row *matRowDef="let row; columns: tableStructure.displayColumns"
+      [ngClass]="checkSelection(row) ? 'highlight' : ''"></tr>
+  </table>
+</div>
+<div class="pagination_section">
+  <mat-paginator #paginator hidden [length]="tableStructure.page.length" [pageSize]="tableStructure.page.pageSize"
+    [pageSizeOptions]="[ 10, 25, 50,100]" [showFirstLastButtons]="true" [ngTemplateOutlet]="customPaginator"
+    (page)="paginationEmitter($event)" [ngTemplateOutletContext]="{
+      length: tableStructure.page.length,
+      pageSize: tableStructure.page.pageSize,
+      pageIndex: tableStructure.page.pageIndex
+    }">
+  </mat-paginator>
+</div>
+
+<ng-template #customPaginator let-length="length" let-pageSize="pageSize" let-pageIndex="pageIndex">
+  <div class="paginator-container mt-10">
+    <div class="paginator-page-size f-12">
+      Rows Per Page
+      <mat-form-field appearance="outline">
+        <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+        <mat-select [(value)]="paginator.pageSize" (selectionChange)="
+          changeEntriesSize($event)
+          ">
+          <mat-option *ngFor="let option of paginator.pageSizeOptions" [value]="option">{{ option }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="paginator-buttons" *ngIf="paginator.length > paginator.pageSize">
+      <button mat-icon-button [disabled]="paginator.pageIndex === 0" (click)="paginator.previousPage()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <div class="paginator-range">
+        {{ pageIndex * pageSize + 1 }} - {{ ((pageIndex + 1) * pageSize) > paginator.length
+        ?paginator.length:((pageIndex + 1) * pageSize)}} Of
+        {{ paginator.length }}
+      </div>
+      <button mat-icon-button [disabled]="
+          paginator.pageIndex >= paginator.length / paginator.pageSize - 1
+        " (click)="paginator.nextPage()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<mat-menu #columnMenu="matMenu" class="menuColumnFilter">
+  <div>
+    <p class="pstyle">Select the columns</p>
+    <div class="data-sec">
+      <ng-container *ngFor="let item of selectedColumns; let i = index" #menuItems>
+        <mat-checkbox style="display: block" [checked]="item.selected" (click)="$event.stopPropagation()"
+          (change)="onColumnSelect($event, item)" (keydown)="onMenuKeyDown($event, i)">{{ namingColumn(item.name)
+          }}</mat-checkbox>
+      </ng-container>
+    </div>
+    <div class="addPd">
+      <button mat-raised-button class="primary-btn f-18" (click)="saveColumnFilter()">
+        Save
+      </button>
+    </div>
+  </div>
+
+
+</mat-menu>
+
+<mat-menu #filterMenu="matMenu" (click)="$event.stopPropagation()" class="menuColumnFilter">
+  <ng-template matMenuContent let-filter="filter">
+    <container-element [ngSwitch]="namingColumn(filter)">
+      <div>
+        <ng-template ngSwitchCase="Country">
+          <p class="pstyle">Filter {{ namingColumn(filter) }}</p>
+          <div class="data-sec">
+            <input matInput type="text" placeholder="search" (click)="
+                getCountries$(filter).filterCountries$($event);
+                $event.stopPropagation()
+              " (input)="getCountries$(filter).filterCountries$($event)" />
+            <ng-container *ngFor="
+                let item of getCountries$(filter)?.countries$ | async;
+                let i = index
+              " #menuItems>
+              <mat-checkbox style="display: block" [checked]="item.selected" (click)="$event.stopPropagation()"
+                (change)="getCountries$(filter)?.countrySelected($event, item)">{{ item.name }}</mat-checkbox>
+            </ng-container>
+          </div>
+          <div class="addPd2">
+            <span class="clear-filter" (click)="getCountries$(filter)?.clearFilters()" style="cursor: pointer">Clear
+              Filters</span>
+            <button mat-raised-button (click)="getCountries$(filter)?.applyFilters()"
+              class="primary-btn f-18 filter-btn">
+              Filter
+            </button>
+          </div>
+        </ng-template>
+        <ng-template ngSwitchDefault>
+          <p class="pstyle">Filter {{ namingColumn(filter) }}</p>
+          <div class="data-sec">
+            <!-- <input matInput type="text" placeholder="search"
+              (click)="getCountries$(filter).filterCountries$($event);$event.stopPropagation();"
+              (input)="getCountries$(filter).filterCountries$($event)"> -->
+            <!-- <ng-container *ngFor="let item of  getCountries$(filter)?.countries$|async; let i = index;" #menuItems>
+              <mat-checkbox style="display: block;" [checked]="item.selected" (click)="$event.stopPropagation()"
+                (change)=" getCountries$(filter)?.countrySelected($event,item)">{{item.name}}</mat-checkbox>
+            </ng-container> -->
+          </div>
+          <div class="addPd2">
+            <span class="clear-filter" (click)="getCountries$(filter)?.clearFilters()" style="cursor: pointer">Clear
+              Filters</span>
+            <button mat-raised-button (click)="getCountries$(filter)?.applyFilters()"
+              class="primary-btn f-18 filter-btn">
+              Filter
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </container-element>
+  </ng-template>
+</mat-menu>
+
+
+<ng-template #corporateList let-element="element">
+  <div class="cPointer filter-divs">
+    <div class="" mat-button [matMenuTriggerFor]="menu">
+      <img src="../../../../../assets/images/icons/3dots.png" style="width: 20px; height: 20px; cursor: pointer"
+        alt="" />
+    </div>
+    <mat-menu #menu="matMenu" class="filter-divs_menu">
+      <button mat-menu-item (click)="viewDetails(element)">View</button>
+      <button mat-menu-item (click)="messagePop(element)">Message</button>
+    </mat-menu>
+  </div>
+</ng-template>
+<ng-template #statusList let-element="element">
+  <div class="cPointer filter-divs">
+    <mat-menu #menu="matMenu" class="filter-divs_menu">
+      <button mat-menu-item (click)="viewDetails(element)">View</button>
+      <button mat-menu-item (click)="messagePop(element)">Message</button>
+    </mat-menu>
+  </div>
+</ng-template>
+<ng-template #callAPIDialog let-element="element">
+  <div class="common-popup">
+    <div class="header">
+        Add Message
+        <mat-icon class="cpointer" style="height: 24px;width: 24px;" mat-dialog-close>close</mat-icon>
+    </div>
+    <div class="main-container">
+        <div class="col-md-12">
+            <mat-form-field class="w100">
+                <textarea matInput style="border:none" maxlength="255" rows="5" placeholder="Message" [formControl]="form">
+                </textarea>
+            </mat-form-field>
+        </div>   
+        <div class="row">
+            <div class="text-center button-style d-flex" >
+                <div class="col-md-2 mt-10">                
+                    <button mat-raised-button class="primary-btn" (click)="updateComment()">Yes</button>                   
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+</ng-template>

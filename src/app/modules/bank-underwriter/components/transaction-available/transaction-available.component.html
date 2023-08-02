@@ -1,0 +1,31 @@
+<div class="transaction-available">
+    <div class="row mt-20">
+        <div class="col-md-3">
+            <mat-form-field  class="w100" appearance="outline">
+                <mat-label>Country</mat-label>
+                <mat-select multiple>
+                  <mat-option *ngFor="let item of countryList" [value]="item">{{item}}</mat-option>                  
+                </mat-select>
+                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field  class="w100" appearance="outline">
+                <mat-label>Product</mat-label>
+                <mat-select multiple>
+                  <mat-option *ngFor="let item of productList" [value]="item">{{item}}</mat-option>                  
+                </mat-select>
+                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <span class="f-22 fontBold dgrey mt-30 mb-3">Active Transactions</span>
+        <div class="mt-30 table-view">
+            <app-table
+                [dataSource]="dataSource"
+                [displayedColumns]="displayedCoulumns"
+            ></app-table>
+        </div>
+    </div>
+</div>

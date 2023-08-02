@@ -1,0 +1,274 @@
+<div class="error" *ngIf="isError">
+    <div class="text-center cpopup">
+        <div class="heading">Failed!
+            <span class="circle-icon">
+                <mat-icon mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div class="img-container">
+            <img src="../../../assets/images/icons/Icon-info.svg" />
+        </div>
+        <div class="error-msg">
+            <span>We can not proceed with your request.<br/> because of some technical error. Please try again.</span>
+        </div>
+    </div>
+</div>
+<div class="error" *ngIf="kycSuccess">
+    <div class="text-center cpopup">
+        <div class="heading">Sit back & relax!
+            <span class="circle-icon">
+                <mat-icon mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div class="img-container d-flex justify-content-center" style="width:100%;height:200px">
+            <img
+            style="width:200px;"
+            src="../../../assets/images/icons/quote accepted.svg" />
+        </div>
+        <div class="f-22 fontBold blueText mt-40">
+            Thank you for submitting KYC documents.
+        </div>
+        <div class="f-16 fontRegular fw-600 dgrey mt-20"
+        style="width:60%;margin:auto;margin-bottom:50px;">
+            Your account review is in progress.
+            Once done, we will notify you on your
+            registered email address.
+        </div>
+    </div>
+</div>
+<div class="error" *ngIf="isErrorMsg">
+    <div class="text-center cpopup">
+        <div class="heading">Error!
+            <span class="circle-icon">
+                <mat-icon mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div class="img-container">
+            <img src="../../../assets/images/icons/Icon-info.svg" />
+        </div>
+        <div class="error-msg">
+            <span *ngIf="!(errors.length>0)">{{message ? message : ''}}</span>
+            <div *ngIf="(errors.length>0)" class="error-list col-8 m-auto mb-2">
+                <div *ngFor="let error of errors;let index=index" class="d-flex justify-content-center">
+                    <div *ngIf="errors.length>1">{{index+1}}.</div>
+                    <div >{{error?.value}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="info" *ngIf="isInfo">
+    <div class="text-center cpopup">
+        <div class="heading">Add Message
+            <span class="circle-icon">
+                <mat-icon mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div class="" style="padding: 15px;">
+            <img src="../../../assets/images/icons/logo.png" alt="" style="height:30px;width:50px">
+        </div>
+        <div style="padding: 0 20px 20px 20px; text-align: left;">
+            <!-- Add Message: -->
+            <div>
+                <!-- <app-inputtext [type]="'text'" [required]="true" [name]="'Add comment'" (focusOutEvent)="commentHandler($event)" style="width: 100%;"></app-inputtext>                -->
+                <mat-form-field>
+                    <textarea matInput [formControl]="form" maxlength="255" rows="4">
+                    </textarea>
+                    <mat-hint>Max 255 character</mat-hint>
+                    <mat-error *ngIf="form?.hasError('maxlength') && !errorHandling('required') || errorHandling('required')">
+                        Max 255 character
+                    </mat-error>
+                </mat-form-field>
+             </div>
+             <div class="update-btn">
+                <app-button  [name]="'Update'" [class]="'primary-btn f-16'" [type]="'submit'" (click)="updateComment()"></app-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="success" *ngIf="isSuccess">
+    <div class="text-center cpopup">
+        <div class="heading">Success..!!
+            <span class="circle-icon">
+                <mat-icon mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+
+        <div class="sucess-msg">
+            <span>Comment successfully added.</span>
+        </div>
+    </div>
+</div>
+
+<div class="success" *ngIf="isCongrats">
+    <div class="congratulation-wrapper white-bg text-center">
+        <div>
+            <div>
+                <img src="../../../../../assets/images/factoring/Congratulatins.svg" />
+            </div>
+            <div class="f-22 fontBold blueText mt-40">
+                Congratulation
+            </div>
+            <div class="f-16 fontRegular fw-600 dgrey mt-20">
+                Your transaction has been successfully Placed!
+            </div>
+            <div class="text-center px-4 px-2 col-md-12 m-auto">
+                <div class="mt-40 text-center">
+                    <app-button [name]="'PROCEED'" [class]="'primary-btn f-16 w100'" [type]="'button'" (click)="preview()"></app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="error" *ngIf="kycRejected">
+    <div class="text-center cpopup">
+        <div class="heading">Rejected!
+            <span class="circle-icon">
+                <mat-icon mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div class="img-container">
+            <img src="../../../assets/images/icons/Icon-info.svg" />
+        </div>
+        <div class="error-msg">
+            <span>{{message}}</span>
+
+        </div>
+        <div class="mt-10 mb-3">
+            <div class="primary-btn f-16 m-auto"  style="width:50%" [mat-dialog-close]="true">REUPLOAD</div>
+        </div>
+    </div>
+</div>
+
+<div class="success" *ngIf="signupSuccess">
+    <div class="congratulation-wrapper white-bg text-center">
+        <div>
+            <div>
+                <img src="../../../../../assets/images/factoring/Congratulatins.svg" />
+            </div>
+            <div class="f-22 fontBold blueText mt-40">
+                Congratulations!
+            </div>
+            <div class="f-16 fontRegular fw-500 dgrey mt-20">
+                Your account has been successfully created!
+            </div>
+            <div class="f-14 fontRegular fw-400 dgrey mt-10">
+                Soon you will recieve login credentials on your registered email address <span class="fw-700">{{emailID}}</span> to securely activate your account.
+            </div>
+            <div class="f-14 fontRegular fw-400 dgrey mt-10">
+                Kindly follow the instructions mentioned in the email to proceed further.
+            </div>
+            <div class="text-center px-4 px-2 col-md-12 m-auto">
+                <div class="mt-40 text-center">
+                    <app-button [name]="'PROCEED'" [class]="'primary-btn f-16 w100'" [type]="'button'" (click)="proceed()"></app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="success" *ngIf="updatePwdSuccess">
+    <div class="congratulation-wrapper white-bg text-center">
+        <div>
+            <div>
+                <img src="../../../../../assets/images/factoring/Congratulatins.svg" />
+            </div>
+            <div class="f-22 fontBold blueText mt-40">
+                Congratulations!
+            </div>
+            <div class="f-14 fontRegular fw-600 dgrey mt-10">
+                Password has been successfully updated for email : {{emailID}}
+            </div>
+            <div class="text-center px-4 px-2 col-md-12 m-auto">
+                <div class="mt-40 text-center">
+                    <app-button [name]="'LOGIN'" [class]="'primary-btn f-16 w100'" [type]="'button'" (click)="proceed()"></app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="success" *ngIf="isAllGood">
+    <div class="congratulation-wrapper white-bg text-center">
+        <div>
+            <div>
+                <img src="../../../../../assets/images/factoring/Congratulatins.svg" />
+            </div>
+            <div class="f-22 fontBold blueText mt-40" *ngIf="finalStatus">
+                Congratulations!
+            </div>
+            <div class="f-22 fontBold blueText mt-40" *ngIf="!finalStatus">
+                Error!
+            </div>
+            <div class="f-14 fontRegular fw-600 dgrey mt-10">
+                {{finalmessage}}
+            </div>
+            <div class="text-center px-4 px-2 col-md-12 m-auto">
+                <div class="mt-40 text-center">
+                    <app-button [name]="'OK'" [class]="'primary-btn f-16 w100'" [type]="'button'" (click)="proceedDialog()"></app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="success" *ngIf="isConfirm">
+    <!-- <div class="congratulation-wrapper white-bg text-center"> -->
+        <div class="text-center cpopup">
+            <div class="heading"><h3>Confirm Action </h3>
+                <span class="circle-icon">
+                    <mat-icon mat-dialog-close>
+                        <img src="../../../assets/images/icons/Icon-close.svg">
+                    </mat-icon>
+                </span>
+            </div>
+
+            <div style="border: 1px solid gray; padding: 16px; margin: 16px; box-sizing: content-box; background-color: rgb(248, 250, 255); ">
+                <h5 class="px-4 px-2 m-auto" style="padding-bottom: 28px;">Are you sure you want to proceed with the action ?
+                </h5>
+            </div>
+            <!-- float: left; margin-left: 38px; margin-right: 14px; -->
+            <!-- float: left; margin-right: 32px; -->
+            <div class="px-4 px-2 col-md-12 m-auto">
+                <div class="mt-40 flex-parent jc-center">
+                    <app-button [name]="'Yes'" [class]="'primary-btn f-16'" style="margin-right: 17px;" [type]="'button'"
+                        (click)="yes()"></app-button>
+                    <app-button [name]="'No'" [class]="'primary-btn  f-16 '" [type]="'button'"
+                        (click)="no()"></app-button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="success" *ngIf="changePwdSuccess">
+      <div class="congratulation-wrapper white-bg text-center">
+          <div>
+              <div>
+                  <img src="../../../../../assets/images/factoring/Congratulatins.svg" />
+              </div>
+              <div class="f-22 fontBold blueText mt-40">
+                  Congratulations!Your password has been successfully changed!
+              </div>
+              <div class="f-14 fontRegular fw-600 dgrey mt-10">
+                Kindly login with new password
+              </div>
+              <div class="text-center px-4 px-2 col-md-12 m-auto">
+                  <div class="mt-40 text-center">
+                      <app-button [name]="'LOGIN'" [class]="'primary-btn f-16 w100'" [type]="'button'" (click)="close()"></app-button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>

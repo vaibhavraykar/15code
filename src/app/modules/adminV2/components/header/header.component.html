@@ -1,0 +1,61 @@
+<div class="desktopView">
+  <div class="header">
+    <div class="col-md-6 ">
+      <div >
+        <img src="../../../../../assets/images/adminV2/menu.svg" #hamMenu (click)="openSidebar()"  style="cursor: pointer;" />
+      </div>   
+    </div>
+    <div class="search-box col-md-2" style="margin-left: auto;">
+      <mat-form-field appearance="outline" class="w-100">
+        <input matInput type="text" placeholder="Search">
+        <img src="../../../../../assets/images/adminV2/search-normal.svg" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-2 d-flex profile-style margin-right-0" style="margin-right: 5%;" >
+      <div class="text-center alignment">
+        <span class="fw-600 f-12" *ngIf="selectedRole"> {{selectedRole.replace('_' , ' ') }}</span>
+      </div>
+      <div class="profile">
+        {{displayName}}
+      </div>
+      <div class="ml-20 arrowAlignment" style="cursor:pointer"  [matMenuTriggerFor]="menu">
+        <img src="../../../../../assets/images/adminV2/down-arrow.svg" />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mobileView">
+  <div class="header">
+    <div class="row">
+      <div class="col-md-6 col-2">
+        <div >
+          <img src="../../../../../assets/images/adminV2/menu.svg" #hamMenu (click)="openSidebar()"  style="cursor: pointer;" />
+        </div>   
+      </div>
+      <div class="col-10 col-md-2 d-flex profile-style margin-right-0" style="margin-right: 5%;" >
+        <div class="text-center alignment">
+          <span class="fw-600 f-12" *ngIf="selectedRole"> {{selectedRole.replace('_' , ' ') }}</span>
+        </div>
+        <div class="profile">
+          {{displayName}}
+        </div>
+        <div class="ml-20 arrowAlignment" style="cursor:pointer"  [matMenuTriggerFor]="menu">
+          <img src="../../../../../assets/images/adminV2/down-arrow.svg" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="search-box col-md-2" style="margin-left: auto;">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput type="text" placeholder="Search">
+          <img src="../../../../../assets/images/adminV2/search-normal.svg" />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="cp()">Change Password</button>
+  <button mat-menu-item (click)="logout()">Logout</button>
+</mat-menu>

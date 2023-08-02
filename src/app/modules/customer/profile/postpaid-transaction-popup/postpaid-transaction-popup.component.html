@@ -1,0 +1,23 @@
+<div class="vas-popup">
+    <div class="heading">
+        Payment
+        <span (click)="close()" class="cPointer"><mat-icon>close</mat-icon></span>
+    </div>
+    <div class="row" style="margin: 0; padding: 20px;">
+       <div class="form-container mt-10">
+            <div>
+                <p class="congrats">Do you want to proceed further?</p>
+            </div>
+            <div class="row">
+                <div class="text-center button-style d-flex" >
+                    <div class="col-md-2 mt-10" style="margin-right: 10px;">                
+                        <button mat-stroked-button class="f-16 w100 cancel">No</button>
+                    </div>
+                    <div class="col-md-2 mt-10">                
+                        <button mat-raised-button class="primary-btn" (click)="yes()">Yes</button>                   
+                    </div>
+                </div> 
+            </div>
+       </div>
+    </div>   
+</div>

@@ -1,0 +1,17 @@
+<div style="padding: 20px 10px;">
+    <span class="f-22 fontBold dgrey">New Transaction</span>
+
+    <div class="mt-30 px-5 py-2 col-md-8 m-auto">
+        <div class="mt-30">
+            <app-tab [labels]="labels" (clickEvent)="changeHandler($event)" [disableTab]="disableTab"
+                [tabsVisited]="tabsVisited" [selectedIndex]="tab"></app-tab>
+        </div>
+        <div class="mt-30" *ngIf="tabSelected==labels[0]">
+            <app-select-product (next)="next($event)" (selectedProduct)="chosenProduct($event)"
+                (disableEmitter)="disableEmitter($event)"></app-select-product>
+        </div>
+        <div class="mt-30" *ngIf="tabSelected==labels[1]">
+            <app-transaction-details (back)="back($event)" [product]="selectedProduct"></app-transaction-details>
+        </div>
+    </div>
+</div>

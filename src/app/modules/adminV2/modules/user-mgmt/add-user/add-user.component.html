@@ -1,0 +1,176 @@
+<div class="users-detail-container user-cont mt-30">
+  <div class="">
+    <div class="d-flex align-items-center mb-20">
+      <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+      <div class="ml-12 darkBlackText">Add New User</div>
+    </div>
+
+
+    <div style="padding:10px" class="admin-usesr-wrapper">
+      <div class="admin-users-container">
+        <div class="mt-30 row d-flex justify-content-center align-items-center">
+          <form [formGroup]="personalForm">
+            <div class="row">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <mat-form-field appearance="outline" class="w100 newInput">
+                  <mat-label>First Name</mat-label>
+                  <input type="text" matInput formControlName="firstName" (keypress)="textOnly($event)">
+                  <mat-error *ngIf="personalForm.controls['firstName'].hasError('required')">First Name
+                    required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <mat-form-field appearance="outline" class="w100 newInput">
+                  <mat-label>Last Name</mat-label>
+                  <input type="text" matInput formControlName="lastName" (keypress)="textOnly($event)">
+                  <mat-error *ngIf="personalForm.controls['lastName'].hasError('required')">Last Name
+                    required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <mat-form-field appearance="outline" class="w100 newInput">
+                  <mat-label>Email ID</mat-label>
+                  <input type="email" matInput formControlName="email" (keypress)="textOnly($event)">
+                  <mat-error
+                    *ngIf="personalForm.controls['email'].invalid && !personalForm.controls['email'].hasError('required')">
+                    Invalid Email Id
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div>
+                  <mat-form-field appearance="outline" class="w100 Mobiledrop" style="border-top: 1px solid #D0D0D0;">
+                    <mat-select formControlName="countryExt" formControlName="countryExt">
+                      <input type="text" style="padding-left: 14px !important;border: none;outline: none;width: 100%;"
+                        (input)="countryCodeValueChange($event)" placeholder="Search">
+                      <mat-option *ngFor="let item of filteredCountryCodes" style="font-size:medium" [value]="item">{{
+                        item }}</mat-option>
+                      <mat-option *ngIf="filteredCountryCodes?.length === 0" [disabled]="true">Record not
+                        found</mat-option>
+                    </mat-select>
+                    <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                    <mat-error *ngIf="personalForm.controls['countryExt'].hasError('required')">Country Code
+                      required</mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="w100 MobileInput" style="border-top: 1px solid #D0D0D0;">
+                    <mat-label>Mobile No </mat-label>
+                    <input type="text" matInput formControlName="mobileNo" minlength="5" maxlength="15"
+                      placeholder="Mobile Number" (keypress)="phoneInputHandler($event)"
+                      (click)="stopPropagation($event)">
+                    <mat-error *ngIf="personalForm.controls['countryExt'].hasError('required')">Mobile No
+                      required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <mat-form-field appearance="outline" class="w100 newInput">
+                  <mat-label>Department</mat-label>
+                  <input type="text" matInput formControlName="department" (keypress)="textOnly($event)">
+                  <mat-error *ngIf="personalForm.controls['department'].hasError('required')">Department
+                    required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <mat-form-field appearance="outline" class="w100 newInput">
+                  <mat-label class="custom-label">Designation</mat-label>
+                  <input type="text" matInput formControlName="designation" (keypress)="textOnly($event)">
+                  <mat-error *ngIf="personalForm.controls['designation'].hasError('required')">Designation
+                    required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <mat-form-field appearance="outline" class="w100 newInput">
+                  <mat-label>Reporting Manager</mat-label>
+                  <input type="text" matInput formControlName="reportingManager" (keypress)="textOnly($event)">
+                </mat-form-field>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 chip">
+                <!-- <form [formGroup]="form"> -->
+                <mat-form-field class="w100 newDrop" appearance="outline">
+                  <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                  <!-- <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px"/></span> -->
+                  <mat-label>Region Allocated</mat-label>
+
+                  <mat-select formControlName="countryList" multiple [value]="personalForm.get('countryList').value"
+                    (selectionChange)="onCountrySelection($event)">
+                    <mat-select-trigger>
+                      <mat-chip-listbox>
+                        <mat-chip *ngFor="let category of (personalForm.controls['countryList'].value)?.slice(0,1)"
+                          [removable]="true" (removed)="onCatRemoved(category)">
+                          {{ category }}
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+
+                        <span style="margin-left: 4px;"
+                          *ngIf="personalForm.controls['countryList'].value.length > 1">+{{personalForm.controls['countryList'].value.length
+                          - 1}}</span>
+                      </mat-chip-listbox>
+                    </mat-select-trigger>
+                    <div class="search-box">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput type="text" placeholder="Search" (input)="countryValueChange($event)">
+                        <img src="../../../../../assets/images/adminV2/search-normal.svg" />
+                      </mat-form-field>
+                    </div>
+                    <mat-option value="ALL" #matOption (click)="selectAll(matOption.selected)">All</mat-option>
+                    <mat-option *ngFor="let item of filteredCountries" [value]="item.countryName"
+                      [disabled]="matOption.selected">{{item.countryName }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="personalForm.controls['countryList'].hasError('required')">Region Allocated
+                    required</mat-error>
+                </mat-form-field>
+                <!-- </form> -->
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 chip">
+                <!-- <form [formGroup]="roleForm"> -->
+                <mat-form-field appearance="outline" class="w100 newDrop">
+                  <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                  <mat-label>Role</mat-label>
+                  <mat-select formControlName="roles" multiple [value]="personalForm.get('roles').value"
+                    (selectionChange)="onRoleSelection($event)">
+                    <mat-select-trigger>
+                      <mat-chip-listbox>
+                        <mat-chip *ngFor="let category of (personalForm.controls['roles'].value)?.slice(0,1)"
+                          [removable]="true" (removed)="onRoleRemoved(category)">
+                          {{ category.name }}
+                          <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                        <span style="margin-left: 4px;"
+                          *ngIf="personalForm.controls['roles'].value.length > 1">+{{personalForm.controls['roles'].value.length
+                          - 1}}</span>
+                      </mat-chip-listbox>
+                    </mat-select-trigger>
+                    <div class="search-box">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <input matInput type="text" placeholder="Search" (input)="roleValueChange($event)">
+                        <img src="../../../../../assets/images/adminV2/search-normal.svg" />
+                      </mat-form-field>
+                    </div>
+                    <mat-option *ngFor="let item of filteredRows" [value]="item">{{item.name}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="personalForm.controls['roles'].hasError('required')">Role required</mat-error>
+                </mat-form-field>
+                <!-- </form> -->
+              </div>
+            </div>
+            <div class="row hear">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="d-flex justify-content-end">
+                  <button mat-raised-button class="primary-btn" style="width: 30%;"
+                    (click)="submitAddUser()">Save</button>
+                  <button mat-raised-button class="bttn" style="width: 30%;" (click)="cancelForm()">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

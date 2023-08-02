@@ -1,0 +1,52 @@
+.bank-wrapper {
+    .left-container {
+        background-color: #fff !important;
+        border-radius: 10px;
+        margin-right: 20px;
+        .heading-text {
+            background-color: var(--yellow);
+            padding: 20px;
+            font-size: 16px;
+            font-weight: 900;
+            color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            height: 63px;
+        }
+       .description {
+            padding: 20px;
+       }
+    }
+    .right-container {
+        .heading-text {
+            background-color: var(--yellow);
+            padding: 20px;
+            font-size: 16px;
+            font-weight: 900;
+            color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            height: 63px;
+        }
+        .cart {
+            background-color: #fff !important;
+            padding: 20px;
+            .header-name {
+                padding-bottom: 5px;
+            }
+            .desc {
+                padding: 10px;
+            }
+        }
+    }
+    ::ng-deep {
+        .white-bg {
+            background-color: inherit !important;
+        }
+    }
+    @media (min-width:769px) and (max-width:1200px) {
+        .view-btn{
+            width: 170px;
+        }
+    }
+}

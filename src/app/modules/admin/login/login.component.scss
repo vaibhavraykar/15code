@@ -1,0 +1,150 @@
+.login-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .login-wrapper {
+        width: 980px;
+        height: 510px;   
+        position: relative;    
+        .left-wrapper {
+            width: calc(100% - 494px);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            
+        }
+        .right-wrapper {
+            width: 494px;
+            height: 100%;
+            border-radius: 10px;
+            position: absolute;
+            right: 9px;
+            span {
+                text-decoration: underline;
+            }          
+            p {
+                padding-top: 20px;
+                padding-bottom: 15px;
+            }
+            .logo {
+                margin: 10px;
+                padding: 10px;
+                text-align: center;
+                background-color: var(--white);
+                img {
+                    height: 79px;
+                }
+            }
+            .btn-style {
+                button {
+                    width: 100%;
+                }
+            }
+            ::ng-deep {
+                .mdc-notched-outline {
+                    *{
+    
+                    color: #fff !important;
+                    }
+                }
+                .mat-mdc-form-field {
+                    width: 100% !important;
+                }
+                .mdc-text-field--outlined {
+                    border: 1px solid var(--white) !important;
+                    border-bottom-left-radius: 5px !important;
+                    border-bottom-right-radius: 5px !important;
+                }
+                
+               
+                .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+                    color: var(--white) !important;
+                }
+                input::placeholder {
+                    color: var(--white) !important;
+                }
+                
+            }            
+        }
+    }
+    ::ng-deep {
+        .mat-mdc-floating-label.mdc-floating-label {
+            background-color: var(--blue) !important;
+            color: #fff !important;
+        }
+    }
+}
+.isMobile {
+    display: none;
+}
+.isDesktop {
+    display: block;
+}
+@media screen and (max-width: 768px) {
+    .isMobile {
+        display: block;
+    }
+    .login-container {
+        display: none;
+    }
+    .login-containe-mobile {
+        .left-wrapper {
+            text-align: center;
+            .slider {
+                width: 500px;
+                
+            }
+        }
+        .right-wrapper {
+            width: 100%;
+            height: 100%;
+             border-radius: 10px;
+            .col-md-9 {
+                padding-bottom: 50px;
+            }
+            span {
+                text-decoration: underline;
+            }          
+            p {
+                padding-top: 20px;
+                padding-bottom: 15px;
+            }
+            .logo {
+                margin: 10px;
+                padding: 10px;
+                text-align: center;
+                background-color: var(--white);
+                img {
+                    height: 79px;
+                }
+            }
+            .btn-style {
+                button {
+                    width: 100%;
+                }
+            }
+            ::ng-deep {
+                
+                .mat-mdc-form-field {
+                    width: 100% !important;
+                }
+                .mdc-text-field--outlined {
+                    border: 1px solid var(--white) !important;
+                    border-bottom-left-radius: 5px !important;
+                    border-bottom-right-radius: 5px !important;
+                }
+               
+                .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+                    color: var(--white) !important;
+                }
+                input::placeholder {
+                    color: var(--white) !important;
+                }
+            }            
+        }
+        
+        
+    }
+   
+}

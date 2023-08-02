@@ -1,0 +1,39 @@
+<div>
+  <div>
+    <span class="headingstyle">Primary Transactions</span>
+    <div class="container-wrapper mt-10">
+      <div class="inner-container"> 
+        <ul>
+          <li>
+            <div class="lTitle">{{tableStructure.counts.quotation}}</div>
+            <div class="lDescription">Total Number of Quotes</div>
+          </li>
+          <li>
+            <div class="lTitle">$ {{tableStructure.counts.quoteReceived/1000000 | number:'1.2-2'}}</div>
+            <div class="lDescription">Total Flows for Quotes Received (mn)</div>
+          </li>
+        <!-- </ul>
+        <ul> -->
+          <li>
+            <div class="lTitle">$ {{tableStructure.counts.totalTransaction/1000000 | number:'1.2-2'}}</div>
+            <div class="lDescription">Total Flows for Transaction (mn)</div>
+          </li>
+          <li>
+            <div class="lTitle">$ {{tableStructure.counts.quoteAccepted/1000000 | number:'1.2-2'}}</div>
+            <div class="lDescription">Total Flows for Quotes Accepted (mn)</div>
+          </li>
+          <!-- <li style="display: flex; align-items: center;">
+            <div>
+              <button mat-raised-button class="primary-btn">Upload Bulk Transactions</button>
+            </div>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-wrapper mt-10 primary-list">
+    <app-primary-table #customTable [tableStructure]="tableStructure"
+      (combinedEmitter)="tableEventEmitter($event)"></app-primary-table>
+  </div>
+</div>

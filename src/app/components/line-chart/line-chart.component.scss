@@ -1,0 +1,11 @@
+#divChart{
+    display: block;
+::ng-deep{
+    .mat-divider{
+        border-style: dashed;
+        border-width: 1px!important;
+         margin: 0 1%;
+         border-color: #D2DBFE!important;
+    }
+}
+}

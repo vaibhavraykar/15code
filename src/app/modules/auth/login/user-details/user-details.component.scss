@@ -1,0 +1,45 @@
+.verify-details-container {
+  img {
+    width: 120px;
+  }
+  .apt15 {
+    padding-top: 15px;
+  }
+  ::ng-deep .mat-mdc-form-field {
+    width: 100% !important;
+  }
+  p {
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+}
+::ng-deep {
+  .verify-details-container {
+    width: 525px !important;
+    height: 494px !important;
+  }
+  .uCase {
+    text-transform: uppercase;
+  }
+  .addPd {
+    margin-top: 20px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .verify-details-container {
+    width: 100% !important;
+    height: 480px !important;
+    overflow: hidden;
+  }
+  .rm {
+    margin: 0 !important;
+  }
+  ::ng-deep .addPd {
+    padding: 20px !important;
+  }
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+}

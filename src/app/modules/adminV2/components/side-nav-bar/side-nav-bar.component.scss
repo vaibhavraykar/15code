@@ -1,0 +1,193 @@
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.sidebar-wrapper {
+  ::ng-deep .mat-expansion-indicator::after {
+      color: #EB7203 !important;
+  }
+  ::ng-deep {
+      .selectedTab {
+          font-weight: 700;
+          color: #0032A0 !important;
+          position: relative;
+          padding-left: 12px;
+          &::after {
+              content: '';
+              width: 5px;
+              height: 15px;
+              background-color: #0032A0;
+              position: absolute;
+              border-radius: 5px;
+              left: 0px;
+              top: 2px;
+          }
+      }
+      .mat-expansion-panel-body {
+          padding: 0 !important;
+      }
+      .mat-expansion-panel {
+          background: none;
+      }
+      .mat-expansion-panel-header {
+          height: inherit !important;
+      }
+      .mat-expansion-panel:not([class*=mat-elevation-z]) {
+          box-shadow: none !important;
+      }
+      .mat-expansion-panel-header {
+          padding:  0 !important;
+          margin-bottom: 10px;
+      }
+  }
+  .mat-drawer-container {
+      height: calc(100vh - 48px) !important;
+  }
+  .menuLi {
+      padding: 10px !important;
+      cursor: pointer;
+      .menuList {
+          padding: 0 10px ;
+      }
+  }
+  ::ng-deep {
+      .mat-drawer-content {
+          background-color: #ECF1FC !important;
+          padding: 20px;
+      }
+  }
+  .selected {
+      background-color: #ECF1FC !important;
+      padding: 10px !important;
+      .grey-text {
+          color: #0032A0 !important;
+          font-weight: 700;
+      }
+      .img-cont {
+          img {
+              fill: currentColor;
+          }
+      }
+  }
+  .removed {
+
+  }
+}
+.toggle-open {
+  ::ng-deep .mdc-list {
+      padding: 0 !important;
+  }
+
+  .col-md-2{
+      width: 214px !important;
+      transition: 0.5s;
+  }
+  .col-md-10 {
+      width: calc(100% - 214px) !important;
+      padding: 10px 20px;
+      background-color: var(--light-blue);
+      margin-left: 214px !important;
+      transition: 0.5s;
+  }
+  .mat-mdc-nav-list {
+      text-align: left;
+  }
+  .justify-content-center {
+      justify-content: left !important;
+  }
+  .menuLi {
+      padding: 0 12px;
+      cursor: pointer;
+  }
+  .img-cont {
+      margin-right: 15px;
+  }
+  .mr-0change{
+      margin-right: 0!important;
+  }
+}
+.toggle-close {
+  ::ng-deep .mdc-list {
+      padding: 0 !important;
+  }
+    ::ng-deep .menuList {
+    padding: 0 !important;
+    justify-content: center;
+  }
+
+  .col-md-2{
+      width: 60px !important;
+      transition: 0.5s;
+  }
+  .col-md-10 {
+      transition: 0.5s;
+      width: 95%;
+      padding: 10px 20px;
+      background-color: var(--light-blue);
+      margin-left: 60px !important;
+  }
+  .mat-mdc-nav-list {
+      text-align: center;
+  }
+  .justify-content-center {
+      justify-content: center !important;
+  }
+  .img-cont {
+      margin-right: 0;
+      cursor: pointer;
+      min-width: 24px;
+  }
+}
+::ng-deep {
+  .mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background, .mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
+      border-color: #eb7203 !important;
+      background-color: #eb7203 !important;
+  }
+}
+.profile-style {
+  align-items: center;
+  justify-content: end;
+  margin-left: 0;
+  width: 12em;
+}
+.w-100{
+  width: 100%;
+}
+.isDesktopView {
+    display: block;
+}
+.isMobileView {
+    display: none;
+}
+@media screen and (max-width: 767px) {
+    .sidebarwrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .contentwrapper {
+        position: relative;        
+    }
+    .toggle-open .col-md-10 {
+        width: 100% !important;
+        margin-left: 60px !important;
+    }
+    .isDesktopView {
+        display: none;
+    }
+    .isMobileView {
+        display: block;
+    }
+    .applyBg {
+        background-color: red !important;
+    }
+    .isOpenToggle {
+        background-color: aquamarine;
+        height: 100%;
+    }
+    ::ng-deep .tabsBg .sidebar-wrapper .mat-drawer-content{
+        background-color: #000 !important;
+        opacity: 0.8 !important;
+    }
+}

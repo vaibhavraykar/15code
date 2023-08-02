@@ -1,0 +1,160 @@
+<div>
+    <div class="view-transaction mb-20" style="padding: 20px 10px;">
+        <div class="transaction">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="yellow-txt f-14 fontBold">Transaction Id</div>
+                    <div class="label-text">{{viewData?.transactionId}}</div>
+                </div>
+                <div class="col-md-1" style="text-align: end;line-height: initial;">
+                </div>
+                <div class="col-md-1" style="padding:0px">
+                    <div class="imgDiv f-14 fontBold dgrey cpointer" (click)="back()">
+                        <mat-icon>keyboard_arrow_left</mat-icon>Back
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="row mt-5">
+                <div class="col-md-2">
+                    <div class="label-text">Product Type</div>
+                    <div class="info">{{viewData?.factoringProductType}}</div>
+                </div>
+                <div class="col-md-2">
+                    <div class="label-text">User Type</div>
+                    <div class="info">{{viewData?.factoringUserType}}</div>
+                </div>
+                <div class="col-md-2">
+                    <div class="label-text">Amount</div>
+                    <div class="info">{{viewData?.amount | amount}}</div>
+                </div>
+                <div class="col-md-2">
+                    <div class="label-text">Currency</div>
+                    <div class="info">{{viewData?.currency}}</div>
+                </div>
+                <div class="col-md-2">
+                    <div class="label-text">Status</div>
+                    <div class="info">{{viewData?.status | titlecase}}</div>
+                </div>
+                <div class="col-md-2">
+                    <div class="label-text">Invoice Number</div>
+                    <div class="info">{{viewData?.invoiceNumber}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="row mt-5">
+                <div class="col-md-2">
+                    <div class="label-text">Date</div>
+                    <div class="info">{{viewData?.date}}</div>
+                </div>
+                <div class="col-md-2">
+                    <div class="label-text">Due Date</div>
+                    <div class="info">{{viewData?.dueDate}}</div>
+                </div>
+                <div class="col-md-2">
+                    <div class="label-text">Debtor/Buyer</div>
+                    <div class="info">{{viewData?.factoringUserType=='DEBTOR'?viewData?.groupComapany.companyName:viewData?.assignorToDebtor}}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="label-text">Assignor/Sellor</div>
+                    <div class="info">{{viewData?.factoringUserType=='ASSIGNOR'?viewData?.groupComapany.companyName:viewData?.debtorToAssignor}}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="label-text">Total Pricing Count</div>
+                    <div class="info">{{totalCount}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+
+
+    <div>
+    <div class="mt-10 table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="S. No.">
+                <th mat-header-cell *matHeaderCellDef>S. No.</th>
+                <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Factor Id">
+                <th mat-header-cell *matHeaderCellDef>Factor Id</th>
+                <td mat-cell *matCellDef="let element">{{ element.masterEntity?.entityId }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Factor Name">
+                <th mat-header-cell *matHeaderCellDef>Factor Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.masterEntity?.companyName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Factor Country">
+                <th mat-header-cell *matHeaderCellDef>Factor Country</th>
+                <td mat-cell *matCellDef="let element">{{ element.masterEntity?.country }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Pricing">
+                <th mat-header-cell *matHeaderCellDef>Pricing</th>
+                <td mat-cell *matCellDef="let element">
+                    <ng-container *ngIf="element.price">
+                        Advance Rate(%): {{ element.price.advanceRate }} <br>
+                        Interest Rate(%): {{ element.price.interestRate }} <br>
+                        Factoring Commission(%): {{ element.price.factoringCommission }} <br>
+                        360tf Platform Fee(%): {{ element.price.platformFee }}
+                      </ng-container>
+                      <ng-container *ngIf="!element.price">
+                        No details
+                      </ng-container>
+                  </td>
+            </ng-container>
+            <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <button mat-raised-button class="primary-btn f-12" style="display: flex; width: 160px; margin-right: 160x; margin-bottom: 4px;" [disabled]="element.buttonDisable == true"  (click)="sendMail(viewData?.id,'IDENTICAL',element.price?.advanceRate,element.price?.interestRate,element.price?.factoringCommission)">Send</button>
+                    <button mat-raised-button class="primary-btn f-12" style="display: flex; width: 160px;" [disabled]="element.buttonDisable == true" (click)="comment(viewData?.id,'EDIT',element.id,element.price?.advanceRate,element.price?.interestRate,element.price?.factoringCommission)">Edit & Send</button>
+                </td>
+                <!-- (element.masterEntity.id, element.sendEmailToMasterEnity.id -->
+            </ng-container>
+            <tr class="mat-row " *matNoDataRow>
+                <td class="mat-cell text-center " [attr.colspan]="displayColumns.length">
+                    No Records Found.
+                </td>
+            </tr>
+            <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+        </table>
+
+    </div>
+    </div>
+
+
+</div>
+
+<ng-template #callAPIDialog>
+    <div class="text-center">
+        <div class="heading">Add 360tf Platform Fee
+            <span class="circle-icon">
+                <mat-icon (click)="closeComment()" mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div class="" style="padding: 15px;">
+            <img src="../../../assets/images/icons/logo.png" alt="" style="height:30px;width:50px">
+        </div>
+        <div style="padding: 0 20px 20px 20px; text-align: left;">
+            <!-- Add Message: -->
+            <div>
+                <mat-form-field style="width:100%">
+                    <input matInput type="number" placeholder="360tf Platform Fee" [(ngModel)]="commentValue">
+                  </mat-form-field>
+            </div>
+            <div class="update-btn">
+                <app-button [name]="'Submit'" [class]="'primary-btn f-16'" [type]="'submit'"
+                    (click)="submitAddedValue()"></app-button>
+            </div>
+        </div>
+    </div>
+</ng-template>

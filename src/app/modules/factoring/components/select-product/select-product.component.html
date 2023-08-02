@@ -1,0 +1,16 @@
+<div class="select-product-container">
+    <div class="text-center px-4 px-2 col-md-8 m-auto">
+        <div class="mt-30 row d-flex justify-content-center align-items-center">
+            <div class="col">
+                <div class="p-2">
+                    <app-cards [name]="'Factoring'" (selection)="selectedCard($event)"
+                        [imagePath]="imagePath"></app-cards>
+                </div>
+            </div>
+        </div>
+        <div class="mt-30 text-center">
+            <app-button [name]="'PROCEED'" [class]="'primary-btn f-16 w-100'" [type]="'button'" [disable]="disable"
+                (click)="proceed(selected)" class="btnResize"></app-button>
+        </div>
+    </div>
+</div>

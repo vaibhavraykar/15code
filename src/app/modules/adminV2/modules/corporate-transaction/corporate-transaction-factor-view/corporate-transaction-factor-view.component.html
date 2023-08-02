@@ -1,0 +1,145 @@
+<div class="all-detail-container mt-30">
+    <div class="">
+      <div class="d-flex align-items-center mb-20">
+        <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+        <div class="ml-12 darkBlackText">Viewing details for {{viewData.transactionId}}</div>
+      </div>
+      <div class="all-details-tab-container">
+        <div style="padding:24px" class="admin-user-wrapper">
+          <div class="">
+            <div class="col-md-11">
+              <div class="userid">User ID</div>
+              <div class="dark-text">{{viewData?.user?.userId}}</div>
+            </div>
+          </div>
+          <div class="mt-30 admin-user-container">
+            <div  class=" subContainer" style="padding: 0 14px 15px 15px;">
+                <div class="row mt-10">
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Product Type</div>
+                            <div class="dark-text">{{viewData?.factoringProductType}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">User Type</div>
+                            <div class="dark-text">{{viewData?.factoringUserType}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Amount</div>
+                            <div class="dark-text">{{viewData?.amount|number :'1.0-2'}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Currency</div>
+                            <div class="dark-text">{{viewData?.currency}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Status</div>
+                            <div class="dark-text">{{viewData?.status | titlecase}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Invoice Number</div>
+                            <div class="dark-text">{{viewData?.invoiceNumber}}</div>
+                        </div>        
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Date</div>
+                            <div class="dark-text">{{viewData?.date}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Due Date</div>
+                            <div class="dark-text">{{viewData?.dueDate}}</div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Debtor/Buyer</div>
+                            <div class="dark-text">{{viewData?.factoringUserType=='DEBTOR'?viewData?.groupComapany.companyName:viewData?.assignorToDebtor}}
+                            </div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Assignor/Sellor</div>
+                            <div class="dark-text">{{viewData?.factoringUserType=='ASSIGNOR'?viewData?.groupComapany.companyName:viewData?.debtorToAssignor}}
+                            </div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                            <div class="light-text mb-4">Total Pricing Count</div>
+                            <div class="dark-text">{{totalCount}}</div>
+                        </div>
+                </div>
+            </div>
+            <br>
+            <div>
+            <div class="mt-10 table-wrapper">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 f-12" style="width: auto" matSort>
+                    <ng-container matColumnDef="S. No.">
+                        <th mat-header-cell *matHeaderCellDef>S. No.</th>
+                        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="Factor Id">
+                        <th mat-header-cell *matHeaderCellDef>Factor Id</th>
+                        <td mat-cell *matCellDef="let element">{{ element.masterEntity?.entityId }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="Factor Name">
+                        <th mat-header-cell *matHeaderCellDef>Factor Name</th>
+                        <td mat-cell *matCellDef="let element">{{ element.masterEntity?.companyName }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="Factor Country">
+                        <th mat-header-cell *matHeaderCellDef>Factor Country</th>
+                        <td mat-cell *matCellDef="let element">{{ element.masterEntity?.country }}</td>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="Pricing">
+                        <th mat-header-cell *matHeaderCellDef>Pricing</th>
+                        <td mat-cell *matCellDef="let element"  style="font-size:13px !important">
+                            <ng-container *ngIf="element.price">
+                                Advance Rate(%): {{ element.price.advanceRate }} <br>
+                                Interest Rate(%): {{ element.price.interestRate }} <br>
+                                Factoring Commission(%): {{ element.price.factoringCommission }} <br>
+                                360tf Platform Fee(%): {{ element.price.platformFee }}
+                              </ng-container>
+                              <ng-container *ngIf="!element.price">
+                                No details
+                              </ng-container>
+                          </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Actions">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td mat-cell *matCellDef="let element; let i = index">
+                            <button mat-raised-button class="approveBtn" style="display: flex;margin-bottom: 4px; margin-top: 4px;" [disabled]="element.buttonDisable == true"  (click)="sendMail(viewData?.id,'IDENTICAL',element.price?.advanceRate,element.price?.interestRate,element.price?.factoringCommission)">Send</button>
+                            <button mat-raised-button class="approveBtn" style="display: flex;" [disabled]="element.buttonDisable == true" (click)="comment(viewData?.id,'EDIT',element.id,element.price?.advanceRate,element.price?.interestRate,element.price?.factoringCommission)">Edit & Send</button>
+                        </td>
+                        <!-- (element.masterEntity.id, element.sendEmailToMasterEnity.id -->
+                    </ng-container>
+                    <tr class="mat-row " *matNoDataRow>
+                        <td class="mat-cell text-center " [attr.colspan]="displayColumns.length">
+                            No Records Found.
+                        </td>
+                    </tr>
+                    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+                </table>
+        
+            </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #callAPIDialog>
+        <div class="common-popup">
+            <div class="header">Add 360tf Platform Fee
+                    <mat-icon class="cpointer" style="height: 24px;width: 24px;" mat-dialog-close>close</mat-icon>
+            </div>
+            <div class="main-container">
+                <div class="col-md-12 newInput">
+                    <mat-form-field appearance="outline" class="w100">
+                        <input matInput type="number" style="margin-bottom:0px" placeholder ="360tf Platform Fee" [(ngModel)]="commentValue">
+                      </mat-form-field>
+                </div>
+                <div class="row">
+                    <div class="text-center button-style d-flex" >
+                        <div class="col-md-2 mt-10">                
+                            <button mat-raised-button class="primary-btn" (click)="submitAddedValue()">Ok</button>                   
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </ng-template>

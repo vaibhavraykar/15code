@@ -1,0 +1,34 @@
+<div class="filter-popups" (click)="trigger()">
+  <div [hidden]="!double">
+    <div  class="calenderClass">
+      <div class="calender-class">
+        <div class="range-class">
+          <div style="background-color: #ECF1FC; padding: 5px;" class="f-12">First Date</div>
+          <mat-calendar [(selected)]="startDate" (click)="endDate=''" [maxDate]="maxdate">
+          </mat-calendar>
+        </div>
+        <div class="range-class">
+          <div style="background-color: #ECF1FC; padding: 5px;" class="f-12">End Date</div>
+          <mat-calendar [(selected)]="endDate" [maxDate]="maxdate">
+          </mat-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div [hidden]="double">
+    <div  class="calenderClass">
+      <div class="calender-class">
+        <div class="range-class">
+          <div style="background-color: #ECF1FC; padding: 10px;" class="f-12">Select Date</div>
+          <mat-calendar [(selected)]="startDate" (click)="endDate=''">
+          </mat-calendar>
+        </div>
+        <!-- <div class="range-class">
+          <div style="background-color: #ECF1FC; padding: 10px;" class="f-12">End Date</div>
+          <mat-calendar [(selected)]="endDate" [maxDate]="maxdate">
+          </mat-calendar>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

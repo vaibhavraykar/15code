@@ -1,0 +1,172 @@
+<div class="subs-detail-container mt-30">
+    <div class="">
+        <div class="d-flex align-items-center">
+            <mat-icon style="cursor: pointer;" (click)="back()">keyboard_backspace</mat-icon>
+            <div class="ml-12 darkBlackText">View Plan details</div>
+        </div>
+
+
+        <div style="padding:10px" class="admin-subs-wrapper">
+            <div class="mt-10 admin-subs-container">
+                <div class="">
+                    <div class=" subContainer" style="padding: 10px 14px 15px 15px;">
+                        <div class="row">
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.applicableEntityType">
+                                <div class="light-text mb-4">User Type</div>
+                                <div class="dark-text">{{this.idDetails?.applicableEntityType == 'BANK' ? 'BAAC' : this.idDetails?.applicableEntityType == 'BANK_AS_UNDERWRITER' ? 'BAAU' : 'CUSTOMER' ||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.productType">
+                                <div class="light-text mb-4">Product Type</div>
+                                <div class="dark-text">{{this.idDetails?.productType.replace('_',' ')||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.planType">
+                                <div class="light-text mb-4">Plan Type</div>
+                                <div class="dark-text">{{this.idDetails?.planType||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails">
+                                <div class="light-text mb-4">Price</div>
+                                <div class="dark-text">{{this.idDetails?.price|number :'1.0-2'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.currency">
+                                <div class="light-text mb-4">Currency</div>
+                                <div class="dark-text">{{this.idDetails?.currency||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.durationType && idDetails.duration">
+                                <div class="light-text mb-4">Duration</div>
+                                <div class="dark-text">{{this.idDetails?.duration||'NA'}}
+                                    {{this.idDetails?.durationType||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15">
+                                <div class="light-text mb-4">Country</div>
+                                <div class="dark-text" style="color:#EB7203;cursor:pointer"
+                                    *ngIf="this.idDetails?.productCountries?.length > 3" (click)="viewCountry()">View
+                                </div>
+                                <div class="dark-text" *ngIf="this.idDetails?.productCountries.length <= 3">
+                                    {{productCountries||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.credits">
+                                <div class="light-text mb-4">Credits</div>
+                                <div class="dark-text">{{this.idDetails?.credits||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.remark">
+                                <div class="light-text mb-4">Remark</div>
+                                <div class="dark-text">{{this.idDetails?.remark||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.customerSupport">
+                                <div class="light-text mb-4">Customer Support</div>
+                                <div class="dark-text">{{this.idDetails?.customerSupport||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.relationshipManager">
+                                <div class="light-text mb-4">Relationship Manager</div>
+                                <div class="dark-text">{{this.idDetails?.relationshipManager||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.maxTransactionRejectLimit">
+                                <div class="light-text mb-4">Max. Transaction Reject Limit</div>
+                                <div class="dark-text">{{this.idDetails?.maxTransactionRejectLimit||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.allowedSubsidiaries">
+                                <div class="light-text mb-4">Allowed Subsidiaries</div>
+                                <div class="dark-text">{{this.idDetails?.allowedSubsidiaries|number :'1.0-2'||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.postpaidMinimumTransactionPercentage">
+                                <div class="light-text mb-4">Minimum Transaction Percentage</div>
+                                <div class="dark-text">{{this.idDetails?.postpaidMinimumTransactionPercentage||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.postpaidMinimumTransactionAmount">
+                                <div class="light-text mb-4">Minimum  Transaction Amount</div>
+                                <div class="dark-text">{{this.idDetails?.postpaidMinimumTransactionAmount|number :'1.0-2'||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.postpaidTransactionPercentage">
+                                <div class="light-text mb-4">Visibility Limit</div>
+                                <div class="dark-text">{{this.idDetails?.postpaidVisibilityLimit|number :'1.0-2'||'NA'}}</div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.postpaidMaximumAllowedTransations">
+                                <div class="light-text mb-4">Max. Allowed Transaction</div>
+                                <div class="dark-text">{{this.idDetails?.postpaidMaximumAllowedTransations|number :'1.0-2'||'NA'}}</div>
+                            </div>
+                          <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 extra mt-15" *ngIf="idDetails?.makerApprovedBy">
+                            <div class="light-text mb-4">Maker Approved By</div>
+                            <div class="dark-text">{{this.idDetails?.makerApprovedBy||'NA'}}</div>
+                          </div>
+                          <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15" *ngIf="idDetails?.makerApprovalDate">
+                            <div class="light-text mb-4">Maker Approved Date</div>
+                            <div class="dark-text">{{this.makerDate.split(' GMT')[0]||'NA'}}</div>
+                          </div>
+                          <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15" *ngIf="idDetails?.checkerApprovedBy">
+                            <div class="light-text mb-4">Checker Approved By</div>
+                            <div class="dark-text">{{this.idDetails?.checkerApprovedBy||'NA'}}</div>
+                          </div>
+                          <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15" *ngIf="idDetails?.checkerApprovalDate">
+                            <div class="light-text mb-4">Checker Approved Date</div>
+                            <div class="dark-text">{{this.checkerDate.split(' GMT')[0]||'NA'}}</div>
+                          </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.productDescriptions && idDetails.productDescriptions.length > 0">
+                                <div class="light-text mb-4">Product Description</div>
+                                <div class="dark-text">
+                                    <li *ngFor="let product of idDetails.productDescriptions; let i = index;">
+                                        <strong>Description {{ i + 1 }}: </strong> {{ product.description }}
+                                    </li>
+                                </div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.productBenefits && idDetails.productBenefits.length > 0">
+                                <div class="light-text mb-4">Product Benefits</div>
+                                <div class="dark-text">
+                                    <li *ngFor="let product of idDetails.productBenefits; let i = index;">
+                                        <strong>Benefit {{ i + 1 }}: </strong> {{ product.benefit }}
+                                        <strong>Value {{ i + 1 }}: </strong> {{ product.value }}
+                                    </li>
+                                </div>
+                            </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  extra mt-15"
+                                *ngIf="idDetails && idDetails.status">
+                                <div class="light-text mb-4">Status</div>
+                                <div class="dark-text">{{this.idDetails?.status||'NA'}}
+                                    <span *ngIf="idDetails?.status == 'INACTIVE'" class="stat"
+                                        (click)="changeStatus(idDetails?.id,'ACTIVE')">Change</span>
+                                    <span *ngIf="idDetails?.status == 'ACTIVE'" class="stat"
+                                        (click)="changeStatus(idDetails?.id,'INACTIVE')">Change</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <ng-template #callAPIDialog>
+        <div class="text-center">
+            <div class="headingMessage">Selected Country
+                <span class="circle-icon">
+                    <mat-icon (click)="close()" mat-dialog-close>
+                        <img src="../../../assets/images/icons/Icon-close.svg">
+                    </mat-icon>
+                </span>
+            </div>
+            <div style="padding: 0 20px 20px 20px; text-align: left;">
+                <div>
+                    {{productCountries}}
+                </div>
+            </div>
+        </div>
+    </ng-template>

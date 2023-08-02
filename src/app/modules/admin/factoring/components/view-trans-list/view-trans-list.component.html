@@ -1,0 +1,300 @@
+<div class="view-transaction">
+    <div class="col-md-8 m-auto">
+        
+        <div class="boxShadow">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="yellow-txt f-14 fontBold">Transaction ID</div>
+                        <div class="label-text">{{viewData?.transactionId}}</div>
+                    </div>
+                    <div class="col-md-1" style="text-align: end;line-height: initial;">
+                    </div>
+                    <div class="col-md-1" style="padding:0px">
+                        <div class="imgDiv f-14 fontBold dgrey cpointer" (click)="back()">
+                            <mat-icon>keyboard_arrow_left</mat-icon>Back 
+                        </div> 
+                                       
+                    </div>
+                </div>
+               
+            </div>
+            <div class="mt-10">
+                <mat-radio-group aria-label="Select an option" (change)="onChangeRadio($event)">
+                    <mat-radio-button value="transaction">Transaction Details</mat-radio-button>
+                    <mat-radio-button value="customer">Customer Details</mat-radio-button>
+                </mat-radio-group>
+            <div *ngIf="transDetails" class="mt-20 row d-flex justify-content-center align-items-center"
+                style="padding: 10px;">
+                <!-- <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Transaction Id</div>
+                        <div class="info">{{viewData.transactionId}}</div>
+                     </div> -->
+                   
+                <div class="row">
+                    <span class="f-14 fontBold heading" style="color:var(--yellow)">Product Details</span>
+                    <div class="col-md-3">
+                        <div class="label-text">Issuance Bank</div>
+                        <div class="info">{{viewData.lcissuanceBank}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Branch</div>
+                        <div class="info">{{viewData.lcissuanceBranch}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Swift Code</div>
+                        <div class="info">{{viewData.swiftCode}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">{{viewData.lcissuanceCountry}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Product Type</div>
+                        <div class="info">{{viewData.requirementType}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Currency</div>
+                        <div class="info">{{viewData.lccurrency}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Amount</div>
+                        <div class="info">{{viewData.lcvalue | amount}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Issuance Date</div>
+                        <div class="info">{{viewData.lCIssuingDate}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                <div class="col-md-3">
+                    <div class="label-text">Last Shipment Date</div>
+                    <div class="info">{{viewData.lastShipmentDate}}</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="label-text">Negotiation Date</div>
+                    <div class="info">{{viewData.negotiationDate}}</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="label-text">Goods</div>
+                    <div class="info">{{viewData.goodsType}}</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="label-text">Is ESG Complaint ?</div>
+                    <div class="info">{{viewData.isESGComplaint}}</div>
+                </div>
+                </div>
+                <div class="row mt-10">
+                    <span class="f-14 fontBold heading" style="color:var(--yellow)">Tenor of Deferred Payment</span>
+                    <div class="col-md-3">
+                        <div class="label-text">Usance Days</div>
+                        <div class="info">{{viewData.usanceDays}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Payments terms to seller as per LC</div>
+                        <div class="info">{{viewData.paymentTerms}}</div>
+                    </div>
+                    </div>
+                <div class="row mt-10">
+                    <span class="f-14 fontBold heading" style="color:var(--yellow)">Applicant</span>
+                    <div class="col-md-3">
+                        <div class="label-text">Applicant Name</div>
+                        <div class="info">{{viewData.applicantName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Email Id</div>
+                        <div class="info">{{viewData.applicantContactPersonEmail}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Contact Person Name</div>
+                        <div class="info">{{viewData.applicantContactPerson}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">{{viewData.applicantCountry}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <span class="f-14 fontBold heading" style="color:var(--yellow)">Beneficiary</span>
+                    <div class="col-md-3">
+                        <div class="label-text">Beneficiary Name</div>
+                        <div class="info">{{viewData.beneName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">{{viewData.beneCountry}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Bank Name</div>
+                        <div class="info">{{viewData.beneBankName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Email Id</div>
+                        <div class="info">{{viewData.beneContactPersonEmail}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Contact Person Name</div>
+                        <div class="info">{{viewData.beneContactPerson}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Swift Code</div>
+                        <div class="info">{{viewData.beneSwiftCode}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Bank Country</div>
+                        <div class="info">{{viewData.beneBankCountry}}</div>
+                    </div>
+                    </div>
+
+                <div class="row mt-10">
+                    <span class="f-14 fontBold heading" style="color:var(--yellow)">Others</span>
+                    <div class="col-md-3">
+                        <div class="label-text">Port of Loading</div>
+                        <div class="info">{{viewData.loadingPort}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">{{viewData.loadingCountry}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Port of Discharge</div>
+                        <div class="info">{{viewData.dischargePort}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">{{viewData.dischargeCountry}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Charges are on</div>
+                        <div class="info">{{viewData.chargesType}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Validity</div>
+                        <div class="info">{{viewData.validity}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Maker Comment</div>
+                        <div class="info">{{viewData.makerComment}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Checker Comment</div>
+                        <div class="info">{{viewData.checkerComment}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Upload Invoice</div>
+                        <div class="info" (click)="openLink()" style="color:#0f3c9c;cursor:pointer">Click to View</div>
+
+                    </div>
+                    </div>
+            </div>
+
+
+            <div *ngIf="customerDetails" class="mt-10 row d-flex justify-content-center align-items-center"
+                style="padding: 10px;">
+                <div class="row">
+                    <span class="f-14 fontBold heading" style="color:var(--yellow)">Personal Details</span>
+                    <div class="col-md-3">
+                        <div class="label-text">User Id</div>
+                        <div class="info">{{viewData.personalDetails.username}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">First Name</div>
+                        <div class="info">{{viewData.personalDetails.firstName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Last Name</div>
+                        <div class="info">{{viewData.personalDetails.lastName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Mobile</div>
+                        <div class="info">{{viewData.personalDetails.mobileNumber}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Email Id</div>
+                        <div class="info">{{viewData.personalDetails.email}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country</div>
+                        <div class="info">{{viewData.personalDetails.country}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <span class="f-14 fontBold heading" style="color:var(--yellow)">Business Details</span>
+                    <div class="col-md-3">
+                        <div class="label-text">Registration Type</div>
+                        <div class="info">{{viewData.businessDetails.registrationType}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Company Name</div>
+                        <div class="info">{{viewData.businessDetails.companyName}}</div>
+                    </div>
+                    </div>
+                <div class="row mt-10">
+                    <span class="f-14 fontBold heading" style="color:var(--yellow)">Registered Address</span>
+                    <div class="col-md-3">
+                        <div class="label-text">Registered Country</div>
+                        <div class="info">{{viewData.businessDetails.addressDetails.registeredCountry}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">State/Province</div>
+                        <div class="info">{{viewData.businessDetails.addressDetails.province}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">City</div>
+                        <div class="info">{{viewData.businessDetails.addressDetails.city}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Pincode</div>
+                        <div class="info">{{viewData.businessDetails.addressDetails.pincode}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Address Line 1</div>
+                        <div class="info">{{viewData.businessDetails.addressDetails.address1}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Address Line 2</div>
+                        <div class="info">{{viewData.businessDetails.addressDetails.address2}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Address Line 3</div>
+                        <div class="info">{{viewData.businessDetails.addressDetails.address3}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Telephone</div>
+                        <div class="info">{{viewData.businessDetails.addressDetails.telephone}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <span class="f-14 fontBold heading" style="color:var(--yellow)">RM Details </span>
+                    <div class="col-md-3">
+                        <div class="label-text">First Name</div>
+                        <div class="info">{{viewData.businessDetails.rmUser.firstName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Last Name</div>
+                        <div class="info">{{viewData.businessDetails.rmUser.lastName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Designation</div>
+                        <div class="info">{{viewData.businessDetails.rmUser.designation}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>

@@ -1,0 +1,172 @@
+<div class="admin-user-details" style="padding-left: 30px">
+  <div class="" style="margin-top: 30px">
+    <div class="col-md-11">
+      <div class="light-text mb-4">Transaction ID</div>
+      <div class="dark-text">{{transactionDetails?.mtransactionId}}</div>
+    </div>
+  </div>
+</div>
+<div style="padding:24px" class="admin-user-wrapper">
+  <div class="mt-30 admin-user-container">
+    <mat-accordion>
+      <mat-expansion-panel
+      expanded="true"
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title class="text-blue left-border">
+            Personal Details
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="">
+          <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+            <div class="row">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">First Name</div>
+                <div class="dark-text">{{this.transactionDetails?.personalDetails?.firstName||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Last Name</div>
+                <div class="dark-text">{{this.transactionDetails?.personalDetails?.lastName||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Email ID</div>
+                <div class="dark-text">{{this.transactionDetails?.personalDetails?.email||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Mobile No</div>
+                <div class="dark-text">{{this.transactionDetails?.personalDetails?.mobileNumber||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Country</div>
+                <div class="dark-text">{{this.transactionDetails?.personalDetails?.country||'NA'}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel
+        class="mt-30"
+        (opened)="secondPanelOpenState = true"
+        (closed)="secondPanelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title class="text-blue left-border">
+            Business Details
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="">
+          <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+            <div class="row">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Registration Type</div>
+                <div class="dark-text" *ngIf="transactionDetails?.requirementType!=='BANKER'">{{this.transactionDetails?.businessDetails?.registrationType}}</div>
+                <div class="dark-text" *ngIf="transactionDetails?.requirementType==='BANKER'">{{this.transactionDetails?.businessDetails?.sourceList}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">{{(transactionDetails?.requirementType!=='BANKER')?'Company Name':'Bank Name'}}</div>
+                <div class="dark-text" *ngIf="transactionDetails?.requirementType!=='BANKER'">{{this.transactionDetails?.businessDetails?.companyName}}</div>
+                <div class="dark-text" *ngIf="transactionDetails?.requirementType==='BANKER'">{{this.transactionDetails?.businessDetails?.bankName}}</div>
+              </div>
+
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel
+        class="mt-30"
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title class="text-blue left-border">
+            Registered Address
+          </mat-panel-title>
+          <mat-panel-description class="justify-content-end">
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="">
+          <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+            <div class="row">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Country</div>
+                <div class="dark-text">{{this.transactionDetails?.businessDetails?.addressDetails?.registeredCountry||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">State/Province</div>
+                <div class="dark-text">{{this.transactionDetails?.businessDetails?.addressDetails?.province||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">City</div>
+                <div class="dark-text">{{this.transactionDetails?.businessDetails?.addressDetails?.city||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">PIN/ZIP Code</div>
+                <div class="dark-text">{{this.transactionDetails?.businessDetails?.addressDetails?.pincode||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Address Line 1</div>
+                <div class="dark-text">{{this.transactionDetails?.businessDetails?.addressDetails?.address1||'NA'}}</div>
+              </div>
+            
+            
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Address Line 2</div>
+                <div class="dark-text">{{this.transactionDetails?.businessDetails?.addressDetails?.address2||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Address Line 3</div>
+                <div class="dark-text">
+                  {{this.transactionDetails?.businessDetails?.addressDetails?.address3||'NA'}}
+                </div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Telephone</div>
+                <div class="dark-text">{{this.transactionDetails?.businessDetails?.addressDetails?.telephone||'NA'}}</div>
+              </div>
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel
+        class="mt-30"
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title class="text-blue left-border">
+            RM Details
+          </mat-panel-title>
+          <mat-panel-description class="justify-content-end">
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="">
+          <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+            <div class="row">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">First Name</div>
+                <div class="dark-text">{{this.transactionDetails?.businessDetails?.rmUser?.firstName||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Last Name</div>
+                <div class="dark-text">{{this.transactionDetails?.businessDetails?.rmUser?.lastName||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Designation</div>
+                <div class="dark-text">{{this.transactionDetails?.businessDetails?.rmUser?.designation||'NA'}}</div>
+              </div>
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

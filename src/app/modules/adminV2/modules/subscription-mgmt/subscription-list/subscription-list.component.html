@@ -1,0 +1,13 @@
+<div>
+    <div class="list row">
+        <div class="col-md-3 headingstyle">Subscription/VAS Management</div>
+        <div class="col-md-7"></div>
+        <div class="col-md-2" *ngIf='myRights.includes("SUBSCRIPTION_MGMT_CREATE")'>
+            <button mat-raised-button class="primary-btn bttn f-16 w-80" (click)="addSubscription()">Add New Plan</button>
+        </div>
+    </div>
+    <div class="container-wrapper mt-10 subscription-list">
+        <app-subscription-table #customTable [tableStructure]="tableStructure"
+            (combinedEmitter)="tableEventEmitter($event)"></app-subscription-table>
+    </div>
+</div>

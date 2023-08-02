@@ -1,0 +1,272 @@
+<div class="admin-transaction-details" style="padding-left: 30px">
+  <div class="" style="margin-top: 30px">
+    <div class="col-md-11">
+      <div class="light-text mb-4">Transaction ID</div>
+      <div class="dark-text">{{transactionDetails?.mtransactionId}}</div>
+    </div>
+  </div>
+</div>
+<div style="padding: 24px" class="admin-transaction-wrapper">
+  <div class="mt-30 admin-transaction-container">
+    <mat-accordion>
+      <mat-expansion-panel expanded="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="text-blue left-border">
+            Product Details
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="">
+          <div class="subContainer" style="padding: 0 14px 15px 15px">
+            <div class="row ">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">LC Issuing Bank</div>
+                <div class="dark-text">{{transactionDetails?.lcissuanceBank}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Branch</div>
+                <div class="dark-text">{{transactionDetails?.lcissuanceBranch}}</div>
+              </div>
+
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Swift Code</div>
+                <div class="dark-text">{{transactionDetails?.swiftCode}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Country</div>
+                <div class="dark-text">{{transactionDetails?.lcissuanceCountry}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Product</div>
+                <div class="dark-text">{{findProductName(transactionDetails?.requirementType)}}</div>
+              </div>
+
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Currency</div>
+                <div class="dark-text">{{transactionDetails?.lccurrency}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Amount</div>
+                <div class="dark-text">{{transactionDetails?.lcvalue | number:'1.2-2'}}</div>
+              </div>
+
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Issuing Date</div>
+                <div class="dark-text">{{transactionDetails?.lCIssuingDate||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Last Shipment Date (LSD)</div>
+                <div class="dark-text">{{transactionDetails?.lastShipmentDate||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Negotiation Date</div>
+                <div class="dark-text">{{transactionDetails?.negotiationDate}}</div>
+              </div>
+
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Goods</div>
+                <div class="dark-text">{{transactionDetails?.goodsType}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">IS ESG Compliant</div>
+                <div class="dark-text">{{convertBoolean(transactionDetails?.isESGComplaint)}}</div>
+              </div>
+
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel class="mt-30" (opened)="secondPanelOpenState = true" (closed)="secondPanelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="text-blue left-border">
+            Tenor of Deferred Payment
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="">
+          <div class="subContainer" style="padding: 0 14px 15px 15px">
+            <div class="row ">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="transactionDetails?.usanceDays">
+                <div class="light-text mb-4">{{transactionDetails?.requirementType!='REFINANCING'?'Usance(days)':'Tenor'}}</div>
+                <div class="dark-text">{{transactionDetails?.usanceDays||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="transactionDetails?.paymentTerms">
+                <div class="light-text mb-4">
+                  Payments terms to seller as per LC
+                </div>
+                <div class="dark-text">{{transactionDetails?.paymentTerms||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="transactionDetails?.originalTenorDays">
+                <div class="light-text mb-4">
+                  Original Usance(Tenor)of LC
+                </div>
+                <div class="dark-text">{{transactionDetails?.originalTenorDays||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="transactionDetails?.financingPeriod">
+                <div class="light-text mb-4">
+                  Financing Period
+                </div>
+                <div class="dark-text">{{transactionDetails?.financingPeriod||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="transactionDetails?.refinancingPeriod">
+                <div class="light-text mb-4">
+                  Refinancing Period
+                </div>
+                <div class="dark-text">{{transactionDetails?.refinancingPeriod||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="transactionDetails?.lcMaturityDate">
+                <div class="light-text mb-4">
+                  LC Maturity Date
+                </div>
+                <div class="dark-text">{{transactionDetails?.lcMaturityDate||'NA'}}</div>
+              </div>
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="text-blue left-border">
+            Applicant
+          </mat-panel-title>
+          <mat-panel-description class="justify-content-end">
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div style="padding: 0 14px 15px 15px">
+          <div class="row ">
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+              <div class="light-text mb-4">Applicant</div>
+              <div class="dark-text">{{transactionDetails?.applicantName||'NA'}}</div>
+            </div>
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+              <div class="light-text mb-4">Country</div>
+              <div class="dark-text">{{transactionDetails?.applicantCountry||'NA'}}</div>
+            </div>
+
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+              <div class="light-text mb-4">Contact Person</div>
+              <div class="dark-text">{{transactionDetails?.applicantContactPerson||'NA'}}</div>
+            </div>
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+              <div class="light-text mb-4">Email ID</div>
+              <div class="dark-text">{{transactionDetails?.applicantContactPersonEmail||'NA'}}</div>
+            </div>
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="text-blue left-border">
+            Beneficiary
+          </mat-panel-title>
+          <mat-panel-description class="justify-content-end">
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="">
+          <div class="subContainer" style="padding: 0 14px 15px 15px">
+            <div class="row ">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Beneficiary</div>
+                <div class="dark-text">{{transactionDetails?.beneName||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Country</div>
+                <div class="dark-text">{{transactionDetails?.beneCountry||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Bank</div>
+                <div class="dark-text">{{transactionDetails?.beneBankName||'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Bank Country</div>
+                <div class="dark-text">{{transactionDetails?.beneBankCountry||'NA'}}</div>
+              </div>
+              <div class="row ">
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Contact Person</div>
+                  <div class="dark-text">{{transactionDetails?.beneContactPerson||'NA'}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">Email ID</div>
+                  <div class="dark-text">{{transactionDetails?.beneContactPersonEmail||'NA'}}</div>
+                </div>
+                <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                  <div class="light-text mb-4">SWIFT Code</div>
+                  <div class="dark-text">{{transactionDetails?.beneSwiftCode||'NA'}}</div>
+                </div>
+                <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+                <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+                <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="text-blue left-border">
+            Others
+          </mat-panel-title>
+          <mat-panel-description class="justify-content-end">
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="">
+          <div class="subContainer" style="padding: 0 14px 15px 15px">
+            <div class="row ">
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Country of port of loading</div>
+                <div class="dark-text">{{transactionDetails?.loadingCountry}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Port of Loading</div>
+                <div class="dark-text">{{transactionDetails?.loadingPort}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Country of port of discharge</div>
+                <div class="dark-text">{{transactionDetails?.dischargeCountry}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Port of Discharge</div>
+                <div class="dark-text">{{transactionDetails?.dischargePort}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Final Destination of Goods</div>
+                <div class="dark-text">{{transactionDetails?.finalDestinationOfGoods||'NA'  }}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Charges are on</div>
+                <div class="dark-text">{{transactionDetails?.chargesType}}</div>
+              </div>
+
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Validity</div>
+                <div class="dark-text">{{transactionDetails?.validity}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Uploaded Invoice</div>
+                <div class="dark-text" *ngIf="!transactionDetails?.invoiceUpload">NA</div>
+                <div class="dark-text mb-4" style="text-decoration: underline;color: blue;" *ngIf="transactionDetails?.invoiceUpload"
+                (click)="openInvoice()">File</div>
+              </div>
+
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Maker Comments</div>
+                <div class="dark-text mb-4">{{transactionDetails?.makerComment || 'NA'}}</div>
+              </div>
+              <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                <div class="light-text mb-4">Checker Comments</div>
+                <div class="dark-text mb-4">{{transactionDetails?.checkerComment || 'NA'}}</div>
+              </div>
+              <!-- <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15 display-none-mb"></div> -->
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

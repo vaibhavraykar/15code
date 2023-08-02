@@ -1,0 +1,31 @@
+
+  
+  .accordion-item {
+    display: block;
+    margin: 10px 0;
+    border: 1px solid  #ccc;
+    width: 100%;
+  }
+  
+  
+  .accordion-item-header {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+  }
+  
+  .accordion-item-description {
+    font-size: 24px;
+    color: #999;
+  }
+  
+  .accordion-item-header,
+  .accordion-item-body {
+    padding: 16px;
+  }
+  
+  .accordion-item-header {
+    cursor: pointer;
+    background-color: var(--lblue2);
+  }
+  

@@ -1,0 +1,44 @@
+.send-otp-component {
+  .otp {
+    img {
+      width: 77px;
+      height: 77px;
+    }
+  }
+  .text-info {
+    display: flex;
+    justify-content: center;
+    p {
+      width: 80%;
+    }
+  }
+  .info {
+    text-align: left;
+    display: flex;
+    img {
+      width: 15px;
+      height: 15px;
+    }
+    .info-text {
+      padding-left: 10px;
+      opacity: 0.8;
+    }
+  }
+  .otpError {
+    color: red;
+    font-size: 12px;
+    font-family: "Lato", sans-serif !important;
+  }
+
+  ::ng-deep .ng-otp-input-wrapper .otp-input {
+    font-weight: bold !important;
+    font-family: "Lato", sans-serif !important;
+    border: solid 2px #73bf45 !important;
+  }
+}
+.close {
+  cursor: pointer;
+  // float: right;
+  position: absolute;
+  right: 0;
+}

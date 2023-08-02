@@ -1,0 +1,140 @@
+<div class="view-transaction" style="padding: 20px 10px;">
+    <div class="mt-30 px-5 py-2 col-md-8 m-auto">
+        <span class="f-14 fontBold dgrey cpointer back" (click)="back()">
+            <mat-icon>keyboard_backspace</mat-icon> Back
+        </span>
+        <div class="boxShadow">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="col-md-11">
+                    <div class="yellow-txt f-14 fontBold">Transaction ID</div>
+                    <div class="label-text">{{viewData.transactionId}}</div>
+                </div>
+            </div>
+            <div class="mt-20" style="padding: 10px;">
+                <span class="f-14 fontBold blueText" style="margin-top: 20px;">View Transaction </span>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Product Type</div>
+                        <div class="info">{{viewData.factoringProductType}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">User Type</div>
+                        <div class="info">{{viewData.factoringUserType}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Status</div>
+                        <div class="info">{{viewData.status}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Amount</div>
+                        <div class="info">{{viewData.amount}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Invoice Number</div>
+                        <div class="info">{{viewData.invoiceNumber}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Date</div>
+                        <div class="info">{{viewData.date}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Tenure</div>
+                        <div class="info">{{viewData.tenor}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Due Date</div>
+                        <div class="info">{{viewData.dueDate}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Charges On</div>
+                        <div class="info">{{viewData.chargesOn}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Grace Period</div>
+                        <div class="info">{{viewData.gracePeriod}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Financing Period</div>
+                        <div class="info">{{viewData.finicingPeriod}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Country Of Origin</div>
+                        <div class="info">{{viewData.countryOrigin}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Country Of Discharge</div>
+                        <div class="info">{{viewData.countryDischarge}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Currency</div>
+                        <div class="info">{{viewData.currency}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">ESG Compliant</div>
+                        <div class="info">{{viewData.isESGCompliant?'YES':'NO'}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Underlying Goods</div>
+                        <div class="info">{{viewData.underlyingGoods}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                        <div class="col-md-3" *ngIf="viewData?.extraUnderlingGoods">
+                            <div class="label-text">Extra Underlying Goods</div>
+                            <div class="info">{{viewData.extraUnderlyingGoods}}</div>
+                        </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Debtor/Buyer</div>
+                        <div class="info">{{viewData.factoringUserType=='DEBTOR'?viewData.groupComapany.companyName:viewData.assignorToDebtor}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Assignor/Seller</div>
+                        <div class="info">{{viewData.factoringUserType=='ASSIGNOR'?viewData.groupComapany.companyName:viewData.debtorToAssignor}}</div>
+                    </div>
+                </div>
+                <div class="mt-20 table-container pricingTable" *ngIf="viewData?.eligibleFactoringTransactionDto">
+                    <table mat-table [dataSource]="dataSource" matSort>
+                        <ng-container matColumnDef="S. No.">
+                            <th mat-header-cell *matHeaderCellDef>S. No.</th>
+                            <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Factor Name">
+                            <th mat-header-cell *matHeaderCellDef>Factor Name</th>
+                            <td mat-cell *matCellDef="let element">{{ element.masterEntity?.companyName }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Pricing">
+                            <th mat-header-cell *matHeaderCellDef>Pricing</th>
+                            <td mat-cell *matCellDef="let element">
+                                <ng-container *ngIf="element.price">
+                                    Advance Rate(%): {{ element.price.advanceRate }} <br>
+                                    Interest Rate(%): {{ element.price.interestRate }} <br>
+                                    Factoring Commission(%): {{ element.price.factoringCommission }} <br>
+                                    360tf Platform Fee(%): {{ element.price.platformFee }}
+                                  </ng-container>
+                                  <ng-container *ngIf="!element.price">
+                                    No details
+                                  </ng-container>
+                              </td>
+                        </ng-container>
+                        <tr class="mat-row " *matNoDataRow>
+                            <td class="mat-cell text-center " [attr.colspan]="displayColumns.length">
+                                No Records Found.
+                            </td>
+                        </tr>
+                        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

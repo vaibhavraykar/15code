@@ -1,0 +1,46 @@
+<!-- <img (click)="close()" src="../../../../../assets/images/icons/Icon-close_black.svg" class="close"> -->
+
+<div class="send-otp-component  px-4 py-4 d-flex flex-column justify-content-center align-items-center">
+    <span class="circle-icon">
+        <mat-icon mat-dialog-close>
+            <img src="../../../../../assets/images/icons/Icon-close.svg">
+        </mat-icon>
+    </span>
+    <div class="col-md-10">
+        <div class="text-center apt15 otp">
+            <img src="../../../../../assets/images/icons/otp.png" />
+
+        </div>
+        <div class="text-center px-4 py-4">
+            <span class="blueText f-22 fontBold">Thank you for sharing access details</span>
+            <div class="text-info">
+                <p class="f-16 dgrey fontRegular mt-10">We have sent 5 digit passcode on your registered email address.
+                </p>
+            </div>
+            <div class="mt-20">
+                <ng-otp-input (onInputChange)="onMobileOtpChange($event)" [config]="config"
+                    style="margin: auto;"></ng-otp-input>
+            </div>
+            <div class="mt-20">
+                <div class="row">
+                    <span class="fontRegular f-14 cpointer" style="text-decoration: underline;"(click)="send()">Resend OTP</span>
+                </div>
+            </div>
+            <!-- <div class="fontRegular f-12 error mt-20" *ngIf="errorMessage2">{{errorMessage2}}</div> -->
+            <div class="mt-20" style="max-width: fit-content;margin: auto;">
+                <app-button [name]="'SUBMIT'" [class]="'primary-btn f-16 w100 fontBold'" type="submit" [type]="'button'"
+                    (click)="submit()"> VERIFY OTP</app-button>
+            </div>
+            <div *ngIf="otpError" class="otpError">
+                Show Error
+            </div>
+            <div class="mt-30">
+                <div class="fontRegular f-11 dgrey info-text"><img src="../../../../../assets/images/icons/Icon-info.svg"/>  Check your spam folder just in case our email has skipped
+                    your inbox.</div>
+            </div>
+            <div class="mt-30">
+                <!-- <div class="fontRegular f-11 dgrey info-text">Invalid OTP</div> -->
+            </div>
+        </div>
+    </div>
+</div>

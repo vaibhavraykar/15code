@@ -1,0 +1,143 @@
+<div class="all-detail-container mt-30">
+  <div class="">
+    <div class="d-flex align-items-center mb-20">
+      <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+      <div class="ml-12 darkBlackText">Viewing details for {{baauDetails?.bankName}}</div>
+    </div>
+    <div class="all-details-tab-container">
+      <div style="padding:24px" class="admin-user-wrapper">
+        <div class="">
+          <div class="col-md-11">
+            <div class="userid">Entity ID</div>
+            <div class="dark-text">{{baauDetails?.entityId}}</div>
+          </div>
+        </div>
+        <div class="mt-30 admin-user-container">
+          <mat-accordion>
+            <mat-expansion-panel expanded="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border">
+                  Personal Details
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="">
+                <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+                  <div class="row">
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Bank Name</div>
+                      <div class="dark-text">{{baauDetails.bankName}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Bank Country</div>
+                      <div class="dark-text">{{baauDetails?.country|| 'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Issuance Countries Interested</div>
+                      <div class="dark-text" style="display:inline" *ngFor="let data of baauDetails?.issuanceCountryList;let i = index">{{data}}<span *ngIf="baauDetails?.issuanceCountryList.length > i+1">, </span></div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Min. Value of LC</div>
+                      <div class="dark-text">{{baauDetails?.minLCValue || 'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Currency</div>
+                      <div class="dark-text">{{baauDetails?.currency || 'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Swift Code</div>
+                      <div class="dark-text">{{baauDetails?.swiftCode || 'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Landline No</div>
+                      <div class="dark-text">{{baauDetails?.landLineNumber || 'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Blacklisted Goods & commodities</div>
+                      <div class="dark-text" style="display:inline" *ngFor="let data of baauDetails?.blklstedGoods;let i = index">{{data}}<span *ngIf="baauDetails?.blklstedGoods.length > i+1">, </span></div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Beneficiary Countries Interested</div>
+                      <div class="dark-text" style="display:inline" *ngFor="let data of baauDetails?.beneficiaryCountryList;let i = index">{{data}}<span *ngIf="baauDetails?.beneficiaryCountryList.length > i+1">, </span></div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">First Name</div>
+                      <div class="dark-text">{{masterUserData?.[0].firstName}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Last Name</div>
+                      <div class="dark-text">{{masterUserData?.[0].lastName || 'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Email ID</div>
+                      <div class="dark-text">{{masterUserData?.[0].email || 'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Mobile No</div>
+                      <div class="dark-text">+ {{baauDetails?.countryExt}} {{masterUserData?.[0].mobileNo || 'NA'}}</div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border">
+                  RM Details
+                </mat-panel-title>
+                <mat-panel-description class="justify-content-end">
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="">
+                <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+                  <div class="row">
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">First Name</div>
+                      <div class="dark-text">{{baauDetails?.rmUser?.firstName ||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Last Name</div>
+                      <div class="dark-text">{{baauDetails?.rmUser?.lastName ||'NA'}}</div>
+                    </div>
+                    <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Designation</div>
+                      <div class="dark-text">{{baauDetails?.rmUser?.designation ||'NA'}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mt-30" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border">
+                  Additional Details
+                </mat-panel-title>
+                <mat-panel-description class="justify-content-end">
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="">
+                <div class=" subContainer" style="padding: 0 14px 15px 15px;">
+                  <table class="ownerTable mt-10">
+                    <tr class="fontBold">
+                      <!-- <th>Sr No.</th> -->
+                      <th class="light-text mb-4">First Name</th>
+                      <th class="light-text mb-4">Last Name</th>
+                      <th class="light-text mb-4">Email</th>
+                      <th class="light-text mb-4">Mobile No</th>
+                    </tr>
+                    <tr *ngFor="let data of passUserData; let i=index">
+                      <td>{{data.firstName}}</td>
+                      <td>{{data.lastName}}</td>
+                      <td>{{data.email}}</td>
+                      <td>{{data.mobileNo}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

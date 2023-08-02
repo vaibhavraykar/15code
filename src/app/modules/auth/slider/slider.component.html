@@ -1,0 +1,84 @@
+<!-- <div class="">
+    <div class="testimonial-carousel">
+      <ng-container *ngIf="testimonialList.length > 0">
+        <ngu-carousel
+          #myCarousel
+          [inputs]="carouselConfig"
+          [dataSource]="testimonialList"
+        >
+          <div *nguCarouselDef="let item" class="item">
+            <div class="tile">
+              <div>
+                <div class="image-src">
+                    <img [src]="item.src">
+                </div>
+                <div class="positionClass">
+                    <div class="title-text fontBold f-22 white-text" style="width: 62%; text-align: center; margin: auto; line-height: 30px;">
+                        {{ item?.title }}
+                    </div>
+                    
+                    <div
+                        class="myPoint mt-4 d-flex justify-content-center"
+                        NguCarouselPoint *ngIf="myCarousel">
+                        <div
+                        class="testimonial-dot-item mx-1"
+                        *ngFor="let i of myCarousel.pointNumbers"
+                        [class.active]="i === myCarousel.activePoint"
+                        (click)="myCarousel.moveTo(i)"
+                        ></div>
+                    </div>
+                </div> 
+                
+                
+              </div>
+            </div>
+          </div>
+  
+        
+        </ngu-carousel>
+      </ng-container>
+    </div>
+  </div> -->
+<div class="slider-com">
+  <ngb-carousel #carousel [interval]="5000" (slide)="onSlide($event)">
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="../../../../assets/images/icons/img_1.png" alt="Random first slide" />
+      </div>
+      <div class="carousel-caption">
+        <div class="positionClass">
+          <div class="title-text fontBold f-22 white-text" style="width: 62%; text-align: center; margin: auto; line-height: 30px;">
+            
+            Trade finance at your fingertips!
+          </div>
+        </div>
+        </div>
+    </ng-template>
+   <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="../../../../assets/images/icons/img_2.png" alt="Random second slide" />
+      </div>
+      <div class="carousel-caption">
+        <div class="positionClass">
+          <div class="title-text fontBold f-22 white-text" style="width: 80%; text-align: center; margin: auto; line-height: 30px;">
+            
+            One-Stop platform to meet your trade finance needs
+          </div>
+        </div>
+        </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="../../../../assets/images/icons/img_3.png" alt="Random third slide" />
+      </div>
+      <div class="carousel-caption">
+        <div class="positionClass">
+          <div class="title-text fontBold f-22 white-text" style="width: 80%; text-align: center; margin: auto; line-height: 30px;">
+            
+            Making Trade Finance Globally Accessible!
+          </div>
+        </div>
+        </div>
+    </ng-template>
+  </ngb-carousel>
+</div>

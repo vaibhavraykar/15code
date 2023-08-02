@@ -1,0 +1,64 @@
+.popup {
+    max-width: 600px;
+    border-radius: 10px !important;
+
+    .heading {
+        width: 100%;
+        font: normal normal bold 20px/24px Lato;
+        letter-spacing: 0.4px;
+        color: #FFFFFF;
+        opacity: 1;
+        background-color: var(--yellow);
+        text-align: center;
+        padding: 15px;
+    }
+
+    .heading-text {
+        color: #292929;
+        font: normal normal bold 16px/24px Lato;
+        letter-spacing: 0.32px;
+        color: #292929;
+    }
+    .mb-20{
+        margin-bottom: 20px;
+    }
+    .mt-20{
+        margin-top:20px
+    }
+    .sub_title {
+        font-size: 14px;
+        font-weight: 700;     
+        color: #3C4858;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+    }
+    .lite-text{
+        font-weight: 300!important;
+        line-height: 24px!important;
+    }
+
+    .save-btn {
+        background: #eb7203;
+        width: 100%;
+        height: 44px;
+        color: #fff;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+    }
+
+    ::ng-deep .pe-none {
+        pointer-events: none;
+    }
+
+    .no_wrap {
+        flex-wrap: nowrap;
+
+        @media (max-width: 768px) {
+            flex-wrap: wrap;
+        }
+    }
+}
+
+p {
+    margin-bottom: 0 !important;
+}

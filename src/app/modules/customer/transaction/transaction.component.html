@@ -1,0 +1,313 @@
+<div class="sidebar-wrapper l-blue-bg" #autoAdjust>
+	<mat-sidenav-container id="transDash"  [ngClass]="isOpen == true ? 'toggle-open' : 'toggle-close'">
+		<mat-sidenav #sideNav mode="side" opened class="col-md-2" *ngIf="!unApprovedUser">
+
+			<mat-nav-list>
+				<li class="menu cpointer" *ngIf="!isOpen" style="padding-top: 20px;">
+					<img src="../../../../assets/images/icons/hamburger-menu.png" (click)="openSidebar()"
+					#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Menu"
+					>
+				</li>
+				<li class="row m0 openMenu" *ngIf="isOpen" style="padding-top: 20px; margin: 0 0 30px 0;">
+					<div class="col-9 col-md-9 f-22 fontBold white-text">
+						<!-- Menu -->
+						<img src="../../../../assets/images/icons/hamburger-menu.png" style="width:20px" (click)="openSidebar()">
+					</div>
+					<div class="col-3 col-md-3 cpointer" (click)="closeSidebar()"><mat-icon>close</mat-icon></div>
+				</li>
+				<li (click)="goTo('Dashboard')" class="menuLi">
+					<div class="d-flex justify-content-center">
+						<div class="img-cont">
+							<img src="../../../assets/images/factoring/sidebar-Dashboard.svg"
+							*ngIf="!isOpen"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Dashboard"
+							>
+							<img src="../../../assets/images/factoring/sidebar-Dashboard.svg"
+							*ngIf="isOpen"
+							>
+						</div>
+						<div class="f-16 fontRegular white-text" *ngIf="isOpen">
+							Dashboard
+						</div>
+					</div>
+				</li>
+				<li  class="menuLi" (click)="goTo('Customer Transactions')">
+					<div class="d-flex justify-content-center">
+						<div class="img-cont">
+							<img src="../../../assets/images/factoring/sidebar-All trns.svg"
+							*ngIf="!isOpen"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="New Transactions">
+							<img src="../../../assets/images/factoring/sidebar-All trns.svg"
+							*ngIf="isOpen">
+						</div>
+						<div class="f-16 fontRegular white-text" *ngIf="isOpen">New Transactions</div>
+					</div>
+				</li>
+				<li (click)="goTo('Active Transaction')" class="menuLi">
+					<div class="d-flex justify-content-center">
+						<div class="img-cont">
+							<img src="../../../assets/images/factoring/sidabar-Active trans.svg"
+							*ngIf="!isOpen"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Active Transaction">
+							<img src="../../../assets/images/factoring/sidabar-Active trans.svg"
+							*ngIf="isOpen">
+						</div>
+						<div class="f-16 fontRegular white-text" *ngIf="isOpen">
+							Active Transaction
+						</div>
+					</div>
+				</li>
+				<li (click)="goTo('Previous Transaction')" class="menuLi">
+					<div class="d-flex justify-content-center">
+						<div class="img-cont">
+							<img src="../../../assets/images/factoring/sidebar-Previous.svg"
+							*ngIf="!isOpen"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Previous Transaction">
+							<img src="../../../assets/images/factoring/sidebar-Previous.svg"
+							*ngIf="isOpen">
+						</div>
+						<div class="f-16 fontRegular white-text" *ngIf="isOpen">
+							Previous Transaction
+						</div>
+					</div>
+				</li>
+				<li (click)="goTo('Saved Transaction')" class="menuLi">
+					<div class="d-flex justify-content-center">
+						<div class="img-cont">
+							<img src="../../../assets/images/factoring/sideba-Saved.svg"
+							*ngIf="!isOpen"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Saved Transaction">
+							<img src="../../../assets/images/factoring/sideba-Saved.svg"
+							*ngIf="isOpen">
+						</div>
+						<div class="f-16 fontRegular white-text" *ngIf="isOpen">
+							Saved Transaction
+						</div>
+					</div>
+				</li>
+				<li class="menuLi" (click)="goTo('All Transactions')">
+					<div class="d-flex justify-content-center">
+						<div class="img-cont">
+							<img src="../../../assets/images/factoring/sidebar-New trns.svg"
+							*ngIf="!isOpen"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="All Transactions">
+							<img src="../../../assets/images/factoring/sidebar-New trns.svg"
+							*ngIf="isOpen">
+						</div>
+						<div class="f-16 fontRegular white-text" *ngIf="isOpen">
+							All Transactions
+						</div>
+					</div>
+				</li>
+
+				<div class="factoring" style="border-top: 1px solid #fff; padding-top: 30px;">
+					<div class="factoring">
+						<div class="f-16 fontRegular white-text" style="margin-bottom: 10px; padding-left: 10px;"
+							*ngIf="isOpen">Corporate (Factoring)</div>
+						<li (click)="goTo('New Transaction')" class="menuLi">
+							<div class="d-flex justify-content-center">
+								<div class="img-cont">
+									<img src="../../../assets/images/factoring/sidebar-Dashboard.svg"
+									*ngIf="!isOpen"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="New Transaction">
+									<img src="../../../assets/images/factoring/sidebar-Dashboard.svg"
+									*ngIf="isOpen">
+								</div>
+								<div class="f-16 fontRegular white-text" *ngIf="isOpen">
+									New Transaction
+								</div>
+							</div>
+						</li>
+
+						<li (click)="goTo('Transaction Preview')" class="menuLi">
+							<div class="d-flex justify-content-center">
+								<div class="img-cont">
+									<img src="../../../assets/images/factoring/sidebar-Previous.svg"
+									*ngIf="!isOpen"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Transaction Preview">
+									<img src="../../../assets/images/factoring/sidebar-Previous.svg"
+									*ngIf="isOpen">
+							
+								</div>
+								<div class="f-16 fontRegular white-text" *ngIf="isOpen">
+									Transaction Preview
+								</div>
+							</div>
+						</li>
+						<li (click)="goTo('Transaction Details')" class="menuLi">
+							<div class="d-flex justify-content-center">
+								<div class="img-cont">
+									<img src="../../../assets/images/factoring/sidabar-Active trans.svg"
+									*ngIf="!isOpen"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="All Transaction">
+									<img src="../../../assets/images/factoring/sidabar-Active trans.svg"
+									*ngIf="isOpen">
+								</div>
+								<div class="f-16 fontRegular white-text" *ngIf="isOpen">
+									All Transaction
+								</div>
+							</div>
+						</li>
+					</div>
+				</div>
+			</mat-nav-list>
+			<!-- <mat-nav-list>
+				<li
+					class="menu cpointer"
+					*ngIf="!isOpen"
+					style="padding-top: 20px"
+				>
+					<img
+						src="../../../../assets/images/icons/hamburger-menu.png"
+						(click)="openSidebar()"
+					/>
+				</li>
+				<li
+					class="row m0 openMenu"
+					*ngIf="isOpen"
+					style="padding-top: 20px; margin: 0 0 30px 0"
+				>
+					<div class="col-9 col-md-9 f-22 fontBold white-text">Menu</div>
+					<div class="col-3 col-md-3 cpointer" (click)="closeSidebar()">
+						<mat-icon>close</mat-icon>
+					</div>
+				</li>
+				<li class="menuLi">
+					<div class="d-flex justify-content-center">
+						<div class="img-cont">
+							<img
+								src="../../../assets/images/factoring/sidebar-Dashboard.svg"
+							/>
+						</div>
+						<div
+							class="f-16 fontRegular white-text"
+							*ngIf="isOpen"
+						>
+							Dashboard
+						</div>
+					</div>
+				</li>
+				<li class="menuLi">
+					<div class="d-flex justify-content-center">
+						<div class="img-cont">
+							<img
+							src="../../../assets/images/factoring/sidabar-Active trans.svg"
+							/>
+						</div>
+						<div
+							class="f-16 fontRegular white-text"
+							*ngIf="isOpen"
+						>
+							All Transaction
+						</div>
+					</div>
+				</li>
+				<li class="menuLi">
+					<div class="d-flex justify-content-center">
+						<div class="img-cont">
+							<img
+							src="../../../assets/images/factoring/sidebar-Previous.svg"
+							/>
+						</div>
+						<div
+							class="f-16 fontRegular white-text"
+							*ngIf="isOpen"
+						>
+							Active Transaction
+						</div>
+					</div>
+				</li>
+
+			  <li  class="menuLi">
+				<div class="d-flex justify-content-center">
+				  <div class="img-cont">
+					<img src="../../../assets/images/factoring/sideba-Saved.svg">
+				  </div>
+				  <div
+				  class="f-16 fontRegular white-text"
+				  *ngIf="isOpen"
+			  >
+				  Prvieous Transaction
+			  </div>
+				</div>
+			  </li>
+			  <li class="menuLi">
+				<div class="d-flex justify-content-center">
+				  <div class="img-cont">
+					<img src="../../../assets/images/factoring/sidebar-New trns.svg">
+				  </div>
+				  <div
+				  class="f-16 fontRegular white-text"
+				  *ngIf="isOpen"
+			  >
+				  Save Transaction
+			  </div>
+				</div>
+			  </li>
+			<li class="menuLi">
+			  <div class="d-flex justify-content-center">
+				<div class="img-cont">
+				  <img src="../../../assets/images/factoring/sidebar-All trns.svg">
+				</div>
+
+			  </div>
+			</li>
+			</mat-nav-list> -->
+		</mat-sidenav>
+
+		<mat-sidenav-content class="col-md-10">
+			<div>
+				<app-header></app-header>
+			</div>
+
+			<div class="" >
+				<!-- <div class="stepper d-block d-md-none mb-3"   [attr.data-url]="router.url">
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="completed">
+							<a href="#step-1" data-toggle="tab" aria-controls="step-1" role="tab" title="Step 1">
+								<span class="round-tab"><img src="../../../../assets/images/icons/icon-kyc details.svg"
+										alt="icon" /></span>
+							</a>
+						</li>
+						<li role="presentation" class="completed active">
+							<a href="#step-2" data-toggle="tab" aria-controls="step-2" role="tab" title="Step 2">
+								<span class="round-tab"><img src="../../../../assets/images/icons/icon-kyc details.svg"
+										alt="icon" /></span>
+							</a>
+						</li>
+						<li role="presentation" class="disabled">
+							<a href="#step-3" data-toggle="tab" aria-controls="step-3" role="tab" title="Step 2">
+								<span class="round-tab"><img src="../../../../assets/images/icons/icon-sub-details.svg"
+										alt="icon" /></span>
+							</a>
+						</li>
+					</ul>
+				</div> -->
+
+				<div class="m-auto">
+					<router-outlet></router-outlet>
+				</div>
+			</div>
+		</mat-sidenav-content>
+	</mat-sidenav-container>
+</div>

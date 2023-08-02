@@ -1,0 +1,112 @@
+@import '../../../components/table/table.component.scss';
+@import '../../../components/common-popup/common-popup.component.scss';
+
+.planAndPayment {
+  color: #eb7203;
+  cursor: pointer;
+}
+
+.newDrop {
+  display: flex !important;
+  height: 48px !important;
+  ::ng-deep {
+    .mdc-text-field {
+      background-color: #fff;
+      margin-top: 1%;
+    }
+
+    .mdc-text-field {
+      // border: 1px solid #D0D0D0;
+    }
+
+    label {
+      font-size: 11px;
+      color: #727272;
+    }
+
+    .mdc-text-field--outlined {
+      border-radius: 0 0 0 0;
+      height: 40px !important;
+    }
+
+    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
+      border: 0px;
+    }
+
+    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
+      border: 0px;
+    }
+
+    .mdc-notched-outline__notch {
+      border: 0px;
+    }
+
+    .mat-mdc-select-arrow {
+      opacity: 0;
+    }
+
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+      display: flex;
+      height: 48px !important;
+    }
+
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+      padding-top: 3% !important;
+      // padding-bottom: 16px !important;
+    }
+
+    // .mat-mdc-form-field {
+    //   height: 48px !important;
+    // }
+  }
+}
+.wid{
+  width: 16rem !important;
+}
+
+.newInput {
+  ::ng-deep {
+    .mdc-text-field {
+      background-color: #fff;
+    }
+
+    .mdc-text-field {
+      border: 1px solid #D0D0D0;
+    }
+
+    label {
+      font-size: 11px;
+      color: #727272;
+    }
+
+    .mdc-text-field--outlined {
+      border-radius: 0 0 0 0;
+    }
+
+    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
+      border-radius: 0px;
+    }
+
+    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
+      border-radius: 0px;
+    }
+
+    .mdc-notched-outline__notch {
+      border-radius: 0px;
+    }
+
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+      padding-top: 16px !important;
+      padding-bottom: 16px !important;
+    }
+
+  }
+}
+.approveBtn{
+  background: linear-gradient(90deg, #FF922E 0%, #EB7203 100%);
+  border-radius: 4px;
+  color:white !important;
+  border-radius: 4px;
+  width: 80px;
+  height: 32px;
+}

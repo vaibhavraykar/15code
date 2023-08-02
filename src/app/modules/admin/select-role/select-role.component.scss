@@ -1,0 +1,12 @@
+.Close{
+    background-color: var(--yellow);
+    color: var(--white);
+    padding: 15px;
+    position: relative;
+    .circle-icon {
+        position: absolute;
+        right: 8px;
+        top: 10px;
+        cursor: pointer;
+    }
+  }

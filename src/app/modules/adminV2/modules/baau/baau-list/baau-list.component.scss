@@ -1,0 +1,9 @@
+@import '../../customers/customer-list/customer-list.component.scss';
+.baau-list {
+    ::ng-deep {
+      .mdc-notched-outline {
+        border-radius: 5px;
+        border: 1px solid #D0D0D0;
+      }
+    }
+  }

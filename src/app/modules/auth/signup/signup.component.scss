@@ -1,0 +1,190 @@
+.signup-component {
+    background: var(--light-blue);
+    height: 100vh;
+    padding: 1.5% 5%;
+    ::ng-deep {
+        .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+            flex-grow: 0 !important;
+        }
+        ::ng-deep .mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab, .mat-mdc-tab.mdc-tab {
+            width: 50% !important;
+          }
+    }
+    .header-wrapper {
+        // display: flex;
+        // padding: 10px;
+        justify-content: center;
+        .logo {
+            width: 86px;
+            // margin: auto;
+            // margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    }
+    .col {
+        display: contents;
+        .col-md-4 {
+            width: 27% !important;
+            margin-bottom: 35px;
+        }
+        .cards{
+            width: 145px;
+            height: 113px;
+            border-radius: 12px;
+           
+            border: 2px solid var(--lblue2);
+            cursor: pointer;
+            p {
+                margin-bottom: 0 !important;
+            }
+        }
+        
+        .clicked{
+            border: 1px solid var(--yellow);
+            color: var(--yellow);
+            font-weight: 700;
+            box-shadow: 0px 1px 20px #00000029;
+        }
+    }
+   .tab-container-new {
+        background-color: #fff;
+        margin: 1% 10%;
+        
+   }
+   ::ng-deep .mat-mdc-tab-body-wrapper {
+        margin-top: 30px;
+    }
+    ::ng-deep .mat-mdc-tab-body-content {
+        overflow: hidden !important;
+    }
+
+    .visited_both {
+        ::ng-deep {
+	
+          .mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab__text-label {
+            color: var(--yellow) !important;
+          }
+      
+          .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active
+            .mdc-tab-indicator__content--underline {
+            border-color: var(--yellow) !important;
+          }
+      
+          .mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab__text-label {
+            color: var(--yellow) !important;
+          }
+          .mdc-tab-indicator__content,
+          .mdc-tab-indicator--active .mdc-tab-indicator__content {
+            opacity: 1 !important;
+            border-color: var(--yellow) !important;
+          }
+          .mdc-tab__text-label {
+            color: var(--yellow) !important;
+          }
+      
+          // .mdc-tab-indicator__content{
+          //     border-color: var(--yellow) !important;
+          // }
+        }
+      }
+      
+      .visited_one {
+        ::ng-deep {
+          .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active {
+            .mdc-tab-indicator__content--underline {
+              border-color: var(--blue) !important;
+            }
+            .mdc-tab__text-label {
+              color: var(--blue) !important;
+            }
+          }
+        }
+      }
+  
+}
+.error-msg {
+    font-size: 14px;
+        font-size: 14px;
+        font-family: 'Lato', sans-serif !important;
+        color: red;
+} 
+.isDesktop {
+    display: block;
+}
+.isMobile {
+    display: none;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .signup-component {
+        .tab-container-new {
+            margin: 1% 1%;
+        }     
+        
+    }  
+    .px-5 {
+        padding-right: 2rem !important;
+        padding-left: 2rem !important;
+    }  
+}
+@media screen and (max-width: 767px) {
+    .signup-component {
+        padding: 5% 5%;
+        .header-wrapper {
+            .logo {
+                margin: auto;
+            }
+            .heading-text {
+                text-align: center;
+                margin-top: 20px;   
+                margin-bottom: 20px;             
+            }
+        }
+        .tab-container-new {
+            margin-top: 20px;
+            margin: inherit !important;
+            height: inherit !important;
+        }
+    }
+    .px-5 {
+        height: inherit !important;
+        padding-right: inherit !important;
+        padding-left: inherit !important;
+    }
+    .addH {
+        height: 33vh;
+    }
+    .isDesktop {
+    display: none;
+}
+.isMobile {
+    display: block;
+    .col-md-6 {
+        display: flex;
+        width: 50%;
+        margin-bottom: 10px;
+        .col-md-4 {
+            width: 27% !important;
+            margin-bottom: 35px;
+        }
+        .cards{
+            width: 145px;
+            height: 113px;
+            border-radius: 12px;
+           
+            border: 2px solid var(--lblue2);
+            cursor: pointer;
+            p {
+                margin-bottom: 0 !important;
+            }
+        }
+        
+        .clicked{
+            border: 1px solid var(--yellow);
+            color: var(--yellow);
+            font-weight: 700;
+            box-shadow: 0px 1px 20px #00000029;
+        }
+    }
+}
+}

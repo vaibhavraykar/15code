@@ -1,0 +1,83 @@
+<div class="all-grant-container">
+  <!-- <div class="">
+    <div class="all-grant-tab-container"> -->
+      <mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedTabChange)="onTabSelected($event.index)">
+        <mat-tab *ngIf='myRights.includes("CREATE_USER_GRANT")'>
+          <ng-template mat-tab-label>
+            <p class="tabHeadingStyle">User</p>
+          </ng-template>
+          <div class="tab-head">
+            <app-approve-reject-user></app-approve-reject-user>
+          </div>
+        </mat-tab>
+        <mat-tab *ngIf='myRights.includes("KYC_GRANT")'>
+          <ng-template mat-tab-label>
+            <p class="tabHeadingStyle">KYC</p>
+          </ng-template>
+          <div class="tab-head">
+            <app-grant-kyc></app-grant-kyc>
+          </div>
+        </mat-tab>
+        <mat-tab *ngIf='myRights.includes("PAYMENT_APPROVAL")'>
+          <ng-template mat-tab-label>
+            <p class="tabHeadingStyle">Payment</p>
+          </ng-template>
+          <div class="tab-head">
+            <app-grant-payment></app-grant-payment>
+          </div>
+        </mat-tab>
+        <mat-tab *ngIf='myRights.includes("PAYMENT_APPROVAL")'>
+          <ng-template mat-tab-label>
+            <p class="tabHeadingStyle">Transaction</p>
+          </ng-template>
+          <div class="tab-head">
+            <app-grant-transaction></app-grant-transaction>
+          </div>
+        </mat-tab>
+        <mat-tab *ngIf='myRights.includes("DISCOUNT_MGMT_GRANT")'>
+          <ng-template mat-tab-label>
+            <p class="tabHeadingStyle">Discount</p>
+          </ng-template>
+          <div class="tab-head">
+            <app-accept-reject-coupon></app-accept-reject-coupon>
+          </div>
+        </mat-tab>
+        <mat-tab *ngIf='myRights.includes("GRANT_RMS")'>
+          <ng-template mat-tab-label>
+            <p class="tabHeadingStyle">RM</p>
+          </ng-template>
+          <div class="tab-head">
+            <app-grant-rm></app-grant-rm>
+          </div>
+        </mat-tab>
+        <mat-tab *ngIf='myRights.includes("SUBSCRIPTION_MGMT_GRANT")'>
+          <ng-template mat-tab-label>
+            <p class="tabHeadingStyle">Subscription/VAS</p>
+          </ng-template>
+          <div class="tab-head">
+            <app-grant-subscription></app-grant-subscription>
+          </div>
+        </mat-tab>
+        <mat-tab *ngIf='myRights.includes("KYC_GRANT")'>
+          <ng-template mat-tab-label>
+            <p class="tabHeadingStyle">Group Company KYC</p>
+          </ng-template>
+          <div class="tab-head">
+            <app-grant-gc-kyc></app-grant-gc-kyc>
+          </div>
+        </mat-tab>
+
+        <mat-tab *ngIf='myRights.includes("KYC_GRANT")'>
+          <ng-template mat-tab-label>
+            <p class="tabHeadingStyle">Bulk Upload</p>
+          </ng-template>
+          <div class="tab-head">
+            <!-- <app-grant-gc-kyc></app-grant-gc-kyc> -->
+            <app-bulk-transaction></app-bulk-transaction>
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+    <!-- </div>
+  </div> -->
+</div>

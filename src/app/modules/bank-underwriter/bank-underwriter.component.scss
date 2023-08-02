@@ -1,0 +1,130 @@
+.sidebar-wrapper {
+  .bgclr {
+    background-color: #0f3c9c !important;
+  }
+
+  .mb-0 {
+    margin-bottom: 0 !important;
+  }
+
+  ::ng-deep {
+    .mat-expansion-panel-header {
+      height: 40px;
+    }
+    .mat-expansion-indicator::after {
+      color: white !important;
+    }
+
+    .mat-expansion-indicator {
+      padding: 0 !important;
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0 !important;
+    }
+
+    .mat-expansion-panel-header {
+      padding: 0 !important;
+      padding-right: 10px !important;
+    }
+
+    .mat-expansion-panel-header-title {
+      margin-right: 0 !important;
+    }
+
+    .mat-content.mat-content-hide-toggle {
+      margin-right: 0 !important;
+    }
+
+    .mat-expansion-panel:not([class*=mat-elevation-z]) {
+      box-shadow: none !important;
+    }
+  }
+}
+.sidebar-wrapper {
+    height: 100vh;
+    .mat-drawer-container {
+      height: 100%;
+    }
+    .mat-mdc-nav-list {
+      background-color: #0f3c9c;
+      height: 100%;
+      // text-align: center;
+    }
+    .menu {
+      img {
+        width: 20px;
+        margin-bottom: 30px;
+      }
+    }
+    .menuLi {
+      img {
+        margin-bottom: 30px;
+      }
+    }
+    .img-cont {
+      margin-top: 5px;
+    }
+  }
+
+  .openMenu {
+    .mat-icon {
+      color: var(--white);
+    }
+  }
+
+  .toggle-open {
+    .col-md-2 {
+      width: 214px !important;
+      transition: 0.5s;
+    }
+    .col-md-10 {
+      width: calc(100% - 214px) !important;
+      padding: 10px 20px;
+      background-color: var(--light-blue);
+      margin-left: 214px !important;
+      transition: 0.5s;
+    }
+    .mat-mdc-nav-list {
+      text-align: left;
+    }
+    .justify-content-center {
+      justify-content: left !important;
+    }
+    .menuLi {
+      padding: 0 12px;
+      cursor: pointer;
+    }
+    .img-cont {
+      margin-right: 15px;
+    }
+  }
+  .toggle-close {
+    .col-md-2 {
+      width: 60px !important;
+      transition: 0.5s;
+    }
+    .col-md-10 {
+      transition: 0.5s;
+      width: calc(100% - 60px);
+      background-color: var(--light-blue);
+      margin-left: 60px !important;
+      padding: 10px 30px;
+    }
+    .mat-mdc-nav-list {
+      text-align: center;
+    }
+    .justify-content-center {
+      justify-content: center !important;
+    }
+    .img-cont {
+      margin-right: 0;
+      cursor: pointer;
+    }
+  }
+::ng-deep{
+	.mdc-tooltip--shown .mdc-tooltip__surface-animation {
+		color:black !important;
+		background-color: white !important;
+	}
+}

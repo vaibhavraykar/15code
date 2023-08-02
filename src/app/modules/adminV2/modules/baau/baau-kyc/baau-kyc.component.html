@@ -1,0 +1,377 @@
+<div class="all-detail-container mt-30 kyc">
+  <div class="">
+    <div class="d-flex align-items-center mb-20">
+      <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+      <div class="ml-12 darkBlackText">View KYC details for {{data?.personalDetails?.firstName}}
+        {{data?.personalDetails?.lastName}}</div>
+    </div>
+    <div class="all-details-tab-container">
+      <div style="padding:24px" class="admin-user-wrapper">
+        <div class="mt-30 admin-user-container">
+          <mat-accordion>
+            <mat-expansion-panel expanded="false" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border fw-600">
+                  Personal KYC
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class=" subContainer" style="padding:15px;">
+                <div class="row" *ngFor="let personalKycList of data?.kycDetails?.[1]?.documentList;let i=index">
+                  <div class="">
+                    <!-- Country to Current Status -->
+                    <div class="row">
+                      <p class="fontBold f-12  mt-15" style="color:#fd7e14">KYC Detail {{i+1}}</p>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                        <div class="light-text mb-4">Country</div>
+                        <div class="dark-text">{{personalKycList?.country}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                        <div class="light-text mb-4">Document<img
+                            src="../../../../../assets/images/adminV2/carbon_document-view.svg"
+                            *ngIf="personalKycList?.url" (click)="viewDocument(personalKycList?.url,personalKycList?.documentType)" align="right">
+                        </div>
+                        <div class="dark-text">{{personalKycList?.documentName}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                        <div class="light-text mb-4">Current Status</div>
+                        <div class="dark-text">{{personalKycList?.kycStatus}}</div>
+                      </div>
+                    </div>
+                    <!-- End Country to Current Status -->
+                    <div class="row" *ngIf="personalKycList?.kycStatus != 'PENDING' && i != 0 ">
+                      <!-- kyc is not pending and not the latest record -->
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="personalKycList?.makerComment ">
+                        <div class="light-text mb-4">Maker Comment</div>
+                        <div class="dark-text">{{personalKycList?.makerComment}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                        <div class="light-text mb-4">Maker Approved By</div>
+                        <div class="dark-text">{{personalKycList?.makerApprovedBy}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  mt-15"
+                        *ngIf="this.data?.kycDetails?.[1]?.documentList[0]?.makerApprovalDate">
+                        <div class="light-text mb-4">Maker Approved Date</div>
+                        <div class="dark-text">{{this.makerDate.split(' GMT')[0]||'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  mt-15"
+                        *ngIf="personalKycList?.checkerApprovedBy">
+                        <div class="light-text mb-4">Checker Approved By</div>
+                        <div class="dark-text">{{personalKycList?.checkerApprovedBy||'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  mt-15"
+                        *ngIf="this.data?.kycDetails?.[1]?.documentList[0]?.checkerApprovalDate">
+                        <div class="light-text mb-4">Checker Approved Date</div>
+                        <div class="dark-text">{{this.checkerDate.split(' GMT')[0]||'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="personalKycList?.checkerComment ">
+                        <div class="light-text mb-4">Checker Comment</div>
+                        <div class="dark-text">{{personalKycList?.checkerComment}}</div>
+                      </div>
+                    </div><br>
+                    <!-- for latest record and status is pending -->
+                    <div class="row" *ngIf="i==0">
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="!data.businessDetails?.sourceList && personalKycList?.kycStatus == 'PENDING' && myRights.includes('KYC_APPROVE')">
+                        <!-- source empty -->
+                        <mat-form-field appearance="outline" class="w100 newDrop">
+                          <mat-label>Source*</mat-label>
+                          <mat-select (selectionChange)="getSource($event)">
+                            <mat-option *ngFor="let item of allSourceList" [value]="item"
+                              style="font-size:medium">{{item.sourceName}}</mat-option>
+                          </mat-select>
+                          <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="data.businessDetails?.sourceList">
+                        <!-- source having values -->
+                        <div class="light-text mb-4">Source</div>
+                        <div class="dark-text">{{data.businessDetails?.sourceList}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="!data.businessDetails?.rmUser && personalKycList?.kycStatus == 'PENDING' && myRights.includes('KYC_APPROVE')">
+                        <!-- onboarded empty -->
+                        <mat-form-field appearance="outline" class="w100 newDrop">
+                          <mat-label>Onboarded By*</mat-label>
+                          <mat-select (selectionChange)="getRm($event)">
+                            <mat-option *ngFor="let item of rmList" style="font-size:medium"
+                              [value]="item.id">{{item.firstName}} {{item.lastName}}</mat-option>
+                          </mat-select>
+                          <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="data.businessDetails?.rmUser">
+                        <!-- onboarded having values -->
+                        <div class="light-text mb-4">Onboarded By</div>
+                        <div class="dark-text">{{data.businessDetails?.rmUser?.firstName +
+                          data.businessDetails?.rmUser?.lastName}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="!personalKycList?.makerComment && i == 0 && personalKycList?.kycStatus == 'PENDING' && myRights.includes('KYC_APPROVE')">
+                        <!-- comment empty and latest record -->
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                          <mat-label>Comment*</mat-label>
+                          <input type="text" matInput [(ngModel)]="personalComment" (input)="comment('PERSONAL')">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="personalKycList?.makerComment ">
+                        <!-- comment having values and latest record -->
+                        <div class="light-text mb-4">Maker Comment</div>
+                        <div class="dark-text">{{personalKycList?.makerComment}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="personalKycList?.makerApprovedBy">
+                        <div class="light-text mb-4">Maker Approved By</div>
+                        <div class="dark-text">{{personalKycList?.makerApprovedBy}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="this.data?.kycDetails?.[1]?.documentList[0]?.makerApprovalDate">
+                        <div class="light-text mb-4">Maker Approved Date</div>
+                        <div class="dark-text">{{this.makerDate.split(' GMT')[0]||'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="personalKycList?.checkerApprovedBy">
+                        <div class="light-text mb-4">Checker Approved By</div>
+                        <div class="dark-text">{{personalKycList?.checkerApprovedBy||'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="this.data?.kycDetails?.[1]?.documentList[0]?.checkerApprovalDate">
+                        <div class="light-text mb-4">Checker Approved Date</div>
+                        <div class="dark-text">{{this.checkerDate.split(' GMT')[0]||'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="personalKycList?.checkerComment ">
+                        <!-- comment having values and latest record -->
+                        <div class="light-text mb-4">Checker Comment</div>
+                        <div class="dark-text">{{personalKycList?.checkerComment}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="data.businessDetails?.otherSource">
+                        <!-- comment having values and latest record -->
+                        <div class="light-text mb-4">Source Comment</div>
+                        <div class="dark-text">{{data.businessDetails?.otherSource}}</div>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="i==0">
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="showSourceComment && !data.businessDetails?.otherSource && personalKycList?.kycStatus == 'PENDING' ">
+                        <!-- only when source is OTHERS and SA DESK -->
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                          <mat-label>Source Comment*</mat-label>
+                          <input type="text" matInput *ngIf="!personalKycList?.makerComment" [(ngModel)]="otherSource">
+                          <input type="text" matInput *ngIf="personalKycList?.makerComment"
+                            [value]="personalKycList?.makerComment" readonly>
+                        </mat-form-field>
+                      </div>
+
+
+                    </div>
+                    <!-- END for i == 0 and status is pending -->
+
+                    <div class="row mt-10" style="justify-content: end;"
+                      *ngIf="personalKycList?.kycStatus == 'PENDING' && i==0 && myRights.includes('KYC_APPROVE')">
+                      <!-- Personal KYC approve -->
+                      <div class="col-md-1">
+                        <button mat-raised-button class="approveBtn" [disabled]="showAcceptRejectPersonal"
+                          (click)="kycPersonalAction(data.personalDetails?.id,'PERSONAL','MAKER_APPROVED',personalKycList?.id)">Approve</button>
+                      </div>
+                      <div class="col-md-1">
+                        <button mat-raised-button class="rejectBtn" [disabled]="showAcceptRejectPersonal"
+                          (click)="kycPersonalAction(data.personalDetails?.id,'PERSONAL','REJECTED',personalKycList?.id)">Reject</button>
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+
+              </div>
+            </mat-expansion-panel>
+            <br>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border fw-600">
+                  Business KYC
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class=" subContainer" style="padding:15px;">
+                <div class="row" *ngFor="let businessKycList of data.kycDetails?.[0]?.documentList;let j = index">
+                  <span class="fontBold f-12 " style="color:#fd7e14">KYC Detail {{j+1}}</span>
+                  <div class="">
+                    <div class="row">
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                        <div class="light-text mb-4">Country</div>
+                        <div class="dark-text">{{businessKycList?.country}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                        <div class="light-text mb-4">Document <span style="margin-left:55%"><img
+                              src="../../../../../assets/images/adminV2/carbon_document-view.svg" *ngIf="businessKycList?.url"
+                              (click)="viewDocument(businessKycList?.url,businessKycList?.documentType)"></span></div>
+                        <div class="dark-text">{{businessKycList?.documentName}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                        <div class="light-text mb-4">Current Status</div>
+                        <div class="dark-text">{{businessKycList?.kycStatus}}</div>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="businessKycList?.kycStatus != 'PENDING' && j != 0 ">
+                      <!-- kyc is not pending and not the latest record -->
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                        <div class="light-text mb-4">Maker Comment</div>
+                        <div class="dark-text">{{businessKycList?.makerComment}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="businessKycList?.makerApprovedBy && businessKycList?.kycStatus != 'PENDING' && j != 0">
+                        <div class="light-text mb-4">Maker Approved By</div>
+                        <div class="dark-text">{{businessKycList?.makerApprovedBy || 'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12  mt-15"
+                        *ngIf="this.data?.kycDetails?.[0]?.documentList[0]?.makerApprovalDate && businessKycList?.kycStatus != 'PENDING' && j != 0">
+                        <div class="light-text mb-4">Maker Approved Date</div>
+                        <div class="dark-text">{{this.bsnsmakerDate.split(' GMT')[0]||'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="businessKycList?.checkerApprovedBy && businessKycList?.kycStatus != 'PENDING' && j != 0">
+                        <div class="light-text mb-4">Checker Approved By</div>
+                        <div class="dark-text">{{businessKycList?.checkerApprovedBy||'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="this.data?.kycDetails?.[0]?.documentList[0]?.checkerApprovalDate && businessKycList?.kycStatus != 'PENDING' && j != 0">
+                        <div class="light-text mb-4">Checker Approved Date</div>
+                        <div class="dark-text">{{this.bsnscheckerDate.split(' GMT')[0]||'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                        <div class="light-text mb-4">Checker Comment</div>
+                        <div class="dark-text">{{businessKycList?.checkerComment}}</div>
+                      </div>
+                    </div><br>
+                    <!-- for latest record and status is pending -->
+                    <div class="row" *ngIf="j==0">
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="!businessKycList?.makerComment && j == 0 && businessKycList?.kycStatus == 'PENDING' && myRights.includes('KYC_APPROVE')">
+                        <!-- comment empty and latest record -->
+                        <mat-form-field appearance="outline" class="w100 newInput" >
+                          <mat-label>Comment*</mat-label>
+                          <input type="text" matInput [(ngModel)]="businessComment" (input)="comment('BUSINESS')">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="businessKycList?.makerComment ">
+                        <!-- comment having values and latest record -->
+                        <div class="light-text mb-4">Maker Comment</div>
+                        <div class="dark-text">{{businessKycList?.makerComment}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="businessKycList?.makerApprovedBy && j == 0">
+                        <div class="light-text mb-4">Maker Approved By</div>
+                        <div class="dark-text">{{businessKycList?.makerApprovedBy || 'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="this.data?.kycDetails?.[0]?.documentList[0]?.makerApprovalDate && j == 0">
+                        <div class="light-text mb-4">Maker Approved Date</div>
+                        <div class="dark-text">{{this.bsnsmakerDate.split(' GMT')[0] || 'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="businessKycList?.checkerApprovedBy && j == 0">
+                        <div class="light-text mb-4">Checker Approved By</div>
+                        <div class="dark-text">{{businessKycList?.checkerApprovedBy || 'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="this.data?.kycDetails?.[0]?.documentList[0]?.checkerApprovalDate && j == 0">
+                        <div class="light-text mb-4">Checker Approved Date</div>
+                        <div class="dark-text">{{this.bsnscheckerDate.split(' GMT')[0] || 'NA'}}</div>
+                      </div>
+                      <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                        *ngIf="businessKycList?.checkerComment ">
+                        <!-- comment having values and latest record -->
+                        <div class="light-text mb-4">Checker Comment</div>
+                        <div class="dark-text">{{businessKycList?.checkerComment}}</div>
+                      </div>
+                    </div>
+
+                    <!-- END for i == 0 and status is pending -->
+
+                    <div class="row mt-10" style="justify-content: end;"
+                      *ngIf="businessKycList?.kycStatus == 'PENDING' && j == 0 && myRights.includes('KYC_APPROVE')">
+                      <!-- Business KYC approve -->
+                      <div class="col-md-1">
+                        <button mat-raised-button class="approveBtn" [disabled]="showAcceptRejectBusiness"
+                          (click)="kycBusinessAction(data.personalDetails?.id,'BUSINESS','MAKER_APPROVED',businessKycList?.id)">Approve</button>
+                      </div>
+                      <div class="col-md-1">
+                        <button mat-raised-button class="rejectBtn" [disabled]="showAcceptRejectBusiness"
+                          (click)="kycBusinessAction(data.personalDetails?.id,'BUSINESS','REJECTED',businessKycList?.id)">Reject</button>
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+
+              </div>
+            </mat-expansion-panel>
+            <br>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="text-blue left-border fw-600">
+                  Ranking
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class=" subContainer" style="padding:15px;">
+                <div style="padding: 10px;">
+                  <div class="row mt-10">
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline" class="w100 newDrop">
+                        <mat-label>Rating Agency </mat-label>
+                        <mat-select [(ngModel)]="selectedAgency" (selectionChange)="onselectAgency($event)">
+                          <mat-option *ngFor="let item of agencyList" [value]="item"
+                            style="font-size:medium">{{item}}</mat-option>
+                        </mat-select>
+                        <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline" class="w100 newDrop">
+                        <mat-label>Rating Scale </mat-label>
+                        <mat-select [(ngModel)]="selectedMasterRating" [disabled]="!masterRatingDropdown">
+                          <mat-option *ngFor="let item of masterRatingList" [value]="item.scale"
+                            style="font-size:medium">{{item.scale}}</mat-option>
+                        </mat-select>
+                        <span><img src="../../../../../assets/images/adminV2/darrow.svg" style="height:11px" /></span>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div style="text-align: end;">
+                    <button mat-raised-button class="approveBtn"
+                      (click)="saveRating(data.personalDetails?.username)">Save</button>
+                  </div>
+                  <div>
+                    <table class="otherBankTable mt-10" *ngIf="data.businessDetails?.otherPreferredBanks">
+                      <tr class="fontBold">
+                        <!-- <th>Sr No.</th> -->
+                        <th>Bank Name</th>
+                        <th>Country</th>
+                        <th>Contact Person Name</th>
+                        <th>Contact Person Mobile No</th>
+                        <th>Email Id</th>
+                      </tr>
+                      <tr *ngFor="let otherBankData of data.businessDetails?.otherPreferredBanks; let i=index">
+                        <!-- <td>{{i+1}}</td> -->
+                        <td>{{otherBankData.bankName}}</td>
+                        <td>{{otherBankData.country}}</td>
+                        <td>{{otherBankData.contactPersonName}}</td>
+                        <td>{{otherBankData.contactPersonMobileNo}}</td>
+                        <td>{{otherBankData.email}}</td>
+                      </tr>
+                    </table>
+                  </div><br>
+                  <br>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

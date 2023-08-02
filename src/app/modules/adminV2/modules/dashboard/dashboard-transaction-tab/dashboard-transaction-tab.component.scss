@@ -1,0 +1,55 @@
+.transaction-container {
+    padding: 24px 40px;
+    background: #f8f9fd;
+    border-radius: 8px;
+
+    .heading {
+        font-family: "Lato";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+        color: #292929;
+    }
+
+    .tabel-heading {
+        font-family: "Lato";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        color: #727272;
+    }
+
+    .mt-25 {
+        margin-top: 25px;
+    }
+
+    .mb-12 {
+        margin-bottom: 12px;
+    }
+
+    .ml-6 {
+        margin-left: 6px;
+    }
+
+    .dateStyle {
+        font-family: "Lato";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 110%;
+
+        color: #0032a0;
+        align-items: start;
+        display: flex;
+    }
+
+    .wrapper-Position {
+        ::ng-deep {
+            .mat-mdc-text-field-wrapper {
+                position: absolute;
+            }
+        }
+    }
+}

@@ -1,0 +1,67 @@
+
+  .testimonial-dot-item {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #8799C2;
+    border-radius: 50px !important;
+    background: #8799C2;
+    cursor: pointer;
+    &.active {
+      width: 10px;
+      height: 10px;
+      border: 1px solid #fff;
+      background-color: #fff;
+    }    
+  }
+  .positionClass {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    // background-color: var(--blue);
+    // opacity: 0.4;
+    padding-bottom: 15px;
+    padding-top: 10px;
+  }
+  .overlay {
+    
+  }
+ .image-src {
+    img {
+      display: block;
+    }   
+ }
+ .carousel-indicators {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+ }
+ .slider-com {
+    ::ng-deep {
+      button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled) {
+      width: 10px !important;
+      height: 10px !important;
+      border-radius: 25px !important;
+    }
+   
+  }
+ }
+ ::ng-deep {
+  .carousel-indicators  {
+    border-top: inherit !important;
+    border-bottom: inherit !important;
+    border-radius: 25px !important;
+  }
+  .carousel-indicators [data-bs-target] {
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+.carousel-control-next-icon {
+  display: none !important;
+}
+.carousel-control-prev-icon {
+  display: none !important;
+}
+}

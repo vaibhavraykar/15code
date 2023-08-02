@@ -1,0 +1,146 @@
+<!-- <div class="header-component bg-blue white-text">
+    <div class="row">
+        <div class="col-4 col-md-2">
+            <div class="img-container bg-white w100 h100" >
+            </div>
+        </div>
+        <div class="col-4 col-md-7 py-2">
+            <div class="row d-flex w100 h100 justify-content-center align-items-center">
+                <div class="col">
+                    <div class="d-flex justify-content-end align-items-center dashboard-btn">
+                        <button mat-button class="btn f-13">Dashboard</button>
+                    </div>
+                </div>
+                <div class="col ">
+                    <div class="d-flex justify-content-start align-items-center transact-btn">
+                        <button mat-button style="color: white !important;" class="f-13">Transactions</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 col-md-3 h100 py-2">
+            <div class="row d-flex w100 h100 justify-content-center align-items-center">
+                <div class="col">
+                    <div class="d-flex">
+                        <div class="darkblue f-13 fw-400">
+                            <span class="py-1 px-2">18</span>
+                        </div>
+                        <span class="f-13 fw-400">Credit</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row ">
+                        <div class="col d-flex justify-content-end align-items-center">
+                            <div class="h100 w100  bg-white" style="height: 20px;width: 20px;"></div>
+                        </div>
+                        <div class="col">
+                            <div class="">
+                                <span class="f-13 fw-400">Sanjay Jain</span>
+                            </div>
+                            <div>
+                                <span class="f-11 fw-400">Customer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="header-wrapper">
+    
+    <div class="logo">
+        <img src="../../../../assets/images/icons/login-logo.png" />
+    </div>
+    <div class="hide-div"></div>
+    <div class="user-wrapper white-bg ">
+        <div class="pending-class fw-600" *ngIf="showPostpaidBanner" 
+            (click)="openNotification()"
+        ><mat-icon>warning</mat-icon>Click here to pay</div>
+        <div class="d-flex" (click)="options.click()">        
+            <div class="user">
+                <img src="../../../../assets/images/icons/user.png" />
+            </div>
+            <div class="user-txt  align-items-center">
+                <div class="grey fontRegular f-14">{{userDetails ? userDetails.firstName : ''}} {{userDetails ? userDetails.lastName : ''}}</div>
+                <div class="f-11 fontRegular grey ">( {{subscriberType}} )</div>
+                <div class="d-flex credit" *ngIf="planDetails">
+                  <img src="../../../../assets/images/icons/credit.png" />
+                  <p class="f-11 fontRegular blueText">{{planDetails?.availableCredits}} Credits</p>
+              </div>
+            </div>
+            <div  #options class="dots d-flex align-items-center" style="height:100%; pointer-events: none;" [matMenuTriggerFor]="menu">
+                <img src="../../../../assets/images/icons/3dots.png" />
+            </div>
+            <!-- <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="logout()">Logout</button>
+            </mat-menu> -->
+            <mat-menu #menu="matMenu">
+                <div *ngIf="isMasterCodeUser">
+                <button mat-menu-item (click)="myProfile()">My Profile</button>
+                <button mat-menu-item (click)="credit()">Credits and Transactions</button>
+                <button mat-menu-item (click)="manage()">Manage Group Companies</button>
+                <!-- <button mat-menu-item (click)="refer()">Refer</button> -->
+                <button mat-menu-item (click)="cp()">Change Password</button>
+                <button mat-menu-item (click)="support()">Support</button>
+                <button mat-menu-item (click)="openSubscription()">Subscription</button>
+                <button mat-menu-item (click)="vas()"  *ngIf="!isPostpaid">Vas Plan</button>
+                <button mat-menu-item (click)="tnc()">Terms and Condition </button>
+                    <button mat-menu-item (click)="logout()">Logout</button>
+                </div>  
+                <div *ngIf="isPassCodeUser">
+                <button mat-menu-item (click)="credit()">Credits and Transactions</button>
+                <button mat-menu-item (click)="support()">Support</button>
+                <button mat-menu-item (click)="tnc()">Terms and Condition </button>
+                    <button mat-menu-item (click)="logout()">Logout</button>
+                </div>   
+                <div *ngIf="isMasterBankCustomer">
+                <button mat-menu-item (click)="openBankprofile()">My Profile</button>
+                <button mat-menu-item (click)="credit()">Credits and Transactions</button>
+                <!-- <button mat-menu-item (click)="refer()">Refer</button> -->
+                <button mat-menu-item (click)="cp()">Change Password</button>
+                <button mat-menu-item (click)="support()">Support</button>
+                <button mat-menu-item (click)="openSubscription()">Subscription</button>
+                <button mat-menu-item (click)="vas()" *ngIf="!isPostpaid">Vas Plan</button>
+                <button mat-menu-item (click)="tnc()">Terms and Condition </button>
+                    <button mat-menu-item (click)="logout()">Logout</button>
+                </div>   
+                <div *ngIf="isPassCodeBankCustomer">
+                <button mat-menu-item (click)="credit()">Credits and Transactions</button>
+                <button mat-menu-item (click)="support()">Support</button>
+                <button mat-menu-item (click)="tnc()">Terms and Condition </button>
+                    <button mat-menu-item (click)="logout()">Logout</button>
+                </div>  
+                <div class="" *ngIf="isMasterCodeBankUnderwriter">
+                <button mat-menu-item (click)="openUnderwriterProfile()">My Profile</button>
+                <button mat-menu-item (click)="credit()">Credits and Transactions</button>
+                <button mat-menu-item (click)="manageUser()">Manage User</button>
+                    <button mat-menu-item (click)="addBank()">Add Bank</button>
+                <!-- <button mat-menu-item (click)="refer()">Refer</button> -->
+                <button mat-menu-item (click)="cp()">Change Password</button>
+                <button mat-menu-item (click)="support()">Support</button>
+                <button mat-menu-item (click)="openSubscription()">Subscription</button>
+                <button mat-menu-item (click)="tnc()">Terms and Condition </button>
+                    <button mat-menu-item (click)="logout()">Logout</button>
+                </div>
+                <div class="" *ngIf="isPassCodeBankUnderwriter">
+                <button mat-menu-item (click)="openUnderwriterProfile()">My Profile</button>
+                <button mat-menu-item (click)="credit()">Credits and Transactions</button>
+                <!-- <button mat-menu-item (click)="refer()">Refer</button> -->
+                <button mat-menu-item (click)="cp()">Change Password</button>
+                <button mat-menu-item (click)="support()">Support</button>
+                <button mat-menu-item (click)="tnc()">Terms and Condition </button>
+                    <button mat-menu-item (click)="logout()">Logout</button>
+                </div>
+                <div class="" *ngIf="isUnapprovedUser">
+                    <button mat-menu-item (click)="myProfile()">My Profile</button>
+                    <button mat-menu-item (click)="cp()">Change Password</button>
+                    <button mat-menu-item (click)="support()">Support</button>
+                    <button mat-menu-item (click)="tnc()">Terms and Condition </button>
+                    <button mat-menu-item (click)="logout()">Logout</button>
+                </div>               
+            </mat-menu>
+        </div>
+    </div>
+  
+</div>

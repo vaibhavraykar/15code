@@ -1,0 +1,18 @@
+<!-- <mat-select #ddElement required="required" [(value)]="defaultSelected"  (selectionChange)="changeOptions($event)" >
+    <mat-option value="select">{{title}}</mat-option>
+    <mat-option *ngFor="let option of options;"  [value]="option">{{option}}</mat-option>
+    
+</mat-select> -->
+<div  (click)="inputClickhandler($event)"><i  class="arrow down"></i></div>
+<mat-form-field appearance="outline" class="w100">
+    <label class="f-11">{{name}}</label>
+    <mat-select [formControl]="selected"
+    (selectionChange)="selectOption($event)"
+    >
+      <mat-option *ngFor="let option of options;"  [value]="option">{{option}}</mat-option>
+    </mat-select>
+
+    <mat-error *ngIf="errorHandling('required')" >
+      {{name}} is required
+  </mat-error>
+</mat-form-field>

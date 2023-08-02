@@ -1,0 +1,24 @@
+<div class="popup">
+    <div class="heading">
+        Accept Transaction
+        <span (click)="close()"><mat-icon>close</mat-icon></span>
+    </div>
+    <div class="row" style="margin: 0; padding: 20px;">
+        <div class="content_text">
+            <p>Enter your reason for Quote Acceptance.</p>
+            <div>
+                <form [formGroup]="form">
+            <mat-form-field   appearance="outline" class="example-full-width">
+                <textarea matInput placeholder="Remarks"
+                formControlName="comment"></textarea>
+                <mat-error *ngIf="form.invalid">Please enter reason to Accept</mat-error>
+            </mat-form-field>
+        </form>
+        </div>
+        <!-- <P>Disclaimer: 1 Transaction Credit will be refunded if you reject this transaction.</P> -->
+            <div class="save-btn-section">
+                <button mat-button class="save-btn  f-12 fontBold dgrey" (click)="closeTransaction()">ACCEPT TRANSACTION</button>
+            </div> 
+        </div>
+    </div>   
+</div>

@@ -1,0 +1,8 @@
+<div class="d-flex align-items-center mb-20">
+    <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+    <div class="ml-12 darkBlackText headingstyle">Referrer Details</div>
+  </div>
+<div class="container-wrapper mt-10 customer-list">
+    <app-referrer-details-table #customTable [tableStructure]="tableStructure"
+    (combinedEmitter)="tableEventEmitter($event)"></app-referrer-details-table>
+</div>

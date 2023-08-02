@@ -1,0 +1,274 @@
+.bank-Underwriter-Dashboard-container {
+    .container-box-size {
+        width: 180px;
+        height: 114px;
+    }
+
+    .container-background {
+        background: #FFFFFF;
+        border-radius: 8px;
+    }
+
+    .container-padding {
+        padding: 11px 11px 11px 16px;
+    }
+
+    .numberStyle {
+        font-family: 'Lato', sans-serif;
+        font-weight: bold;
+        color: #0032A0;
+        font-size: 32px;
+        line-height: 28px;
+    }
+
+    .p-0 {
+        padding: 0;
+    }
+
+    .m-0 {
+        margin: 0;
+    }
+
+    .textStyle {
+        font-family: 'Lato', sans-serif;
+        font-weight: 600;
+        color: #EB7203;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .arrowimgStyle {
+        width: 18px;
+        height: 18px;
+    }
+
+    .ml-15 {
+        margin-left: 15px;
+    }
+
+    .darkBlackText {
+        font-family: 'Lato', sans-serif;
+        font-weight: bold;
+        color: #292929;
+    }
+
+    .darkLightText {
+        font-family: 'Lato', sans-serif;
+        font-weight: bold;
+        color: #8E8E8E;
+    }
+
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+
+        table .mat-mdc-header-cell {
+            font-size: 12px;
+            font-weight: bold;
+            font-family: "Lato", sans-serif !important;
+            background-color: var(--lblue3) !important;
+            color: var(--dgrey);
+        }
+
+        table .mdc-data-table__cell {
+            font-size: 12px;
+            font-family: "Lato";
+            color: #727272;
+        }
+
+        .mat-mdc-table {
+            border: 1px solid var(--lblue3) !important;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        ::ng-deep {
+            .mat-mdc-menu-content {
+                padding: 0 !important;
+            }
+
+            .mat-mdc-paginator-page-size {
+                display: none !important;
+            }
+            .mat-mdc-icon-button.mat-mdc-button-base {
+                width: 25px !important;
+                height: 25px !important;
+            }
+
+            .mat-mdc-paginator-container {
+                display: inherit !important;
+                align-items: inherit !important;
+                justify-content: inherit !important;
+                padding: 4px 8px;
+                flex-wrap: wrap-reverse;
+                width: 100%;
+            }
+
+            .mdc-icon-button {
+                padding: 0 !important;
+            }
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+        }
+    }
+}
+
+.bank-Underwriter-Dashboard-container .graph-container {
+    ::ng-deep {
+        .mat-mdc-select-placeholder {
+            color: #0032A0;
+            font: normal normal bold 14px/24px Lato;
+            padding-left: 10px;
+        }
+        .mat-mdc-select-value{
+            color: #0032A0;
+            font: normal normal bold 14px/24px Lato;
+        }
+
+        .mat-mdc-text-field-wrapper {
+            width: 200px;
+            height: 34px;
+            color: yellow;
+        }
+
+        .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+            padding-top: 5px;
+        }
+
+        .mat-mdc-select-arrow-wrapper {
+            display: none;
+        }
+
+        .mat-mdc-form-field-icon-prefix>.mat-icon,
+        .mat-mdc-form-field-icon-suffix>.mat-icon {
+            padding: 0;
+            top: -10px;
+            position: relative;
+            color: #EB7203;
+        }
+
+        .mat-mdc-form-field-subscript-wrapper {
+            display: none;
+        }
+    }
+    .selectdropdown {
+
+        ::ng-deep .mdc-notched-outline {
+            *{
+                border: 2px solid var(--yellow);
+            }
+        }
+       
+    }
+}
+
+.bank-Underwriter-Dashboard-container .dashboard-tabel .transactionStatusStyle {
+    ::ng-deep .mat-mdc-text-field-wrapper {
+        height: 25px;
+        align-items: center;
+        width: 90px;
+    }
+
+    ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+    }
+}
+
+@media (max-width: 1030px) {
+    .bank-Underwriter-Dashboard-container {
+        .table-container {
+            overflow-x: auto !important;
+
+            table {
+                width: 100%;
+            }
+        }
+    }
+
+    ::ng-deep .mdc-data-table__header-cell {
+        min-width: 150px;
+    }
+
+    .bank-Underwriter-Dashboard-container .table-container::-webkit-scrollbar {
+        width: 8px;
+        height: 4px !important;
+    }
+
+    .bank-Underwriter-Dashboard-container .table-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .bank-Underwriter-Dashboard-container .table-container::-webkit-scrollbar-thumb {
+        background-color: #ff8400;
+    }
+}
+
+@media(max-width:900px) {
+    .bank-Underwriter-Dashboard-container {
+        .selectOPtion {
+            flex-direction: column;
+
+            .selectOPtion-margin-change {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    }
+}
+
+@media(max-width:566px) {
+    .bank-Underwriter-Dashboard-container {
+        .flex-direction-changeOPtion {
+            display: block !important;
+
+            .selectOPtion-margin-change {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+
+        .margin-top-mb {
+            margin-top: 10px;
+        }
+    }
+}
+.chartContainer{
+  padding-top: 2%;
+  height: 100%;
+  width:25%
+}
+.legends{
+  padding-left: 5%;
+  padding-top: 2%;
+}
+.leg_1{
+  vertical-align: baseline;
+  display: inline-block;
+  height: 12px;
+  width: 20px;
+  background-color: rgb(219, 68, 55);
+}
+.leg_2{
+  vertical-align: baseline;
+  display: inline-block;
+height: 12px;
+width: 20px;
+background-color: rgb(66, 133, 244);
+}
+.pointer{
+    cursor: pointer;
+}
+
+
+// .container{
+//     width: 160px;
+//     height: 125px;
+//     background: white;
+// }
+// .container-title{
+//     font-family: Roboto ;
+// }

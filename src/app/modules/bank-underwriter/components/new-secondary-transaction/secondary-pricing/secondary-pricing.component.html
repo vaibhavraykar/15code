@@ -1,0 +1,104 @@
+<div class="applicant-pricing-details px-4">
+  <h6 class="title text-center mb-32">Fill in your pricing details</h6>
+  <form [formGroup]="form">
+    <div class="mt-20 fw-700 f-16">Commission Scheme</div>
+    <section class="row mt-20">
+      <div class="col-md-6">
+        <mat-radio-group
+          aria-label="Select an option"
+          style="flex-wrap: nowrap !important; display: flex"
+          formControlName="commissionScheme"
+        >
+          <mat-radio-button value="Front Ended">Front Ended</mat-radio-button>
+          <mat-radio-button value="Rear Ended">Rear Ended</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </section>
+    <section class="row mt-20">
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline">
+          <mat-label>Minimum Participation Amount</mat-label>
+
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            formControlName="minParticipationAmt"
+                [value]="formatAmount(form.controls['minParticipationAmt'].value)"
+                (paste)="onPaste($event)" (keydown)="onKeyDown($event)" (blur)="onBlur($event,'minParticipationAmt')"
+                (input)="form.controls['minParticipationAmt'].setValue(parseAmount($event));"
+          />
+          <mat-error *ngIf="form.controls['minParticipationAmt'].hasError('required')">Minimum Participation Amount Required</mat-error>
+          <mat-error *ngIf="form.controls['minParticipationAmt'].hasError('pattern')">Minimum Participation Amount Invalid</mat-error>
+          <mat-error *ngIf="form.controls['minParticipationAmt'].hasError('bigger')">Minimum Participation Amount Is Greater Than Transaction Amount.</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline">
+          <mat-label>Offered Pricing</mat-label>
+
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            formControlName="offeredPrice"
+
+          />
+          <mat-error   *ngIf="form.controls['offeredPrice'].hasError('required')">Offered Pricing Is Required</mat-error>
+
+        </mat-form-field>
+      </div>
+    </section>
+    <section class="row mt-20">
+      <div class="col-md-6">
+        <mat-form-field class="w100" appearance="outline">
+          <mat-label>Retention Amount</mat-label>
+
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            formControlName="retentionAmt"
+                [value]="formatAmount(form.controls['retentionAmt'].value)"
+                (paste)="onPaste($event)" (keydown)="onKeyDown($event)" (blur)="onBlur($event,'retentionAmt')"
+                (input)="form.controls['retentionAmt'].setValue(parseAmount($event));"
+          />
+          <mat-error  *ngIf="form.controls['retentionAmt'].hasError('required')">Retention Amount Is Required</mat-error>
+          <mat-error *ngIf="form.controls['retentionAmt'].hasError('pattern')">Retention Amount Invalid</mat-error>
+          <mat-error   *ngIf="form.controls['retentionAmt'].hasError('bigger')">Retention Amount Is Greater Than Transaction Amount.</mat-error>
+
+        </mat-form-field>
+      </div>
+      <div class="col-md-6" *ngIf="state?.secTransactionType === 'FUNDED'">
+        <mat-form-field class="w100" appearance="outline">
+          <mat-label>Benchmark</mat-label>
+
+          <input
+            type="text"
+            class="f-14"
+            matInput
+            formControlName="benchmark"
+            pattern="[0-9]*\.?[0-9]{0,2}"
+            (keydown)="restrictKeys($event)"
+          />
+          <mat-error  *ngIf="form.controls['benchmark'].hasError('required')">Benchmark Is Required</mat-error>
+        </mat-form-field>
+      </div>
+    </section>
+    <section class="row mt-20">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Any Other Conditions</mat-label>
+        <textarea matInput formControlName="otherCondition" (keydown)="checkLimit($event)"></textarea>
+      </mat-form-field>
+      <div class="submit-btn mt-30">
+        <div class="col-md-6 text-center m-auto">
+          <app-button
+            (click)="submit()"
+            [name]="'NEXT > BANK'"
+            [class]="'primary-btn f-16 w100'"
+          ></app-button>
+        </div>
+      </div>
+    </section>
+  </form>
+</div>

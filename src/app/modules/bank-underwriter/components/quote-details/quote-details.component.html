@@ -1,0 +1,508 @@
+<div class="quote-page col-md-8 m-auto" style="background-color: #fff">
+  <div
+    class="main-title f-20 fontBold dgey mt-20 mb-3 d-flex align-items-center"
+  >
+    <mat-icon (click)="goBack()">keyboard_backspace</mat-icon>
+    <b style="margin-left:5px">Quote Details</b>
+  </div>
+  <div class="px-3 py-3">
+    <div class="col-md-11 m-auto" style="background-color: #efecea">
+      <div class="px-4 py-4">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey">Product</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{ productName }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey">Transaction ID</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{ transactionId }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey">Amount</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{ transactionDetails?.lCValue | number:'1.2-2' }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey">Currency</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{ transactionDetails?.lCCurrency }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey">Tenor</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{
+                  transactionDetails?.usanceDays
+                    ? transactionDetails?.usanceDays
+                    : 0
+                }}
+                days
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey" *ngIf="productName!='AVALISATION'">Issuance Bank</div>
+              <div class="f-12 fw-600 dgrey" *ngIf="productName=='AVALISATION'">AB</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{ transactionDetails?.lCIssuanceBank }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="productName=='AVALISATION'">
+          <div class="col-md-6">
+            <div class="d-flex align-items-center">
+              <div class="f-12 fw-600 dgrey">Type of Bill</div>
+              <div
+                class="f-12 fw-400 grey"
+                style="margin-left: 4px; word-break: break-word"
+              >
+                {{ transactionDetails?.billType }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Preview of Quote Drafted -->
+    <div class="col-md-11 m-auto">
+      <div class="mt-20">
+        <!-- Header For contents for accepted quote and your quote -->
+        <div class="row"
+          *ngIf="acceptedQuoteDetails"
+        >
+          <div class="col-6"></div>
+          <div class="col-3">
+            <div class="px-2 py-2"  style="background-color: #efecea;word-break: break-word;">
+              Your Quote
+            </div>
+          </div>
+          <div class="col-3" >
+            <div class="px-2 py-2" style="background-color: #efecea;word-break: break-word;">
+              Accepted Quote
+            </div>
+          </div>
+        </div>
+        <!-- Confirmation Commission -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'BANKGUARANTEE' ||
+            product == 'CONFIRMATION' ||
+            product == 'CONFIRMANDDISCOUNT'
+          "
+        >
+          <div
+            class="col-6"
+            *ngIf="product == 'CONFIRMATION' || product == 'CONFIRMANDDISCOUNT'"
+          >
+            <div class="mt-20 fw-700 f-14">Confirmation Commission p.a</div>
+          </div>
+          <div class="col-6" *ngIf="product == 'BANKGUARANTEE'">
+            <div class="mt-20 fw-700 f-14">BG Commission p.a</div>
+          </div>
+          <div  [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.confirmationCharges }}%
+            </div>
+          </div>
+          <div class="col-3" *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ acceptedQuoteDetails?.confirmationCharges ?? '0' }}%
+            </div>
+          </div>
+        </div>
+        <!-- Confirmation Charges applicable from date of issuance till negotiation date -->
+        <div
+          class="row"
+          *ngIf="(product == 'CONFIRMATION' || product == 'CONFIRMANDDISCOUNT')&&previewData?.confirmationChargesToNegotiationAmount"
+        >
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">
+              Confirmation Charges applicable from date of issuance till
+              negotiation date
+            </div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.confirmationChargesToNegotiationAmount | number:'1.2-2' }}
+            </div>
+          </div>
+
+          <div class="col-3" *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ (acceptedQuoteDetails?.confirmationChargesToNegotiationAmount??0 )| number:'1.2-2' }}
+            </div>
+          </div>
+        </div>
+        <!-- Confirmation charges applicable from date of issuance till date of maturity-->
+        <div
+          class="row"
+          *ngIf="(product == 'CONFIRMATION' || product == 'CONFIRMANDDISCOUNT')&&previewData?.confirmationChargesToMaturityAmount"
+        >
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">
+              Confirmation charges applicable from date of issuance till date of
+              maturity
+            </div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.confirmationChargesToMaturityAmount | number:'1.2-2' }}
+            </div>
+          </div>
+          <div class="col-3" *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ (acceptedQuoteDetails?.confirmationChargesToMaturityAmount??0) | number:'1.2-2' }}
+            </div>
+          </div>
+        </div>
+        <!-- For Bank Guarnatee Product -->
+        <div class="row" *ngIf="(product == 'BANKGUARANTEE')&&previewData?.confChgsIssuanceToexpAmount">
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">
+              Commission applicable from date of issuance till expiry date
+            </div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.confChgsIssuanceToexpAmount | number:'1.2-2' }}
+            </div>
+          </div>
+          <div class="col-3"  *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ (acceptedQuoteDetails?.confChgsIssuanceToexpAmount??0) | number:'1.2-2' }}
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="(product == 'BANKGUARANTEE')&&previewData?.confChgsIssuanceToClaimExpAmount">
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">
+              Commission applicable from date of issuance till claim expiry date
+            </div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.confChgsIssuanceToClaimExpAmount | number:'1.2-2' }}
+            </div>
+          </div>
+          <div class="col-3"  *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ (acceptedQuoteDetails?.confChgsIssuanceToClaimExpAmount??0) | number:'1.2-2' }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Applicable Benchmark -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'DISCOUNTING' ||
+            product == 'CONFIRMANDDISCOUNT' ||
+            product == 'REFINANCE' ||
+            product == 'BANKER' ||
+            product == 'BILLAVALISATION'
+          "
+        >
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">Applicable Benchmark (if any)</div>
+            <div class="fw-400 f-14 grey">
+              {{ previewData?.commentsBenchmark }}
+            </div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.applicableBenchmark }}%
+            </div>
+          </div>
+          <div class="col-3"  *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ acceptedQuoteDetails?.applicableBenchmark??0 }}%
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="product == 'BANKER'">
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">
+              Banker's Acceptance Interest p.a ( spread over benchmark)
+            </div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.bankAcceptCharges }}%
+            </div>
+          </div>
+          <div class="col-3"  *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ acceptedQuoteDetails?.bankAcceptCharges??0 }}%
+            </div>
+          </div>
+        </div>
+        <!-- Discouunting Charges -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'DISCOUNTING' ||
+            product == 'CONFIRMANDDISCOUNT' ||
+            product == 'BILLAVALISATION'
+          "
+        >
+          <div class="col-6" *ngIf="product == 'BILLAVALISATION'">
+            <div class="mt-20 fw-700 f-14">
+              Discount Interest p.a(spread over benchmark)
+            </div>
+          </div>
+          <div
+            class="col-6"
+            *ngIf="product == 'DISCOUNTING' || product == 'CONFIRMANDDISCOUNT'"
+          >
+            <div class="mt-20 fw-700 f-14">
+              Discounting Interest p.a ( spread over benchmark)
+            </div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.discountingCharges }}%
+            </div>
+          </div>
+          <div class="col-3"  *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ acceptedQuoteDetails?.discountingCharges??0 }}%
+            </div>
+          </div>
+        </div>
+        <!-- Negotiation Charges (Fixed) -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'DISCOUNTING' ||
+            product == 'CONFIRMANDDISCOUNT' ||
+            product == 'BANKER'
+          "
+        >
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">*Negotiation Charges (Fixed)</div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.negotiationChargesFixed | number:'1.2-2' }}
+            </div>
+          </div>
+          <div class="col-3"  *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ (acceptedQuoteDetails?.negotiationChargesFixed ??0 )| number:'1.2-2' }}
+            </div>
+          </div>
+        </div>
+        <!-- Negotiation Charges (%) -->
+        <div
+          class="row"
+          *ngIf="
+            product == 'DISCOUNTING' ||
+            product == 'CONFIRMANDDISCOUNT' ||
+            product == 'BANKER'
+          "
+        >
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">*Negotiation Charges (%)</div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.negotiationChargesPerct }}%
+            </div>
+          </div>
+          <div class="col-3"  *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ acceptedQuoteDetails?.negotiationChargesPerct??0 }}%
+            </div>
+          </div>
+        </div>
+        <!-- Refinancing Interest Field -->
+        <div class="row" *ngIf="product == 'REFINANCE'">
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">
+              Refinancing Interest p.a ( spread over benchmark)
+            </div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.refinancingCharges }}%
+            </div>
+          </div>
+          <div class="col-3"  *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ acceptedQuoteDetails?.refinancingCharges??0 }}%
+            </div>
+          </div>
+        </div>
+        <!-- Other Charges -->
+        <div class="row">
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">Other Charges(if any)</div>
+            <div class="fw-400 f-14 grey">{{ previewData?.chargesType }}</div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.otherCharges | number:'1.2-2' }}
+            </div>
+          </div>
+          <div class="col-3"  *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ (acceptedQuoteDetails?.otherCharges??0) | number:'1.2-2' }}
+            </div>
+          </div>
+        </div>
+        <!-- Minimum Transaction Charges -->
+        <div class="row">
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">
+              Minimum Transaction Charges (if any)
+            </div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.minTransactionCharges | number:'1.2-2' }}
+            </div>
+          </div>
+          <div class="col-3"  *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ (acceptedQuoteDetails?.minTransactionCharges??0) | number:'1.2-2' }}
+            </div>
+          </div>
+        </div>
+        <!-- Bank Quote Validity -->
+        <div class="row">
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">
+              Bank Quote Validity
+              <img matTooltip="Date before which the customer should accept your quote"
+                
+                src="../../../../../../assets/images/icons/Icon-info.svg"
+              />
+            </div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">{{ previewData?.validity|date:'dd-MM-yyyy' }}</div>
+          </div>
+          <div class="col-3"  *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">{{ (acceptedQuoteDetails?.validity | date:'dd-MM-yyyy')??'NA' }}</div>
+          </div>
+        </div>
+        <!-- Other terms and conditions -->
+        <div class="row">
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-14">Other terms and conditions</div>
+            <!-- <div class="fw-500 f-14 grey">
+              {{ previewData?.termConditionComments }}
+            </div> -->
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="fw-500 mt-20 f-14 grey">
+                {{ previewData?.termConditionComments }}
+            </div>
+          </div>
+        </div>
+        <!-- Total Quote -->
+        <div class="row">
+          <div class="col-6">
+            <div class="mt-20 fw-700 f-16">Total Quote</div>
+          </div>
+          <div [ngClass]="acceptedQuoteDetails?'col-3':'col-6'">
+            <div class="mt-20 fw-500 f-14">
+              {{ previewData?.totalQuote | number:'1.2-2' }}
+            </div>
+          </div>
+          <div class="col-3" *ngIf="acceptedQuoteDetails">
+            <div class="mt-20 fw-500 f-14">
+              {{ acceptedQuoteDetails?.totalQuote??0 | number:'1.2-2' }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="mt-20 fw-700 f-14">Disclaimer: The benchmark/taxes as applicable shall be levied as of transaction date, actual quote from the bank may differ to that extent.</div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center" >
+        <div
+          class="col-md-6 text-center mt-10" *ngIf="previewData?.status === 'PLACED'|| previewData?.status === 'FREEZE'"
+        >
+          <div class="text-center">
+            <button
+              mat-button
+              class="withdraw-btn f-16 w100 fontBold dgrey"
+              (click)="withdraw()"
+              style="height:48px"
+            >
+              <span>WITHDRAW</span>
+            </button>
+          </div>
+        </div>
+        <div class="col-md-6 text-center m-auto" >
+          <div class="mt-10" *ngIf="previewData?.status === 'ACCEPTED'" >
+            <app-button
+              [name]="'REJECT'"
+              [class]="'primary-btn f-16 w100'"
+              style="text-transform: uppercase"
+              (click)="rejectQuotation(transactionId, previewData?.quotationId)"
+            ></app-button>
+          </div>
+
+          <div class="mt-10" *ngIf="previewData?.status === 'PLACED'|| previewData?.status === 'FREEZE'">
+            <app-button
+              [name]="'EDIT'"
+              [class]="'primary-btn f-16 w100'"
+              style="text-transform: uppercase"
+              (click)="editQuotation(previewData?.quotationId)"
+            ></app-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

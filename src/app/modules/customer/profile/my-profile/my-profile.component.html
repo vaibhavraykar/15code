@@ -1,0 +1,116 @@
+<div class="profile-wrapper">
+	<!-- <div class="sidebar l-blue-bg">
+        <app-sidebar></app-sidebar>
+    </div> -->
+	<div class="main-content l-blue-bg">
+		<app-header></app-header>
+		<div class="signup-component isDesktop my-profile-component">
+			<!-- <div class="header-wrapper">
+                <div class="heading-text">
+                    <span class="f-22 fontBold dgrey" *ngIf="selectedIndex!=1">Details </span>
+
+                    <span class="f-22 fontBold dgrey" *ngIf="selectedIndex==1"> {{this.subscriberType}}</span>
+                </div>
+            </div> -->
+
+			<div class="stepper d-block d-md-none mb-3">
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="completed">
+						<a
+							href="#step-1"
+							data-toggle="tab"
+							aria-controls="step-1"
+							role="tab"
+							title="Step 1"
+						>
+							<span class="round-tab"
+								><img
+									src="../../../../assets/images/icons/icon-kyc details.svg"
+									alt="icon"
+							/></span>
+						</a>
+					</li>
+					<li role="presentation" class="completed active">
+						<a
+							href="#step-2"
+							data-toggle="tab"
+							aria-controls="step-2"
+							role="tab"
+							title="Step 2"
+						>
+							<span class="round-tab"
+								><img
+									src="../../../../assets/images/icons/icon-kyc details.svg"
+									alt="icon"
+							/></span>
+						</a>
+					</li>
+					<li role="presentation" class="disabled">
+						<a
+							href="#step-3"
+							data-toggle="tab"
+							aria-controls="step-3"
+							role="tab"
+							title="Step 2"
+						>
+							<span class="round-tab"
+								><img
+									src="../../../../assets/images/icons/icon-sub-details.svg"
+									alt="icon"
+							/></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="tab-container-new profile-details">
+				<div class="py-2 col-md-10 m-auto">
+					<mat-tab-group
+						[selectedIndex]="selectedIndex"
+						(selectedTabChange)="selectedTab($event)"
+						[ngClass]="getVisited()"
+					>
+						<!-- Perosnal Details Tab -->
+						<mat-tab label="Personal Details" [disabled]="personalDisabled">
+							<ng-template matTabContent>
+								<app-personal-details
+								(index)="changedIndex($event)"
+									[editable]="routeState"
+									[subscriber]="subscriberType"
+									[userDetails] = "personalDetails"
+								></app-personal-details>
+							</ng-template>
+						</mat-tab>
+						<!-- Business Details Tab -->
+						<mat-tab label="Business Details" *ngIf="subscriberType!='REFERRER'" [disabled]="isBusinessDisabled">
+							<ng-template matTabContent>
+									<app-business-details
+									(index)="changedIndex($event)"
+									[editable]="routeState"
+									[subscriber]="subscriberType"
+									[businessDetails]="businessDetails"
+									></app-business-details>
+							</ng-template>
+						</mat-tab>
+						<!-- Subscription Details tab -->
+						<mat-tab label="Subscription Details" *ngIf="subscriberType!='REFERRER'" [disabled]="isSubscriptionDisabled">
+							<ng-template matTabContent>
+								<app-subscription
+                *ngIf=" subDetails"
+								[editable]="routeState"
+								[subDetails]="subDetails"
+								(finished)="changedIndex($event)" ></app-subscription>
+							</ng-template>
+						</mat-tab>
+						<!-- KYC Details  tab -->
+						<mat-tab label="KYC Details" [disabled]="subscriberType!='REFERRER'?isKYCDisabled:false">
+							<ng-template matTabContent>
+								<app-kyc-details ></app-kyc-details>
+							</ng-template>
+						</mat-tab>
+					</mat-tab-group>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

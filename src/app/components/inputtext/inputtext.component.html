@@ -1,0 +1,58 @@
+<div [ngSwitch]="revamp">
+  <div *ngSwitchCase="true">
+    <div class="inputtext-container">
+      <form>
+
+        <mat-form-field appearance="outline" class="w100">
+          <mat-label>{{name}}</mat-label>
+          <input matInput type="text" [placeholder]="placeHolder" [maxlength]="maxlength" [required]="required"
+            [formControl]="form2" class="f-14 fontRegular dgrey" [value]="formatAmount(form2.value)"
+            (paste)="onPaste($event)" (keydown)="onKeyDown($event)" (blur)="onBlur()"
+            (input)="form2.setValue(parseAmount($event))">
+          <mat-error *ngIf="form2.invalid && form2.errors?.['required']">
+            Please enter valid
+          </mat-error>
+          <mat-error *ngIf="form2.invalid && !form2.errors?.['required'] && form2.errors?.['invalidAmount']">
+            Please enter valid
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+  <div *ngSwitchDefault>
+    <div class="inputtext-container">
+      <form>
+
+        <mat-form-field appearance="outline" class="w100">
+          <mat-label>{{name}}</mat-label>
+          <input matInput [ngClass]="(this.getId) ? 'upperCase' : ''" [type]="type" [placeholder]="placeHolder"
+            [maxlength]="maxlength" [required]="required" [formControl]="form" (focusout)="focusOutFunction($event)"
+            (keypress)="numberValidation($event)" (paste)="numberNopaste($event)" (change)="updatedValue($event)"
+            [errorStateMatcher]="matcher" class="f-14 fontRegular dgrey">
+
+
+          <mat-error *ngIf="errorHandling('required')">
+            <!-- {{name}} is required -->
+            {{name==='User ID/ Email'?'Enter valid userID or email.':name + ' '+'is required'}}
+          </mat-error>
+          <mat-error *ngIf="errorHandling('pattern') && !errorHandling('required')">
+            Please enter valid {{name}}
+          </mat-error>
+          <mat-error *ngIf="form?.hasError('minlength') && !errorHandling('required')">
+            Please enter valid {{name}}
+          </mat-error>
+          <mat-error *ngIf="form?.hasError('maxlength') && !errorHandling('required') && name=='Invoice Number'">
+            Max 25 character
+          </mat-error>
+          <!-- <mat-error *ngIf="form?.hasError('maxlength') && !errorHandling('required')">
+                Please enter max 8 character
+            </mat-error> -->
+          <mat-error *ngIf="!errorHandling('required')&&form?.errors?.['amtLess']">
+            Please enter valid
+          </mat-error>
+
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+</div>

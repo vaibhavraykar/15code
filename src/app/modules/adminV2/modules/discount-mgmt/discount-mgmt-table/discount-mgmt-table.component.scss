@@ -1,0 +1,207 @@
+@import '../../../components/table/table.component.scss';
+.filter-text {
+  color: #EB7203;
+  font-size: 12px;
+  margin-top: 7px;
+  cursor: pointer;
+  img {
+      width: 12px;
+      margin-right: 5px;
+  }
+}
+
+.table-wrapper table {
+  .mat-mdc-header-cell {
+    font-size: 12px !important;
+  }
+
+  .mdc-data-table__cell {
+    font-weight: 400;
+    color: #292929;
+  }
+}
+
+.addPd {
+  padding: 0 20%;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  box-shadow: 0px -4px 30px #ecf1fc;
+}
+
+.addPd2 {
+  padding: 0 5%;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  box-shadow: 0px -4px 30px #ecf1fc;
+}
+
+.mat-mdc-menu-panel.mat-mdc-menu-panel {
+  border-radius: 10px !important;
+}
+
+.pstyle {
+  font-family: "Lato";
+  font-weight: 600;
+  font-size: 14px;
+  padding: 1em;
+  margin-bottom: 0 !important;
+}
+
+.mat-mdc-checkbox.mat-accent {
+  border-bottom: 0.5px solid #d0d0d0 !important;
+}
+
+.mat-mdc-checkbox.mat-accent:last-child {
+  border-bottom: none !important;
+}
+
+.mat-mdc-checkbox label {
+  font-family: "Lato";
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.data-sec {
+  max-height: 18em;
+  overflow: auto;
+  padding: 0.4em;
+}
+
+.clear-filter {
+  font-family: "Lato";
+  font-weight: 400;
+  font-size: 12px;
+  color: #eb7203;
+  width: 20em;
+}
+
+.filter-btn {
+  font-family: "Lato";
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.cdk-text-field-autofill-monitored:not(:-webkit-autofill) {
+  border: 1px solid #8e8e8e;
+  // padding: 5px;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.mat-mdc-raised-button .mdc-button__label,
+.primary-btn {
+  font-size: 14px !important;
+  font-family: "Lato" !important;
+}
+
+.img-style {
+  position: relative;
+}
+
+.img-notification {
+  width: 12px;
+  height: 12px;
+  background-color: #ed7406;
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  right: -2px;
+
+  span {
+    font-size: 9px;
+    color: #fff;
+    position: absolute;
+    top: -5px;
+    left: 3px;
+    font-weight: 600;
+  }
+}
+
+// .mat-row:hover {
+//   // background-color: red;
+// }
+
+.highlight {
+  background: #ecf1fc !important;
+}
+
+.search-box {
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      background-color: initial !important;
+    }
+  }
+}
+
+.paginator-container {
+  .paginator-page-size {
+    ::ng-deep {
+      .mat-mdc-form-field-flex {
+        margin-top: -4px;
+      }
+
+      .mat-mdc-text-field-wrapper {
+        height: 25px !important;
+      }
+    }
+  }
+}
+
+::ng-deep.filter-divs_menu{
+
+
+    button:not(:disabled),
+    [type="button"]:not(:disabled),
+    [type="reset"]:not(:disabled),
+    [type="submit"]:not(:disabled) {
+      height: 30px;
+    }
+
+    .mdc-list-item__primary-text {
+      font-family: "Lato" !important;
+      font-style: normal !important;
+      font-weight: 400 !important;
+      font-size: 12px !important;
+      line-height: 16px !important;
+      color: #292929 !important;
+    }
+
+    .mat-mdc-menu-item {
+      min-height: 30px !important;
+    }
+
+    .mat-mdc-menu-item.mdc-list-item {
+      background: #F8F9FD;
+      border-bottom: 0.5px solid #d0d0d0;
+    }
+
+    .mat-mdc-menu-item.mdc-list-item:last-child {
+      border-bottom: none !important;
+    }
+
+    .mat-mdc-menu-content {
+      background: white;
+      padding: 4px !important;
+    }
+
+    .mat-mdc-menu-panel.mat-mdc-menu-panel {
+      height: 100px;
+      min-width: 87px !important;
+      min-height: 100px;
+    }
+
+    .mat-elevation-z8,
+    .mat-mdc-elevation-specific.mat-elevation-z8 {
+      background: #f8f9fd;
+      box-shadow: 0px 4px 40px 4px #ebebeb;
+      border-radius: 8px;
+    }
+
+}

@@ -1,0 +1,43 @@
+.preview-transaction-container{
+    ::ng-deep  .mat-expansion-indicator::after {
+        color:black !important;
+    }
+    .mat-expansion-panel-header{
+        height: 60px !important;
+        background-color: var(--lblue3) !important;
+        padding: 0 24px!important;
+    }
+    .label-text {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--grey);
+        font-family: 'Lato', sans-serif !important;
+    }
+    .info {
+        font-size: 13px;
+        font-weight: bold;
+        margin-top: 5px;
+        color: var(--dgrey);
+        font-family: 'Lato', sans-serif !important;
+    }
+    .col-md-3{
+        margin-top: 20px;
+        word-wrap: break-word;
+    }
+}
+.button-style {
+    .mat-mdc-outlined-button:not(:disabled) {
+        border-color: 1px solid var(--yellow) !important;
+        height: 48px !important;
+    }
+    .mat-mdc-outlined-button.mat-unthemed {
+        --mdc-outlined-button-label-text-color: var(--yellow) !important;
+    }
+}
+.new-secondary-transaction-preview-wrapper{
+    max-width: 800px;
+    margin: auto;
+}
+.pointer{
+    cursor: pointer;
+}

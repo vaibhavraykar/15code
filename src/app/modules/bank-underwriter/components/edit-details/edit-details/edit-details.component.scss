@@ -1,0 +1,51 @@
+.main-title{
+    background: transparent linear-gradient(270deg, #EB7203 0%, #FF922E 100%) 0% 0% no-repeat padding-box !important;
+    padding: 10px;
+    color: white;
+}
+.update-btn{
+    background: #eb7203;
+    width: 100%;
+    height: 44px;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+}
+.withdraw-btn{
+    width: 100%;
+    height: 44px;
+    background-color: white;
+    border: solid 1px #eb7203;
+    border-radius: 4px;  
+    span{
+        color: #eb7203;
+    }
+}
+::ng-deep .mat-mdc-radio-button .mdc-form-field {
+    font-size: 13px;
+    font-weight: 700;
+    font-family: Lato,sans-serif;
+    color: #292929;
+}
+::ng-deep {
+    .mat-datepicker-toggle-default-icon {
+        color: #eb7203;
+    }
+    // .mdc-button .mdc-button__label {
+    //     color: white;
+    // }
+    .mat-mdc-form-field  {
+        width: 100%;
+    }  
+}
+@media(max-width:1100px){
+    .update-btn{
+        width: 100% ;
+        height: auto;
+        padding: 10px;
+    }
+}
+.quote-page{
+    max-width: 800px !important;
+}

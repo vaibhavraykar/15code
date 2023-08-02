@@ -1,0 +1,290 @@
+<section class="mt-30 row d-flex flex-style justify-content-evenly dashboard-container">
+  <section class="col-md-5 container-width change-width">
+    <div class="row mobile-direction">
+      <div class="container-box-size pointer"  (click)="gotoActiveTransaction()">
+        <div class="row container-background container-padding">
+          <p class="numberStyle p-0 m-0">{{dashboardData?.activeTransactions ||'0'}}</p>
+
+          <div class="d-flex justify-content-between mt-10 align-items-end" style="padding: 0">
+            <p class="col-5 textStyle p-0 m-0">Active Transactions</p>
+            <img class="p-0 m-0 arrowimgStyle" src="../../../../../../assets/images/icons/right-arrow.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="container-box-size ml-15 ml-mobie-0 mt-mobile-15 pointer" (click)="gotoAllTransaction()">
+        <div class="row container-background container-padding">
+          <p class="numberStyle p-0 m-0">{{dashboardData?.quotesReceived ||'0'}}</p>
+          <div class="d-flex justify-content-between mt-10 align-items-end" style="padding: 0">
+            <p class="col-5 textStyle p-0 m-0">Quotes Received</p>
+            <img class="p-0 m-0 arrowimgStyle "  src="../../../../../../assets/images/icons/right-arrow.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row mt-15 container-background container-paddings">
+      <div class="d-flex justify-content-between align-items-center">
+        <p class="p-0 m-0 darkBlackText f-22">${{dashboardData?.lifeTimeSavings}}</p>
+        <div>
+          <p class="p-0 m-0 darkBlackText f-14 l-24 text-end">
+            Lifetime Savings
+          </p>
+          <p class="p-0 m-0 darkLightText f-12 text-end">Sub text goes here</p>
+        </div>
+      </div>
+    </div> -->
+    <div class="row mt-15 container-background container-paddings">
+      <div class="d-flex justify-content-between align-items-center" style="height: 39px">
+        <p class="col-3 p-0 m-0 darkBlackText f-22">{{dashboardData?.noOfBankQuoted ||'0'}}</p>
+        <p class="col-3 p-0 m-0 darkBlackText f-14" *ngIf="noData">No data to show</p>
+        <p class="col-xl-4  p-0 m-0 darkBlackText f-14 l-24 text-end">
+          Total no. of banks quoted on transactions
+        </p>
+      </div>
+    </div>
+    <div class="row mt-15 container-background container-paddings">
+      <div class="d-flex justify-content-between align-items-center" style="height: 39px">
+        <p class="col-4  p-0 m-0 darkBlackText f-22">{{dashboardData?.avgDaysOfReceivingQuotes ||'0'}} Days</p>
+        <p class="col-3 p-0 m-0 darkBlackText f-14" *ngIf="noDataQuotes">No data to show</p>
+        <p class="col-xl-3 co-xs-4 p-0 m-0 darkBlackText f-14 l-24 text-end">
+          Average time for receiving a Quote
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="col-md-5 change-width container-width dateStyle mt-responstive">
+    <div class="row container-background p-16" style="padding-right: 0">
+      <div class="darkBlackText f-14 l-24">
+        COUNTRY WISE PRODUCT TRANSACTIONS
+      </div>
+      <p class="col-12 p-0 m-0 darkBlackText f-14 no-data-container" *ngIf="noChart">No data to show</p>
+      <div class="row justify-content-between mt-10" style="padding-right: 0; margin-right: 0" *ngIf="!noChart">
+        <div class="col-md-3 changeWidthDiagram">
+          <app-pie-chart *ngIf="chartDataCountrywise" [chartData]="chartDataCountrywise" (pieChartEmitter)="countryWiseChartEmitter($event)"></app-pie-chart>
+        </div>
+
+        <div class="col-md-9 changeWidthContent chageWidthMobile">
+          <div class="d-flex changeLeftMargin  ml-70 align-items-center">
+            <div>
+              <mat-form-field class="" appearance="outline">
+                <input [value]="convertToDateFormat(range2.controls['start'].value)" type="text" class="f-12" matInput
+                  placeholder="DD/MM/YYYY" (click)="picker2.open();$event.preventDefault()" />
+              </mat-form-field>
+            </div>
+            <div class="darkBlackText f-12 l-20" style="font-weight: normal;    padding-left: 20px;
+            padding-right: 20px;">
+              to
+            </div>
+            <div>
+              <mat-form-field class="" appearance="outline">
+                <input [value]="convertToDateFormat(range2.controls['end'].value)" type="text" class="f-12" matInput
+                  placeholder="DD/MM/YYYY" (click)="picker2.open();$event.preventDefault()" />
+              </mat-form-field>
+            </div>
+            <div style="margin-left: auto;opacity: 0;">
+              <mat-form-field appearance="outline">
+                <mat-date-range-input [formGroup]="range2" [rangePicker]="picker2" [max]="today">
+                  <input matStartDate formControlName="start" placeholder="Start date">
+                  <input matEndDate formControlName="end" placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker2
+                  (closed)="productAndCountryWiseDateChanage($event)"></mat-date-range-picker>
+
+              </mat-form-field>
+            </div>
+            <div class="dateIconStyle leftChange" (click)="picker2.open()" style="    left: -80px;position: relative;
+            padding: 7px;
+            position: relative; ">
+              <mat-icon class="cpointer">date_range</mat-icon>
+            </div>
+          </div>
+          <div class="ml-70" *ngIf="chartDataCountrywise">
+            <ng-container *ngFor="let e of chartDataCountrywise?.labels; let i = index">
+              <div class="d-flex align-items-center">
+                <div class="checkbox" [style.background]="chartDataCountrywise?.backgroundColor[i]"></div>
+                <span class="f-12 ml-8" style="color: #8e8e8e">{{e|titlecase}}</span>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row container-background p-16 mt-15" style="padding-right: 0;padding-bottom: 10px!important;">
+      <div class="darkBlackText f-14 l-24">PRODUCT WISE TRANSACTIONS</div>
+      <p class="col-12 p-0 m-0 darkBlackText f-14 no-data-container" *ngIf="noTransaction" >No data to show</p>
+      <div class="row justify-content-between  " style="padding-right: 0; margin-right: 0" *ngIf="!noTransaction">
+        <div class="col-md-3 col-xs-3 changeWidthDiagram">
+          <app-pie-chart *ngIf="chartDataProductwise" [chartData]="chartDataProductwise" (pieChartEmitter)="productWiseChartEmitter($event)"></app-pie-chart>
+
+        </div>
+        <div class="col-md-9 col-xs-9 changeWidthContent mt-80  mobile-width">
+          <div class="d-flex margin-left-responsive change-width-mb mobile-width-mb flex-change-mb flex-wrap newFlexDirection"
+            style="justify-content: space-between; margin-left: 120px" *ngIf="chartDataProductwise">
+            <ng-container *ngFor="let e of chartDataProductwise?.labels; let i = index">
+              <div class="d-flex align-items-center col-md-6 col-sm-6">
+                <div class="checkbox" [style.background]="chartDataProductwise?.backgroundColor[i]"></div>
+                <span class="f-12 ml-8" style="color: #8e8e8e">{{e.value|titlecase}}</span>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</section>
+<section class="mt-30 row d-flex  justify-content-evenly dashboard-container" *ngIf="!(userDetails?.subscriberType ==='BANK'||isPostPaid())">
+  <div class=" row d-flex justify-content-between align-items-center" style="background: #ffffff">
+    <div class="col-md-5 container-width" style="background: #efeeee; border-radius: 0px 44px 44px 0px;width: 50%;">
+      <div class="f-16 l-24" style="color: #292929; margin: 34px 0px 34px 31px;">
+        Add more power to your plan with
+        <span class="darkBlackText">Value Added Services</span>
+      </div>
+    </div>
+    <div class="col-md-5 container-width d-flex justify-content-end">
+      <div class="col-md-5 ">
+        <app-button [name]="'ADD VAS'" [class]="'primary-btn f-16 w-100'" [type]="'button'" (click)="addVas()"></app-button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="mt-30 row d-flex  justify-content-evenly dashboard-container">
+  <section class="mt-30 row graph-container" style="background: #ffffff; padding: 16px 13px">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="darkBlackText">
+        Cumulative Transaction count vs Transaction count
+      </div>
+      <div class="selectdropdown">
+        <ng-container>
+
+          <mat-form-field appearance="outline">
+            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+            <mat-select class="f-14" placeholder="YEAR" [(ngModel)]="selectedyear" (selectionChange)="fetchlc_sum()">
+              <mat-option value="2023">2023</mat-option>
+              <mat-option value="2022">2022</mat-option>
+              <mat-option value="2021">2021</mat-option>
+              <mat-option value="2020">2020</mat-option>
+              <mat-option value="2019">2019</mat-option>
+              <mat-option value="2018">2018</mat-option>
+              <mat-option value="2017">2017</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+      </div>
+    </div>
+    <div class="mt-5">
+      <app-line-chart *ngIf="lineChartData" [chartData]="lineChartData"></app-line-chart>
+    </div>
+  </section>
+</section>
+<section class="mt-30 row d-flex  justify-content-evenly dashboard-container">
+  <section class="mt-30 row dateStyle" style="padding: 14px 16px; background: #ffffff">
+    <div class="d-flex justify-content-between align-items-center changeFlexsDirection">
+      <div class="darkBlackText f-14 l-24">Transaction Bifurcation <img class="ml-5 cpointer" src="../../../../../../assets/images/icons/Icon-info.svg" alt=""  (click)="openTransactionDetails()"/></div>
+      <div>
+        <div class="d-flex align-items-center change-margin-top">
+          <div>
+            <mat-form-field class="" appearance="outline" (click)="picker.open()">
+              <input type="text" class="f-12" matInput placeholder="DD/MM/YYYY"
+                [value]="convertToDateFormat(range.controls['start'].value)" />
+            </mat-form-field>
+          </div>
+          <div class="darkBlackText f-12 l-20 ml-20" style="font-weight: normal">
+            to
+          </div>
+          <div>
+            <mat-form-field class="ml-20 change-left" appearance="outline" (click)="picker.open();$event.preventDefault() ">
+              <input type="text" class="f-12" matInput placeholder="DD/MM/YYYY"
+                [value]="convertToDateFormat(range.controls['end'].value)" />
+            </mat-form-field>
+          </div>
+          <div style="margin-left: auto;opacity: 0;position: absolute;">
+            <mat-form-field appearance="outline">
+              <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [max]="today">
+                <input matStartDate formControlName="start" placeholder="Start date">
+                <input matEndDate formControlName="end" placeholder="End date">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker (closed)="bifurcationDateChanage($event)"></mat-date-range-picker>
+
+            </mat-form-field>
+          </div>
+          <div class="iconStyle dateIconStyle ml-10 mt-10-mb pointer" (click)="picker.open()">
+            <mat-icon>date_range</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="d-flex justify-content-between align-items-center mt-30">
+      <div class="darkLightText f-14 l-24" style="font-weight: normal">
+        Rejected Transactions
+      </div>
+      <div class="textStyle">{{transBurification?.rejectTransactions}}</div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-30">
+      <div class="darkLightText f-14 l-24" style="font-weight: normal">
+        Accepted Transactions
+      </div>
+      <div class="textStyle">{{transBurification?.acceptTransactions}}</div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-30">
+      <div class="darkLightText f-14 l-24" style="font-weight: normal">
+        Expired Transactions
+      </div>
+      <div class="textStyle">{{transBurification?.expiredTransactions}}</div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-30">
+      <div class="darkLightText f-14 l-24" style="font-weight: normal">
+        Banks Transactions
+      </div>
+      <div class="textStyle">{{transBurification?.totalBanks}}</div>
+    </div> -->
+    <!-- <mat-divider class="mt-10"></mat-divider> -->
+ <div  class="mt-20 justify-content-center d-flex">
+  <!-- <div style="display: flex; justify-content: center; "> -->
+  <!-- <table >
+    <tr>
+      <th class="darkLightText f-14 l-50" style="font-weight: normal">Rejected Transactions</th>
+      <td class="textStyle">{{transBurification?.rejectTransactions}}</td>
+    </tr>
+    <tr>
+      <th class="darkLightText f-14 l-50" style="font-weight: normal">Accepted Transactions</th>
+      <td class="textStyle">{{transBurification?.acceptTransactions}}</td>
+    </tr>
+    <tr>
+      <th class="darkLightText f-14 l-50" style="font-weight: normal">Expired Transactions</th>
+      <td class="textStyle">{{transBurification?.expiredTransactions}}</td>
+    </tr>
+    <tr>
+      <th class="darkLightText f-14 l-50" style="font-weight: normal">Banks Transactions</th>
+      <td class="textStyle">{{transBurification?.totalBanks}}</td>
+    </tr>
+  </table> -->
+
+<ng-container *ngIf="transactions">
+  <table mat-table [dataSource]="transactions" >
+    <ng-container matColumnDef="col-1">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let transaction" class="darkLightText f-14 l-24" style="font-weight: normal">{{ transaction.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="col-2">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let transaction" class="textStyle">{{ transaction.value }}</td>
+    </ng-container>
+
+
+
+    <!-- <tr style="opacity: 0;" mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+    <tr mat-row *matRowDef="let transaction; columns: displayedColumns;"></tr>
+  </table>
+</ng-container>
+ </div>
+
+
+
+
+
+  </section>
+</section>

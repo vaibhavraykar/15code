@@ -1,0 +1,82 @@
+// .myform-wrapper {
+//     margin: 50px;
+//     width: 350px;
+
+//     .mat-form-field {
+//         width: 100%;
+//     }
+
+//     .mat-toolbar-single-row {
+//         height: auto !important;
+//         background: transparent;
+
+//         button {
+//             width: 30%;
+//         }
+//     }
+// }
+.file-upload {
+    ::ng-deep {
+        // .transaction-details .mat-mdc-raised-button .mdc-button__label {
+        //     font-size: 16px !important;
+        // }
+        .mat-mdc-form-field {
+            width: 100% !important;
+        }
+        .mat-toolbar-single-row {
+            align-items: baseline !important;
+        }
+        .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+            border: none !important;
+        }
+        .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+            color: var(--grey);
+            font-size: 14px;
+        }
+        .mdc-line-ripple::before {
+            border-bottom-width: 0 !important;
+        }
+        .mat-toolbar-single-row {
+            padding: 0 !important;
+            height: 52px !important;
+        }
+        .mat-mdc-form-field-infix {
+            min-height: 52px !important;
+        }
+        .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+        .mat-toolbar-single-row {
+            background-color: transparent !important;
+           font-size: 12px;
+            // font-weight: bold;
+            font-family: 'Lato', sans-serif !important;
+            // color: var(--grey);
+        }
+       .btn-style {
+            font-size: 14px;
+            // font-weight: bold;
+            font-family: 'Lato', sans-serif !important;
+            color: #fff;
+       }
+       button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled) {
+        // height: 24px !important;
+        // letter-spacing: 0;
+       }
+    }
+}
+.mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input {
+    display: none;
+}
+
+#fileUpload {
+    position: absolute;
+    z-index: 9;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    cursor: pointer;
+}

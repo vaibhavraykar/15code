@@ -1,0 +1,79 @@
+<div class="applicant-pricing-details px-4">
+  <h6 class="title text-center mb-32">Fill in your bank details</h6>
+  <form [formGroup]="form">
+    <div class="mt-20 fw-700 f-16">Select Bank</div>
+    <section class="row mt-20">
+      <div class="col-md-6">
+        <!-- <mat-form-field class="w100" appearance="outline">
+          <mat-label>Select Bank</mat-label>
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+          <mat-select [multiple]="true" formControlName="selectBankName">
+            <mat-optgroup class="checkboxGroupSelectAll">
+              <mat-checkbox
+                [checked]="form.controls['selectBankName']?.value?.length === partnersBankList?.length"
+                (change)="selectAllOptions($event)"
+              >
+                Select All
+              </mat-checkbox>
+              <ng-container *ngFor="let bank of partnersBankList">
+                <mat-option style="padding-left: 26px;" [value]="bank.id">{{ bank.firstName }}</mat-option>
+              </ng-container>
+            </mat-optgroup>
+          </mat-select>
+          <mat-error *ngIf="form.controls['selectBankName'].hasError('required')">Bank name Required</mat-error>
+        </mat-form-field> -->
+        <mat-form-field class="w100" appearance="outline">
+          <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+
+          <mat-select formControlName="selectBankName" multiple>
+
+            <mat-select-trigger>
+              <mat-chip-listbox>
+                <mat-chip *ngFor="let bank of form.controls['selectBankName'].value"
+                  [removable]="true" (removed)="onToppingRemoved(bank)">
+                  {{ getbankName(bank) }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-listbox>
+            </mat-select-trigger>
+            <mat-checkbox
+            [style.paddingLeft]="'5px'"
+            [checked]="form.controls['selectBankName']?.value?.length === partnersBankList?.length"
+            (change)="selectAllOptions($event)"
+          >
+            Select All
+          </mat-checkbox>
+            <mat-option *ngFor="let bank of partnersBankList" [value]="bank.id">
+            <div style="padding: 2% 0;">
+              <div class="my-1">
+                {{ bank?.email }}
+              </div>
+              <div class="my-1" *ngIf="bank.firstName!=='360tf Partner Banks'">
+                ( {{ bank.firstName }},{{bank.country}})
+              </div>
+              <div class="my-1" *ngIf="bank.firstName==='360tf Partner Banks'">
+                {{ bank.firstName }}
+              </div>
+            </div>
+
+            </mat-option>
+
+          </mat-select>
+          <mat-error *ngIf="form.controls['selectBankName'].hasError('required')">Bank name Required</mat-error>
+        </mat-form-field>
+      </div>
+    </section>
+    <section class="row mt-20">
+      <div class="submit-btn mt-30">
+        <div class="col-md-6 text-center m-auto">
+          <app-button
+            [name]="'SAVE & PREVIEW'"
+            [class]="'primary-btn f-16 w100'"
+            (click)="submit()"
+          ></app-button>
+        </div>
+      </div>
+    </section>
+  </form>
+</div>
+<!--    routerLink="/bank-underwriter/new-secondary-transaction-preview" -->

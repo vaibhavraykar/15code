@@ -1,0 +1,32 @@
+<div class="select-product-container">
+	<div class="text-center col-md-9 m-auto">
+		<h6 class="title">Which product are you interested in?</h6>
+		<div class="row d-flex justify-content-center align-items-center">
+			<div class="col-xl-4 col-md-4 col-6" *ngFor="let card of cardsProduct;let i=index">
+				<div class="cards pt-1 pb-2 d-flex flex-column align-items-center justify-content-center  m-auto"
+					(click)="selectedProductType(card.value)"
+					[ngClass]="{'clicked':card.value==selected}"
+				>
+                    <div class="" *ngIf="card.imageUrl">
+                        <img src="{{card.imageUrl}}" alt="" style="width: 32px;height:32px;">
+                    </div>
+                    <div class="f-14 fw-400 mt-10 fontRegular">
+                        <p>{{card.name}}</p>
+                    </div>
+                    <p></p>
+                </div>
+			</div>
+		</div>
+	</div>
+	<div class="mt-20 submit-btn text-center">
+		<div class="col-md-12 m-auto">
+			<app-button
+				[name]="'PROCEED'"
+				[class]="'primary-btn f-16 w100'"
+				[type]="'button'"
+				(click)="proceed(selected)"
+				[disable]="disableButton"
+			></app-button>
+		</div>
+	</div>
+</div>

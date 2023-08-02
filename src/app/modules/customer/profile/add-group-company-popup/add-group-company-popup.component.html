@@ -1,0 +1,389 @@
+
+<ng-container [ngSwitch]="viewType">
+  <ng-container *ngSwitchDefault>
+    <ng-container *ngTemplateOutlet="default" ></ng-container>
+  </ng-container>
+  <ng-container *ngSwitchCase="'success'"  >
+    <ng-container *ngTemplateOutlet="success" ></ng-container>
+  </ng-container>
+  <ng-container *ngSwitchCase="'uploardFailed'"  >
+    <ng-container *ngTemplateOutlet="uploardFailed" ></ng-container>
+  </ng-container>
+  <ng-container *ngSwitchCase="'renew'"  >
+    <ng-container *ngTemplateOutlet="renew" ></ng-container>
+  </ng-container>
+</ng-container>
+<ng-template #default>
+  <div class="addGroupCompany" >
+    <div class="heading">
+        Add Group Company
+        <span  class="cPointer" (click)="close()"><mat-icon>close</mat-icon></span>
+    </div>
+    <div style="padding-right: 500px;"></div>
+    <div style="padding:30px;padding-top: 0!important;">
+        <div class="row" style="max-height: 400px;overflow-y: auto;">
+        <form [formGroup]="addGroupcompanyForm">
+            <div formArrayName='addGroupcompanyformArrayName'>
+                <section class="row mt-10" *ngFor="let variable of additionaladdGroupcompany().controls; let i = index" [formGroupName]="i">
+            <div class="col-12 mt-10 titleFont">{{i+1}}</div>
+            <div class="col-12 mt-10 col-xxl-3 col-xl-4 col-lg-6">
+                <mat-form-field class="w100" appearance="outline">
+                    <mat-label>Company Name</mat-label>
+                    <input
+                      type="text"
+                      class="f-14"
+                      matInput
+                      formControlName="companyName"
+                    />
+                    <mat-error *ngIf="isFieldInvalid('companyName', i)">Company Name is required.</mat-error>
+                  </mat-form-field>
+            </div>
+            <div class="col-12 mt-10 col-xxl-3 col-xl-4 col-lg-6">
+                <mat-form-field
+                class="w100"
+                appearance="outline"
+              >
+                <mat-label>Registration Type</mat-label>
+
+                <!-- <input
+                  type="text"
+                  class="f-14"
+                  matInput
+                  [matAutocomplete]="registrationType"
+                  formControlName="registrationType"
+                /> -->
+                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                <mat-select
+                  autoActiveFirstOption
+                  formControlName="registrationType"
+
+                  (optionSelected)="selectedregistrationType($event)"
+                >
+                  <mat-option value="IMPORTER">Importer</mat-option>
+                  <mat-option value="EXPORTER">Exporter</mat-option>
+                  <mat-option value="EXPORTER_AND_IMPORTER">Both</mat-option>
+                </mat-select>
+                <mat-error *ngIf="isFieldInvalid('registrationType', i)">Registeration type is required.</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 mt-10 col-xxl-3 col-xl-4 col-lg-6">
+                <mat-form-field
+                class="w100"
+                appearance="outline"
+                (click)="matAutocompleteCountryObservers(i)"
+              >
+                <mat-label>Select Country</mat-label>
+                <input
+                  type="text"
+                  class="f-14"
+                  matInput
+                  [value]="additionaladdGroupcompany().controls[i].get('CountryName').value.toUpperCase()"
+                  [matAutocomplete]="countryName"
+                  formControlName="CountryName"
+                  (change)="checkCountry($event,'CountryName',i)"
+                />
+                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                <mat-autocomplete
+                  autoActiveFirstOption
+                  #countryName="matAutocomplete"
+                  (optionSelected)="selectedCountry()"
+                >
+                  <mat-option
+                    *ngFor="let item of selectedCountryList | async"
+                    [value]="item"
+                  >
+                    {{ item }}
+                  </mat-option>
+
+                </mat-autocomplete>
+                <mat-error *ngIf="isFieldInvalid('CountryName', i)">Country is required.</mat-error>
+
+              </mat-form-field>
+            </div>
+            <div class="col-12 mt-10 col-xxl-3 col-xl-4 col-lg-6">
+                <mat-form-field class="w100" appearance="outline">
+                    <mat-label>Province/State</mat-label>
+                    <input
+                      type="text"
+                      class="f-14"
+                      matInput
+                      formControlName="stateName"
+                    />
+                    <mat-error *ngIf="isFieldInvalid('stateName', i)">State is required.</mat-error>
+
+                  </mat-form-field>
+            </div>
+            <div class="col-12 mt-10 col-xxl-3 col-xl-4 col-lg-6">
+                <mat-form-field class="w100" appearance="outline">
+                    <mat-label>City</mat-label>
+                    <input
+                      type="text"
+                      class="f-14"
+                      matInput
+                      formControlName="cityName"
+                    />
+                    <mat-error *ngIf="isFieldInvalid('cityName', i)">City is required.</mat-error>
+
+                  </mat-form-field>
+            </div>
+            <div class="col-12 mt-10 col-xxl-3 col-xl-4 col-lg-6">
+                <mat-form-field class="w100" appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <input
+                      type="text"
+                      class="f-14"
+                      matInput
+                      formControlName="addresss"
+                    />
+                    <mat-error *ngIf="isFieldInvalid('addresss', i)">Address is required.</mat-error>
+                  </mat-form-field>
+            </div>
+            <div class="col-12 mt-10 col-xxl-3 col-xl-4 col-lg-6">
+                <mat-form-field class="w100" appearance="outline">
+                    <mat-label>Zipcode</mat-label>
+                    <input
+                      type="text"
+                      class="f-14"
+                      matInput
+                      formControlName="zipcode"
+                      maxlength="10"  minlength="5"
+                      (paste)="pasteHandler($event)"
+                    />
+                    <mat-error *ngIf="isFieldInvalid('zipcode', i)">Zip is required.</mat-error>
+                  </mat-form-field>
+            </div>
+            <div class="col-12 mt-10 col-xxl-3 col-xl-4 col-lg-6">
+                <mat-form-field class="w100" appearance="outline">
+                    <mat-label>Telephone No</mat-label>
+                    <input
+                      type="text"
+                      class="f-14"
+                      matInput
+                      formControlName="telephoneNumber"
+                      (keypress)="telephoneHandler($event)"
+                      (paste)="pasteHandler($event)"
+                      (change)="telechecker($event,i)"
+                    />
+                    <mat-error *ngIf="isFieldInvalid('telephoneNumber', i)">Landline is required.</mat-error>
+                  </mat-form-field>
+            </div>
+            <div class="col-12 mt-10 col-xxl-3 col-xl-4 col-lg-6">
+                <mat-form-field
+                class="w100"
+                appearance="outline"
+                (click)="matAutocompleteCountryObservers2(i)"
+              >
+                <mat-label>KYC Country</mat-label>
+                <input
+                  type="text"
+                  class="f-14"
+                  matInput
+                  [matAutocomplete]="KYCCountryName"
+                  [value]="additionaladdGroupcompany().controls[i].get('KYCCountryName').value.toUpperCase()"
+                  formControlName="KYCCountryName"
+                  (change)="checkCountry($event,'KYCCountryName',i)"
+                />
+                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                <mat-autocomplete
+                  autoActiveFirstOption
+                  #KYCCountryName="matAutocomplete"
+                  (optionSelected)="selectedCountry()"
+                >
+                  <mat-option
+                    *ngFor="let item of kycCountryList | async"
+                    [value]="item"
+                  >
+                    {{ item }}
+                  </mat-option>
+
+                </mat-autocomplete>
+                <mat-error *ngIf="isFieldInvalid('KYCCountryName', i)">KYC country is required.</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-12 mt-10 col-xxl-3 col-xl-4 col-lg-6">
+                <mat-form-field
+                class="w100"
+                appearance="outline"
+              >
+                <mat-label>Valid Document</mat-label>
+                <!-- <input
+                  type="text"
+                  class="f-14"
+                  matInput
+                  [matAutocomplete]="applicantCountry"
+                  formControlName="validDocument"
+                /> -->
+                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                <mat-select
+                  autoActiveFirstOption
+                  formControlName="validDocument"
+
+                >
+                <mat-option *ngFor="let d of document$|async" [value]="d.value">
+                  {{d.value}}
+                </mat-option>
+
+                  <!-- <mat-option value="1">Registration Certificate or equivalent</mat-option>
+                  <mat-option value="2">Address proof</mat-option>
+                  <mat-option value="3">Tax identification documents</mat-option> -->
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-12 mt-10 col-xxl-3 col-xl-4 col-lg-6">
+                <!-- <mat-form-field class="w100" appearance="outline">
+                    <mat-label>choose file</mat-label>
+                    <input
+                      type="file"
+                      class="f-14"
+                      matInput
+                      formControlName="chooseFile"
+                    />
+                  </mat-form-field> -->
+                  <div class="upload-button-content" >
+						<div class="upload-button">
+							<label
+                style="word-break: break-word;"
+              >{{additionaladdGroupcompany().controls[i]?.get('chooseFile')?.value?.fileName||'Upload Document'}}</label>
+							<!-- <div *ngIf="additionaladdGroupcompany().controls[i]?.get('chooseFile')?.value?.fileName" (click)="deleteBusinessFile(i)">
+                <img style="width:30px;height:30px" src="../../../../../assets/images/customer/close.png" />
+              </div> -->
+
+							<app-file-upload
+								[name]="'Upload'"
+								[accept]="'.jpg,.jpeg,.png,.pdf,.tiff'"
+								(onUpload)="uploadTransaction($event,i)"
+							></app-file-upload>
+						</div>
+						<div class="d-flex align-items-center help-icon mt-2">
+							<div class="mr-5">
+								<img
+									src="../../../../assets/images/icons/Icon-info.svg"
+									height="15"
+									alt="icon"
+								/>
+							</div>
+
+							<span class="f-12">File should be less than 20MB</span>
+               <mat-error *ngIf="this.fileErrorCheck(i).touched&&this.fileErrorCheck(i).hasError('required')" class="mx-3">File required</mat-error>
+
+              <mat-error *ngIf="this.fileErrorCheck(i).hasError('invalid')" class="mx-3">Invalid file format.</mat-error>
+						</div>
+
+					</div>
+                  <!-- <div class=" upload-button-content"> -->
+                    <!-- <div class="upload-button" style="height:58px;">
+                        <label >choose file:</label>
+                        {{additionaladdGroupcompany().controls[i]?.get('chooseFile')?.value?.fileName||''}}
+
+
+                        <app-file-upload
+                            [name]="'Choose file'"
+                            [accept]="'.jpg,.jpeg,.png,.pdf,.tiff'"
+                            (onUpload)="uploadTransaction($event,i)"
+                        ></app-file-upload>
+                    </div> -->
+
+                    <!-- <div class="d-flex align-items-start help-icon">
+                        <div class="mr-5">
+                            <img
+                                src="../../../../assets/images/icons/Icon-info.svg"
+                                height="15"
+                                alt="icon"
+                            />
+                        </div>
+                        <span class="f-12"
+              >Upload only in (pdf, jpeg, png, tiff) format. File
+              should be less than 20MB
+                </span
+                        >
+
+                    </div> -->
+
+                <!-- </div>  -->
+            </div>
+            <div class="col-12 mt-10 col-xxl-3  col-xl-4 col-lg-6 deleteIcon d-flex justify-content-center align-self-center">
+                <mat-icon *ngIf="i>=1"  (click)="deleteAddCompany(i)" class="pointer">delete_outline</mat-icon>
+            </div>
+        </section>
+        </div>
+        </form>
+
+        </div>
+        <div class="row mt-20 justify-content-end">
+            <div class="col-6 col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4">
+                <app-button  (click)="invite()"
+                [name]="'INVITE USERS'"
+                [class]="'primary-btn f-16 w100'"
+                [type]="'button'"
+            ></app-button>
+            </div>
+            <div class="col-6 col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4">
+                <app-button
+                (click)="addMoreCompany()"
+                [name]="'ADD USERS'"
+                [class]="'primary-btn f-16 w100'"
+                [type]="'button'"
+            ></app-button>
+            </div>
+        </div>
+    </div>
+</div>
+</ng-template>
+<ng-template #success>
+  <div class="popup">
+    <div class="heading d-flex justify-content-betweeen">
+      Success
+      <span (click)="close()"><mat-icon >close</mat-icon></span>
+    </div>
+    <div class="row" style="margin: 0; padding: 20px">
+      <div style="padding-right: 150px;"></div>
+      <div class="content_text">
+        <p *ngIf="additionaladdGroupcompany().controls.length>1">You have successfully added Group Companies!</p>
+        <p *ngIf="additionaladdGroupcompany().controls.length==1">You have successfully added Group Company!</p>
+        <div class="row  justify-content-end">
+          <div class="save-btn-section col-md-2">
+              <button mat-button class="save-btn  f-12 fontBold dgrey " (click)="close()" >OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #uploardFailed>
+  <div class="popup">
+    <div class="heading d-flex justify-content-betweeen">
+      Invalid File.
+      <span (click)="close()"><mat-icon >close</mat-icon></span>
+    </div>
+    <div class="row" style="margin: 0; padding: 20px">
+      <div style="padding-right: 200px;"></div>
+      <div class="content_text">
+        <p>Kindly select pdf, png, jpeg or tiff File</p>
+        <div class="row  justify-content-end">
+          <div class="save-btn-section col-md-2">
+              <button mat-button class="save-btn  f-12 fontBold dgrey " (click)="close()" >OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #renew>
+  <div class="popup">
+    <div class="heading d-flex justify-content-betweeen">
+      Renew.
+      <span (click)="close()"><mat-icon >close</mat-icon></span>
+    </div>
+    <div class="row" style="margin: 0; padding: 20px">
+      <div style="padding-right: 200px;"></div>
+      <div class="content_text">
+        <p>You had no / reached Maximum Group company Counts please Renew Your Subscribtion</p>
+        <div class="row  justify-content-end">
+          <div class="save-btn-section col-md-2">
+              <button mat-button class="save-btn  f-12 fontBold dgrey " (click)="close()" >OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

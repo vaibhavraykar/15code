@@ -1,0 +1,59 @@
+.vas-popup {
+    width: 540px;
+    height: 457px;
+    border-radius: 10px !important;
+    .heading {
+        width: 100%;
+        font: normal normal bold 20px/24px Lato;
+        letter-spacing: 0.4px;
+        color: #FFFFFF;
+        opacity: 1;
+        background-color: var(--yellow);
+        text-align: center;
+        padding: 15px;
+        span {
+            position: absolute;
+            border: 2px solid #fff;
+            border-radius: 50px;
+            width: 30px;
+            height: 30px;
+            right: 10px;
+            top: 12px;
+            .mat-icon {
+                padding-top: 2px;
+            }
+        }
+    }
+    .heading-text {       
+        color: #292929;
+        font: normal normal bold 16px/24px Lato;
+        letter-spacing: 0.32px;
+        color: #292929;
+    }
+    .description {
+        color: #292929;
+        font: normal normal normal 14px/24px Lato;
+        letter-spacing: 0.28px;
+        color: #292929;
+    }
+}
+::ng-deep {
+    .mdc-dialog__surface {
+        overflow-x: hidden !important;
+    }
+    .mdc-dialog__surface::-webkit-scrollbar {
+        width: 5px;
+      }
+    
+      .mdc-dialog__surface::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+      }
+       
+      .mdc-dialog__surface::-webkit-scrollbar-thumb {
+        background: #888; 
+      }
+      
+      .mdc-dialog__surface::-webkit-scrollbar-thumb:hover {
+        background: #727272; 
+      }
+}

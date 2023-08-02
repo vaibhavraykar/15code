@@ -1,0 +1,70 @@
+.view-transaction {   
+    max-width: 98%;
+    margin:auto;
+    background-color: #fff;
+    margin-top: 20px;
+    .label-text {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--grey);
+        font-family: 'Lato', sans-serif !important;
+    }
+    .px-5  {
+        padding-right: 7rem !important;
+        padding-left: 7rem !important;
+    }
+    .info {
+        font-size: 13px;
+        font-weight: bold;
+        margin-top: 5px;
+        color: var(--dgrey);
+        font-family: 'Lato', sans-serif !important;
+    }
+    .col-md-3 {
+        margin-top: 20px;
+        word-wrap: break-word;
+    }
+    .transaction {
+        background-color: #f1f1f9 !important;
+        padding: 21px 10px;
+    }
+    .imgDiv {
+        // width: 40px;
+        // height: 40px;
+        // background-color: var(--l-yellow);
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        // border-radius: 25px;
+        img {
+            width: 12px;
+            height: 12px;
+            text-align: center;
+        }
+    }
+    ::ng-deep {
+        .material-icons {
+            font-size: 19px;
+        }
+        .mat-icon {
+            height: 14px;
+        }
+        .back {
+            display: flex;
+        }
+    }
+    .comment {
+        overflow-wrap: break-word;
+        margin-top: 20px;
+    }
+}
+.buttonstyle {
+    color: #fff !important;
+    border-radius: 5px;
+    background-color: #73BF45 ;
+    width: 70%;
+    text-align: center;
+}
+// .boxShadow {
+//     box-shadow: 0px 1px 20px #00000029;
+// }

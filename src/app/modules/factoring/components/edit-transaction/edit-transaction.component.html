@@ -1,0 +1,247 @@
+<div class="edit-transaction" style="padding: 20px 10px;" *ngIf="viewData">
+    <div class="mt-30 px-5 py-2 col-md-8 m-auto">
+        <span class="f-22 fontBold dgrey">
+            Edit Transaction
+        </span>
+
+        <div class="row " style="margin-top: 10px;">
+            <mat-radio-group (change)="onRadioSelection($event)" [(ngModel)]="selectedUser">
+                <mat-radio-button value="ASSIGNOR">Assignor/Seller</mat-radio-button>
+                <mat-radio-button value="DEBTOR">Debtor/Buyer</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-4">
+                <div class="col-md-12 ">
+
+                    <mat-form-field appearance="outline" *ngIf="selectedUser=='ASSIGNOR'">
+                        <mat-label>Assignor/Seller</mat-label>
+                        <!-- <label class="f-12 fontRegular grey" >Assigner</label> -->
+                        <mat-select placeholder="Assignor/Seller" class="f-14"
+                            (selectionChange)="assignerChange($event)" [formControl]="assigners">
+                            <mat-option *ngFor="let item of group_companies" [value]="item.id">
+                                {{item.companyName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+
+                    <app-inputtext *ngIf="selectedUser=='DEBTOR'" [value]="viewData.debtorToAssignor"
+                        (focusOutEvent)="updatedAssigner($event)" [type]="'text'" [required]="true"
+                        [placeHolder]="'Assignor/Seller'" [name]="'Assignor/Seller'"
+                        style="width: 100%;"></app-inputtext>
+
+
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+
+                    <mat-form-field appearance="outline" *ngIf="selectedUser=='DEBTOR'">
+                        <mat-label>Debtor/Buyer</mat-label>
+                        <!-- <label class="f-12 fontRegular grey" >Debtor</label> -->
+                        <mat-select placeholder="Debtor/Buyer" class="f-14" (selectionChange)="debtorChange($event)"
+                            [formControl]="debtors">
+                            <mat-option *ngFor="let item of group_companies" [value]="item.id">
+                                {{item.companyName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+
+                    <app-inputtext *ngIf="selectedUser=='ASSIGNOR'" [value]="viewData.assignorToDebtor"
+                        (focusOutEvent)="updatedDebtor($event)" [type]="'text'" [required]="true"
+                        [placeHolder]="'Debtor/Buyer'" [name]="'Debtor/Buyer'" style="width: 100%;"></app-inputtext>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Charges are on</mat-label>
+                        <!-- <label class="f-12 fontRegular grey">Charges are on</label> -->
+                        <mat-select placeholder="Charges are on" class="f-14" [formControl]="chargesOn"
+                            (selectionChange)="chargesChange($event)">
+                            <mat-option *ngFor="let item of charges" [value]="item.name">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </div>
+        <div class="row ">
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <mat-form-field class="" appearance="outline">
+                        <mat-label>Currency</mat-label>
+
+                        <input type="text" class="f-14" matInput [formControl]="currency" [value]="viewData?.currency"
+                            [matAutocomplete]="currencyDropdown" (selectionChange)="selectionCurrency($event)"
+                            (input)="currencyChange($event)">
+                        <mat-autocomplete autoActiveFirstOption #currencyDropdown="matAutocomplete"
+                            (optionSelected)="selectionCurrency($event,'autoComplete')">
+                            <mat-option *ngFor="let item of currencyOptions" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <app-inputtext [revamp]="true"  #amount [type]="'number'" [required]="true"
+                        (focusOutEvent)="updatedAmount($event)" [name]="'Amount'" style="width: 100%;"></app-inputtext>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <app-inputtext [value]="viewData.invoiceNumber" [type]="'text'" [required]="true"
+                        [maxlength]="25"
+                        (focusOutEvent)="updatedInvoice($event)" [placeHolder]="'Invoice Number'"
+                        [name]="'Invoice Number'" style="width: 100%;"></app-inputtext>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Invoice Date</mat-label>
+                        <!-- <label class="f-12 fontRegular grey">Date</label> -->
+                        <input matInput [matDatepicker]="picker" class="f-14" placeholder="Date" [formControl]="date"
+                            (dateChange)="updateDate($event)" [max]="findToday()">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Due Date</mat-label>
+                        <!-- <label class="f-12 fontRegular grey">Date</label> -->
+                        <input matInput [matDatepicker]="picker1" class="f-14" placeholder="Due Date"
+                            [min]="findMinDate()"
+                            [formControl]="dueDate" (dateChange)="updateDueDate($event)">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <app-inputtext [type]="'text'" [value]="getTenorDate()" [required]="true"
+                        (focusOutEvent)="updatedTenor($event)" [placeHolder]="'Tenure'" [name]="'Tenure'"
+                        style="width: 100%;pointer-events: none;"></app-inputtext>
+                </div>
+            </div>
+        </div>
+        <div class="row no_wrap">
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <app-inputtext class="pe-none" [value]="getFinancingDate()" [type]="'number'" [required]="true"
+                        [name]="'Financing Period'" style="width: 100%;pointer-events: none;"
+                        (focusOutEvent)="financeHandler($event)"></app-inputtext>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <app-inputtext [type]="'number'" [value]="viewData.gracePeriod" [required]="true"
+                        (focusOutEvent)="updatedGracePeriod($event)" [placeHolder]="'Grace Period(in days)'"
+                        [name]="'Grace Period'" style="width: 100%;"></app-inputtext>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Underlying Goods</mat-label>
+                        <!-- <label class="f-12 fontRegular grey">Underling Goods</label> -->
+                        <mat-select placeholder="Underlying Goods" class="f-14" [formControl]="goods"
+                            (selectionChange)="goodsChange($event)">
+                            <mat-option *ngFor="let item of all_goods" [value]="item.name">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-4" *ngIf="goods.value=='Others'">
+                <div class="">
+                    <app-inputtext [type]="'text'" [required]="true" [name]="'Underlying goods'" style="width: 100%;"
+                        (focusOutEvent)="goodsHandler($event)" [value]="viewData?.extraUnderlyingGoods"></app-inputtext>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="col-md-4">
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Due Date</mat-label>
+                        
+                        <input matInput [matDatepicker]="picker2" placeholder="Due Date" class="f-14"
+                            [formControl]="validityDate" (dateChange)="updateValidityDate($event)">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div> -->
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Country of Origin</mat-label>
+                        <!-- <label class="f-12 fontRegular grey">Country of Origin</label> -->
+                        <mat-select placeholder="Country of Origin" class="f-14" [formControl]="countryOrigin"
+                            (selectionChange)="countryOriginChange($event)">
+                            <mat-option *ngFor="let item of countries" [value]="item.countryName">
+                                {{item.countryName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Country of Discharge</mat-label>
+                        <!-- <label class="f-12 fontRegular grey">Country of Discharge</label> -->
+                        <mat-select placeholder="Country of Discharge" class="f-14" [formControl]="countryDischarge"
+                            (selectionChange)="countryDischargeChange($event)">
+                            <mat-option *ngFor="let item of countries" [value]="item.countryName">
+                                {{item.countryName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-md-4 mt-10">
+                <mat-checkbox [checked]="viewData.isESGCompliant" (change)="toggleESG($event)">is ESG
+                    Compliant?</mat-checkbox>
+
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+            <div class="row add-custom-style">
+                <div class="col-md-3">
+                    <div class="mt-30 text-center">
+                        <app-button [name]="'Cancel'" [class]="'primary-btn f-16 w100'" [type]="'button'"
+                            (click)="cancel()"></app-button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mt-30 text-center">
+                        <app-button [name]="'Save'" [class]="'primary-btn f-16 w100'" [type]="'button'"
+                            (click)="save()"></app-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

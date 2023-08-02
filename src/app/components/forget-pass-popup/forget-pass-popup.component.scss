@@ -1,0 +1,49 @@
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup {
+  font-family: "Lato", sans-serif !important;
+  background: white;
+
+  .heading {
+    background-color: var(--yellow);
+    color: var(--white);
+    padding: 20px;
+    position: relative;
+    .circle-icon {
+      position: absolute;
+      right: 8px;
+      top: 2px;
+      cursor: pointer;
+    }
+  }
+  ::ng-deep {
+    .mat-icon {
+      width: inherit !important;
+      height: inherit !important;
+    }
+  }
+  .img-container {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    img {
+      width: 65px;
+    }
+  }
+  .error-msg {
+    // font-size: 14px;
+    padding: 30px;
+
+    span {
+      font-size: 14px;
+      font-family: "Lato", sans-serif !important;
+      color: var(--dgrey);
+    }
+  }
+}
+.mat-mdc-form-field {
+  width: 100% !important;
+}

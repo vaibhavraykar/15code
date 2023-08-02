@@ -1,0 +1,118 @@
+        <div style="padding: 20px 10px;">
+            <div class="row">
+                <div class="col-md-8">
+                    <span class="f-22 fontBold dgrey">Product Details</span>
+                </div>
+                <div class="col-md-2">
+                    <div class="filterDropdown"> 
+                        <mat-form-field appearance="outline" >
+                        <mat-select (selectionChange)="onSubscriberTypeChange($event)" [ngModel]="subscriberType">
+                            <mat-option value="CUSTOMER" *ngIf="myRole != 'BANK_RM'">Customer</mat-option>
+                            <mat-option value="BANK" *ngIf="myRole != 'BANK_RM'">Bank</mat-option>
+                            <mat-option value="BANK_AS_UNDERWRITER" *ngIf="myRole != 'CUSTOMER_RM'">Bank As Underwriter</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-2" *ngIf="myRights.includes('SUBSCRIPTION_MGMT_CREATE')">
+                    <app-button [name]="'Add Product'" [class]="'primary-btn f-16 w-100'" class="btnResize"
+                        (click)="addProduct()"></app-button>
+                </div>   
+                <div class="mt-10 table-container">
+                    <table mat-table [dataSource]="dataSource" matSort>
+                        <ng-container matColumnDef="User Type">
+                            <th mat-header-cell *matHeaderCellDef>User Type</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.applicableEntityType}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Product Type">
+                            <th mat-header-cell *matHeaderCellDef>Product Type</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.productType.replace('_',' ')}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Currency">
+                            <th mat-header-cell *matHeaderCellDef>Currency</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.currency}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Plan">
+                            <th mat-header-cell *matHeaderCellDef>Plan</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.planName}}
+                            </td>
+                        </ng-container>
+    
+                        <ng-container matColumnDef="Credits">
+                            <th mat-header-cell *matHeaderCellDef>Credits</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.credits}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Price">
+                            <th mat-header-cell *matHeaderCellDef>Price</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.price | amount}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Duration">
+                            <th mat-header-cell *matHeaderCellDef>Duration</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.duration}} {{element.durationType}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Plan Type">
+                            <th mat-header-cell *matHeaderCellDef>Plan Type</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.planType}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Status">
+                            <th mat-header-cell *matHeaderCellDef>Status</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.status}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Action">
+                            <th mat-header-cell *matHeaderCellDef>Action</th>
+                            <td mat-cell *matCellDef="let element">
+                                <i class="fa fa-eye" style="cursor:pointer" (click)=viewDetails(element.id)
+                                    matTooltip="View"></i>
+                                    <i class="fa fa-pencil" style="cursor:pointer" *ngIf="myRole == 'MANAGEMENT' || myRole == 'OPS_EDIT' || myRole == 'OPS_ADMIN'" (click)=editDetails(element.id)
+                                    matTooltip="Edit"></i>
+                            </td>
+                        </ng-container>
+                        <tr class="mat-row " *matNoDataRow>
+                            <td class="mat-cell text-center " [attr.colspan]="displayColumns.length">
+                                No Records Found.
+                            </td>
+                        </tr>
+    
+    
+    
+                        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                      <mat-paginator  (page)= "onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]">
+                      </mat-paginator>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="pagination" style="float: right;">
+                            <div class="f-12 fontBold grey mx-3"> {{getPage()+' ' }} of {{page?.totalElements}}</div>
+                            <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="page?.index === 0 ?'#292929a1':'#EB7203'"
+                                [style.pointer-events]="page?.index === 0?'none':'auto'">
+                                arrow_back_ios
+                            </mat-icon>
+                            <mat-icon class="pointer" (click)="pageNext()" [style.pointer-events]="last===page?.totalElements?'none':'auto'"
+                                [style.color]="last===page?.totalElements ?'#292929a1':'#EB7203'"
+                                [style.pointer-events]="last===page?.totalElements ?'none':'auto'" style="margin-left: 10px;">
+                                arrow_forward_ios
+                            </mat-icon>
+                        </div>
+                     </div>
+                  </div>

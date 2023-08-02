@@ -1,0 +1,351 @@
+<div class="customerKyc">
+    <span class="f-22 fontBold dgrey">KYC Details</span>
+
+    <div class="col-md-8 m-auto">
+        <div>
+            <div style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="yellow-txt f-14 fontBold">User ID</div>
+                         <div class="label-text">{{data.personalDetails?.username}}</div>
+                    </div>
+                    <div class="col-md-1" style="padding:0px" (click)="back()">
+                        <!-- <div class="f-14 fontBold dgrey cpointer back">
+                            <mat-icon (click)="back()">keyboard_arrow_left</mat-icon> 
+                            <span (click)="back()">Back</span>
+                        </div> -->
+                        <div class="imgDiv f-14 fontBold dgrey cpointer">
+                            <mat-icon >keyboard_arrow_left</mat-icon>Back 
+                        </div>                
+                    </div>
+                </div>
+               
+            </div>
+            <mat-accordion>
+                <mat-expansion-panel 
+                    class="mt-10"
+                    (opened)="openPanelState = true"
+                    (closed)="openPanelState = false" style="padding: 0 24px;">
+                <mat-expansion-panel-header style="padding:0px">
+                    <mat-panel-title class="fontBold f-16 " style="color:#0f3c9c">
+                        Personal KYC 
+                    </mat-panel-title>
+                    <mat-panel-description class="justify-content-end">
+                    </mat-panel-description>
+                </mat-expansion-panel-header >
+                <ng-template matExpansionPanelContent>
+                    <div style="padding: 10px;" *ngFor="let personalKycList of data.kycDetails[1]?.documentList;let i=index">
+                        <span class="fontBold f-12 " style="color:#fd7e14">KYC Detail {{i+1}}</span>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="label-text">Country</div>
+                                <div class="info">{{personalKycList?.country}}</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="label-text">Document</div>
+                                <div class="info">{{personalKycList?.documentName}}</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="label-text">Current Status</div>
+                                <div class="info">{{personalKycList?.kycStatus}}</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="info mt-10" style="color:#0f3c9c;cursor:pointer" *ngIf="personalKycList?.url" (click)="viewDocument(personalKycList?.url)">View Document</div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="personalKycList?.kycStatus != 'PENDING' && i != 0 && kycApprove">
+                            <!-- kyc is not pending and not the latest record -->
+                            <div class="col-md-3">
+                                <div class="label-text">Maker Comment</div>
+                                <div class="info">{{personalKycList?.makerComment}}</div>
+                            </div>
+                        </div><br>
+                        <div class="row" *ngIf="personalKycList?.kycStatus != 'PENDING' && i != 0 && kycApprove">
+                            <!-- kyc is not pending and not the latest record -->
+                            <div class="col-md-3">
+                                <div class="label-text">Checker Comment</div>
+                                <div class="info">{{personalKycList?.checkerComment}}</div>
+                            </div>
+                        </div>
+                        <!-- for latest record and status is pending -->
+                        <div class="row" *ngIf="i==0">
+                            <div class="col-md-4" *ngIf="!data.businessDetails?.sourceList && personalKycList?.kycStatus == 'PENDING' && kycApprove">
+                                <!-- source empty -->
+                                <mat-form-field appearance="outline" class="w100">
+                                    <mat-label>Source*</mat-label>
+                                    <mat-select (selectionChange)="getSource($event)">
+                                      <mat-option *ngFor="let item of allSourceList" [value]="item" style="font-size:medium">{{item.sourceName}}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>                                  
+                            </div>
+                            <div class="col-md-3" *ngIf="data.businessDetails?.sourceList">
+                                   <!-- source having values -->
+                                    <div class="label-text">Source</div>
+                                    <div class="info">{{data.businessDetails?.sourceList}}</div>
+                            </div>
+                            <div class="col-md-4" *ngIf="!data.businessDetails?.rmUser && personalKycList?.kycStatus == 'PENDING' && kycApprove" >
+                                <!-- onboarded empty -->
+                                <mat-form-field appearance="outline" class="w100" >
+                                    <mat-label>Onboarded By*</mat-label>
+                                    <mat-select (selectionChange)="getRm($event)">
+                                      <mat-option *ngFor="let item of rmList" style="font-size:medium" [value]="item.id">{{item.firstName}} {{item.lastName}}</mat-option>
+                                    </mat-select>
+                                  </mat-form-field> 
+                            </div>
+                            <div class="col-md-3" *ngIf="data.businessDetails?.rmUser">
+                                   <!-- onboarded having values -->
+                                    <div class="label-text">Onboarded By</div>
+                                    <div class="info">{{data.businessDetails?.rmUser?.firstName + data.businessDetails?.rmUser?.lastName}}</div>
+                            </div>
+                            <div class="col-md-4" *ngIf="!personalKycList?.makerComment && i == 0 && personalKycList?.kycStatus == 'PENDING' && kycApprove">
+                                <!-- comment empty and latest record -->
+                                <mat-form-field appearance="outline" class="w100">
+                                    <mat-label>Comment*</mat-label>
+                                    <input type="text" matInput [(ngModel)]="personalComment" (input)="comment('PERSONAL')">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-3" *ngIf="personalKycList?.makerComment && kycApprove">
+                                <!-- comment having values and latest record -->
+                                    <div class="label-text">Maker Comment</div>
+                                    <div class="info">{{personalKycList?.makerComment}}</div>
+                            </div>
+                            <div class="col-md-3" *ngIf="personalKycList?.checkerComment && kycApprove">
+                                <!-- comment having values and latest record -->
+                                    <div class="label-text">Checker Comment</div>
+                                    <div class="info">{{personalKycList?.checkerComment}}</div>
+                            </div>
+                            <div class="col-md-3" *ngIf="data.businessDetails?.otherSource">
+                                <!-- comment having values and latest record -->
+                                    <div class="label-text">Source Comment</div>
+                                    <div class="info">{{data.businessDetails?.otherSource}}</div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="i==0">
+                            <div class="col-md-4" *ngIf="showSourceComment && !data.businessDetails?.otherSource && personalKycList?.kycStatus == 'PENDING' && kycApprove">
+                                <!-- only when source is OTHERS and SA DESK -->
+                                <mat-form-field appearance="outline" class="w100">
+                                    <mat-label>Source Comment*</mat-label>
+                                    <input type="text" matInput *ngIf="!personalKycList?.makerComment" [(ngModel)]="otherSource">
+                                    <input type="text" matInput *ngIf="personalKycList?.makerComment" [value]="personalKycList?.makerComment" readonly>
+                                </mat-form-field>
+                            </div>
+                            
+                           
+                        </div>
+                        <!-- END for i == 0 and status is pending -->
+
+                        <div class="row mt-10" style="justify-content: center;" *ngIf="personalKycList?.kycStatus == 'PENDING' && i==0 && kycApprove">
+                            <!-- Personal KYC approve -->
+                            <div class="col-md-2">
+                                <button mat-raised-button class="primary-btn f-12 w-100"   [disabled]="showAcceptRejectPersonal" (click)="kycPersonalAction(data.personalDetails?.id,'PERSONAL','MAKER_APPROVED',personalKycList?.id)">APPROVE</button>
+                            </div>
+                            <div class="col-md-2">
+                                <button mat-raised-button class="primary-btn f-12 w-100" [disabled]="showAcceptRejectPersonal" (click)="kycPersonalAction(data.personalDetails?.id,'PERSONAL','REJECTED',personalKycList?.id)">REJECT</button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+
+                </mat-expansion-panel>
+                <mat-expansion-panel 
+                class="mt-10"
+                (opened)="secondPanelOpenState = true"
+                (closed)="secondPanelOpenState = false" style="padding: 0 24px;">
+            <mat-expansion-panel-header style="padding:0px">
+                <mat-panel-title class="fontBold f-16 " style="color:#0f3c9c">
+                    Business KYC 
+                </mat-panel-title>
+                <mat-panel-description class="justify-content-end">
+                </mat-panel-description>
+            </mat-expansion-panel-header >
+            <ng-template matExpansionPanelContent>
+                <div style="padding: 10px;" *ngFor="let businessKycList of data.kycDetails[0]?.documentList;let j = index">
+                    <span class="fontBold f-12 " style="color:#fd7e14">KYC Detail {{j+1}}</span>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="label-text">Country</div>
+                            <div class="info">{{businessKycList?.country}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="label-text">Document</div>
+                            <div class="info">{{businessKycList?.documentName}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="label-text">Current Status</div>
+                            <div class="info">{{businessKycList?.kycStatus}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="info mt-10" style="color:#0f3c9c;cursor:pointer" *ngIf="businessKycList?.url" (click)="viewDocument(businessKycList?.url)">View Document</div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="businessKycList?.kycStatus != 'PENDING' && j != 0 && kycApprove">
+                        <div class="col-md-3">
+                            <div class="label-text">Maker Comment</div>
+                            <div class="info">{{businessKycList?.makerComment}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="label-text">Checker Comment</div>
+                            <div class="info">{{businessKycList?.checkerComment}}</div>
+                        </div>
+                    </div>
+                    <!-- for i == 0 and status is pending -->
+                    <div class="row mt-10">
+                        <div class="col-md-4" *ngIf="!businessKycList?.makerComment && j == 0 && kycApprove">
+                            <mat-form-field appearance="outline" class="w100">
+                                <mat-label>Comment*</mat-label>
+                                <input type="text" matInput [(ngModel)]="businessComment" (input)="comment('BUSINESS')">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf="businessKycList?.makerComment">
+                            <!-- if comment is already having values -->
+                                <div class="label-text">Maker Comment</div>
+                                <div class="info">{{businessKycList?.makerComment}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="businessKycList?.checkerComment && j == 0 && kycApprove">
+                            <!-- if comment is already having values -->
+                                <div class="label-text">Checker Comment</div>
+                                <div class="info">{{businessKycList?.checkerComment}}</div>
+                        </div>
+                    </div>
+                    <div class="row mt-10" style="justify-content: center;" *ngIf="businessKycList?.kycStatus == 'PENDING' && j == 0 && kycApprove">
+                        <!-- Business KYC approve -->
+                        <div class="col-md-2">
+                            <button mat-raised-button class="primary-btn f-12 w-100" [disabled]="showAcceptRejectBusiness" (click)="kycBusinessAction(data.personalDetails?.id,'BUSINESS','MAKER_APPROVED',businessKycList?.id)">APPROVE</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button mat-raised-button class="primary-btn f-12 w-100" [disabled]="showAcceptRejectBusiness" (click)="kycBusinessAction(data.personalDetails?.id,'BUSINESS','REJECTED',businessKycList?.id)">REJECT</button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            </mat-expansion-panel>
+            <mat-expansion-panel  
+            class="mt-10"
+            (opened)="thirdPanelOpenState = true"
+            (closed)="thirdPanelOpenState = false" style="padding: 0 24px;">
+        <mat-expansion-panel-header style="padding:0px">
+            <mat-panel-title class="fontBold f-16 " style="color:#0f3c9c">
+                Financials
+            </mat-panel-title>
+            <mat-panel-description class="justify-content-end">
+            </mat-panel-description>
+        </mat-expansion-panel-header >
+        <ng-template matExpansionPanelContent>
+            <div style="padding: 10px;">
+                <form [formGroup]="financial" *ngIf="data.personalDetails?.subscriberType == 'CUSTOMER'">
+                    <div class="row mt-10">
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w100" >
+                                <mat-label>Customer turnover(USD million)</mat-label>
+                                <input type="text" matInput formControlName="customerTurnover" (keypress)="phoneInputHandler($event);">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w100">
+                                <mat-label>Import Volume (USD million)</mat-label>
+                                <input type="text" matInput formControlName="importVolume">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w100">
+                                <mat-label>Export Volume (USD million)</mat-label>
+                                <input type="text" matInput formControlName="exportVolume">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row mt-10">
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w100">
+                                <mat-label>Estimated yearly LC Volume (USD million)</mat-label>
+                                <input type="text" matInput formControlName="estimatedYearlyLcVolume">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline" class="w100">
+                                <mat-label>Banks used currently for LC issuance</mat-label>
+                                <input type="text" matInput formControlName="banksUsedCurrentlyForLcIssuance">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4" *ngIf="kycApprove">
+                            <mat-form-field appearance="outline" class="w100">
+                                <mat-label>360tf Preferred Banks</mat-label>
+                                <mat-select [ngModel]="newBankList" formControlName="preferredBanks" multiple>
+                                    <!-- <mat-option value="All" #matOption (click)="selectAll(matOption.selected)">All</mat-option> [disabled]="matOption.selected"-->
+                                    <mat-option *ngFor="let item of preferredBankList" [value]="item.id"  style="font-size:medium">{{item.bankName}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div> 
+                    <div class="row mt-10" style="justify-content: center;">
+                        <!-- Financial data save -->
+                        <div class="col-md-2">
+                            <button mat-raised-button class="primary-btn f-12 w-100" (click)="saveFinancialForCustomer(data.personalDetails?.username)">Save</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button mat-raised-button class="primary-btn f-12 w-100" (click)="resetForm()">Cancel</button>
+                        </div>
+                    </div>     
+                </form>
+                <div class="row mt-10">
+                    <div class="col-md-4"  *ngIf="data.personalDetails?.subscriberType != 'CUSTOMER'">
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>360tf Preferred Banks</mat-label>
+                            <mat-select [(ngModel)]="newBankList" multiple>
+                                <!-- <mat-option value="All" #matOption (click)="selectAll(matOption.selected)">All</mat-option> [disabled]="matOption.selected"-->
+                                <mat-option *ngFor="let item of preferredBankList" [value]="item.id"  style="font-size:medium">{{item.bankName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2"  *ngIf="data.personalDetails?.subscriberType != 'CUSTOMER'">
+                        <button mat-raised-button class="primary-btn f-12 w-100" (click)="saveFinancialForBank(data.personalDetails?.username)">Save</button>
+                    </div>
+                    <span class="f-14 fontBold heading" *ngIf="kycApprove">Other Preferred Bank</span><br><br>
+                    <div class="col-md-4 mt-10" *ngIf="kycApprove" style="display:flex">
+                            <input type="file" #UploadFileInput id="fileUpload"  name="fileUpload" (change)="upload($event)" accept=".csv"/> 
+                            <span  class="material-icons deleteFile" *ngIf="fileuploaded"  (click)="removeSelectedFile()" >delete</span>  
+                    </div>
+                    <div class="col-md-2" *ngIf="kycApprove">
+                        <button mat-raised-button class="primary-btn f-12 w-100" (click)="uploadPreferredFile(data.personalDetails?.username)" [disabled]="!fileuploaded">Upload File</button>
+                    </div>
+                    <div class="col-md-2" *ngIf="kycApprove">
+                        <button mat-raised-button class="primary-btn f-12 w-100" (click)="downloadSample()">Sample File</button>
+                    </div>
+                </div> 
+                <div class="mt-10">
+                    <table class="otherBankTable mt-10" *ngIf="data.businessDetails?.otherPreferredBanks">
+                        <tr class="fontBold">
+                            <!-- <th>Sr No.</th> -->
+                            <th>Bank Name</th>
+                            <th>Country</th>
+                            <th>Contact Person Name</th>
+                            <th>Contact Person Mobile No</th>
+                            <th>Email Id</th>
+                        </tr>
+                        <tr *ngFor="let otherBankData of data.businessDetails?.otherPreferredBanks; let i=index">
+                            <!-- <td>{{i+1}}</td> -->
+                            <td>{{otherBankData.bankName}}</td>
+                            <td>{{otherBankData.country}}</td>
+                            <td>{{otherBankData.contactPersonName}}</td>
+                            <td>{{otherBankData.contactPersonMobileNo}}</td>
+                            <td>{{otherBankData.email}}</td>
+                        </tr>
+                    </table>
+                </div><br>
+    
+            </div>
+        </ng-template>
+        </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>
+<table id="excel-table" [hidden]="true"> 
+    <tr>       
+       <th>bankName</th> 
+       <th>email</th>  
+       <th>contactPersonMobileNo</th> 
+       <th>contactPersonName</th>
+       <th>country</th>   
+    </tr>    
+</table>
+

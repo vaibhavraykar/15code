@@ -1,0 +1,216 @@
+<div style="padding: 20px 10px;" class="new-secondary-transaction-preview-wrapper">
+    <div class="f-22 fontBold dgrey text-center">Preview</div>
+    <h6 class="title text-center mb-32" style="color: #8E8E8E;">
+        Preview and confirm your details.
+    </h6>
+    <div class="mt-30 preview-transaction-container">
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="dgrey fontBold f-16 ">
+                        Applicant & Beneficiary Details
+                    </mat-panel-title>
+                    <mat-panel-description class="justify-content-end">
+                        <img class="pointer" (click)="editTransaction(1)" src="../../../../../../../assets/images/icons/action-edit.svg"
+                            alt="">
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="mt-20 mb-32">
+                    <div class="">
+                        <div class="row text-center">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Applicant Name</div>
+                                <div class="info">{{transactionDetails?.data?.applicantName}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Applicant Country</div>
+                                <div class="info">{{transactionDetails?.data?.applicantCountry}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Beneficiary Name</div>
+                                <div class="info">{{transactionDetails?.data?.beneName}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Applicable Law</div>
+                                <div class="info">{{transactionDetails?.data?.applicableLaw=="Other"?transactionDetails?.data?.otherLaw:transactionDetails?.data?.applicableLaw}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Beneficiary Country</div>
+                                <div class="info">{{transactionDetails?.data?.beneCountry}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Obligor Bank</div>
+                                <div class="info">{{transactionDetails?.data?.obligorBank}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Obligor Country</div>
+                                <div class="info">{{transactionDetails?.data?.obligorCountry}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mt-10" (opened)="secondPanelOpenState = true"
+                (closed)="secondPanelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="dgrey fontBold f-16 ">
+                        Transaction Details
+                    </mat-panel-title>
+                    <mat-panel-description class="justify-content-end">
+                        <img  class="pointer" (click)="editTransaction(2)" src="../../../../../../../assets/images/icons/action-edit.svg"
+                            alt="">
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="mt-20 mb-32">
+                    <div class="">
+                        <div class="row text-center">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Underlying Transaction</div>
+                                <div class="info">{{transactionDetails?.data?.requirementType}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Amount</div>
+                                <div class="info">{{transactionDetails?.data?.lCValue | number:'1.2-2' }}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Currency</div>
+                                <div class="info">{{transactionDetails?.data?.lCCurrency}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Target Booking Date</div>
+                                <div class="info">{{transactionDetails?.data?.lCBookingDate|date:'dd-MM-yyyy'}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Transaction Maturity date of underlying transaction</div>
+                                <div class="info">{{transactionDetails?.data?.lCMaturityDate|date:'dd-MM-yyyy'}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Tenor</div>
+                                <div class="info">{{transactionDetails?.data?.usanceDays}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Types of Goods</div>
+                                <div class="info">{{transactionDetails?.data?.goodsType=="Others"?transactionDetails?.data?.otherGoodsType:transactionDetails?.data?.goodsType}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Quote Validity</div>
+                                <div class="info">{{transactionDetails?.data?.validity|date:'dd-MM-yyyy'}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Is Esg Complaint?</div>
+                                <div class="info">{{transactionDetails?.data?.isESGComplaint }}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Loading Goods</div>
+                                <div class="info">{{transactionDetails?.data?.loadingCountry }}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Port of Loading</div>
+                                <div class="info">{{transactionDetails?.data?.loadingPort }}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Discharge Goods</div>
+                                <div class="info">{{transactionDetails?.data?.dischargeCountry }}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Port of Discharge</div>
+                                <div class="info">{{transactionDetails?.data?.dischargePort }}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Final destination of goods</div>
+                                <div class="info">{{transactionDetails?.data?.finalDestinationOfGoods }}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Participation Basic</div>
+                                <div class="info">{{transactionDetails?.data?.secTransactionType | titlecase}}/{{transactionDetails?.data?.participationBasis | titlecase}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel  class="mt-10" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="dgrey fontBold f-16 ">
+                        Pricing details
+                    </mat-panel-title>
+                    <mat-panel-description class="justify-content-end">
+                        <img   class="pointer"(click)="editTransaction(3)" src="../../../../../../../assets/images/icons/action-edit.svg"
+                            alt="">
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="mt-20  mb-32">
+                    <div class="">
+                        <div class="row text-center">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Commission scheme</div>
+                                <div class="info">{{transactionDetails?.data?.commissionScheme }}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Minimum Participation Amount</div>
+                                <div class="info">{{transactionDetails?.data?.minParticipationAmt |number:'1.2-2' }}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Offered Pricing</div>
+                                <div class="info">{{getValue(transactionDetails?.data?.offeredPrice)}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Retention Amount</div>
+                                <div class="info">{{transactionDetails?.data?.retentionAmt |number:'1.2-2'}}</div>
+                            </div>
+                            <div class="col-md-3 col-sm-6" *ngIf="transactionDetails?.data?.secTransactionType=='FUNDED'">
+                                <div class="label-text">Benchmark</div>
+                                <div class="info">{{transactionDetails?.data?.benchmark }}</div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Any Other Conditions</div>
+                                <div class="info">{{transactionDetails?.data?.otherCondition }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mt-10" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="dgrey fontBold f-16 ">
+                        Select Bank
+                    </mat-panel-title>
+                    <mat-panel-description class="justify-content-end">
+                        <img  class="pointer" (click)="editTransaction(4)" src="../../../../../../../assets/images/icons/action-edit.svg"
+                            alt="">
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="mt-20  mb-32">
+                    <div class="">
+                        <div class="row text-center">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="label-text">Selected Bank</div>
+                                <div class="info">{{joinPartnerBank(transactionDetails?.data?.partnerBankList) }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    <div class="row mt-30">
+        <div class="col-md-8 m-auto">
+            <div class="row">
+                <div class="col-md-6 text-center m-auto button-style" >
+                    <div class="mt-10">
+                        <button (click)="cancelTransaction()" mat-stroked-button class="f-16 w100 ">CANCEL
+                            TRANSACTION</button>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center m-auto">
+                    <div class="mt-10">
+                        <app-button [name]="this.transactionDetails.type==='edit'?'SAVE':'CONFIRM'" [class]="'primary-btn f-16 w100'"
+                            style="text-transform: uppercase;" (click)="submit()"></app-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <app-button routerLink="/bank-underwriter/success" [name]="this.transactionDetails.type==='edit'?'SAVE':'CONFIRM'" [class]="'primary-btn f-16 w100'"
+style="text-transform: uppercase;" (click)="submit()"></app-button> -->

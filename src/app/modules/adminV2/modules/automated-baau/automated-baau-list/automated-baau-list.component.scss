@@ -1,0 +1,14 @@
+@import '../../customers/customer-list/customer-list.component.scss';
+.automatedbaau-list {
+    ::ng-deep {
+      .mdc-notched-outline {
+        border-radius: 5px;
+        border: 1px solid #D0D0D0;
+      }
+    }
+  }
+  .list{
+    display: flex;
+    margin-top: 14px;
+    margin-bottom: 26px;
+  }

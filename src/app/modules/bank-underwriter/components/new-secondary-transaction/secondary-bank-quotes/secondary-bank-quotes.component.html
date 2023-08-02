@@ -1,0 +1,100 @@
+<div class="bank-wrapper d-flex">
+    <div class="col-md-3 left-container">
+      <div class="heading-text d-flex align-items-center">
+        <mat-icon (click)="goBack()" style="cursor: pointer">keyboard_backspace</mat-icon>
+        <div class="ms-1">Bank Quote Details</div>
+      </div>
+      <div class="description">
+        <div>
+          <div class="title-text f-14 fw-900 dgrey mt-10">Transaction ID:</div>
+          <div class="value-text grey f-14">
+            {{ transactionDetails?.transactionId }}
+          </div>
+          <div class="title-text f-14 fw-900 dgrey mt-10">
+            Transaction Amount:
+          </div>
+          <div class="value-text grey f-14">
+            {{ transactionDetails?.lCValue | number }}
+          </div>
+          <div class="title-text f-14 fw-900 dgrey mt-10">Obligor Bank:</div>
+          <div class="value-text grey f-14">
+            {{ transactionDetails?.obligorBank | titlecase }}
+          </div>
+          <div class="title-text f-14 fw-900 dgrey mt-10">
+            Participaion Received:
+          </div>
+          <div class="value-text grey f-14">
+            {{ transactionDetails?.participationReceived |number}}
+          </div>
+          <div class="title-text f-14 fw-900 dgrey mt-10">Participaion% :</div>
+          <div class="value-text grey f-14"> {{ transactionDetails?.participationPercent | number }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9 right-container" >
+      <ng-container *ngFor="let item of bankDetails ; let i = index">
+      <div class="cart mb-2">
+        <div class="d-flex align-items-center justify-content-between desc">
+          <div class="grey f-14">Quoted Price :</div>
+          <div class="grey f-14">{{item?.totalQuote||0 | number}}</div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between desc">
+          <div class="grey f-14">Bank:</div>
+          <div class="grey f-14">
+            {{ item?.bankName }} <span *ngIf="item?.countryName">({{item?.countryName}})</span>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between desc">
+          <div class="grey f-14">360tf Onboarded Bank</div>
+          <div class="grey f-14">{{transactionDetails?.partnerBankList.includes('10010010010010001')?'Yes':'No'}}</div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between desc">
+          <div class="grey f-14">Participaion Amount:</div>
+          <div class="grey f-14">
+            {{ item?.participationAmount |number}}
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between desc">
+          <div class="grey f-14">Currency:</div>
+          <div class="grey f-14">
+            {{ transactionDetails?.lCCurrency }}
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between desc">
+          <div class="grey f-14">Valid Till:</div>
+          <div class="grey f-14">
+            {{ item?.validity | date : "dd/MM/yyyy" }}
+          </div>
+        </div>
+
+      <ng-container *ngIf="item.quotationStatus==='ACCEPTED'">
+        <div class="mt-30 text-center col-lg-2 col-md-3 view-btn" style="pointer-events: none;cursor:not-allowed;">
+          <div
+            mat-stroked-button
+            class="primary-btn"
+
+            style="cursor: pointer"
+          >
+            Accepted
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="item.quotationStatus!=='ACCEPTED'">
+        <div class="mt-30 text-center col-lg-2 col-md-3 view-btn">
+          <div
+            mat-stroked-button
+            class="primary-btn"
+            (click)="open(i)"
+            style="cursor: pointer"
+          >
+            View & Accept
+          </div>
+        </div>
+      </ng-container>
+      </div>
+    </ng-container>
+    </div>
+  </div>

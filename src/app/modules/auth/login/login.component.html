@@ -1,0 +1,152 @@
+<!--<div class="login-wrapper login px-4 py-2">
+    <div class="login-inner row">
+        <p class="voilet-text fw-900 f-26 text-center">Login</p>        
+        <div class="w80  mt-30 col-md-6">            
+            <div class="">
+                <div class="row">
+                    <form [formGroup]="loginForm" class="example-form ">
+                        <div class="mt-10">
+                            <p class="f-16 regularfont greyfont">user ID</p>
+                            <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'User ID'" [name]="'User ID'" [maxlength]="10" (focusOutEvent)="userIDHandler($event)"></app-inputtext>
+                           
+                         </div>                
+                        <div class="mt-10">
+                            <p class="f-16 regularfont greyfont">password.</p>
+                            <app-inputtext [type]="'password'" [required]="true" [placeHolder]="'Password'" [name]="'Password'" (focusOutEvent)="pwdHandler($event)"></app-inputtext>
+                            
+                        </div>   
+                    </form>
+                </div>-->
+
+                <!-- <div class="row">
+                    <div class="text-end">
+                        <span (click)="forgotPassword()">Forgot Password?</span>
+                    </div>
+                </div> -->
+                
+                <!--<div class="row text-center login-btn mt-30 mview">
+                    <div class="btn-style">
+                        <div class=""  >-->
+                            <!-- <button mat-raised-button color="primary" type="button" (click)="submit()"  class="f-18 cPointer">Send OTP</button> -->
+                            <!--<app-button  [name]="'LOGIN'" [class]="'primary-btn f-16'" [type]="'button'" (click)="submit()"></app-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    
+        <div class="col-md-6 mt-30">
+
+            <div class=" d-flex justify-content-center align-items-center">
+                <app-button [name]="'Signup'" [class]="'primary-btn f-16'" [type]="'button'" (click)="signup()"></app-button>
+            </div>
+
+        </div>
+    </div>
+
+    
+</div>-->
+
+<div class="login-container l-blue-bg">
+    <div class="login-wrapper d-flex">
+        <div class="left-wrapper">
+            <div class="slider">
+                <app-slider></app-slider>
+            </div>
+            
+            <!-- <img src="../../../../assets/images/icons/login-bg.png" /> -->
+        </div>
+        <div class="right-wrapper blue">            
+            <div class="logo">
+                <img src="../../../../assets/images/icons/login-logo.png" />
+            </div>
+            <p class="white-text f-22 text-center fontBold">Welcome!</p>
+            <div class="row d-flex justify-content-center" style="margin-left: 0; margin-right: 0;">
+                <div class="col-md-9">
+                    <form  class="example-form" >
+                        <div class="mt-10">
+                            <!-- <p class="f-16 regularfont greyfont">user ID</p> -->
+                            <app-inputtext [type]="'text'" [required]="true" [name]="'User ID'" (focusOutEvent)="userIDHandler($event)"></app-inputtext>
+                           
+                         </div>                
+                        <div class="mt-10 pwd-field">
+                            <!-- <p class="f-16 regularfont greyfont">password.</p> -->
+                            <!-- <app-inputtext [type]="'password'" [required]="true" [name]="'Password'" (focusOutEvent)="pwdHandler($event)"></app-inputtext> -->
+                            <mat-form-field appearance="outline">
+                                <mat-label>Password</mat-label>
+                                <input [type]="showPassword?'text':'password'"
+                                    matInput
+                                    [formControl]="password"
+                                >
+                                <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                                    {{showPassword?'visibility':'visibility_off'}}
+                                </mat-icon>
+                                <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>
+                            </mat-form-field>
+                        </div>   
+                    
+                        <div class=" d-flex align-tems-center justify-content-between" style="margin-left: 0; margin-right: 0;padding-bottom: 35px;">
+                            <div >
+                                <span (click)="signup()" class="white-text fontRegular f-14 cpointer">Sign Up</span>
+                            </div>
+                            <div >
+                                <span (click)="forgotPassword()" class="white-text fontRegular f-14 cpointer">Forgot Password?</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div>                       
+                                <app-button  [name]="'LOGIN'" [class]="'primary-btn f-16'" [type]="'submit'" (click)="submit()"></app-button>
+                            </div>
+                        </div>
+                        <!-- <div class="fontRegular f-12 error">{{showError}}</div> -->
+                    </form>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="login-containe-mobile l-blue-bg isMobile">
+    <div class="left-wrapper">
+        <img src="../../../../assets/images/icons/login-bg.png" />
+    </div>
+    <div class="right-wrapper blue">            
+        <div class="logo">
+            <img src="../../../../assets/images/icons/login-logo.png" />
+        </div>
+        <p class="white-text f-22 text-center fontBold">Welcome!</p>
+        <div class="row d-flex justify-content-center" style="margin-left: 0; margin-right: 0;">
+            <div class="col-md-9">
+                <form class="example-form">
+                    <div class="mt-10 changeColor">
+                        <!-- <p class="f-16 regularfont greyfont">user ID</p> -->
+                        <app-inputtext [type]="'text'" [required]="true"  [name]="'User ID'" (focusOutEvent)="userIDHandler($event)"></app-inputtext>
+                       
+                     </div>                
+                    <div class="mt-10 changeColor">
+                        <!-- <p class="f-16 regularfont greyfont">password.</p> -->
+                        <app-inputtext [type]="'password'" [required]="true"  [name]="'Password'" (focusOutEvent)="pwdHandler($event)"></app-inputtext>
+                        
+                    </div>   
+                
+                    <div class="d-flex align-tems-center justify-content-between" style="margin-left: 0; margin-right: 0;padding-bottom: 35px;">
+                        <div >
+                            <span (click)="signup()" class="white-text fontRegular f-14 cpointer">Sign Up</span>
+                        </div>
+                        <div>
+                            <span (click)="forgotPassword()" class="white-text fontRegular f-14 cpointer">Forgot Password?</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div>                       
+                            <app-button  [name]="'LOGIN'" [class]="'primary-btn f-16'" [type]="'submit'" (click)="submit()"></app-button>
+                        </div>
+                    </div>
+                    <!-- <div class="fontRegular f-12 error">{{showError}}</div> -->
+                </form>
+            </div>                
+        </div>
+    </div>
+</div>
+

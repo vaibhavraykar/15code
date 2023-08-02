@@ -1,0 +1,23 @@
+.subscription-detail-popup-wrapper{
+    max-width:60vw;
+    .heading {
+        width: 100%;
+        font: normal normal bold 20px/24px Lato;
+        letter-spacing: 0.4px;
+        color: #FFFFFF;
+        opacity: 1;
+        background-color: var(--yellow);
+        text-align: start;
+        padding: 15px;
+    }
+    .submit-btn {
+        background: transparent linear-gradient(270deg, #EB7203 0%, #FF922E 100%) 0% 0% no-repeat padding-box !important;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        height: 47px;
+        border:0px;
+        border-radius: 7px;
+        align-items: center;
+    }
+}

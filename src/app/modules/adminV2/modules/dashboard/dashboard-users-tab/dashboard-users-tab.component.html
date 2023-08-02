@@ -1,0 +1,64 @@
+<div>
+  <div class="row justify-content-between" style="margin-left: 24px;">
+    <div class="col-xl-6 mt-24 change-width  user-container ">
+      <div class="heading">
+        New User Statistics
+      </div>
+      <div class="row d-flex justify-content-between">
+        <div class="selectDroupdown mt-10  col-md-6 col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select placeholder="Customer vs Subscription Rate" (selectionChange)="transactionTypeChange($event)">
+              <!-- <mat-option *ngFor="let item of tableStructure?.transaction?.transactionsOption" [value]="item.value">
+                                {{ item.viewValue }}
+                              </mat-option> -->
+              <mat-option>checking</mat-option>
+            </mat-select>
+            <img src="../../../../../assets/images/adminV2/darrow.svg" style="margin-top: -10px" />
+          </mat-form-field>
+        </div>
+        <div class="selectDroupdown mt-10 col-md-4 col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select placeholder="2022" (selectionChange)="transactionTypeChange($event)">
+              <!-- <mat-option *ngFor="let item of tableStructure?.transaction?.transactionsOption" [value]="item.value">
+                                {{ item.viewValue }}
+                              </mat-option> -->
+              <mat-option>checking</mat-option>
+            </mat-select>
+            <img src="../../../../../assets/images/adminV2/darrow.svg" style="margin-top: -10px" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="mt-24" style="height:420px;background: white;"></div>
+    </div>
+    <div class="col-xl-6 mt-24 change-width  user-container ">
+      <div class="heading">
+        Active User Stats
+      </div>
+      <div class="row d-flex justify-content-between">
+        <div class="selectDroupdown mt-10   col-md-6 col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select placeholder="Customer vs Subscription Rate" (selectionChange)="transactionTypeChange($event)">
+              <!-- <mat-option *ngFor="let item of tableStructure?.transaction?.transactionsOption" [value]="item.value">
+                                {{ item.viewValue }}
+                              </mat-option> -->
+              <mat-option>2023</mat-option>
+            </mat-select>
+            <img src="../../../../../assets/images/adminV2/darrow.svg" style="margin-top: -10px" />
+          </mat-form-field>
+        </div>
+        <div class="selectDroupdown mt-10 col-md-4 col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select placeholder="2022" (selectionChange)="transactionTypeChange($event)">
+              <!-- <mat-option *ngFor="let item of tableStructure?.transaction?.transactionsOption" [value]="item.value">
+                                {{ item.viewValue }}
+                              </mat-option> -->
+              <mat-option>2023</mat-option>
+            </mat-select>
+            <img src="../../../../../assets/images/adminV2/darrow.svg" style="margin-top: -10px" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="mt-24" style="height:420px;background: white;"></div>
+    </div>
+  </div>
+</div>

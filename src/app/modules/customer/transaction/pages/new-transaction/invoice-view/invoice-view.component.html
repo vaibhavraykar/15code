@@ -1,0 +1,21 @@
+<div class="filter-popup">
+    <div class="heading">
+        Attached Document
+        <span (click)="close()" class="cpointer"><mat-icon>close</mat-icon></span>
+    </div>
+    <div class="sidebar">
+        <div>
+            <div class="row">
+                <div class="f-16">{{fileName}}</div>
+            </div>
+           <div class="row">
+                <!-- <a [href]="filePath" class="yellow-txt text-center cpointer" >View</a> -->
+
+                <!-- <div (click)="viewFile()" class="yellow-txt text-center cpointer" >View</div> -->
+                <a id="pdfLink"  target="_blank" (click)="viewFile($event)" class="yellow-txt text-center cpointer" style="text-decoration: none;">View</a>
+           </div>
+        </div>
+        
+        
+    </div>
+</div>

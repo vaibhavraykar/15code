@@ -1,0 +1,14 @@
+<div class="comment-comopnent">
+    <div class="">
+        <div class="row">
+            <div class="col-md-10">
+                <app-inputtext   [type]="'text'" [required]="true" [placeHolder]="'Add comment'" [name]="'Comment'" style="width: 100%;" (focusOutEvent)="commentHandler($event)"></app-inputtext>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <app-button [name]="'Add'" [class]="'primary-btn f-16 w100 cpointer'" [type]="'button'" (click)="addComment()"></app-button>
+            </div>
+        </div>
+    </div>
+</div>

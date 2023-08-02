@@ -1,0 +1,192 @@
+<div class="view-kyc">
+    <span class="f-22 fontBold dgrey">KYC Details</span>
+
+    <div class="col-md-8 m-auto">
+        <div>
+            <div style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="yellow-txt f-14 fontBold">User ID</div>
+                        <div class="label-text">{{viewData?.personalDetails?.username}}</div>
+                    </div>
+                    <div class="col-md-1" style="padding:0px" (click)="back()">
+                        <!-- <div class="f-14 fontBold dgrey cpointer back">
+                            <mat-icon (click)="back()">keyboard_arrow_left</mat-icon> 
+                            <span (click)="back()">Back</span>
+                        </div> -->
+                        <div class="imgDiv f-14 fontBold dgrey cpointer">
+                            <mat-icon>keyboard_arrow_left</mat-icon>Back
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <mat-accordion>
+                <mat-expansion-panel class="mt-10" (opened)="openPanelState = true" (closed)="openPanelState = false" style="padding: 0 24px;">
+                    <mat-expansion-panel-header style="padding:0px">
+                        <mat-panel-title class="fontBold f-16 " style="color:#0f3c9c">
+                            Personal KYC
+                        </mat-panel-title>
+                        <mat-panel-description class="justify-content-end">
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <ng-template matExpansionPanelContent>
+                        <div style="padding: 10px;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="label-text">Document Name</div>
+                                    <div class="info">{{highestDocPersonal.documentName}}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="label-text">Country</div>
+                                    <div class="info">{{highestDocPersonal.country}}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="label-text">Document Type</div>
+                                    <div class="info">{{highestDocPersonal.documentType}}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="label-text">Status</div>
+                                    <div class="info">{{highestDocPersonal.kycStatus}}</div>
+                                </div>
+                                </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="label-text">Maker Comment</div>
+                                    <div class="info">{{highestDocPersonal.makerComment}}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="info mt-10" (click)="openLink()" style="color:#0f3c9c;cursor:pointer">
+                                        View
+                                        Document</div>
+                                </div>
+                            </div>
+                            <br>
+                            
+                            <div class="row mt-10" style="justify-content: center;">
+                                <div class="col-md-2" style="margin-right: 40px;">
+                                    <button mat-raised-button class="primary-btn f-12 w-100"
+                                        (click)="comment(viewData.personalDetails.id,'ACTIVE','CHECKER',viewData.kycDetails[1].documentType,highestDocPersonal.id)"
+                                        *ngIf="(highestDocPersonal.kycStatus =='MAKER_APPROVED') && highestDocPersonal.makerApprovedBy != loginuserName"
+                                        style="cursor:pointer;">Approve</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <button mat-raised-button class="primary-btn f-12 w-100"
+                                        (click)="comment(viewData.personalDetails.id,'REJECTED','CHECKER',viewData.kycDetails[1].documentType,highestDocPersonal.id)"
+                                        *ngIf="(highestDocPersonal.kycStatus =='MAKER_APPROVED') && highestDocPersonal.makerApprovedBy != loginuserName"
+                                        style="cursor:pointer;">Reject</button>
+                                </div>
+                                <i *ngIf="highestDocPersonal.makerApprovedBy == loginuserName" class="fa fa-lock"
+                                    matTooltip="You are not authorized to approve this KYC"
+                                    style="color: forestgreen; cursor:pointer;text-align: center;"></i>
+                                <!-- <span *ngIf="highestIdDocument.makerApprovedBy == loginuserName"
+                                style="color: blue; cursor:pointer; text-align: center;">You are not Authorized to approve
+                                this KYC</span> -->
+                            </div>
+                        </div>
+                    </ng-template>
+                </mat-expansion-panel>
+
+
+                <mat-expansion-panel class="mt-10" (opened)="secondPanelOpenState = true"
+                    (closed)="secondPanelOpenState = false" style="padding: 0 24px;">
+                    <mat-expansion-panel-header style="padding:0px">
+                        <mat-panel-title class="fontBold f-16 " style="color:#0f3c9c">
+                            Business KYC
+                        </mat-panel-title>
+                        <mat-panel-description class="justify-content-end">
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <ng-template matExpansionPanelContent>
+                        <div style="padding: 10px;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="label-text">Document Name</div>
+                                    <div class="info">{{highestIdDocument.documentName}}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="label-text">Country</div>
+                                    <div class="info">{{highestIdDocument.country}}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="label-text">Document Type</div>
+                                    <div class="info">{{highestIdDocument.documentType}}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="label-text">Status</div>
+                                    <div class="info">{{highestIdDocument.kycStatus}}</div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="label-text">Maker Comment</div>
+                                        <div class="info">{{highestIdDocument.makerComment}}</div>
+                                    </div>
+                                <div class="col-md-3">
+                                    <div class="info mt-10" (click)="openPopup()" style="color:#0f3c9c;cursor:pointer">
+                                        View
+                                        Document</div>
+                                </div>
+                            </div>
+                            <div class="row mt-10" style="justify-content: center;">
+                                <div class="col-md-2" style="margin-right: 40px;">
+                                    <button mat-raised-button class="primary-btn f-12 w-100"
+                                        (click)="commentbusiness(viewData.personalDetails.id,'ACTIVE','CHECKER',viewData.kycDetails[0].documentType,highestIdDocument.id)"
+                                        *ngIf="(highestIdDocument.kycStatus =='MAKER_APPROVED') && highestIdDocument.makerApprovedBy != loginuserName"
+                                        style="cursor:pointer;">Approve</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <button mat-raised-button class="primary-btn f-12 w-100"
+                                        (click)="commentbusiness(viewData.personalDetails.id,'REJECTED','CHECKER',viewData.kycDetails[0].documentType,highestIdDocument.id)"
+                                        *ngIf="(highestIdDocument.kycStatus =='MAKER_APPROVED') && highestIdDocument.makerApprovedBy != loginuserName"
+                                        style="cursor:pointer;">Reject</button>
+                                </div>
+                                <i *ngIf="highestIdDocument.makerApprovedBy == loginuserName" class="fa fa-lock"
+                                    matTooltip="You are not authorized to approve this KYC"
+                                    style="color: forestgreen; cursor:pointer;text-align: center;"></i>
+                                <!-- <span *ngIf="highestIdDocument.makerApprovedBy == loginuserName"
+                            style="color: blue; cursor:pointer; text-align: center;">You are not Authorized to approve
+                            this KYC</span> -->
+                            </div>
+
+                            <!-- for i == 0 and status is pending -->
+
+
+                        </div>
+                    </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #callAPIDialog>
+    <div class="text-center">
+        <div class="heading">Add Comment
+            <span class="circle-icon">
+                <mat-icon (click)="closeComment()" mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div class="" style="padding: 15px;">
+            <img src="../../../assets/images/icons/logo.png" alt="" style="height:30px;width:50px">
+        </div>
+        <div style="padding: 0 20px 20px 20px; text-align: left;">
+            <!-- Add Message: -->
+            <div style="text-align: center;">
+                <mat-form-field>
+                    <textarea matInput maxlength="255" rows="4" [(ngModel)]="commentValue"></textarea>
+                    <mat-hint>Max 255 character</mat-hint>
+                    <!-- <mat-error>Max 255 character</mat-error> -->
+                </mat-form-field>
+            </div>
+            <div class="update-btn">
+                <app-button [name]="'Submit'" [class]="'primary-btn f-16'" [type]="'submit'"
+                    (click)="submitComment()"></app-button>
+            </div>
+        </div>
+    </div>
+</ng-template>

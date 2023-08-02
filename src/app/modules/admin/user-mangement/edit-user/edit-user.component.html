@@ -1,0 +1,119 @@
+<div class="signup-component">   
+    <div class="">  
+        <div class="heading-text">
+            <span class="f-22 fontBold dgrey">Edit User</span>
+        </div>        
+    </div>
+    <div class="tab-container-new">
+        <div class=" px-5 py-2 col-md-12 m-auto">
+                <div class="text-center py-2 m-auto">
+                    <div class="f-14 fontBold dgrey cpointer back">
+                        <mat-icon style="height: 17px;" (click)="back()">keyboard_arrow_left</mat-icon> 
+                        <span (click)="back()">Back</span>
+                    </div>
+                    <div class="mt-30 row d-flex justify-content-center align-items-center">
+                        <form [formGroup]="personalForm">
+                            <div class="row">
+                            <!-- First Name Field -->
+                                <div class="col-md-4 pd-r-0 pd-r-0" >
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <mat-label>First Name</mat-label>
+                                        <input type="text" matInput formControlName="firstName">
+                                        <mat-error *ngIf="personalForm.controls['firstName'].hasError('required')">First Name required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            <!-- Last Name Field -->
+                                <div class="col-md-4 pd-r-0">
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <mat-label>Last Name</mat-label>
+                                        <input type="text" matInput formControlName="lastName">
+                                        <mat-error *ngIf="personalForm.controls['lastName'].hasError('required')">Last Name required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                 <!-- Official Email ID Field -->
+                                 <div class="col-md-4 pd-r-0">
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <mat-label>Email ID</mat-label>
+                                        <input type="email" matInput formControlName="email" readonly>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                             <div class="row">             
+                            <div class="col-md-2 pd-r-0">
+                                <mat-form-field appearance="outline" class="w100">
+                                    <mat-label></mat-label>
+                                    <mat-select formControlName="countryExt">
+                                      <mat-option *ngFor="let item of countryCodeList" [value]="item">{{item}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="personalForm.controls['countryExt'].hasError('required')"></mat-error>
+                                  </mat-form-field>
+                            </div>
+                                 <!-- Mobile Number Field -->
+                                <div class="col-md-2 pd-r-0" style="padding-left:0px;">
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <mat-label>Mobile Number</mat-label>
+                                        <input matInput formControlName="mobileNo"
+                                        (keypress)="phoneInputHandler($event)"
+                                        (paste)="pasteHandler($event)" minlength=10 maxlength=10>
+                                        <mat-error *ngIf="personalForm.controls['mobileNo'].hasError('required') || personalForm.controls['mobileNo'].invalid">Mobile Number required</mat-error>
+                                        <!-- <mat-error *ngIf="personalForm.controls['mobileNo'].invalid"> Please Check Mobile Number</mat-error> -->
+                                    </mat-form-field>
+                                </div>
+                                <!--department-->
+                                <div class="col-md-4 pd-r-0">
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <mat-label>Department</mat-label>
+                                        <input type="text" matInput formControlName="department">
+                                        <mat-error *ngIf="personalForm.controls['department'].hasError('required')">Department required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                 <!--designation-->
+                                 <div class="col-md-4 pd-r-0">
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <mat-label>Designation</mat-label>
+                                        <input type="text" matInput formControlName="designation">
+                                        <mat-error *ngIf="personalForm.controls['designation'].hasError('required')">Designation required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">                
+                                   <!--Reporting Manager-->
+                                   <div class="col-md-4 pd-r-0">
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <mat-label>Reporting Manager</mat-label>
+                                        <input type="text" matInput formControlName="reportingManager">
+                                    </mat-form-field>
+                                </div>
+                                 <!--Region Allocated-->
+                                 <div class="col-md-4 pd-r-0">
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <mat-label>Region Allocated</mat-label>
+                                        <mat-select formControlName="countryList"  [ngModel]="isAllselected ? onlyall : newnamecountry" multiple>
+                                        <mat-option value="ALL" #matOption (click)="selectAll(matOption.selected)">All</mat-option>
+                                        <mat-option *ngFor="let item of countries" [value]="item.countryName" [disabled]="matOption.selected">{{item.countryName}}</mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="personalForm.controls['countryList'].hasError('required')">Region Allocated required</mat-error>
+                                      </mat-form-field>
+                                </div>
+                                <!--Role-->
+                                <div class="col-md-4 pd-r-0">
+                                    <mat-form-field appearance="outline" class="w100">
+                                        <mat-label>Role</mat-label>
+                                        <mat-select formControlName="roles" multiple>
+                                          <mat-option class="small" *ngFor="let item of rolelist" [value]="item.name">{{item.name}}</mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="personalForm.controls['roles'].hasError('required')">Role required</mat-error>
+                                      </mat-form-field>
+                                </div>
+                            </div> 
+                            <div class="row ">
+                                <div class="col-md-5 m-auto mt-20">
+                                <app-button [name]="'Update'" [class]="'primary-btn f-16 w-100'" class="btnResize" (click)="submitEditUser()"></app-button>
+                                </div>
+                            </div>
+                        </form>  
+                     </div>
+                </div>
+        </div>
+    </div>
+</div>

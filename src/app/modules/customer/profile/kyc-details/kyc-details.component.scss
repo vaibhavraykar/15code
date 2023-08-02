@@ -1,0 +1,68 @@
+.kyc-details-component {
+	.upload-button {
+		display: flex;
+		align-items: center;
+		padding: 0 15px;
+		border: 1px solid #d0d0d0;
+		justify-content: space-between;
+	}
+	.help-icon {
+		// margin-top: -15px;
+		color: #727272;
+		font-style: italic;
+		// position: absolute;
+
+		@media screen and (max-width: 767px) {
+			position: static;
+			margin-bottom: 10px;
+		}
+	}
+
+	::ng-deep {
+		.mat-mdc-form-field:nth-child(3), .mat-mdc-form-field:nth-child(4) {
+			margin-top: 20px !important;
+		}
+		.mat-mdc-form-field-error-wrapper {
+			position: inherit !important;
+		}
+		.mat-mdc-form-field-bottom-align::before {
+			height: inherit !important;
+			display: inherit !important;
+		}
+		.mat-datepicker-toggle-default-icon {
+			width: 20px;
+			color: #eb7203;
+		}
+
+		.file-upload {
+			.mat-mdc-text-field-wrapper {
+				padding: 0;
+			}
+			.mat-mdc-form-field-infix {
+				height: auto;
+				width: auto;
+			}
+			.mat-toolbar-single-row {
+				justify-content: flex-end;
+
+				align-items: center !important;
+			}
+			.mat-mdc-form-field-subscript-wrapper {
+				display: none;
+			}
+			.mdc-button__label {
+				font-size: 12px;
+			}
+			.mat-mdc-button-base {
+				height: 24px !important;
+			}
+		}
+	}
+
+	.submit-btn {
+		margin-top: 70px;
+		@media screen and (max-width: 767px) {
+			margin-top: 20px;
+		}
+	}
+}

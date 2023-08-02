@@ -1,0 +1,345 @@
+<div class="new-plan-container subs-plan mt-30">
+    <div class="">
+        <div class="d-flex align-items-center mb-20">
+            <mat-icon style="cursor: pointer;" (click)="back()">keyboard_backspace</mat-icon>
+            <div class="ml-12 darkBlackText">Edit Plan</div>
+        </div>
+    </div>
+    <div class="main-plan">
+        <form [formGroup]="productForm">
+            <div class="option-check mt-10">
+                <mat-radio-group aria-label="Select an option" style="padding: 0px !important; margin-top: 17px"
+                    formControlName="productType">
+                    <mat-radio-button value="SUBSCRIPTION_PLAN" disabled>Subscription Plan</mat-radio-button>
+                    <mat-radio-button value="VAAS_PLAN" disabled>VAS Plan</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div
+                style="border-bottom: 1px solid #cccccc; background: unset; height:1px; width:100%; margin:0px 0px 0px 0px;">
+            </div>
+            <div class="option-check mt-10">
+                <mat-radio-group aria-label="Select an option" style="padding: 0px !important;"
+                    formControlName="applicableEntityType">
+                    <mat-radio-button value="CUSTOMER" disabled>Customer</mat-radio-button>
+                    <mat-radio-button value="BANK" disabled>BAAC</mat-radio-button>
+                    <mat-radio-button value="BANK_AS_UNDERWRITER" *ngIf="selectedPlan=='SUBSCRIPTION_PLAN'" disabled>BAAU</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="option-check mt-10">
+                <mat-radio-group formControlName="planType" *ngIf="productForm.get('productType').value !== 'VAAS_PLAN'">
+                    <mat-radio-button value="POSTPAID" disabled>Postpaid</mat-radio-button>
+                    <mat-radio-button value="PREPAID" disabled>Prepaid</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="sub-main mt-30 row d-flex justify-content-center align-items-center">
+
+                <div class="row">
+                    <div class="col-md-4  pd-r-0 chip"
+                        *ngIf="selectedPlan=='SUBSCRIPTION_PLAN'|| selectedPlan=='VAAS_PLAN'">
+                        <form [formGroup]="form">
+                            <mat-form-field appearance="outline" class="w100 newDrop">
+                                <mat-label>Country</mat-label>
+                                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                                <mat-select formControlName="newBankListControl" multiple [value]="form.get('newBankListControl').value" (selectionChange)="onCountrySelection($event)">
+                                    <mat-select-trigger>
+                                      <mat-chip-listbox>
+                                        <mat-chip *ngFor="let category of (form.controls['newBankListControl'].value)?.slice(0,1)" [removable]="true"
+    
+                                          (removed)="onCatRemoved(category)">
+                                          {{ category }}
+                                          <mat-icon matChipRemove>cancel</mat-icon>
+                                        </mat-chip>
+    
+                                        <span style="margin-left: 0px;" *ngIf="form.controls['newBankListControl'].value.length > 1">+{{form.controls['newBankListControl'].value.length - 1}}</span>
+                                      </mat-chip-listbox>
+                                    </mat-select-trigger>
+                                    <div class="search-box">
+                                      <mat-form-field appearance="outline" class="w-100">
+                                          <input matInput type="text" placeholder="Search" (input) = "countryValueChange($event)">
+                                          <img src="../../../../../assets/images/adminV2/search-normal.svg" />
+                                      </mat-form-field>
+                                  </div>
+                                  <mat-option value="ALL" #matOption
+                                  (click)="selectAll(matOption.selected)">All</mat-option>
+                              <mat-option *ngFor="let item of filteredCountries" [disabled]="matOption.selected"
+                                  [value]="item.countryName">{{item.countryName}}</mat-option>
+                                  </mat-select>
+                                <mat-error *ngIf="productForm.controls['productCountries'].hasError('required')">Country
+                                    required</mat-error>
+                            </mat-form-field>
+                            </form>
+                    </div>
+                    <div class="col-md-4  pd-r-0" *ngIf="selectedPlan=='SUBSCRIPTION_PLAN'|| selectedPlan=='VAAS_PLAN'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Plan Name</mat-label>
+                            <input type="text" matInput formControlName="planName" (keypress)="textOnly($event)">
+                            <mat-error *ngIf="productForm.controls['planName'].hasError('required')">Plan Name
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0"
+                        *ngIf="selectedPlan=='SUBSCRIPTION_PLAN' || selectedPlan=='VAAS_PLAN'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Price</mat-label>
+                            <input type="text" matInput formControlName="price" (keypress)="numberonly($event)">
+                            <mat-error *ngIf="productForm.controls['price'].hasError('required')">Price
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0" *ngIf="selectedPlan=='SUBSCRIPTION_PLAN'|| selectedPlan=='VAAS_PLAN'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Currency</mat-label>
+                            <input type="text" matInput formControlName="currency">
+                            <mat-error *ngIf="productForm.controls['currency'].hasError('required')">Currency
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0 chip"
+                        *ngIf="(selectedPlan=='SUBSCRIPTION_PLAN' || selectedPlan=='VAAS_PLAN') && selectedProductPlan == 'PREPAID'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Duration Type</mat-label>
+                            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            <mat-select formControlName="durationType"
+                                (selectionChange)="onDurationTypeChange($event.value)" [(ngModel)]="selectedDuration">
+                                <mat-option value="DAYS">DAYS</mat-option>
+                                <mat-option value="MONTH">MONTH</mat-option>
+                                <mat-option value="YEAR">YEAR</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="productForm.controls['durationType'].hasError('required')">DurationType
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0 chip"
+                        *ngIf="(selectedPlan=='SUBSCRIPTION_PLAN' || selectedPlan=='VAAS_PLAN') && selectedProductPlan == 'PREPAID'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Duration</mat-label>
+                            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            <mat-select formControlName="duration">
+                                <ng-container *ngIf="selectedDuration==='MONTH'">
+                                    <mat-option *ngFor="let month of months" [value]="month">{{month}}</mat-option>
+                                </ng-container>
+                                <ng-container *ngIf="selectedDuration==='DAYS'">
+                                    <mat-option *ngFor="let day of days" [value]="day">{{day}}</mat-option>
+                                </ng-container>
+                                <ng-container *ngIf="selectedDuration==='YEAR'">
+                                    <mat-option *ngFor="let year of years" [value]="year">{{year}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+                            <mat-error *ngIf="productForm.controls['duration'].hasError('required')">Duration
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 pd-r-0" *ngIf="selectedPlan=='SUBSCRIPTION_PLAN'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Customer Support</mat-label>
+                            <input type="text" matInput formControlName="customerSupport">
+                            <mat-error *ngIf="productForm.controls['customerSupport'].hasError('required')">Customer
+                                Support required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0 chip" *ngIf="selectedPlan=='SUBSCRIPTION_PLAN'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Relationship Manager</mat-label>
+                            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            <mat-select formControlName="relationshipManager" [(ngModel)]="selectedRM">
+                                <mat-option value="true">true</mat-option>
+                                <mat-option value="false">false</mat-option>
+                            </mat-select>
+                            <mat-error
+                                *ngIf="productForm.controls['relationshipManager'].hasError('required')">Relationship
+                                Manager
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0" *ngIf="selectedPlan=='SUBSCRIPTION_PLAN'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Credits</mat-label>
+                            <input type="text" matInput formControlName="credits" (keypress)="numberonly($event)">
+                            <mat-error *ngIf="productForm.controls['credits'].hasError('required')">Credits
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0"
+                        *ngIf="selectedPlan=='SUBSCRIPTION_PLAN' && selectedProductPlan == 'POSTPAID' && selectedApplicableType == 'BANK_AS_UNDERWRITER'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Minimum Transaction Percentage</mat-label>
+                            <input type="text" matInput formControlName="postpaidMinimumTransactionPercentage"
+                                (keypress)="percentOnly($event,'percent')">
+                            <mat-error
+                                *ngIf="productForm.controls['postpaidMinimumTransactionPercentage'].hasError('required')">Min. Transaction
+                                Percentage required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0"
+                        *ngIf="selectedPlan=='SUBSCRIPTION_PLAN' && selectedProductPlan == 'POSTPAID' && selectedApplicableType == 'BANK_AS_UNDERWRITER'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Minimum Transaction Amount</mat-label>
+                            <input type="text" matInput formControlName="postpaidMinimumTransactionAmount"
+                                (keypress)="numberonly($event)">
+                            <mat-error
+                                *ngIf="productForm.controls['postpaidMinimumTransactionAmount'].hasError('required')">Minimum
+                                Transaction Amount required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0"
+                        *ngIf="selectedPlan=='SUBSCRIPTION_PLAN' && selectedProductPlan == 'POSTPAID' && (selectedApplicableType == 'BANK' || selectedApplicableType == 'CUSTOMER')">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Visibility Limit</mat-label>
+                            <input type="text" matInput formControlName="postpaidVisibilityLimit"
+                                (keypress)="numberonly($event)">
+                            <mat-error *ngIf="productForm.controls['postpaidVisibilityLimit'].hasError('required')">Visibility Limit
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0"
+                        *ngIf="selectedPlan=='SUBSCRIPTION_PLAN' && selectedProductPlan == 'POSTPAID'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Maximum Allowed Transations</mat-label>
+                            <input type="text" matInput formControlName="postpaidMaximumAllowedTransations"
+                                (keypress)="numberonly($event)">
+                            <mat-error
+                                *ngIf="productForm.controls['postpaidMaximumAllowedTransations'].hasError('required')">Maximum
+                                Allowed Transations required</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                <!-- </div>
+                <div class="row"> -->
+                    <div class="col-md-4  pd-r-0" *ngIf="selectedPlan=='SUBSCRIPTION_PLAN'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Remark</mat-label>
+                            <input type="text" matInput formControlName="remark" (keypress)="textOnly($event)">
+                            <mat-error *ngIf="productForm.controls['remark'].hasError('required')">Remark
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0" *ngIf="selectedPlan=='SUBSCRIPTION_PLAN'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Max Transaction Reject Limit</mat-label>
+                            <input type="text" matInput formControlName="maxTransactionRejectLimit"
+                                (keypress)="percentOnly($event,'reject')">
+                            <mat-error
+                                *ngIf="productForm.controls['maxTransactionRejectLimit'].hasError('required')">Max
+                                Transaction Reject Limit required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4  pd-r-0"
+                        *ngIf="selectedApplicableType == 'CUSTOMER' && selectedPlan=='SUBSCRIPTION_PLAN'">
+                        <mat-form-field appearance="outline" class="w100 newInput">
+                            <mat-label>Allowed Subsidiaries</mat-label>
+                            <input type="text" matInput formControlName="allowedSubsidiaries"
+                                (keypress)="numberonly($event)">
+                            <mat-error *ngIf="productForm.controls['allowedSubsidiaries'].hasError('required')">Allowed
+                                Subsidiaries
+                                required</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div *ngIf="selectedPlan == 'VAAS_PLAN' && selectedProductPlan == 'PREPAID'"><br>
+                        <form [formGroup]="manageDescription">
+                            <div class="row" style="padding:0px">
+                                <div class="col-md-11">
+                                    <h6 class="heading f-16 fontBold dgrey" style="text-align: initial;">Product
+                                        Description
+                                    </h6><br>
+                                </div>
+                                <div class="col-md-1" style="padding:0px">
+                                    <button mat-raised-button class="primary-btn f-14 w-100"
+                                        (click)="addDescription()">+
+                                        Add</button>
+
+                                </div>
+                            </div><br>
+                            <div formArrayName="details"
+                                *ngFor="let sub of manageDescription.get('details')['controls']; let i = index;">
+
+                                <div [formGroupName]="i">
+                                    <div class="row">
+                                        <div class="col-md-3  pd-r-0">
+                                            <mat-form-field appearance="outline" class="w100 newInput">
+                                                <input type="text" matInput formControlName="description"
+                                                    placeholder="Description*" (keypress)="textOnly($event)">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-1 icon">
+                                            <span (click)="deleteDescription(i)"><i class="fa fa-trash-o fa-lg"
+                                                    aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+                <div *ngIf="selectedPlan=='SUBSCRIPTION_PLAN'"><br>
+                    <form [formGroup]="manageBenifitArray">
+                        <div class="row" style="padding:0px">
+                            <div class="col-md-11">
+                                <h6 class="heading f-16 fontBold dgrey" style="text-align: initial;">Product Benefits
+                                </h6>
+                                <br>
+                            </div>
+                            <div class="col-md-1" style="padding:0px">
+                                <button mat-raised-button class="primary-btn f-14 w-100" (click)="addBenifit()">+
+                                    Add</button>
+
+                            </div>
+                        </div><br>
+                        <div formArrayName="details"
+                            *ngFor="let item of manageBenifitArray.get('details')['controls']; let i = index;">
+
+                            <div [formGroupName]="i">
+                                <div class="row">
+                                    <div class="col-md-3  pd-r-0">
+                                        <mat-form-field appearance="outline" class="w100 newInput">
+                                            <input type="text" matInput formControlName="benefit" placeholder="Benefit*" (keypress)="textOnly($event)"
+                                                [disabled]="isBenefitProtected(item.value.benefit)">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3  pd-r-0">
+                                        <mat-form-field appearance="outline" class="w100 newInput">
+                                            <input type="text" matInput formControlName="value" placeholder="Value*" (keypress)="textOnly($event)">
+                                        </mat-form-field>
+                                    </div>
+                                    <!-- First Name Field -->
+                                    <div class="col-md-1 icon">
+                                        <span [ngClass]="{'disabled': isBenefitProtected(item.value.benefit)}"
+                                            (click)="isBenefitProtected(item.value.benefit) ? null : deleteUser(i)"><i
+                                                class="fa fa-trash-o fa-lg" aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </form>
+        <!-- <div class="row">
+            <div class="col-md-5 hearCoupon mb-20">
+                <div class="d-flex justify-content-end">
+                    <button mat-raised-button class="primary-btn" style="width: 25%;"
+                        (click)="submitEditUser()">Update</button>
+                    <button mat-raised-button class="bttn" style="width: 25%;"
+                        (click)="cancelForm()">Cancel</button>
+                </div>
+            </div>
+        </div> -->
+        <div class="row mt-10" style="justify-content: end;">
+            <div class="col-xxl-2 col-xl-1 col-lg-2 col-md-2 col-12 mt-15">
+              <button mat-raised-button class="approveBtn" (click)="submitEditUser()">Update</button>
+            </div>
+            <div class="col-xxl-2 col-xl-1 col-lg-2 col-md-2 col-12 mt-15">
+              <button mat-raised-button class="rejectBtn" (click)="cancelForm()">Cancel</button>
+            </div>
+          </div>
+
+
+    </div>
+</div>

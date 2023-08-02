@@ -1,0 +1,207 @@
+<div class="all-detail-container mt-30">
+    <div class="">
+      <div class="d-flex align-items-center mb-20">
+        <mat-icon style="cursor: pointer;" (click)="routelocation?.back()">keyboard_backspace</mat-icon>
+        <div class="ml-12 darkBlackText">Viewing details for {{data.transactionId}}</div>
+      </div>
+      <div class="all-details-tab-container">
+        <div style="padding:24px" class="admin-user-wrapper">
+          <div class="">
+            <div class="col-md-11">
+              <div class="userid">User ID</div>
+              <div class="dark-text">{{userId}}</div>
+            </div>
+          </div>
+          <div class="mt-30 admin-user-container">
+            <div  class=" subContainer" style="padding: 0 14px 15px 15px;">
+              <div class="row">
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Product Type</div>
+                      <div class="dark-text">{{data.factoringProductType}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">User Type</div>
+                      <div class="dark-text">{{data.factoringUserType}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Status</div>
+                      <div class="dark-text">{{data.status | titlecase}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Amount</div>
+                      <div class="dark-text">{{data.amount |number :'1.2-2' }}</div>
+                  </div>
+              </div>
+              <div class="row mt-10">
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Invoice Number</div>
+                      <div class="dark-text">{{data.invoiceNumber}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Date</div>
+                      <div class="dark-text">{{data.date}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Tenure</div>
+                      <div class="dark-text">{{data.tenor}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Due Date</div>
+                      <div class="dark-text">{{data.dueDate}}</div>
+                  </div>
+              </div>
+              <div class="row mt-10">
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Charges On</div>
+                      <div class="dark-text">{{data.chargesOn}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Grace Period</div>
+                      <div class="dark-text">{{data.gracePeriod}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Financing Period</div>
+                      <div class="dark-text">{{data.finicingPeriod}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Country Of Origin</div>
+                      <div class="dark-text">{{data.countryOrigin}}</div>
+                  </div>
+              </div>
+              <div class="row mt-10">
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Country Of Discharge</div>
+                      <div class="dark-text">{{data.countryDischarge}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Currency</div>
+                      <div class="dark-text">{{data.currency}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">ESG Compliant</div>
+                      <div class="dark-text">{{data.isESGCompliant?'YES':'NO'}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Underlining Goods</div>
+                      <div class="dark-text">{{data.underlyingGoods}}</div>
+                  </div>
+              </div>
+              <div class="row mt-10">
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15" *ngIf="data?.extraUnderlyingGoods">
+                      <div class="light-text mb-4">Extra Underlying Goods</div>
+                      <div class="dark-text">{{data.extraUnderlyingGoods}}</div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Debtor/Buyer</div>
+                      <div class="dark-text">
+                          {{data.factoringUserType=='DEBTOR'?data.groupComapany.companyName:data.assignorToDebtor}}
+                      </div>
+                  </div>
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <div class="light-text mb-4">Assignor/Seller</div>
+                      <div class="dark-text">
+                          {{data.factoringUserType=='ASSIGNOR'?data.groupComapany.companyName:data.debtorToAssignor}}
+                      </div>
+                  </div>
+                  <div class="col-md-6 comment">
+                      <div class="light-text mb-4">Message</div>
+                      <div class="dark-text" (click)="openViewMessage()" *ngIf="messageList" style="color:#0f3c9c;cursor:pointer">Click here to View Message</div>
+                  </div>
+              </div>
+              <div class="row mt-20" style="margin-top: 20px;">
+                  <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                      <button mat-raised-button class="approveBtn" (click)="addComment()">Message</button>
+                  </div>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <ng-template #messageDialog>
+    <div class="text-center">
+        <div class="heading">Message
+            <span class="circle-icon">
+                <mat-icon mat-dialog-close >
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div style="padding: 0 20px 20px 20px; text-align: left;" class="admin-user-container" *ngIf="messageList.length >= 1">
+            <div *ngFor="let data of messageList">
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="text-blue left-border fw-600">
+                                Message By : {{data.createdBy}}</mat-panel-title>
+                            <mat-panel-description>
+                                Date : {{data.createdOn | date:'MMM d, y'}}
+
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <p class="mt-10">{{data.message}}</p>
+                    </mat-expansion-panel>
+                </mat-accordion><br>
+            </div>
+            <div class="update-btn">
+                <button mat-raised-button class="approveBtn" type="submit" mat-dialog-close>Ok</button>
+             </div>
+        </div>
+    </div>
+</ng-template> -->
+<ng-template #messageDialog>
+    <div class="common-popup">
+      <div class="header">
+          Message
+          <mat-icon class="cpointer" style="height: 24px;width: 24px;" mat-dialog-close>close</mat-icon>
+      </div>
+      <div class="main-container">
+        <div *ngFor="let data of messageList;let i=index">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="step === i" (opened)="step=i">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Message By : {{data.createdBy}}</mat-panel-title>
+                        <mat-panel-description>
+                            Date : {{data.createdOn | date:'MMM d, y'}}
+
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p class="mt-10">{{data.message}}</p>
+                </mat-expansion-panel>
+            </mat-accordion><br>
+        </div>
+          <div class="row">
+              <div class="text-center button-style d-flex" >
+                  <div class="col-md-2 mt-10">                
+                      <button mat-raised-button class="primary-btn"  mat-dialog-close>Ok</button>                   
+                  </div>
+              </div> 
+          </div>
+      </div>
+  </div>
+  </ng-template>
+ <ng-template #callAPIDialog>
+  <div class="common-popup">
+    <div class="header">
+        Add Message
+        <mat-icon class="cpointer" style="height: 24px;width: 24px;" mat-dialog-close>close</mat-icon>
+    </div>
+    <div class="main-container">
+        <div class="col-md-12">
+            <mat-form-field class="w100">
+                <textarea matInput maxlength="255" rows="5" placeholder="Message"  [formControl]="form">
+                </textarea>
+            </mat-form-field>
+        </div>   
+        <div class="row">
+            <div class="text-center button-style d-flex" >
+                <div class="col-md-2 mt-10">                
+                    <button mat-raised-button class="primary-btn" (click)="updateComment()">Yes</button>                   
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+</ng-template>

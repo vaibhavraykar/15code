@@ -1,0 +1,347 @@
+<div class="customerPlanAndPayment">
+    <span class="f-22 fontBold dgrey" *ngIf="orderClickStatus != 'PENDING'">Total Order</span>
+    <span class="f-22 fontBold dgrey" *ngIf="orderClickStatus == 'PENDING'">Pending Order</span>
+
+    <div class="col-md-8 m-auto">
+        <div class="boxShadow">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="yellow-txt f-14 fontBold">User ID</div>
+                        <div class="label-text">{{userId}}</div>
+                    </div>
+                    <div class="col-md-1" style="padding:0px" (click)="back()">
+                        <div class="imgDiv f-14 fontBold dgrey cpointer">
+                            <mat-icon>keyboard_arrow_left</mat-icon>Back
+                        </div>
+                    </div>
+                </div>
+                <!-- TOTAL ORDER START -->
+                <div *ngIf="orderClickStatus != 'PENDING'">
+                    <div *ngFor="let data of planPaymentData">
+                        <mat-accordion>
+                            <mat-expansion-panel 
+                                class="mt-10"
+                                (opened)="openTotalPanelState = true"
+                                (closed)="openTotalPanelState = false" style="padding: 0 24px;">
+                            <mat-expansion-panel-header style="padding:0px">
+                                <mat-panel-title class="f-14">
+                                    Order ID - {{data.orders.orderId}} | {{data.orders.createdOn | date:'dd MMM y'}}
+                                </mat-panel-title>
+                            </mat-expansion-panel-header >
+                            <!-- <div *ngFor="let data of planPaymentData;let i = index"> -->
+                                <!-- <div *ngFor="let orderLinesData of data.orders.orderLines"> -->
+                                    <span class="f-14 fontBold heading" style="color:#0f3c9c">Order Details</span><br>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="label-text">Order ID</div>
+                                            <div class="info">{{data?.orders?.orderId}}</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="label-text">Created On</div>
+                                            <div class="info" style="word-wrap: break-word;">
+                                                {{data?.orders?.createdOn | date:'dd MMM y'}}</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="label-text">Order Status</div>
+                                            <div class="info">{{data?.orders?.status | titlecase}}</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="label-text">Order Items </div>
+                                            <div class="info">{{data?.orders?.orderLines?.length}}</div>
+                                        </div>
+                                <!-- </div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="label-text">Maker Comment</div>
+                                    <div class="info">{{data?.orders?.makerComment}}</div>
+                                </div> 
+                                <div class="col-md-3">
+                                    <div class="label-text">Checker Comment</div>
+                                    <div class="info">{{data?.orders?.checkerComment}}</div>
+                                </div>         
+                            </div>
+                                <div *ngFor="let orderPaymentDetails of data.orders.paymentDetails" class="mt-10">
+                                    <!-- Prepaid Payment Details -->
+                                    <span class="f-14 fontBold heading" style="color:#0f3c9c">Payment Details</span><br>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="label-text">Payment Transaction ID</div>
+                                            <div class="info">{{data?.orders?.paymentDetails[0].pid}}</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="label-text">Payment Status</div>
+                                            <div class="info">{{data?.orders?.status == 'CREATED' ? 'Pending' : data?.orders?.status | titlecase}}</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="label-text">Currency</div>
+                                            <div class="info" style="word-wrap: break-word;">
+                                                {{data?.orders?.paymentDetails[0]?.currency}}</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="label-text">Payment Mode</div>
+                                            <div class="info">{{orderPaymentDetails?.modeOfPayment?.replace('_',' ')}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="label-text">Total Price</div>
+                                            <div class="info">{{orderPaymentDetails?.totalPrice}}</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="label-text">Discount</div>
+                                            <div class="info">{{orderPaymentDetails?.couponCode}}</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="label-text">Effective Price</div>
+                                            <div class="info" style="word-wrap: break-word;">
+                                                {{data?.orders?.effectivePrice}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngFor="let orderLinesData of data.orders.orderLines;let i=index">
+                                    <mat-accordion>
+                                        <mat-expansion-panel 
+                                            class="mt-10"
+                                            [expanded]="step === i" (opened)="step=i" style="padding: 0 24px;">
+                                        <mat-expansion-panel-header style="padding:0px">
+                                            <mat-panel-title class="f-14">
+                                                Item {{i+1}} - {{orderLinesData?.productDetails?.planName}} ({{orderLinesData?.productDetails?.productType == 'SUBSCRIPTION_PLAN' ? 'Subscription' : 'VAS' }})
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header >
+                                        <ng-template matExpansionPanelContent>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="label-text">Product ID</div>
+                                                    <div class="info">{{orderLinesData?.productDetails?.id}}</div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="label-text">Product Name</div>
+                                                    <div class="info" style="word-wrap: break-word;">{{orderLinesData?.productDetails?.planName}}</div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="label-text">Product Type</div>
+                                                    <div class="info" style="word-wrap: break-word;">
+                                                        {{orderLinesData?.productDetails?.productType?.replace('_',' ')}}</div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="label-text">Plan Type</div>
+                                                    <div class="info">{{orderLinesData?.productDetails?.planType}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="label-text">Quantity</div>
+                                                    <div class="info">{{orderLinesData?.quantity}}</div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="label-text">Price</div>
+                                                    <div class="info">{{orderLinesData?.price}}</div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="label-text">Duration</div>
+                                                    <div class="info" style="word-wrap: break-word;">
+                                                        {{orderLinesData?.productDetails?.duration}} {{orderLinesData?.productDetails?.durationType}}</div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="label-text">Status</div>
+                                                    <div class="info">{{orderLinesData?.productDetails?.status}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3"
+                                                    *ngFor="let bene of orderLinesData.productDetails?.productBenefits;let i = index">
+                                                    <div class="label-text">Benefit {{i+1}}</div>
+                                                    <div class="info">{{bene.value}}</div>
+                                                </div>
+                                            </div><br>
+                                        </ng-template>
+                        
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+                            <br>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                </div>
+
+                <!-- TOTAL ORDER END -->
+                <!-- PENDING ORDER START -->
+                 <div *ngIf="orderClickStatus == 'PENDING'" >
+                    <div *ngFor="let data of planPaymentData;let i = index">
+                            <!-- <div *ngFor="let orderLinesData of data.orders.orderLines"> -->
+                                <span class="f-14 fontBold heading" style="color:#0f3c9c">Order Details</span><br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="label-text">Order ID</div>
+                                        <div class="info">{{data?.orders?.orderId}}</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="label-text">Created On</div>
+                                        <div class="info" style="word-wrap: break-word;">
+                                            {{data?.orders?.createdOn | date:'dd MMM y'}}</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="label-text">Order Status</div>
+                                        <div class="info">{{data?.orders?.status | titlecase}}</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="label-text">Order Items </div>
+                                        <div class="info">{{data?.orders?.orderLines?.length}}</div>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf="data?.orders?.makerComment">
+                                    <div class="col-md-3">
+                                        <div class="label-text">Maker Comment</div>
+                                        <div class="info">{{data?.orders?.makerComment}}</div>
+                                    </div>       
+                                </div>
+                            <!-- </div> -->
+                            <div *ngFor="let orderPaymentDetails of data?.orders?.paymentDetails" class="mt-10">
+                                <!-- Prepaid Payment Details -->
+                                <span class="f-14 fontBold heading" style="color:#0f3c9c">Payment Details</span><br>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="label-text">Payment Transaction ID</div>
+                                        <div class="info">{{data?.orders?.paymentDetails[0]?.pid}}</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="label-text">Payment Status</div>
+                                        <div class="info">{{data?.orders?.status == 'CREATED' ? 'Pending' : data?.orders?.status | titlecase}}</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="label-text">Currency</div>
+                                        <div class="info" style="word-wrap: break-word;">
+                                            {{data?.orders?.paymentDetails[0]?.currency}}</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="label-text">Payment Mode</div>
+                                        <div class="info">{{orderPaymentDetails?.modeOfPayment?.replace('_',' ')}}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="label-text">Total Price</div>
+                                        <div class="info">{{orderPaymentDetails?.totalPrice}}</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="label-text">Discount</div>
+                                        <div class="info">{{orderPaymentDetails?.couponCode}}</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="label-text">Effective Price</div>
+                                        <div class="info" style="word-wrap: break-word;">
+                                            {{data?.orders?.effectivePrice}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngFor="let orderLinesData of data?.orders?.orderLines;let i=index">
+                                <mat-accordion>
+                                    <mat-expansion-panel 
+                                        class="mt-10"
+                                        [expanded]="step === i" (opened)="step=i" style="padding: 0 24px;">
+                                    <mat-expansion-panel-header style="padding:0px">
+                                        <mat-panel-title class="f-14">
+                                            Item {{i+1}} - {{orderLinesData?.productDetails?.planName}} ({{orderLinesData?.productDetails?.productType == 'SUBSCRIPTION_PLAN' ? 'Subscription' : 'VAS' }})
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <ng-template matExpansionPanelContent>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="label-text">Product ID</div>
+                                                <div class="info">{{orderLinesData?.productDetails?.id}}</div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="label-text">Product Name</div>
+                                                <div class="info" style="word-wrap: break-word;">{{orderLinesData?.productDetails?.planName}}</div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="label-text">Product Type</div>
+                                                <div class="info" style="word-wrap: break-word;">
+                                                    {{orderLinesData?.productDetails?.productType?.replace('_',' ')}}</div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="label-text">Plan Type</div>
+                                                <div class="info">{{orderLinesData?.productDetails?.planType}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="label-text">Quantity</div>
+                                                <div class="info">{{orderLinesData?.quantity}}</div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="label-text">Price</div>
+                                                <div class="info">{{orderLinesData?.price}}</div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="label-text">Duration</div>
+                                                <div class="info" style="word-wrap: break-word;">
+                                                    {{orderLinesData?.productDetails?.duration}} {{orderLinesData?.productDetails?.durationType}}</div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="label-text">Status</div>
+                                                <div class="info">{{orderLinesData?.productDetails?.status}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3"
+                                                *ngFor="let bene of orderLinesData?.productDetails?.productBenefits;let i = index">
+                                                <div class="label-text">Benefit {{i+1}}</div>
+                                                <div class="info">{{bene?.value}}</div>
+                                            </div>
+                                        </div><br>
+                                    </ng-template>
+                    
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </div>
+                            <div class="row mt-10" style="justify-content: center;" *ngIf="data?.orders?.status == 'CREATED'">
+                                <!-- Pending order approve -->
+                                <div class="col-md-2">
+                                    <button mat-raised-button class="primary-btn f-12 w-100" (click)="comment(data?.orders?.orderId,data?.orders?.paymentDetails[0]?.pid,data?.orders?.paymentDetails[0]?.orderToken,'MAKER_APPROVED')">APPROVE</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <button mat-raised-button class="primary-btn f-12 w-100" (click)="comment(data?.orders?.orderId,data?.orders?.paymentDetails[0]?.pid,data?.orders?.paymentDetails[0]?.orderToken,'REJECTED')">REJECT</button>
+                                </div>
+                            </div>
+                        <br>
+                    </div>
+                </div>
+                <!-- PENDING ORDER END -->
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<ng-template #callAPIDialog>
+    <div class="text-center">
+        <div class="headingMessage">Add Comment
+            <span class="circle-icon">
+                <mat-icon (click)="closeComment()" mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div class="" style="padding: 15px;">
+            <img src="../../../assets/images/icons/logo.png" alt="" style="height:30px;width:50px">
+        </div>
+        <div style="padding: 0 20px 20px 20px; text-align: left;">
+            <!-- Add Message: -->
+            <div style="text-align: center;">
+                <mat-form-field style="width:100%">
+                    <textarea matInput maxlength="255" rows="4" [(ngModel)]="commentValue"></textarea>
+                    <mat-hint>Max 255 character</mat-hint>
+                    <!-- <mat-error>Max 255 character</mat-error> -->
+                </mat-form-field>
+            </div>
+            <div class="update-btn">
+                <app-button [name]="'Submit'" [class]="'primary-btn f-16'" [type]="'submit'"
+                    (click)="action()"></app-button>
+            </div>
+        </div>
+    </div>
+</ng-template>

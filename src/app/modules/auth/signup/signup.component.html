@@ -1,0 +1,107 @@
+<div class="signup-component isDesktop">
+    <div class="text-center">
+        <div class="logo">
+            <img src="../../../../assets/images/icons/login-logo.png" />
+        </div>
+        <div class="heading-text" style="margin-right:15px;">
+            <span class="f-22 fontBold dgrey" *ngIf="selectedIndex!=1">Sign up as </span>
+
+            <span class="f-22 fontBold dgrey" *ngIf="selectedIndex==1"> {{this.subscriberType}} Sign-up</span>
+        </div>
+    </div>
+    <div class="tab-container-new">
+        <div class="py-2 col-md-10 m-auto">
+            <mat-tab-group
+            [selectedIndex]="selectedIndex"
+            (selectedTabChange)="selectedTab($event)"
+            [ngClass]="getVisited()"
+            >
+                <mat-tab [disabled]="isThirdParty" label="SIGN UP AS"
+                >
+                    <div class="text-center px-4 px-2 col-md-12 m-auto">
+                        <div class="mt-30 row d-flex justify-content-center align-items-center addH">
+                            <div class="col"
+                            *ngFor="let subscriber of subscriberOptions">
+                                <div class="cards pt-1 pb-2 d-flex flex-column align-items-center justify-content-center  m-auto"
+                                    (click)="selectedType(subscriber.name)"
+                                    [ngClass]="{'clicked':subscriber.name==subscriberType}">
+                                    <div class="" *ngIf="subscriber.imagePath">
+                                        <img src="{{subscriber.imagePath}}" alt="" style="width: 32px;height:32px;">
+                                    </div>
+                                    <div class="f-14 fw-400 mt-10 fontRegular">
+                                        <p>{{subscriber.name}}</p>
+                                    </div>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-30 text-center">
+                            <p class="f-14 error-msg" *ngIf="buttonClicked&&!subscriberTypeView">Please select a subscriber.</p>
+                            <div class="col-md-3 m-auto">
+                                <app-button [name]="'PROCEED'" [class]="'primary-btn f-16 w-100'" [type]="'button'"class="btnResize" (click)="proceed()"></app-button>
+                            </div>
+                        </div>
+                        <div class="text-end" style="padding-bottom: 45px; margin-top: 10px; ">
+                            <span (click)="back()" class="orange-text fontRegular f-14 cpointer"
+                                style="text-decoration: underline;">Back to Login</span>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="{{subscriberType?subscriberType:''}}" [disabled]="!subscriberType">
+                    <app-signup-form [userDetails]="thirdPartyUserDetails" [subscriber]="subscriberType" *ngIf="subscriberType&&selectedIndex==1"></app-signup-form>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+
+<div class="signup-component isMobile">
+    <div class="text-center">
+        <div class="logo">
+            <img src="../../../../assets/images/icons/login-logo.png" />
+        </div>
+        <div class="heading-text" style="margin-right:15px;">
+            <span class="f-22 fontBold dgrey"  *ngIf="selectedIndex!=1">Sign up as</span>
+
+            <span class="f-22 fontBold dgrey" *ngIf="selectedIndex==1"> {{this.subscriberType}} Sign-up</span>
+        </div>
+    </div>
+    <div class="tab-container-new">
+        <div class=" px-5 py-2 col-md-10 m-auto">
+            <div class="text-center px-4 px-2 col-md-12 m-auto">
+                <div class="mt-30 row d-flex justify-content-center align-items-center addH" *ngIf="selectedIndex!=1">
+                    <div class="col-md-6"
+                    *ngFor="let subscriber of subscriberOptions">
+                        <div class="cards pt-1 pb-2 d-flex flex-column align-items-center justify-content-center  m-auto"
+                        (click)="selectedType(subscriber.name)"
+                        [ngClass]="{'clicked':subscriber.name==subscriberType}"
+                            [ngClass]="{'clicked':subscriber.name==subscriberType}">
+                            <div class="" *ngIf="subscriber.imagePath">
+                                <img src="{{subscriber.imagePath}}" alt="" style="width: 32px;height:32px;">
+                            </div>
+                            <div class="f-14 fw-400 mt-10 fontRegular">
+                                <p>{{subscriber.name}}</p>
+                            </div>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="mt-30 text-center" style="margin-top: 30px;">
+                        <p class="mt-10 f-14">Please select a subscriber.</p>
+                        <div class="col-md-3 m-auto">
+                            <app-button [name]="'PROCEED'" [class]="'primary-btn f-16 w-100'" [type]="'button'"class="btnResize" (click)="proceed()"></app-button>
+                        </div>
+                    </div>
+                    <div class="text-end" style="padding-bottom: 45px; margin-top: 10px; ">
+                        <span (click)="back()" class="orange-text fontRegular f-14 cpointer"
+                            style="text-decoration: underline;">Back to Login</span>
+                    </div>
+                </div>
+                <div class="mt-30 row d-flex justify-content-center align-items-center addH">
+                    <div class="col">
+                    <app-signup-form [subscriber]="subscriberType" *ngIf="subscriberType&&selectedIndex==1"></app-signup-form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

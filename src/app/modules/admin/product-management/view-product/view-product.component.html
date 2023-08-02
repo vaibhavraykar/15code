@@ -1,0 +1,148 @@
+<div class="view-transaction">
+    <div class="col-md-8 m-auto">
+
+        <div class="boxShadow">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="yellow-txt f-14 fontBold">Plan Name</div>
+                        <div class="label-text">{{viewData?.planName}}</div>
+                    </div>
+                    <div class="col-md-1" style="text-align: end;line-height: initial;">
+                        <!-- <div class="imgDiv" (click)="editUser(viewData.userId)">
+                            <img src="../../../../../assets/images/icons/action-edit.svg" />
+                        </div>                 -->
+                    </div>
+                    <div class="col-md-1" style="padding:0px">
+                        <!-- <div class="f-14 fontBold dgrey cpointer back">
+                            <mat-icon (click)="back()">keyboard_arrow_left</mat-icon> 
+                            <span (click)="back()">Back</span>
+                        </div> -->
+                        <div class="imgDiv f-14 fontBold dgrey cpointer" (click)="back()">
+                            <mat-icon>keyboard_arrow_left</mat-icon>Back
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mt-20" style="padding: 10px;">
+                <div class="row mt-10">
+                    <div class="col-md-3" *ngIf="viewData && viewData.applicableEntityType">
+                        <div class="label-text">User Type</div>
+                        <div class="info">{{viewData?.applicableEntityType}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.productType">
+                        <div class="label-text">Product Type</div>
+                        <div class="info">{{viewData?.productType.replace('_',' ')}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.planType">
+                        <div class="label-text">Plan Type</div>
+                        <div class="info">{{viewData?.planType}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.durationType && viewData.duration">
+                        <div class="label-text">Duration</div>
+                        <div class="info">{{viewData?.duration}} {{viewData?.durationType}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3" *ngIf="viewData && viewData.price">
+                        <div class="label-text">Price</div>
+                        <div class="info">{{viewData?.price | amount}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.currency">
+                        <div class="label-text">Currency</div>
+                        <div class="info">{{viewData?.currency}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.status">
+                        <div class="label-text">Status</div>
+                        <div class="info">{{viewData?.status}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.productCountries">
+                        <div class="label-text">Country</div>
+                        <!-- <div class="info">{{productCountries}}</div> -->
+                        <div class="info" style="color:blue;cursor:pointer" *ngIf="viewData?.productCountries?.length > 3"(click)="viewCountry()">View</div>
+                        <div class="info" *ngIf="viewData?.productCountries?.length <= 3">{{productCountries}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3" *ngIf="viewData && viewData.credits">
+                        <div class="label-text">Credits</div>
+                        <div class="info">{{viewData?.credits}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.remark">
+                        <div class="label-text">Remark</div>
+                        <div class="info">{{viewData?.remark}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.customerSupport">
+                        <div class="label-text">Customer Support</div>
+                        <div class="info">{{viewData?.customerSupport}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.relationshipManager">
+                        <div class="label-text">Relationship Manager</div>
+                        <div class="info">{{viewData?.relationshipManager}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3" *ngIf="viewData && viewData.maxTransactionRejectLimit">
+                        <div class="label-text">Max. Transaction Reject Limit</div>
+                        <div class="info">{{viewData?.maxTransactionRejectLimit}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.allowedSubsidiaries">
+                        <div class="label-text">Allowed Subsidiaries</div>
+                        <div class="info">{{viewData?.allowedSubsidiaries}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.postpaidTransactionPercentage">
+                        <div class="label-text">Transaction Percentage</div>
+                        <div class="info">{{viewData?.postpaidTransactionPercentage}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.postpaidMaximumTransactionAmount">
+                        <div class="label-text">Max. Transaction Amount</div>
+                        <div class="info">{{viewData?.postpaidMaximumTransactionAmount}}</div>
+                    </div>
+                    <div class="col-md-3" *ngIf="viewData && viewData.postpaidMaximumAllowedTransations">
+                        <div class="label-text">Max. Allowed Transaction</div>
+                        <div class="info">{{viewData?.postpaidMaximumAllowedTransations}}</div>
+                    </div>
+                    <div class="col-md-3"
+                        *ngIf="viewData && viewData.productDescriptions && viewData.productDescriptions.length > 0">
+                        <div class="label-text">Product Description</div>
+                        <div class="info">
+                            <li *ngFor="let product of viewData.productDescriptions; let i = index;">
+                                <strong>Description {{ i + 1 }}: </strong> {{ product.description }}
+                            </li>
+                        </div>
+                    </div>
+                    <div class="col-md-3"
+                        *ngIf="viewData && viewData.productBenefits && viewData.productBenefits.length > 0">
+                        <div class="label-text">Product benefits</div>
+                        <div class="info">
+                            <li *ngFor="let product of viewData.productBenefits; let i = index;">
+                                <strong>Benefit {{ i + 1 }}: </strong> {{ product.benefit }}
+                                <strong>Value {{ i + 1 }}: </strong> {{ product.value }}
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<ng-template #callAPIDialog>
+    <div class="text-center">
+        <div class="headingMessage">Selected Country
+            <span class="circle-icon">
+                <mat-icon (click)="close()" mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div style="padding: 0 20px 20px 20px; text-align: left;">
+            <!-- Add Message: -->
+            <div>
+                {{productCountries }}
+            </div>
+        </div>
+    </div>
+</ng-template>

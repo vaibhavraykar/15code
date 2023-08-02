@@ -1,0 +1,233 @@
+<div class="active-transaction">
+    <div class="d-flex w-100 table-filters">
+        <!-- <div class="col-md-10 search">
+            <input type="text" placeholder="Search"
+            [formControl]="searchInput"
+            (input)="search($event)">
+            <mat-icon>search</mat-icon>
+        </div>
+        <div class="col-md-2 search-option">
+            <img src="../../../../../../assets/images/icons/filter.svg" (click)="filter()"/>
+            <img src="../../../../../../assets/images/icons/refresh.svg" (click)="reset()"/>
+            <img src="../../../../../../assets/images/icons/download.svg" (click)="downloadCSV()" />
+        </div> -->
+
+        <div class="search-bar "> 
+            <form [formGroup]="searchForm">
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput type="text" placeholder="Search"
+                formControlName="searchInput"
+                (input)="search($event)">
+                  <mat-icon matPrefix>search</mat-icon>
+              </mat-form-field>
+            </form>
+            </div>
+            <div class=" search-option">
+              <img
+              (click)="filter()"
+                src="../../../../../assets/images/icons/filter.svg"
+              />
+              <img
+              (click)="reset()"
+                src="../../../../../../assets/images/icons/refresh.svg"
+              />
+              <img
+                (click)="downloadCSV()"
+                src="../../../../../../assets/images/icons/download.svg"
+              />
+            </div>
+    </div>
+    <div >
+        <div class="f-22 fontBold dgrey mt-20 mb-3">Previous Transactions</div>
+        <div class="mt-30 table-container" >
+            <!-- <app-table 
+            [dataSource]="newDataSource" 
+            [displayedColumns]="displayColumns"  
+            [pageData]="page"
+            [viewComment]="true"  
+            [showDownload]="true" 
+            [viewEdit]="true"
+            [totalItems]="dataLength"
+            (editSelected)="editSelected($event)"
+            (pagePreviousHandler)="pagePrevious($event)"
+            (pageNextHandler)="pageNext($event)"
+            ></app-table> -->
+            
+            <table mat-table [dataSource]="newDataSource" class="">
+
+                <ng-container matColumnDef="transactionID">
+                  <th mat-header-cell *matHeaderCellDef> Transaction ID </th>
+                  <td mat-cell *matCellDef="let element"> {{element.transactionID}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="currency">
+                  <th mat-header-cell *matHeaderCellDef> Currency </th>
+                  <td mat-cell *matCellDef="let element"> {{element.currency}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="amount">
+                  <th mat-header-cell *matHeaderCellDef> Amount </th>
+                  <td mat-cell *matCellDef="let element"> {{element.amount|number:'1.2-2'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="applicant">
+                  <th mat-header-cell *matHeaderCellDef> Applicant </th>
+                  <td mat-cell *matCellDef="let element"> {{element.applicant}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="beneficiary">
+                  <th mat-header-cell *matHeaderCellDef> Beneficiary </th>
+                  <td mat-cell *matCellDef="let element"> {{element.beneficiary}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="quotes">
+                    <th mat-header-cell *matHeaderCellDef> Quotes Recieved </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> {{element.quotes}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <div 
+                        class="text-center"
+                        [ngClass]="element.status.toLowerCase()">
+                            {{element.status|titlecase}} 
+                        </div>
+                        <!-- <mat-form-field class="mt-10" appearance="outline" *ngIf="transStatus.length===1&&transStatus[0]==='ACCEPTED'">
+                            <mat-select  name="statusAccepted"
+                            [(value)]="selected"
+                            (selectionChange)="closeTransaction($event,element.transactionID)">
+                              <mat-option  [value]="'Open'">
+                                Open
+                              </mat-option>
+                              <mat-option  [value]="'Close'">
+                                Close
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field> -->
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Actions</th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> 
+                        <div class="" mat-button [matMenuTriggerFor]="menu">
+                            <img src="../../../../../../assets/images/icons/3dots.png" style="width: 20px;height: 20px; cursor: pointer;" alt="">
+                        </div>
+                        <mat-menu #menu>
+
+                <ng-container *ngIf="element.status ==='ACTIVE'">
+                    <button mat-menu-item class="f-12 fontRegular dgrey" (click)="editActiveSelectedTransaction(element.transactionID, 'ACTIVE')">
+                        View Details
+                    </button>
+                    <button mat-menu-item class="f-12 fontRegular dgrey"  (click)="downloadCSVInv(element.transactionID)">
+                        Download
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="element.status ==='ACCEPTED'">
+                    <button mat-menu-item class="f-12 fontRegular dgrey" (click)="editActiveSelectedTransaction(element.transactionID, 'ACCEPTED')">
+                        View Details
+                    </button>
+                    <button mat-menu-item class="f-12 fontRegular dgrey" (click)="quoteDetails(element.transactionID,element.status)">
+                        Quote Details
+                    </button>
+                    <button mat-menu-item class="f-12 fontRegular dgrey"  (click)="downloadCSVInv(element.transactionID)">
+                        Download
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="element.status ==='REJECTED'">
+                    <button mat-menu-item class="f-12 fontRegular dgrey" (click)="editActiveSelectedTransaction(element.transactionID, 'REJECTED')">
+                        View Details
+                    </button>
+                    <button mat-menu-item class="f-12 fontRegular dgrey"(click)="quoteDetails(element.transactionID,element.status)">
+                        Quote Details
+                    </button>
+                    <button mat-menu-item class="f-12 fontRegular dgrey"  (click)="downloadCSVInv(element.transactionID)">
+                        Download
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="element.status ==='EXPIRED'">
+                    <button mat-menu-item class="f-12 fontRegular dgrey" (click)="editActiveSelectedTransaction(element.transactionID, 'EXPIRED')">
+                        View Details
+                    </button>
+                    <button mat-menu-item class="f-12 fontRegular dgrey"  (click)="downloadCSVInv(element.transactionID)">
+                        Download
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="element.status ==='CLOSED'">
+                    <button mat-menu-item class="f-12 fontRegular dgrey" (click)="editActiveSelectedTransaction(element.transactionID, 'CLOSED')">
+                        View Details
+                    </button>
+                    <button mat-menu-item class="f-12 fontRegular dgrey" (click)="quoteDetails(element.transactionID,element.status)">
+                        Quote Details
+                    </button>
+                    <button mat-menu-item class="f-12 fontRegular dgrey"  (click)="downloadCSVInv(element.transactionID)">
+                        Download
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="element.status ==='CANCELLED'">
+                    <button mat-menu-item class="f-12 fontRegular dgrey" (click)="editActiveSelectedTransaction(element.transactionID, 'CANCELLED')">
+                        View Details
+                    </button>
+                    <button mat-menu-item class="f-12 fontRegular dgrey"   (click)="downloadCSVInv(element.transactionID)">
+                        Download
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="element.status ==='PENDING'">
+                    <button mat-menu-item class="f-12 fontRegular dgrey" (click)="editActiveSelectedTransaction(element.transactionID, 'PENDING')">
+                        View Details
+                    </button>
+                    <button mat-menu-item class="f-12 fontRegular dgrey"   (click)="downloadCSVInv(element.transactionID)">
+                        Download
+                    </button>
+                </ng-container>
+
+                            <!-- <button mat-menu-item 
+                                class="f-12 fontRegular dgrey" 
+                                (click)="editActiveSelectedTransaction(element.transactionID)"
+                            >
+                                View
+                            </button>
+                            <button mat-menu-item 
+                                class="f-12 fontRegular dgrey"
+                                (click)="downloadSelected(element.transactionID)" 
+                            >
+                                Download
+                            </button> -->
+                        </mat-menu>
+                    </td>
+                </ng-container>
+
+                <tr class="mat-row " *matNoDataRow>
+                    <td class="mat-cell text-center " [attr.colspan]="displayedColumns.length">
+                        No Records Found.
+                    </td>
+                </tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+              
+        </div>
+        <div class="d-flex align-items-center ">
+            <div class=" pageSizeChange justify-content-start d-flex">
+                <mat-paginator  (page)= "onPageChange($event)"
+                *ngIf="totalItems>5"    
+                [pageSizeOptions]="[5, 10, 20, 30]">
+                </mat-paginator>
+            </div>
+            <div class="pagination mt-10" style="float: right;" >
+                <div class="f-12 fontBold grey mx-3"> {{getPage()+' ' }} of {{pageData?.totalElements}}</div>   
+                <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="pageData?.index === 0 ?'#292929a1':'#EB7203'"
+                    [style.pointer-events]="pageData?.index === 0?'none':'auto'">
+                    arrow_back_ios
+                </mat-icon>
+                <mat-icon class="pointer" (click)="pageNext()"
+                    [style.pointer-events]="last===pageData?.totalElements?'none':'auto'"
+                    [style.color]="last===pageData?.totalElements ?'#292929a1':'#EB7203'"
+                    [style.pointer-events]="last===pageData?.totalElements ?'none':'auto'" style="margin-left: 10px;">
+                    arrow_forward_ios
+                </mat-icon>
+            </div>
+        </div>
+    </div>
+</div>

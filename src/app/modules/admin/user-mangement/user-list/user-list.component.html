@@ -1,0 +1,113 @@
+<div style="padding: 20px 10px;">
+    <div class="row">
+        <div class="col-md-8">
+            <span class="f-22 fontBold dgrey">User Details</span>
+        </div>
+        <div class="col-md-2">
+            <div class="filterDropdown"> 
+              <mat-form-field appearance="outline" >
+              <mat-select (selectionChange)="onStatusChange($event)" [ngModel]="status">
+              <mat-option value="ALL">All</mat-option>
+              <mat-option value="ACTIVE">Active</mat-option>
+              <mat-option value="PENDING">Pending</mat-option>
+              <mat-option value="REJECTED">Rejected</mat-option>
+              </mat-select>
+              </mat-form-field>
+          </div>
+          </div>
+        <div class="col-md-2" *ngIf="myRights.includes('CREATE_USER')">
+            <app-button [name]="'Add User'" [class]="'primary-btn f-16 w-100'" class="btnResize"
+                (click)="addUser()"></app-button>
+        </div>
+        <div class="mt-10 table-container">
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="EMP ID">
+                    <th mat-header-cell *matHeaderCellDef>User ID</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.userId}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="First Name">
+                    <th mat-header-cell *matHeaderCellDef>First Name</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.firstName}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Last Name">
+                    <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.lastName}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Designation">
+                    <th mat-header-cell *matHeaderCellDef>Designation</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.designation}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Mobile No">
+                    <th mat-header-cell *matHeaderCellDef>Mobile No</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.mobileNo}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Reporting Manager">
+                    <th mat-header-cell *matHeaderCellDef>Reporting Manager</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.reportingManager}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef>Status</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.status | titlecase}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div mat-button [matMenuTriggerFor]="menu">
+                            <img src="../../../assets/images/icons/3dots.png"
+                                style="width: 20px;height: 20px; cursor: pointer;" alt="">
+                        </div>
+                        <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="viewDetails(element.userId)"
+                                class="f-12 fontRegular dgrey">View/Edit</button>
+                        </mat-menu> 
+                       </td>
+                    <!-- <td mat-cell *matCellDef="let element">
+                        <i class="fa fa-eye" style="cursor:pointer" (click)=viewDetails(element.userId)
+                            matTooltip="View"></i>
+                        
+                    </td> -->
+                </ng-container>
+                <tr class="mat-row " *matNoDataRow>
+                    <td class="mat-cell text-center " [attr.colspan]="displayColumns.length">
+                        No Records Found.
+                    </td>
+                </tr>
+                <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+              <mat-paginator  (page)= "onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]">
+              </mat-paginator>
+            </div>
+            <div class="col-md-10">
+                <div class="pagination" style="float: right;">
+                    <div class="f-12 fontBold grey mx-3"> {{getPage()+' ' }} of {{page?.totalElements}}</div>
+                    <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="page?.index === 0 ?'#292929a1':'#EB7203'"
+                        [style.pointer-events]="page?.index === 0?'none':'auto'">
+                        arrow_back_ios
+                    </mat-icon>
+                    <mat-icon class="pointer" (click)="pageNext()" [style.pointer-events]="last===page?.totalElements?'none':'auto'"
+                        [style.color]="last===page?.totalElements ?'#292929a1':'#EB7203'"
+                        [style.pointer-events]="last===page?.totalElements ?'none':'auto'" style="margin-left: 10px;">
+                        arrow_forward_ios
+                    </mat-icon>
+                </div>
+             </div>
+          </div>

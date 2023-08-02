@@ -1,0 +1,8 @@
+<div class="sidebar-wrapper">
+    <ul>
+        <li class="menu"><img src="../../../../assets/images/icons/hamburger-menu.png" style="padding-top: 20px;"></li>
+        <div *ngFor="let item of dataSource;" class="datasrc mt-30">
+            <li><img [src]="item.src"></li>
+        </div>
+    </ul>
+</div>

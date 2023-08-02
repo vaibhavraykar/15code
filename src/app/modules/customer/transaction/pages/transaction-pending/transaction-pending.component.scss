@@ -1,0 +1,44 @@
+.vas-popup {
+    width: 540px;
+    height: 250px;
+    border-radius: 10px !important;
+    ::ng-deep {
+        .close-btn .mat-mdc-raised-button:not(:disabled) {
+            background-color: var(--mdc-protected-button-container-color, transparent);
+            border: 2px solid #eb7203 ;
+        }
+        .close-btn  {
+            margin-right: 20px;
+        }
+    }
+    .widthButton{
+        width: 150px;
+    }
+    .heading {
+        width: 100%;
+        font: normal normal bold 20px/24px Lato;
+        letter-spacing: 0.4px;
+        color: #FFFFFF;
+        opacity: 1;
+        background-color: var(--yellow);
+        text-align: center;
+        padding: 15px;
+        span {
+            position: absolute;
+            border: 2px solid #fff;
+            border-radius: 50px;
+            width: 30px;
+            height: 30px;
+            right: 10px;
+            top: 12px;
+            .mat-icon {
+                padding-top: 2px;
+            }
+        }
+    }
+     
+}
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 15px !important;
+}
+

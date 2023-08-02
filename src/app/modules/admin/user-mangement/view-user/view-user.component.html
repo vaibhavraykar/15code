@@ -1,0 +1,94 @@
+<div class="view-transaction">
+    <div class="col-md-8 m-auto">
+        
+        <div class="boxShadow">
+            <div class="transaction" style="margin-top: 30px;">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="yellow-txt f-14 fontBold">User ID</div>
+                        <div class="label-text">{{viewData?.userId}}</div>
+                    </div>
+                    <div class="col-md-1" style="text-align: end;line-height: initial;" *ngIf="myRights.includes('CREATE_USER') && showEditButton">
+                        <div class="imgDiv" (click)="editUser(viewData.userId)">
+                            <img src="../../../../../assets/images/icons/action-edit.svg" />
+                        </div>                
+                    </div>
+                    <div class="col-md-1" *ngIf="!showEditButton"></div>
+                    <div class="col-md-1" style="padding:0px">
+                        <div class="imgDiv f-14 fontBold dgrey cpointer" (click)="back()">
+                            <mat-icon>keyboard_arrow_left</mat-icon>Back 
+                        </div>                
+                    </div>
+                </div>
+               
+            </div>
+            <div style="padding: 10px;">
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Firstname</div>
+                        <div class="info">{{viewData?.firstName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Last Name</div>
+                        <div class="info">{{viewData?.lastName}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Email ID</div>
+                        <div class="info">{{viewData?.email}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Mobile Number</div>
+                        <div class="info">+{{viewData?.countryExt}}  {{viewData?.mobileNo}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Department</div>
+                        <div class="info">{{viewData?.department}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Designation</div>
+                        <div class="info">{{viewData?.designation}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Reporting Manager</div>
+                        <div class="info">{{viewData?.reportingManager}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="label-text">Region Allocated</div>
+                        <div class="info" style="color:blue;cursor:pointer" *ngIf="viewData?.countryList?.length > 3"(click)="viewCountry()">View</div>
+                        <div class="info" *ngIf="viewData?.countryList?.length <= 3">{{countryList}}</div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-3">
+                        <div class="label-text">Role</div>
+                        <div class="info" style="word-wrap: break-word;" >{{roleInfo}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<ng-template #callAPIDialog>
+    <div class="text-center">
+        <div class="headingMessage">Selected Country
+            <span class="circle-icon">
+                <mat-icon (click)="close()" mat-dialog-close>
+                    <img src="../../../assets/images/icons/Icon-close.svg">
+                </mat-icon>
+            </span>
+        </div>
+        <div style="padding: 0 20px 20px 20px; text-align: left;">
+            <!-- Add Message: -->
+            <div>
+                {{countryList}}
+            </div>
+            <!-- <div class="update-btn">
+                <app-button [name]="'OK'" [class]="'primary-btn f-16'" [type]="'Submit'"
+                    (click)="close()"></app-button>
+            </div> -->
+        </div>
+    </div>
+</ng-template>

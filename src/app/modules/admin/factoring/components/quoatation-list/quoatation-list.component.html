@@ -1,0 +1,64 @@
+<div style="padding: 20px 10px;">
+    <div class="row">
+        <div class="col-md-11">
+            <span class="f-22 fontBold dgrey">Quotation List</span>
+        </div>
+        <div class="col-md-1">
+            <div class="imgDiv f-14 fontBold dgrey cpointer" (click)="back()">
+                <mat-icon style="height: 17px;">keyboard_arrow_left</mat-icon><span>Back</span> 
+            </div> 
+        </div>
+    </div>
+
+    <div class="mt-30 table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="Transaction Id">
+                <th mat-header-cell *matHeaderCellDef>Transaction Id</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.transactionId}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Bank">
+                <th mat-header-cell *matHeaderCellDef>Bank</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.bankName}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Total Quote">
+                <th mat-header-cell *matHeaderCellDef>Total Quote</th>
+                <td mat-cell *matCellDef="let element">
+                    <i style="cursor:pointer; color: blue;" (click)=viewQuotation(element.quotationId) matTooltip="View">{{element.totalQuote | amount}}</i>
+                     
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.status | titlecase}}
+                </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="Quote Placement Date">
+                <th mat-header-cell *matHeaderCellDef>Quote Placement Date</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.applicantName}}
+                </td>
+            </ng-container> -->
+            <ng-container matColumnDef="Valid Till">
+                <th mat-header-cell *matHeaderCellDef>Valid Till</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.quotationValidTill}}
+                </td>
+            </ng-container>
+            
+            <tr class="mat-row " *matNoDataRow>
+                <td class="mat-cell text-center " [attr.colspan]="displayColumns.length">
+                    No Records Found.
+                </td>
+            </tr>
+
+            <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+        </table>
+
+    </div>
+</div>

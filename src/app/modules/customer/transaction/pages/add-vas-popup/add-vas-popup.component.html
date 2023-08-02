@@ -1,0 +1,31 @@
+<div class="vas-popup">
+    <div class="heading">
+        Add VAS
+        <span (click)="close()" class="cpointer"><mat-icon>close</mat-icon></span>
+    </div>
+    <div class="row" style="margin: 0;">
+        <div class="text-item f-16 fw-900">
+            Add more power to your plan<br/> with Value Added Services
+        </div>
+    </div>
+    <div class="row mt-20" style="margin: 0;">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 m-auto">
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-select [formControl]="toppings" multiple placeholder="VAS">
+                  <mat-option *ngFor="let topping of toppingList" [value]="topping?.productId" >{{topping.planName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-2 displayChange"></div>
+        <div class="row justify-content-end " style="padding-bottom:20px">
+            <div class="col-md-2 col-sm-3 widthButton">
+                <app-button
+                (click)="submitVas()"
+                [name]="'Submit'"
+                [class]="'primary-btn f-16 w100 '"
+            ></app-button>
+            </div>
+        </div>
+    </div>
+</div>

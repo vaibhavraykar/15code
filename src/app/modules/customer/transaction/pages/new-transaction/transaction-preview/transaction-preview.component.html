@@ -1,0 +1,340 @@
+<div style="padding: 20px 10px;" class="transaction-preview-wrapper">
+    <!-- <span class="f-22 fontBold dgrey">Applicant & beneficiary details preview</span>
+
+    <div class="mt-30 table-view" style="margin-bottom: 50px;">
+        <app-table [dataSource]="dataSource" [page]="pageIndex" [totalItems]="dataLength"
+            [viewEdit]="true"
+            [displayedColumns]="displayColumns" [selectOption]="true" [viewComment]="true"
+           (editSelected)="selectedTransaction($event)"
+            (pageNextHandler)="pageNext($event)" (pagePreviousHandler)="pagePrevious($event)"
+            [pageData]="page"></app-table>
+
+    </div>
+    <span class="f-22 fontBold dgrey">Transaction details preview</span>
+    <div class="mt-30 table-view">
+        <app-table [dataSource]="dataSource1" [page]="pageIndex" [totalItems]="dataLength"
+            [viewEdit]="true"
+            [displayedColumns]="displayColumns1" [selectOption]="true" [viewComment]="true"
+           (editSelected)="selectedTransaction($event)"
+            (pageNextHandler)="pageNext($event)" (pagePreviousHandler)="pagePrevious($event)"
+            [pageData]="page"></app-table>
+
+    </div> -->
+    <!-- <div class="col-md-12 addpos">
+        <div class="col-md-2">
+            <div class="mt-20 text-center">
+                <app-button [name]="'Confirm'" [class]="'primary-btn f-16 w100'" [type]="'button'"
+                    *ngIf="dataSource?.length>0" (click)="confirm()"></app-button>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="f-22 fontBold dgrey text-center">Preview</div>
+
+    <div class="mt-30 preview-accordion-container">
+        <mat-accordion>
+            <mat-expansion-panel
+
+                (opened)="panelOpenState = true"
+                (closed)="panelOpenState = false">
+            <mat-expansion-panel-header >
+                <mat-panel-title class="dgrey fontBold f-16 ">
+                    Applicant & Beneficiary Details
+                </mat-panel-title>
+                <mat-panel-description class="justify-content-end">
+                    <img (click)="editTransaction()" src="../../../../../../../assets/images/icons/action-edit.svg" alt="">
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="mt-20">
+                <div class="">
+                    <div class="row">
+
+                        <div class="col-md-3" *ngIf="transactionDetails?.userType=='Applicant'&&subscriber!='BANK'">
+                            <div class="label-text">Applicant Name</div>
+                            <div class="info">{{getGroupCompany(transactionDetails?.subsidaryId)}}</div>
+                        </div>
+                        <div class="col-md-3"  *ngIf="!(transactionDetails?.userType=='Applicant')||subscriber=='BANK'">
+                            <div class="label-text">Applicant Name</div>
+                            <div class="info">{{transactionDetails?.applicantName}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.applicantCountry">
+                            <div class="label-text">Applicant Country</div>
+                            <div class="info">{{transactionDetails?.applicantCountry}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="!(transactionDetails?.userType=='Applicant')">
+                            <div class="label-text">Contact Person</div>
+                            <div class="info">{{transactionDetails?.applicantContactPerson}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="!(transactionDetails?.userType=='Applicant')">
+                            <div class="label-text">Email ID</div>
+                            <div class="info">{{transactionDetails?.applicantContactPersonEmail}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="!(transactionDetails?.userType=='Applicant')&&subscriber!='BANK'">
+                            <div class="label-text">Beneficiary Name</div>
+                            <div class="info">{{getGroupCompany(transactionDetails?.subsidaryId)}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.userType=='Applicant'||subscriber=='BANK'">
+                            <div class="label-text">Beneficiary Name</div>
+                            <div class="info">{{transactionDetails?.beneName}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.beneCountry">
+                            <div class="label-text">Beneficiary Country</div>
+                            <div class="info">{{transactionDetails?.beneCountry}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.userType=='Applicant'">
+                            <div class="label-text">Contact Person</div>
+                            <div class="info">{{transactionDetails?.beneContactPerson}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.userType=='Applicant'">
+                            <div class="label-text">Email ID</div>
+                            <div class="info">{{transactionDetails?.beneContactPersonEmail}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.beneBankName">
+                            <div class="label-text">Beneficiary Bank</div>
+                            <div class="info">{{transactionDetails?.beneBankName}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.beneBankCountry">
+                            <div class="label-text">Beneficiary Bank Country</div>
+                            <div class="info">{{transactionDetails?.beneBankCountry}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.beneSwiftCode">
+                            <div class="label-text">Beneficiary Swift code</div>
+                            <div class="info">{{transactionDetails?.beneSwiftCode}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel
+                class="mt-10"
+                (opened)="secondPanelOpenState = true"
+                (closed)="secondPanelOpenState = false">
+            <mat-expansion-panel-header >
+                <mat-panel-title class="dgrey fontBold f-16 ">
+                    Transaction Details
+                </mat-panel-title>
+                <mat-panel-description class="justify-content-end">
+                    <img (click)="editTransaction()" src="../../../../../../../assets/images/icons/action-edit.svg" alt="">
+                </mat-panel-description>
+            </mat-expansion-panel-header >
+            <div class="mt-20">
+                <div class="">
+                    <span class="f-14 fontBold blueText" style="margin-top: 20px;">Product Details </span>
+                    <div class="row">
+                        <div class="col-md-3" *ngIf="transactionDetails?.lCIssuanceBank">
+                            <div class="label-text">{{transactionDetails?.requirementType!='AVALISATION'?'Issuance Bank':'Avalising Bank'}}</div>
+                            <div class="info">{{transactionDetails?.lCIssuanceBank}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.lCIssuanceBranch">
+                            <div class="label-text">{{transactionDetails?.requirementType!='AVALISATION'?'Issuance Bank Branch':'Avalising Bank Branch'}}</div>
+                            <div class="info">{{transactionDetails?.lCIssuanceBranch}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.swiftCode">
+                            <div class="label-text">Issuance Bank Swift code</div>
+                            <div class="info">{{transactionDetails?.swiftCode}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.lCIssuanceCountry">
+                            <div class="label-text">Issuance Bank Country</div>
+                            <div class="info">{{transactionDetails?.lCIssuanceCountry}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="label-text">Product</div>
+                            <div class="info">{{productName}}</div>
+                        </div>
+                        <div class="col-md-3"  *ngIf="transactionDetails?.lCCurrency">
+                            <div class="label-text">Currency</div>
+                            <div class="info">{{transactionDetails?.lCCurrency}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.lCValue">
+                            <div class="label-text">Amount</div>
+                            <div class="info">{{transactionDetails?.lCValue|number:'1.2-2'}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.lCIssuingDate">
+                            <div class="label-text">{{transactionDetails?.requirementType!='AVALISATION'?'Issuance date':'Bill Issuance date'}}</div>
+                            <div class="info">{{transactionDetails?.lCIssuingDate|date:'dd-MM-yyyy'}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.lcMaturityDate">
+                            <div class="label-text">LC Maturity date</div>
+                            <div class="info">{{transactionDetails?.lcMaturityDate|date:'dd-MM-yyyy'}}</div>
+                        </div>
+                        <!-- Multiple Maturity Date -->
+                        <!-- <div class="col-md-3" *ngIf="transactionDetails?.tenorFile">
+                            <div class="label-text">Multiple Maturity Date</div>
+                            <div class="info">{{transactionDetails?.tenorFile}}</div>
+                        </div> -->
+                        <div class="col-md-3" *ngIf="transactionDetails?.lastShipmentDate">
+                            <div class="label-text">Last shipment date</div>
+                            <div class="info">{{transactionDetails?.lastShipmentDate|date:'dd-MM-yyyy'}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.negotiationDate">
+                            <div class="label-text">Negotiation date</div>
+                            <div class="info">{{transactionDetails?.negotiationDate|date:'dd-MM-yyyy'}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.bgExpiryDate">
+                            <div class="label-text">BG Expiry date</div>
+                            <div class="info">{{transactionDetails?.bgExpiryDate|date:'dd-MM-yyyy'}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.claimExpiryDate">
+                            <div class="label-text">Claim Expiry date</div>
+                            <div class="info">{{transactionDetails?.claimExpiryDate|date:'dd-MM-yyyy'}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.validity">
+                            <div class="label-text">Transaction Validity *</div>
+                            <div class="info">{{transactionDetails?.validity|date:'dd-MM-yyyy'}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.goodsType">
+                            <div class="label-text">Types of goods</div>
+                            <div class="info">{{transactionDetails?.goodsType}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.otherGoodsType">
+                            <div class="label-text">Goods type</div>
+                            <div class="info">{{transactionDetails?.otherGoodsType}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.bgType">
+                            <div class="label-text">BG Type</div>
+                            <div class="info">{{transactionDetails?.bgType}}</div>
+                        </div>
+                        <!-- Other Type of BG -->
+                        <div class="col-md-3" *ngIf="transactionDetails?.otherBGType&&transactionDetails?.bgType.toLowerCase()=='others'">
+                            <div class="label-text">Type of BG</div>
+                            <div class="info">{{transactionDetails?.otherBGType}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.billType">
+                            <div class="label-text">Bill Type</div>
+                            <div class="info">{{transactionDetails?.billType}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.requirementType=='AVALISATION'">
+                            <div class="label-text">Usance(days)</div>
+                            <div class="info">{{transactionDetails?.usanceDays}}</div>
+                        </div>
+                    </div>
+                        <div class="f-14 fontBold blueText" style="margin-top:20px;" *ngIf="transactionDetails?.requirementType!='AVALISATION'">Tenor </div>
+                        <div class="row mt-10" style="margin-bottom: 30px;"  *ngIf="transactionDetails?.requirementType!='AVALISATION'">
+                            <div class="col-md-3" *ngIf="transactionDetails?.usanceDays&&transactionDetails?.requirementType!='REFINANCE'">
+                                <div class="label-text">{{transactionDetails?.requirementType!='REFINANCE'?'Usance(days)':'Tenor'}}</div>
+                                <div class="info">{{transactionDetails?.usanceDays}}</div>
+                            </div>
+                            <div class="col-md-3" *ngIf="transactionDetails?.paymentTerms">
+                                <div class="label-text">{{transactionDetails?.requirementType!='BANKGUARANTEE'?'Payment terms':'Claim Period'}}</div>
+                                <div class="info">{{transactionDetails?.paymentTerms}}</div>
+                            </div>
+                            <div class="col-md-3" *ngIf="transactionDetails?.financingPeriod">
+                                <div class="label-text">Financing Period</div>
+                                <div class="info">{{transactionDetails?.financingPeriod}}</div>
+                            </div>
+                            <div class="col-md-3" *ngIf="transactionDetails?.originalTenorDays">
+                                <div class="label-text">Original Usance(Tenor)of LC</div>
+                                <div class="info">{{transactionDetails?.originalTenorDays}}</div>
+                            </div>
+                            <div class="col-md-3" *ngIf="transactionDetails?.refinancingPeriod">
+                                <div class="label-text">Refinancing Period</div>
+                                <div class="info">{{transactionDetails?.refinancingPeriod}}</div>
+                            </div>
+                            <div class="col-md-3" *ngIf="transactionDetails?.lcMaturityDate">
+                                <div class="label-text">LC Maturity Date</div>
+                                <div class="info">{{transactionDetails?.lcMaturityDate|date:'dd-MM-yyyy'}}</div>
+                            </div>
+                            <div class="col-md-3" *ngIf="transactionDetails?.requirementType=='REFINANCE'">
+                                <div class="label-text">Multiple Maturity Date File Upload</div>
+                                <div class="info" *ngIf="!transactionDetails?.refinanceLcUpload">-</div>
+                                <div class="info" style="text-decoration: underline;color: blue;cursor: pointer;" *ngIf="transactionDetails?.refinanceLcUpload"
+                                    (click)="openMaturityDateFile()"
+                                >File</div>
+                            </div>
+                        </div>
+                        <span class="f-14 fontBold blueText" style="margin-top: 20px;"
+                        *ngIf="transactionDetails?.requirementType=='REFINANCE'"
+                        >Beneficary Details of Last Transaction </span>
+                        <div class="row mt-10" style="margin-bottom: 30px;"  *ngIf="transactionDetails?.requirementType=='REFINANCE'">
+                            <div class="col-md-3" *ngIf="transactionDetails?.lcNumber">
+                                <div class="label-text">LC Number</div>
+                                <div class="info">{{transactionDetails?.lcNumber}}</div>
+                            </div>
+                            <div class="col-md-3" *ngIf="transactionDetails?.lastBankCountry">
+                                <div class="label-text">Country of Beneficiary Bank</div>
+                                <div class="info">{{transactionDetails?.lastBankCountry}}</div>
+                            </div>
+                            <div class="col-md-3" *ngIf="transactionDetails?.lastBeneBank">
+                                <div class="label-text">Beneficiary Bank</div>
+                                <div class="info">{{transactionDetails?.lastBeneBank}}</div>
+                            </div>
+                            <div class="col-md-3" *ngIf="transactionDetails?.lastBeneSwiftCode">
+                                <div class="label-text">Beneficiary Bank Swift Code</div>
+                                <div class="info">{{transactionDetails?.lastBeneSwiftCode}}</div>
+                            </div>
+                        </div>
+                    <span class="f-14 fontBold blueText" *ngIf="transactionDetails?.requirementType!='BANKGUARANTEE'" >Shipment Details </span>
+                    <div class="row mt-10">
+                        <div class="col-md-3" *ngIf="transactionDetails?.loadingCountry">
+                            <div class="label-text">Country of port of loading</div>
+                            <div class="info">{{transactionDetails?.loadingCountry}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.loadingPort">
+                            <div class="label-text">Port of loading</div>
+                            <div class="info">{{transactionDetails?.loadingPort}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.dischargeCountry">
+                            <div class="label-text">Country of port of discharge</div>
+                            <div class="info">{{transactionDetails?.dischargeCountry}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.dischargePort">
+                            <div class="label-text">Port of discharge</div>
+                            <div class="info">{{transactionDetails?.dischargePort}}</div>
+                        </div>
+
+                    </div>
+                        <div class="col-md-3" *ngIf="transactionDetails?.finalDestinationOfGoods">
+                            <div class="label-text">Final Destination of Goods</div>
+                            <div class="info">{{transactionDetails?.finalDestinationOfGoods}}</div>
+                        </div>
+                    <div class="f-14 fontBold blueText mt-20" >Other Details </div>
+                    <div class="row mt-10">
+
+                        <div class="col-md-3" *ngIf="transactionDetails?.chargesType">
+                            <div class="label-text">Charges On</div>
+                            <div class="info">{{transactionDetails?.chargesType}}</div>
+                        </div>
+                        <div class="col-md-3" >
+                            <div class="label-text">ESG Compliant</div>
+                            <div class="info">{{convertBoolean(transactionDetails?.isESGComplaint)}}</div>
+                        </div>
+                        <div class="col-md-3" >
+                            <div class="label-text">Invoice Upload</div>
+                            <div class="info" *ngIf="!transactionDetails?.invoiceUpload">-</div>
+                            <div class="info cpointer" style="text-decoration: underline;color: blue;" *ngIf="transactionDetails?.invoiceUpload"
+                                (click)="openFile()"
+                            >File</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div class="row mt-30">
+        <div class="col-md-8 m-auto">
+            <div class="row">
+                <!-- <div class="col-md-6 text-center m-auto button-style" >
+                    <div class="mt-10">
+                        <button (click)="cancelTransaction()" mat-stroked-button class="f-16 w100 " >CANCEL TRANSACTION</button>
+                    </div>
+                </div> -->
+
+                <div class="col-md-6 text-center m-auto">
+                    <div class="mt-10">
+                        <app-button
+                        [name]="'CONFIRM'"
+                        [class]="'primary-btn f-16 w100'"
+                        style="text-transform: uppercase;"
+                        (click)="saveTransaction()"
+                    ></app-button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

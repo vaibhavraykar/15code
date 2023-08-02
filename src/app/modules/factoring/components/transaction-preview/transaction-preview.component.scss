@@ -1,0 +1,11 @@
+.addpos {
+    display: flex;
+    justify-content: end;
+}
+.table-view {
+    ::ng-deep {
+        .table-container {
+            height: 375px !important;
+        }
+    }
+}

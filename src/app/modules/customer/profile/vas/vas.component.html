@@ -1,0 +1,110 @@
+<div class="white-bg" >
+    <div class="" *ngIf="!summaryView">
+        <div class="f-22 fontBold dgrey mt-20 mb-3 m-auto" style="text-align: center;">VAS Plan</div>
+        <div class="f-12 fontBold mt-10 mb-3 m-auto" style="text-align: center; color: #73BF45;">Your VAS plan is Active</div>
+        <div class="col-md-3 m-auto section-div">
+            <div class="title-head col-7">ADVISORY SERVICES</div>
+            <div class="mt-10" *ngFor="let plan of vaasPlans">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>{{plan?.planName}}</div>
+                    <div class="">{{plan?.currency}} {{plan?.price}}</div>
+                </div>
+                <ul class="mt-10"  *ngFor="let item of plan?.productBenefits">
+                    <li>
+                        <div class="col-7 d-flex f-12" style="opacity:0.6;font: italic normal normal 14px/24px Lato;">
+                            <mat-icon>check</mat-icon>{{item.benefit}}</div>
+                        <div class="col-5 fw-600 f-12" style="text-align: right;">{{item.value}}</div>
+                    </li>
+                </ul>
+                <div class="mt-10">
+                    <button
+                    *ngIf="!selectedVAASPlans.includes(plan?.productId)"
+                    (click)="addPlans(plan?.productId)"
+                    class="primary-btn f-16"
+                    style="border:0px;border-radius:5px;width: fit-content;"
+                >ADD</button>
+                <button
+                    *ngIf="selectedVAASPlans.includes(plan?.productId)"
+                    (click)="removePlans(plan?.productId)"
+                    class="primary-btn f-16"
+                    style="border:0px;border-radius:5px;width: fit-content;"
+                >REMOVE</button>
+                </div>
+            </div>
+        </div>
+        <div class="submit-btn text-center" style="margin-top: 40px;">
+            <div class="col-md-3 m-auto d-flex align-items-center justify-content-between">
+                <div class=" d-flex align-items-center">Grand Total
+                    <span class="notification-icon"
+							#tooltip = "matTooltip"
+							(click)="tooltip.toggle()"
+							matTooltip="Grand Total is calculated on pro rata basis for remaining months of your subscription validity"
+						>
+							<img
+								src="../../../../assets/images/icons/Icon-info.svg"
+								alt="icon"
+							/>
+						</span>
+                </div>
+                <div class="d-flex">
+                    <div class="">USD</div>
+                    <span class="ms-1">{{totalAmount|number:'1.2-2'}}</span>
+                </div>
+            </div>
+            <div class="mt-30">
+                <div class="col-md-3 m-auto">
+                    <app-button
+                        [name]="'ADD VAS'"
+                        [class]="'primary-btn f-16 w100'"
+                        [type]="'button'"
+                        (click)="addVAS()"
+                    ></app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="" *ngIf="summaryView">
+        <div class="col-md-4 m-auto">
+            <div class="f-22 fontBold dgrey mt-20 mb-3 m-auto" style="text-align: center;">Payment Details</div>
+            <div class="plan-description" *ngIf="vaasPlansDetail.length>0">
+                <div class="title-head mt-10">Advisory services</div>
+                <div class="plans-details mt-10 d-flex align-items-center justify-content-between" *ngFor="let addon of vaasPlansDetail;let v=index">
+                    <div class="f-12 w-100 d-flex justify-content-between">{{addon?.planName}}<span class="pay">{{addon.currency+addon.price}}</span></div>
+                    <div class="btn-style">
+                        <div  (click)="removePlans(addon?.productId)"><img src="../../../../../assets/images/customer/close.png" /></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-20 radio-style">
+                <div class="f-14 fw-600">Payment Option</div>
+
+
+                <div class="mt-10">
+                    <mat-radio-group aria-label="Select a payment option:">
+                        <mat-radio-button
+                        (change)="onRadioChange($event)"
+                        *ngFor="let item of paymentMethods" value="{{item.value}}">{{item.name}}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+
+            <div class="">
+                <div class="">
+                    <span class="yellow-txt" (click)="sendEmailPopup()">Click here</span> to receive bank details to initiate wire transfer payment. 
+                    We will send you an email on your registered email address. Once you successfully transfer the payment, 
+
+                    please share your transaction ID/transaction details on 
+                    <span class="yellow-txt">
+                        <a href="mailto:tradesupport@360tf.trade" class="yellow-txt" style="color:var(--yellow);text-decoration: none;">tradesupport@360tf.trade</a>
+                    </span>
+
+                </div>
+            </div>
+            <button
+                (click)="payVAASOrder()"
+                class="primary-btn f-16 w-100"
+                style="border-radius: 5px;border:0px;"
+            >SEND REQUEST</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="login-container l-blue-bg">
+    <div class="login-wrapper d-flex">
+        <div class="left-wrapper">
+            <div class="slider">
+                <app-slider></app-slider>
+            </div>
+            
+            <!-- <img src="../../../../assets/images/icons/login-bg.png" /> -->
+        </div>
+        <div class="right-wrapper blue">            
+            <div class="logo">
+                <img src="../../../../assets/images/icons/login-logo.png" />
+            </div>
+            <p class="white-text f-22 text-center fontBold">Welcome!</p>
+            <div class="row d-flex justify-content-center" style="margin-left: 0; margin-right: 0;">
+                <div class="col-md-9">
+                    <form  class="example-form" >
+                        <div class="mt-10">
+                            <!-- <p class="f-16 regularfont greyfont">user ID</p> -->
+                            <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'User ID'" [name]="'User ID'" (focusOutEvent)="userIDHandler($event)"></app-inputtext>
+                           
+                         </div>                
+                        <div class="mt-10">
+                            <!-- <p class="f-16 regularfont greyfont">password.</p> -->
+                            <app-inputtext [type]="'password'" [required]="true" [placeHolder]="'Password'" [name]="'Password'" (focusOutEvent)="pwdHandler($event)"></app-inputtext>
+                            
+                        </div>   
+                    
+                        <div class="row" style="margin-left: 0; margin-right: 0;">
+                            <div class="text-end" style="padding-right: 0; padding-bottom: 45px;">
+                                <span  class="white-text fontRegular f-14 cpointer">Forgot Password?</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div>                       
+                                <app-button  [name]="'LOGIN'" [class]="'primary-btn f-16'"  (click)="submit($event)"></app-button>
+                            </div>
+                        </div>
+                        <!-- <div class="fontRegular f-12 error">{{showError}}</div> -->
+                    </form>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="login-containe-mobile l-blue-bg isMobile">
+    <div class="left-wrapper">
+        <img src="../../../../assets/images/icons/login-bg.png" />
+    </div>
+    <div class="right-wrapper blue">            
+        <div class="logo">
+            <img src="../../../../assets/images/icons/login-logo.png" />
+        </div>
+        <p class="white-text f-22 text-center fontBold">Welcome!</p>
+        <div class="row d-flex justify-content-center" style="margin-left: 0; margin-right: 0;">
+            <div class="col-md-9">
+                <form class="example-form">
+                    <div class="mt-10">
+                        <!-- <p class="f-16 regularfont greyfont">user ID</p> -->
+                        <app-inputtext [type]="'text'" [required]="true" [placeHolder]="'User ID'" [name]="'User ID'" (focusOutEvent)="userIDHandler($event)"></app-inputtext>
+                       
+                     </div>                
+                    <div class="mt-10">
+                        <!-- <p class="f-16 regularfont greyfont">password.</p> -->
+                        <app-inputtext [type]="'password'" [required]="true" [placeHolder]="'Password'" [name]="'Password'" (focusOutEvent)="pwdHandler($event)"></app-inputtext>
+                        
+                    </div>   
+                
+                    <div class="row" style="margin-left: 0; margin-right: 0;">
+                        <div class="text-end" style="padding-right: 0; padding-bottom: 45px;">
+                            <span  class="white-text fontRegular f-14 cpointer">Forgot Password?</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div>                       
+                            <app-button  [name]="'LOGIN'" [class]="'primary-btn f-16'" [type]="'submit'" (click)="submit($event)"></app-button>
+                        </div>
+                    </div>
+                    <!-- <div class="fontRegular f-12 error">{{showError}}</div> -->
+                </form>
+            </div>                
+        </div>
+    </div>
+</div>

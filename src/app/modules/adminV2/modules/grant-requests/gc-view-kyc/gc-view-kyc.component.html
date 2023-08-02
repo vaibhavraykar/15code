@@ -1,0 +1,92 @@
+<div class="all-kyc-container mt-30 kyc">
+    <div class="">
+        <div class="d-flex align-items-center mb-20">
+            <mat-icon style="cursor: pointer;" (click)="goBack()">keyboard_backspace</mat-icon>
+            <div class="ml-12 darkBlackText">View KYC details for {{viewData?.personalDetails?.username}}</div>
+        </div>
+        <div class="all-kyc-tab-container">
+            <div style="padding:24px" class="kyc-detail-wrapper">
+                <div class="mt-30 kyc-detail-container">
+                    <mat-accordion>
+                        <mat-expansion-panel class="mt-10" (opened)="secondPanelOpenState = true"
+                            (closed)="secondPanelOpenState = false">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title class="text-blue left-border fw-600">
+                                    Business KYC
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="subContainer" style="padding:15px;">
+                                <div class="row">
+                                    <div class="">
+                                        <div class="row">
+                                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                                <div class="light-text mb-4">Document <img
+                                                        src="../../../../../assets/images/adminV2/carbon_document-view.svg"
+                                                        *ngIf="highestDocPersonal?.url"
+                                                        (click)="viewDocument(highestIdDocument?.url,highestDocPersonal.documentType)" align="right">
+                                                </div>
+                                                <div class="dark-text">{{highestIdDocument?.documentName}}</div>
+                                            </div>
+                                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                                <div class="light-text mb-4">Country</div>
+                                                <div class="dark-text">{{highestIdDocument?.country}}</div>
+                                            </div>
+                                            <!-- kyc is not pending and not the latest record -->
+                                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                                <div class="light-text mb-4">Document Type</div>
+                                                <div class="dark-text">{{highestIdDocument?.documentType}}</div>
+                                            </div>
+                                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                                <div class="light-text mb-4">Status</div>
+                                                <div class="dark-text">{{highestIdDocument?.kycStatus}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-10">
+                                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15">
+                                                <!-- comment having values and latest record -->
+                                                <div class="light-text mb-4">Maker Comment</div>
+                                                <div class="dark-text">{{highestIdDocument?.makerComment}}</div>
+                                            </div>
+                                            <div class="col-xxl-4 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                                                *ngIf="!highestIdDocument?.checkerComment && highestIdDocument?.kycStatus == 'MAKER_APPROVED'">
+                                                <!-- comment empty and latest record -->
+                                                <mat-form-field appearance="outline" class="w100 newInput">
+                                                    <mat-label>Comment*</mat-label>
+                                                    <input type="text" matInput [(ngModel)]="businessComment" (keypress)="textOnly($event)"
+                                                        (input)="comment('BUSINESS')">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6 col-12 mt-15"
+                                                *ngIf="highestIdDocument?.checkerComment">
+                                                <!-- comment having values and latest record -->
+                                                <div class="light-text mb-4">Checker Comment</div>
+                                                <div class="dark-text">{{highestIdDocument?.checkerComment}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="justify-content: end;"
+                                            *ngIf="(viewData?.kycDetails[0]?.documentList[0]?.kycStatus =='MAKER_APPROVED')">
+                                            <div class="col-md-1 mt-10">
+                                                <button mat-raised-button class="approveBtn"
+                                                    [disabled]="showAcceptRejectBusiness"
+                                                    (click)="kycBusinessApproval(viewData.personalDetails.id,'ACTIVE','CHECKER',viewData.kycDetails[0].documentType,highestIdDocument.id,viewData.businessDetails.id)" *ngIf="viewData.kycDetails[0].documentList[0].makerApprovedBy != loginuserName">Approve</button>
+                                            </div>
+                                            <div class="col-md-1 mt-10">
+                                                <button mat-raised-button class="rejectBtn"
+                                                    [disabled]="showAcceptRejectBusiness"
+                                                    (click)="kycBusinessApproval(viewData.personalDetails.id,'REJECTED','CHECKER',viewData.kycDetails[0].documentType,highestIdDocument.id,viewData.businessDetails.id)" *ngIf="viewData.kycDetails[0].documentList[0].makerApprovedBy != loginuserName">Reject</button>
+                                            </div>
+                                            <div class="col-md-2" *ngIf="viewData?.kycDetails[0]?.documentList[0]?.makerApprovedBy === loginuserName">
+                                                <button mat-raised-button class="notAuthorizedBox" matTooltip="Maker and Checker could not be same">Not Authorized</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><br>
+
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

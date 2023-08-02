@@ -1,0 +1,83 @@
+.user-container {
+    background: #F8F9FD;
+    border-radius: 8px;
+    padding: 24px 40px;
+
+    .heading {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+        color: #292929;
+    }
+
+    .selectDroupdown {
+        ::ng-deep {
+            .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+                padding-top: 3px !important;
+                padding-bottom: 3px !important;
+            }
+
+            .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+                display: flex !important;
+            }
+
+            .mat-mdc-form-field-infix {
+                min-height: 32px !important;
+            }
+
+            .mat-mdc-select-value {
+                font-size: 0.75rem !important;
+                font-family: "Lato" !important;
+                color: #8e8e8e !important;
+            }
+
+            .mat-mdc-select-arrow svg {
+                display: none;
+            }
+
+            .mat-mdc-form-field-subscript-wrapper {
+                display: none;
+            }
+
+            .mat-mdc-text-field-wrapper {
+                height: 22px;
+            }
+
+            .mat-mdc-select-placeholder {
+                position: relative;
+                top: -7px;
+            }
+        }
+
+        ::ng-deep .mdc-notched-outline {
+            * {
+                border-color: #d0d0d0 !important;
+            }
+        }
+
+    }
+
+    .mb-10 {
+        margin-bottom: 10px
+    }
+}
+
+.mt-24 {
+    margin-top: 24px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.pt-24 {
+    padding-top: 24px;
+}
+
+@media (min-width: 1200px) {
+    .change-width {
+        width: 49%;
+    }
+}

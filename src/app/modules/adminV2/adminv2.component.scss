@@ -1,0 +1,38 @@
+
+.text-center {
+    text-align: center;
+}
+.d-flex {
+    display: flex;
+}
+.mt-10 {
+    margin-top: 10px !important;
+}
+.ml-10 {
+    margin-left: 10px;
+}
+.ml-20 {
+    margin-left: 20px;
+}
+.f-14 {
+    font-size: 14px !important;
+}
+.grey-text {
+    color: #292929;
+}
+.cPointer {
+    cursor: pointer !important;
+}
+::ng-deep {
+
+    .mdc-list {
+        padding: 0 !important;
+    }
+    .headingstyle {
+        font-family: 'Lato';
+        font-weight: 700;
+        font-size: 16px;
+        color: #292929;
+    }
+}
+

@@ -1,0 +1,322 @@
+<div class="signup-form">
+    <div class="text-center px-4 py-2 m-auto">
+        <div class="mt-30 row d-flex justify-content-center align-items-center">
+            <form [formGroup]="personalForm">
+                <div class="row">
+                <!-- First Name Field -->
+                    <div class="col-md-4">
+
+                        <!-- <app-inputtext
+                            [type]="'text'"
+                            [name]="'First Name'"
+                            [value]="userDetails?.firstName"
+                            (focusOutEvent)="firstNameHandler($event)"
+                            (validField)="firstNameValidity($event)"
+                        ></app-inputtext> -->
+
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>First Name</mat-label>
+                            <input type="text" matInput formControlName="fname">
+                            <mat-error *ngIf="personalForm.controls['fname'].hasError('required')">First Name required</mat-error>
+                        </mat-form-field>
+                    </div>
+                <!-- Last Name Field -->
+                    <div class="col-md-4">
+                        <!-- <app-inputtext
+                            [type]="'text'"
+                            [name]="'Last Name'"
+                            [value]="userDetails?.lastName"
+                            (focusOutEvent)="lastNameHandler($event)"
+                            (validField)="lastNameValidity($event)"
+                        ></app-inputtext> -->
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Last Name</mat-label>
+                            <input type="text" matInput formControlName="lname">
+                            <mat-error *ngIf="personalForm.controls['lname'].hasError('required')">Last Name required</mat-error>
+                        </mat-form-field>
+                    </div>
+                <!-- Official Email ID Field -->
+                    <div class="col-md-4">
+                        <!-- <app-inputtext
+                            [type]="'email'"
+                            [name]="'Official Email ID'"
+                            [value]="userDetails?.email"
+                            (focusOutEvent)="officialEmailHandler($event)"
+                            (validField)="officialEmailValidity($event)"
+                        ></app-inputtext> -->
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Official Email ID</mat-label>
+                            <input type="email" matInput formControlName="emailId" [readonly]="true">
+                            <mat-error *ngIf="personalForm.controls['emailId'].hasError('required')">
+                                    Email is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="personalForm.controls['emailId'].invalid && !personalForm.controls['emailId'].hasError('required')">
+                                Invalid Email Id
+                              </mat-error>
+                              <mat-error *ngIf="personalForm.controls['emailId'].hasError('duplicateEmail')">
+                                This email is not unique!
+                              </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                <!-- Mobile Number Field -->
+                    <div class="col-md-4 mobile-input">
+                        <!-- <app-inputtext
+                            [type]="'number'"
+                            [name]="'Mobile Number'"
+                            [value]="userDetails?.mobileNumber"
+                            (focusOutEvent)="mobileHandler($event)"
+                            (validField)="mobileValidity($event)"
+                        ></app-inputtext> -->
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Mobile Number</mat-label>
+                            <span matPrefix *ngIf="countrySel" class="f-14" style="padding-left: 5px;">{{countrySel?'+'+countryCode.replace('+',''):''}}</span>
+                            <input type="text" matInput formControlName="mno"
+                            (keypress)="phoneInputHandler($event)"
+                            (paste)="pasteHandler($event)"
+                            >
+                            <mat-error *ngIf="personalForm.controls['mno'].hasError('required')">Mobile Number required</mat-error>
+                            <mat-error *ngIf="personalForm.controls['mno'].hasError('minlength')">Mobile Number is not valid</mat-error>
+                        </mat-form-field>
+                    </div>
+                <!-- Landline Number Field -->
+                    <div class="col-md-4">
+                        <!-- <app-inputtext
+                            [type]="'number'"
+                            [name]="'Landline Number'"
+                            [value]="userDetails?.landlineNumber"
+                            (focusOutEvent)="landlineHandler($event)"
+                            (validField)="landlineValidity($event)"
+                        ></app-inputtext> -->
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Landline Number</mat-label>
+                            <input type="text" matInput formControlName="lno"
+                            (keypress)="landlineHandler($event)"
+                            (paste)="pasteHandler($event)"
+                            (change)="telechecker($event)"
+                            >
+                            <mat-error *ngIf="personalForm.controls['lno'].hasError('required')">Landline Number required</mat-error>
+                            <mat-error *ngIf="personalForm.controls['lno'].hasError('minlength')">Landline Number is atleast of 7 digits</mat-error>
+                        </mat-form-field>
+                    </div>
+                <!-- Select Country Dropdown -->
+                    <div class="col-md-4">
+                        <div class="col-md-12">
+                            <mat-form-field appearance="outline" style="width: 100%">
+                            <mat-label>Select Country</mat-label>
+                            <input type="text" class="f-14" matInput formControlName="selectedCountry"
+                                            [value]="(personalForm.controls['selectedCountry'].value|uppercase)"
+                                            [matAutocomplete]="countryDropdown"
+                                            (input)="countryChange($event)"
+                                            (blur)="getCountryCode2($event)"
+                                            (change)="checkAutocomplete($event,'selectedCountry');getCountryCode($event)">
+                                            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                                        <mat-autocomplete  #countryDropdown="matAutocomplete"
+                                        (optionSelected)='getCountryCode($event)'
+                                            >
+                                            <mat-option *ngFor="let item of countryOptions" [value]="item.countryName">
+                                                {{item.countryName}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-error *ngIf="personalForm.controls['selectedCountry'].hasError('required')">Country required</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="subscriber=='BANK_AS_UNDERWRITER'">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w100" (click)="resetCountry()">
+                            <mat-label>Issuance Countries Interested</mat-label>
+
+
+                                <input type="text" class="f-14" matInput formControlName="issuanceCountry"
+                                    [matAutocomplete]="issuancecountryDropdown"
+                                    (input)="issuanceCountryChange($event)"
+                                    (change)="checkAutocomplete($event,'issuanceCountry')"
+                                    >
+                                    <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                                <mat-autocomplete  #issuancecountryDropdown="matAutocomplete"
+                                [displayWith]="displayBeneCountries"
+                                    >
+                                    <mat-option *ngFor="let item of issuanceCountryOptions" [value]="selectedIssuanceCountries">
+                                        <div class="" (click)="optionClickedIssuanceCountry($event, item)">
+                                            <mat-checkbox [checked]="item.selected" (change)="toggleIssuanceCountrySelection($event, item)" (click)="$event.stopPropagation()">
+                                                {{item.name}}
+                                            </mat-checkbox>
+
+                                        </div>
+                                    </mat-option>
+                                </mat-autocomplete>
+
+                            <mat-error *ngIf="personalForm.controls['issuanceCountry'].hasError('required')">Issuance Country is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- <div class="col-md-4">
+
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Min LC Value</mat-label>
+                            <input type="number" matInput formControlName="minLCValue"
+                            (keypress)="minLCHandler($event)"
+                            (paste)="pasteHandler($event)">
+                            <mat-error *ngIf="personalForm.controls['minLCValue'].hasError('required')">Min LC Value required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+
+                        <mat-form-field class="w100" appearance="outline">
+                            <mat-label>Currency</mat-label>
+
+                            <input type="text" class="f-14" matInput formControlName="currency"
+                                [matAutocomplete]="currencyDropdown"
+                                (input)="currencyChange($event)">
+                                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            <mat-autocomplete  #currencyDropdown="matAutocomplete"
+                                >
+                                <mat-option *ngFor="let item of currencyOptions" [value]="item">
+                                    {{item}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="personalForm.controls['currency'].hasError('required')">Currency is required</mat-error>
+                        </mat-form-field>
+                    </div> -->
+                </div>
+                <!-- <div class="row" *ngIf="subscriber=='BANK_AS_UNDERWRITER'">
+                    <div class="col-md-4">
+
+                        <mat-form-field class="w100" appearance="outline">
+                            <mat-label>Blacklisted Goods/Commodities</mat-label>
+
+                            <input type="text" class="f-14" matInput formControlName="blacklistedGoods"
+                                [matAutocomplete]="goodsDropdown"
+                                (input)="goodsChange($event)">
+                                <mat-icon matSuffix style="background:white !important;z-index:1 !important">keyboard_arrow_down</mat-icon>
+                            <mat-autocomplete  #goodsDropdown="matAutocomplete"
+                            [displayWith]="displayGoods">
+                                <mat-option *ngFor="let item of goodsOptions" [value]="selectedGoods">
+                                    <div class="" (click)="optionClicked($event, item)">
+                                        <mat-checkbox [checked]="item.selected" (change)="toggleSelection($event, item)" (click)="$event.stopPropagation()">
+                                            {{item.name}}
+                                        </mat-checkbox>
+                                    </div>
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="personalForm.controls['blacklistedGoods'].hasError('required')">Blacklisted Goods/Commodities required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+
+                        <mat-form-field class="w100" appearance="outline">
+                            <mat-label>Beneficiary Countries Interested</mat-label>
+
+                            <input type="text" class="f-14" matInput formControlName="beneficiaryCountry"
+                                    [matAutocomplete]="benecountryDropdown"
+                                    (input)="beneCountryChange($event)">
+                                    <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                                <mat-autocomplete  #benecountryDropdown="matAutocomplete"
+                                [displayWith]="displayBeneCountries"
+                                    >
+                                    <mat-option *ngFor="let item of beneficiaryCountryOptions" [value]="selectedBeneficiaryCountries">
+                                        <div class="" (click)="optionClickedBeneCountry($event, item)">
+                                            <mat-checkbox [checked]="item.selected" (change)="toggleBeneCountrySelection($event, item)" (click)="$event.stopPropagation()">
+                                                {{item.name}}
+                                            </mat-checkbox>
+
+                                        </div>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            <mat-error *ngIf="personalForm.controls['beneficiaryCountry'].hasError('required')">Beneficiary Country is required</mat-error>
+                        </mat-form-field>
+
+                    </div>
+                </div> -->
+
+                <!-- Additional Email ID Section -->
+
+                <div style="padding: 0 20px" class="d-flex align-items-center justify-content-between">
+                    <div class="f-16 fw-600" style="margin-right: 10px">Additional Email ID's</div>
+                    <div>
+                    <img src="../../../../assets/images/icons/Icon-info.svg" alt="icon" matTooltip="Along with your primary email ID, Subscription, Payment and Monthly reports will be delivered on these email IDs as well" />
+                    </div>
+                </div>
+
+                <div class="row mt-20" style="margin-top: 20px">
+                    <!-- Email ID1 -->
+                    <div class="col-md-4">
+                    <!-- <app-inputtext
+                            [type]="'email'"
+                            [name]="'Email Id 1'"
+                            [required]="false"
+                            [value]="userDetails?.additionalEmails?userDetails?.additionalEmails[0]?.additionalEmail:''"
+                            (focusOutEvent)="email1Handler($event)"
+                            (validField)="email1Validity($event)"
+                        ></app-inputtext> -->
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Email Id 1</mat-label>
+                            <input type="email" matInput formControlName="emailIdOne">
+                            <mat-error *ngIf="personalForm.controls['emailIdOne'].invalid&&!(personalForm.controls['emailIdOne'].hasError('emailNotUnique')||personalForm.controls['emailIdOne'].hasError('OfficialEmailDuplicate')||personalForm.controls['emailIdOne'].hasError('invalidDomain'))">
+                                Invalid Email Id
+                              </mat-error>
+
+                              <mat-error *ngIf="personalForm.controls['emailIdOne'].hasError('emailNotUnique')" >This email is not unique!</mat-error>
+                              <mat-error *ngIf="personalForm.controls['emailIdOne'].hasError('OfficialEmailDuplicate')" >Cannot be same as primary email</mat-error>
+                              <mat-error *ngIf="personalForm.controls['emailIdOne'].hasError('invalidDomain')" >Invalid domain</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- Email ID2 -->
+                    <div class="col-md-4">
+                    <!-- <app-inputtext
+                            [type]="'email'"
+                            [name]="'Email Id 2'"
+                            [value]="userDetails?.additionalEmails?userDetails?.additionalEmails[1]?.additionalEmail:''"
+                            (focusOutEvent)="email2Handler($event)"
+                            (validField)="email2Validity($event)"
+                        ></app-inputtext> -->
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Email Id 2</mat-label>
+                            <input type="email" matInput formControlName="emailIdTwo">
+                            <mat-error *ngIf="personalForm.controls['emailIdTwo'].invalid&&!(personalForm.controls['emailIdTwo'].hasError('emailNotUnique')||personalForm.controls['emailIdTwo'].hasError('OfficialEmailDuplicate')||personalForm.controls['emailIdTwo'].hasError('invalidDomain'))">
+                                Invalid Email Id
+                              </mat-error>
+                              <mat-error *ngIf="personalForm.controls['emailIdTwo'].hasError('emailNotUnique')" >This email is not unique!</mat-error>
+                              <mat-error *ngIf="personalForm.controls['emailIdTwo'].hasError('OfficialEmailDuplicate')" >Cannot be same as primary email</mat-error>
+                              <mat-error *ngIf="personalForm.controls['emailIdTwo'].hasError('invalidDomain')" >Invalid domain</mat-error>
+
+                        </mat-form-field>
+                    </div>
+                    <!-- Email ID3 -->
+                    <div class="col-md-4">
+                    <!-- <app-inputtext
+                            [type]="'email'"
+                            [name]="'Email Id 3'"
+                            [value]="userDetails?.additionalEmails?userDetails?.additionalEmails[2]?.additionalEmail:''"
+                            (focusOutEvent)="email3Handler($event)"
+                            (validField)="email3Validity($event)"
+                        ></app-inputtext> -->
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Email Id 3</mat-label>
+                            <input type="email" matInput formControlName="emailIdThree">
+                            <mat-error *ngIf="personalForm.controls['emailIdThree'].invalid&&!(personalForm.controls['emailIdThree'].hasError('emailNotUnique')||personalForm.controls['emailIdThree'].hasError('OfficialEmailDuplicate')||personalForm.controls['emailIdThree'].hasError('invalidDomain'))">
+                                Invalid Email Id
+                              </mat-error>
+                              <mat-error *ngIf="personalForm.controls['emailIdThree'].hasError('emailNotUnique')" >This email is not unique!</mat-error>
+                              <mat-error *ngIf="personalForm.controls['emailIdThree'].hasError('OfficialEmailDuplicate')" >Cannot be same as primary email</mat-error>
+                              <mat-error *ngIf="personalForm.controls['emailIdThree'].hasError('invalidDomain')" >Invalid domain</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-5 m-auto mt-20">
+                    <app-button
+                        [name]="'UPDATE PROFILE'"
+                        [class]="'primary-btn f-16 w-100'"
+                        class="btnResize"
+                        (click)="submit()"
+                    ></app-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="vas-popup">
+    <div class="heading">
+        Kindly select appropriate option to proceed
+        <span (click)="close()" class="cpointer"><mat-icon>close</mat-icon></span>
+    </div>
+    <!-- <div class="row" style="margin: 0;">
+        <div class="text-item f-16 fw-900">
+            Add more power to your plan<br/> with Value Added Services
+        </div>
+    </div> -->
+    <div class="row mt-20 py-3" style="margin: 0;">
+        <div class="popupstyle"  *ngIf="userType!=='BANK_AS_UNDERWRITER'">
+            <!-- <mat-radio-group aria-label="Select an option"
+                (change)="optionCheckbox($event)"
+            >
+                <mat-radio-button  value="{{transactionDetails?.id}}" class="text-item f-16">Pay minimum due USD {{transactionDetails?.lCValue}} Transactionid: {{transactionDetails?.transactionId}}</mat-radio-button>
+            </mat-radio-group> -->
+            <div *ngFor="let item of transactionDetails">
+                <mat-checkbox value="{{item?.id}}" (change)="optionSelected($event,item.id)" style="margin-top: 20px;">
+                  <!-- Pay minimum due USD {{item?.lCValue}} <br> -->
+                  Chargeable amount: USD {{item?.chargableAmount | number:'1.2-2'}} <br>
+                  Issuance bank: {{item?.lCIssuanceBank}} <br>
+                  LC Value: USD {{item?.lCValue | number:'1.2-2'}} <br>
+                  Transactionid: {{item?.transactionId}} <br>
+                  <!-- Validity: {{item?.validity}} <br> -->
+                </mat-checkbox>
+
+                <!-- <mat-checkbox value="{{item?.id}}" (change)="optionSelected($event,item.id)">
+
+                </mat-checkbox>
+                <mat-checkbox value="{{item?.id}}" (change)="optionSelected($event,item.id)">
+
+                </mat-checkbox>
+                <mat-checkbox value="{{item?.id}}" (change)="optionSelected($event,item.id)">
+
+                </mat-checkbox>
+                <mat-checkbox value="{{item?.id}}" (change)="optionSelected($event,item.id)">
+
+                </mat-checkbox> -->
+            </div>
+        </div>
+
+        <div class="popupstyle"  *ngIf="userType==='BANK_AS_UNDERWRITER'">
+            <div *ngFor="let item of transactionDetails">
+                <mat-checkbox value="{{item?.id}}" (change)="optionSelected($event,item.id)" style="margin-top: 20px;">
+                  
+                  Bill of {{getMonth(item?.month)}} {{item?.year}} {{item?.price | number:'1.2-2'}} USD
+                </mat-checkbox>
+            </div>
+        </div>
+
+          <div class="d-flex justify-content-end " style="margin-top:70px">
+            <div class="col-md-2 col-sm-3 widthButton close-btn">
+                <app-button mat-stroked-button
+                (click)="close()"
+                [name]="'CLOSE'"
+                [class]="'f-16 w100 '"
+            ></app-button>
+            </div>
+            <div class="col-md-2 col-sm-3 widthButton">
+                <app-button
+                [ngStyle]="{'opacity':selectedTransactionId.length>0?'1':'0.7'}"
+                (click)="pay()"
+                [name]="'PAY'"
+                [class]="'primary-btn f-16 w100 '"
+            ></app-button>
+            </div>
+        </div>
+    </div>
+</div>

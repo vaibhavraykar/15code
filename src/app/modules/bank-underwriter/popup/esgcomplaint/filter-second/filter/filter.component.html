@@ -1,0 +1,69 @@
+<div class="popup">
+  <div class="heading">
+    Filter by
+    <span class="cpointer" (click)="close()"><mat-icon>close</mat-icon></span>
+  </div>
+  <div class="row" style="margin: 0; padding: 20px">
+    <div class="content_text">
+      <p class="checkContainer" (click)="check('ACCEPTED')">
+        Accepted
+        <mat-checkbox
+          class="checkbox"
+          [checked]="checkedFilter === 'ACCEPTED'"
+        ></mat-checkbox>
+      </p>
+      <p class="checkContainer" (click)="check('REJECTED')">
+        Rejected
+        <mat-checkbox
+          class="checkbox"
+          [checked]="checkedFilter === 'REJECTED'"
+        ></mat-checkbox>
+      </p>
+      <p class="checkContainer" (click)="check('EXPIRED')">
+        Expired
+        <mat-checkbox
+          class="checkbox"
+          [checked]="checkedFilter === 'EXPIRED'"
+        ></mat-checkbox>
+      </p>
+      <p *ngIf="data?.for !=='secondry'||data?.for !=='secondry_buying'" class="checkContainer" (click)="check('WITHDRAWN')">
+        Withdrawn
+        <mat-checkbox
+          class="checkbox"
+          [checked]="checkedFilter === 'WITHDRAWN'"
+        ></mat-checkbox>
+      </p>
+      <!-- <p *ngIf="data?.for !=='secondry'||data?.for !=='secondry_buying'" class="checkContainer" (click)="check('CLOSED')">
+        Closed
+        <mat-checkbox
+          class="checkbox"
+          [checked]="checkedFilter === 'CLOSED'"
+        ></mat-checkbox>
+      </p> -->
+<!-- secondry transcs filters -->
+<p *ngIf="data?.for ==='secondry'"class="checkContainer" (click)="check('CANCELLED')">
+  Cancelled
+  <mat-checkbox
+    class="checkbox"
+    [checked]="checkedFilter === 'CANCELLED'"
+  ></mat-checkbox>
+</p>
+
+
+      <div class="d-flex justify-content-end">
+        <app-button
+          [name]="'Apply'"
+          [class]="'primary-btn f-16'"
+          [type]="'submit'"
+          (click)="submit()"
+        ></app-button>
+        <!-- <mat-form-field appearance="outline">
+          <mat-label>Additional user</mat-label>
+          <mat-select class="f-14">
+            <mat-option> </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+      </div>
+    </div>
+  </div>
+</div>

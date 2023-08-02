@@ -1,0 +1,150 @@
+<div class="new-transaction active-transaction ">
+    <div class="row">
+        <!-- <div class="col-md-9 search">
+            <input type="text" placeholder="Search" [formControl]="searchInput" (input)="search($event)">
+            <mat-icon>search</mat-icon>
+        </div>
+        <div class="col-md-3 search-option">
+            <img  (click)="filterpopup()" src="../../../../../../assets/images/icons/filter.svg" />
+            <img src="../../../../../../assets/images/icons/refresh.svg" />
+            <img (click)="downloadTransactions()" src="../../../../../../assets/images/icons/download.svg" />
+        </div> -->
+        <div class="search-bar col-md-9">
+            <form [formGroup]="searchForm">
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput type="text" placeholder="Search"
+                formControlName="searchInput"
+                (input)="search($event)">
+                  <mat-icon matPrefix>search</mat-icon>
+              </mat-form-field>
+            </form>
+            </div>
+            <div class="col-md-3 search-option">
+              <!-- <img
+                (click)="moreoptions()"
+                src="../../../../../assets/images/icons/more.svg"
+              /> -->
+              <img
+                (click)="filterpopup()"
+                src="../../../../../../assets/images/icons/filter.svg"
+              />
+              <img src="../../../../../../assets/images/icons/refresh.svg" (click)="refresh()">
+              <img
+                (click)="downloadTransactions()"
+                src="../../../../../../assets/images/icons/download.svg"
+              />
+            </div>
+    </div>
+
+    <!-- <div class="mt-30">
+        <app-table [pageData]="page" [dataSource]="dataSource" [displayedColumns]="displayColumns" [viewComment]="true"
+            [view]="false" [onlyview]="true" [acceptReject]="true"></app-table>
+    </div> -->
+    <!--  -->
+    <div class="row">
+        <span class="f-22 fontBold dgrey mt-30">New Request</span>
+        <table mat-table [dataSource]="dataSource" class=" table-container">
+
+            <ng-container matColumnDef="transactionid">
+                <th mat-header-cell *matHeaderCellDef> Transaction ID</th>
+                <td mat-cell *matCellDef="let element"> {{element.transactionid}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.date|date:'dd-MM-yyyy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="issuingbank">
+                <th mat-header-cell *matHeaderCellDef> Issuing Bank </th>
+                <td mat-cell *matCellDef="let element"> {{element.issuingbank}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="issuingcountry">
+                <th mat-header-cell *matHeaderCellDef> Issuing Country </th>
+                <td mat-cell *matCellDef="let element"> {{element.issuingcountry | uppercase}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="product">
+                <th mat-header-cell *matHeaderCellDef> Product </th>
+                <td mat-cell *matCellDef="let element"> {{element.product}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="currency">
+                <th mat-header-cell *matHeaderCellDef> Currency </th>
+                <td mat-cell *matCellDef="let element"> {{element.currency}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef> Amount </th>
+                <td mat-cell *matCellDef="let element"> {{element.amount|number:'1.2-2'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="applicant">
+                <th mat-header-cell *matHeaderCellDef> Applicant </th>
+                <td mat-cell *matCellDef="let element"> {{element.applicant}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="beneficiary">
+                <th mat-header-cell *matHeaderCellDef> Beneficiary </th>
+                <td mat-cell *matCellDef="let element"> {{element.beneficiary}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="transactionvalidity">
+                <th mat-header-cell *matHeaderCellDef> Transaction Validity </th>
+                <td mat-cell *matCellDef="let element"> {{element.transactionvalidity | date:'dd-MM-yyyy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="esgompliant">
+                <th mat-header-cell *matHeaderCellDef> ESG Compliant
+                   <!-- <img (click)="esgcomplaintpopup()"
+                        src="../../../../../assets/images/icons/Icon-info.svg"> -->
+                       </th>
+                <td mat-cell *matCellDef="let element"> {{convertBoolean(element.esgompliant)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-button [matMenuTriggerFor]="menu"><img class="options_img"
+                            src="../../../../../assets/images/icons/3dots.png"></button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="placeQuote(element.transactionid)">PLACE QUOTE</button>
+                        <button mat-menu-item (click)="viewDetails(element.transactionid)">VIEW DETAILS</button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+
+            <tr class="mat-row " *matNoDataRow>
+                <td class="mat-cell text-center " [attr.colspan]="displayedColumns.length">
+                    No Records Found.
+                </td>
+            </tr>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div class="d-flex  align-items-center">
+            <div class=" pageSizeChange justify-content-start d-flex">
+                <mat-paginator  (page)="onPageChange($event)" [pageSizeOptions]="[5, 10, 20, 30]"
+                     *ngIf="totalItems>5"
+                >
+                </mat-paginator>
+            </div>
+            <div class="pagination mt-10 justify-content-end" style="float: right;">
+                <div class="f-12 fontBold grey mx-3"> {{getPage()+' ' }} of {{page?.totalElements}}</div>
+                <mat-icon class="pointer" (click)="pagePrevious()" [style.color]="page?.index === 0 ?'#292929a1':'#EB7203'"
+                    [style.pointer-events]="page?.index === 0?'none':'auto'">
+                    arrow_back_ios
+                </mat-icon>
+                <mat-icon class="pointer" (click)="pageNext()" [style.pointer-events]="last===page?.totalElements?'none':'auto'"
+                    [style.color]="last===page?.totalElements ?'#292929a1':'#EB7203'"
+                    [style.pointer-events]="last===page?.totalElements ?'none':'auto'" style="margin-left: 10px;">
+                    arrow_forward_ios
+                </mat-icon>
+            </div>
+        </div>
+
+    </div>
+
+</div>

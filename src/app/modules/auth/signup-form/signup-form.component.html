@@ -1,0 +1,701 @@
+<div class="signup-form isDesktop">
+    <div class="header-wrapper">
+        <!-- <div class="logo">
+            <img src="../../../../assets/images/icons/login-logo.png" />
+        </div>     -->
+        <!-- <div class="text-center">
+            <span class="f-22 fontBold dgrey">Customer Sign Up</span>
+        </div>         -->
+    </div>
+    <div class="text-center px-4 py-2  m-auto">
+        <div class="mt-30 row d-flex justify-content-center align-items-center" *ngIf="subscriber=='Customer'">
+            <div class="row">
+                <div class="col-md-4">
+
+
+                    <app-inputtext #fname [type]="'text'" [required]="true"
+                    [name]="'First Name'" style="width: 100%;"
+                    (focusOutEvent)="firstNameHandler($event)" (validField)="firstNameValidity($event)" ></app-inputtext>
+
+                </div>
+                <div class="col-md-4">
+
+                    <app-inputtext #lname [type]="'text'" [required]="true"
+                    [name]="'Last Name'" style="width: 100%;"
+                    (focusOutEvent)="lastNameHandler($event)" (validField)="lastNameValidity($event)"></app-inputtext>
+
+                </div>
+                <div class="col-md-4">
+
+                    <app-inputtext #email [type]="'email'" [required]="true"
+                    [name]="'Official Email ID'" style="width: 100%;"
+                    (focusOutEvent)="emailHandler($event)"  (validField)="emailValidity($event)"></app-inputtext>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <mat-form-field class="w100" appearance="outline">
+                            <mat-label>Country</mat-label>
+
+                            <input type="text" class="f-14" matInput [formControl]="countrySelected"
+                                [matAutocomplete]="countryDropdown"
+                                (input)="countryChange($event)"
+                                (change)="checkAutocomplete($event,countrySelected,'countrySelected')"
+                                >
+                                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            <mat-autocomplete  #countryDropdown="matAutocomplete"
+                                (optionSelected)='getCountryCode($event)'
+                                >
+                                <mat-option *ngFor="let item of countryOptions" [value]="item.countryName">
+                                    {{item.countryName}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="countrySelected.invalid">Country required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- <div class="col-md-4">
+
+                    <app-inputtext [type]="'text'" [required]="true"
+                    [value]="countrySel?'+'+countryCode:''"
+                    [name]="'Mobile Number'" style="width: 100%;"
+                    (focusOutEvent)="mobileHandler($event)"
+                    [keypress]="'number'"
+                    (validField)="mobileValidity($event)"></app-inputtext>
+                </div> -->
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <mat-form-field class="w100 mobNo"  appearance="outline"
+                            [floatLabel]="countryCode?'always':'auto'"
+                        >
+                            <!-- <mat-label>Mobile Number</mat-label>
+                            <span matPrefix *ngIf="countrySel" class="f-14" style="padding-left: 5px;">{{countrySel?'+'+countryCode:''}}</span>
+                            <input
+                            class="f-14"
+                            matInput
+                            type="text"
+                            (keypress)="mobileNumberValidation($event)"
+                            [formControl]="mobileNo"
+                            (paste)="numberNopaste($event)"
+                            > -->
+                            <mat-label >Mobile No.</mat-label>
+                            <span matTextPrefix style="padding-left: 5px;font-size:14px;">
+                                {{countrySel?'+'+countryCode:''}}</span>
+                            <input
+                                type="text"
+                                class="f-14"
+                                (keypress)="mobileNumberValidation($event)"
+                                [formControl]="mobileNo"
+                                (paste)="numberNopaste($event)"
+
+                                matInput/>
+                            <mat-error *ngIf="mobileNo.hasError('required')">Mobile Number required</mat-error>
+                            <mat-error *ngIf="mobileNo.hasError('minlength')">Mobile Number invalid</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+
+                    <!-- <app-inputtext [type]="'number'"
+                    [name]="'Landline Number'" style="width: 100%;"
+                    [keypress]="'number'"
+                    (focusOutEvent)="landlineHandler($event)" (validField)="landlineValidity($event)"></app-inputtext> -->
+                    <div class="col-md-12">
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Landline Number</mat-label>
+                            <input type="text" matInput [formControl]="landlineNumber"
+                            (keypress)="mobileNumberValidation($event)"
+                            (paste)="numberNopaste($event)"
+                            (change)="landlineValidityCheck($event)"
+                            >
+                            <mat-error *ngIf="landlineNumber.hasError('required')">Landline Number required</mat-error>
+                            <mat-error *ngIf="landlineNumber.hasError('invalid')">Landline Number invalid</mat-error>
+                            <mat-error *ngIf="landlineNumber.hasError('minlength')">Landline Number is atleast of 7 digits</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row terms">
+                <div class="d-flex justify-content-center  align-items-center">
+                    <mat-checkbox class="example-margin"  (change)="terms($event)"></mat-checkbox>
+                    <div>I agree to the <span class="yellow-txt cpointer" (click)="openPopup('tnc')"><u>Terms & Conditions</u></span> and <span class="yellow-txt cpointer" (click)="openPopup('privacyPolicy')"><u>Privacy Policy</u></span></div>
+                </div>
+
+                <div class="text-center" style="min-height:20px;margin-bottom: 10px;">
+                    <span style="color:red;" class="f-14 fw-500"
+                        *ngIf="showTermsAcceptedError"
+                    >Please accept terms and conditions.</span>
+                    <span style="color:red;" class="f-14 fw-500"
+                        *ngIf="showFormError"
+                    >Please fill out the form.</span>
+                </div>
+                <div class="col-md-3 m-auto ">
+                    <div (click)="signup()">
+                        <app-button [name]="'PROCEED'" [class]="'primary-btn f-16 w-100'" [type]="'button'"class="btnResize" ></app-button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="text-end" style="padding-bottom: 45px; margin-top: 10px; ">
+                <span (click)="back()" class="orange-text fontRegular f-14 cpointer"
+                    style="text-decoration: underline;">Back to Login</span>
+            </div>
+        </div>
+        <div class="mt-30 row d-flex justify-content-center align-items-center" *ngIf="subscriber=='Bank (As a Customer)'">
+            <div class="row">
+                <div class="col-md-4">
+
+                    <app-inputtext [type]="'text'" [required]="true"
+                    [name]="'First Name'" style="width: 100%;"
+                    (focusOutEvent)="firstNameHandler($event)"
+                    (validField)="firstNameValidity($event)"></app-inputtext>
+
+                </div>
+                <div class="col-md-4">
+
+                    <app-inputtext [type]="'text'" [required]="true"
+                    [name]="'Last Name'" style="width: 100%;"
+                    (focusOutEvent)="lastNameHandler($event)"
+                    (validField)="lastNameValidity($event)"></app-inputtext>
+
+                </div>
+                <div class="col-md-4">
+                    <app-inputtext [type]="'email'" [required]="true"
+                    [name]="'Official Email ID'" style="width: 100%;"
+                    (focusOutEvent)="emailHandler($event)"
+                    (validField)="emailValidity($event)"></app-inputtext>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+
+                        <mat-form-field class="w100" appearance="outline">
+                            <mat-label>Country</mat-label>
+
+                            <input type="text" class="f-14" matInput [formControl]="countrySelected"
+                                [matAutocomplete]="countryDropdown"
+                                (input)="countryChange($event)"
+                                (change)="checkAutocomplete($event,countrySelected,'countrySelected')"
+                                >
+                                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            <mat-autocomplete  #countryDropdown="matAutocomplete"
+                            (optionSelected)='getCountryCode($event)'
+                                >
+                                <mat-option *ngFor="let item of countryOptions" [value]="item.countryName">
+                                    {{item.countryName}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="countrySelected.invalid">Country required</mat-error>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+                    <!-- <app-inputtext [type]="'text'" [required]="true"
+                    [value]="countrySel?'+'+countryCode:''"
+                    [name]="'Mobile Number'" style="width: 100%;"
+                    (focusOutEvent)="mobileHandler($event)"
+                    [keypress]="'number'"
+                    (validField)="mobileValidity($event)"></app-inputtext> -->
+                    <div class="col-md-12">
+                        <mat-form-field class="w100 mobNo"  appearance="outline"
+                            [floatLabel]="countryCode?'always':'auto'"
+                            >
+                            <!-- <mat-label>Mobile Number</mat-label>
+                            <span matPrefix *ngIf="countrySel" class="f-14" style="padding-left: 5px;">{{countrySel?'+'+countryCode:''}}</span>
+                            <input
+                            class="f-14"
+                            matInput
+                            type="text"
+                            (keypress)="mobileNumberValidation($event)"
+                            [formControl]="mobileNo"
+                            (paste)="numberNopaste($event)"
+                            > -->
+                            <mat-label >Mobile No.</mat-label>
+                            <span matTextPrefix style="padding-left: 5px;font-size:14px;">
+                                {{countrySel?'+'+countryCode:''}}</span>
+                            <input
+                                type="text"
+                                class="f-14"
+                                (keypress)="mobileNumberValidation($event)"
+                                [formControl]="mobileNo"
+                                (paste)="numberNopaste($event)"
+
+                                matInput/>
+                            <mat-error *ngIf="mobileNo.hasError('required')">Mobile Number required</mat-error>
+                            <mat-error *ngIf="mobileNo.hasError('minlength')">Mobile Number invalid</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+
+                    <!-- <app-inputtext [type]="'number'"
+                    [name]="'Landline Number'" style="width: 100%;"
+                    (focusOutEvent)="landlineHandler($event)"
+                    [keypress]="'number'"
+                    (validField)="landlineValidity($event)"></app-inputtext> -->
+
+                    <div class="col-md-12">
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Landline Number</mat-label>
+                            <input type="text" matInput [formControl]="landlineNumber"
+                            (keypress)="mobileNumberValidation($event)"
+                            (paste)="numberNopaste($event)"
+                            (change)="landlineValidityCheck($event)"
+                            >
+                            <mat-error *ngIf="landlineNumber.hasError('required')">Landline Number required</mat-error>
+                            <mat-error *ngIf="landlineNumber.hasError('invalid')">Landline Number invalid</mat-error>
+                            <mat-error *ngIf="landlineNumber.hasError('minlength')">Landline Number is atleast of 7 digits</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row terms">
+                <div class="d-flex justify-content-center  align-items-center">
+                    <mat-checkbox class="example-margin"  (change)="terms($event)"></mat-checkbox>
+                    <div>I agree to the <span class="yellow-txt cpointer" (click)="openPopup('tnc')"><u>Terms & Conditions</u></span> and <span class="yellow-txt cpointer" (click)="openPopup('privacyPolicy')"><u>Privacy Policy</u></span></div>
+                </div>
+                <div class="text-center" style="min-height:20px;margin-bottom: 10px;">
+                    <span style="color:red;" class="f-14 fw-500"
+                        *ngIf="showTermsAcceptedError"
+                    >Please accept terms and conditions.</span>
+                    <span style="color:red;" class="f-14 fw-500"
+                        *ngIf="showFormError"
+                    >Please fill out the form.</span>
+                </div>
+                <div class="col-md-3 m-auto mt-20">
+                    <div (click)="signup()">
+                        <app-button [name]="'PROCEED'" [disable]="getbutton" [class]="'primary-btn f-16 w-100'" [type]="'button'"class="btnResize" ></app-button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="text-end" style="padding-bottom: 45px; margin-top: 10px; ">
+                <span (click)="back()" class="orange-text fontRegular f-14 cpointer"
+                    style="text-decoration: underline;">Back to Login</span>
+            </div>
+        </div>
+        <div class="mt-30 row d-flex justify-content-center align-items-center" *ngIf="subscriber=='Bank (As an Underwriter)'">
+            <div class="row">
+                <div class="col-md-4">
+
+                    <app-inputtext [type]="'text'" [required]="true"
+                    [name]="'First Name'" style="width: 100%;"
+                    (focusOutEvent)="firstNameHandler($event)"
+                    (validField)="firstNameValidity($event)"></app-inputtext>
+
+
+                </div>
+                <div class="col-md-4">
+                    <app-inputtext [type]="'text'" [required]="true"
+                    [name]="'Last Name'" style="width: 100%;"
+                    (focusOutEvent)="lastNameHandler($event)"
+                    (validField)="lastNameValidity($event)"></app-inputtext>
+
+                </div>
+                <div class="col-md-4">
+
+                    <app-inputtext [type]="'email'" [required]="true"
+                    [name]="'Official Email ID'" style="width: 100%;"
+                    (focusOutEvent)="emailHandler($event)"
+                    (validField)="emailValidity($event)"></app-inputtext>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                          <mat-form-field class="w100" appearance="outline">
+                            <mat-label>Country</mat-label>
+
+                            <input type="text" class="f-14" matInput [formControl]="countrySelected"
+                                [matAutocomplete]="countryDropdown"
+                                (input)="countryChange($event)"
+                                (change)="checkAutocomplete($event,countrySelected,'countrySelected')"
+                                >
+                                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            <mat-autocomplete  #countryDropdown="matAutocomplete"
+                            (optionSelected)='getCountryCode($event)'
+                                >
+                                <mat-option *ngFor="let item of countryOptions" [value]="item.countryName">
+                                    {{item.countryName}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="countrySelected.invalid">Country required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!-- <app-inputtext [type]="'text'" [required]="true"
+                    [value]="countrySel?'+'+countryCode:''"
+                    [name]="'Mobile Number'" style="width: 100%;"
+                    (focusOutEvent)="mobileHandler($event)"
+                    [keypress]="'number'"
+                    (validField)="mobileValidity($event)"></app-inputtext> -->
+                    <div class="col-md-12">
+                        <mat-form-field class="w100 mobNo"  appearance="outline"
+                            [floatLabel]="countryCode?'always':'auto'"
+                        >
+                            <!-- <mat-label>Mobile Number</mat-label>
+                            <span matPrefix *ngIf="countrySel" class="f-14" style="padding-left: 5px;">{{countrySel?'+'+countryCode:''}}</span> -->
+                            <mat-label >Mobile No.</mat-label>
+                            <span matTextPrefix style="padding-left: 5px;font-size:14px;">
+                                {{countrySel?'+'+countryCode:''}}</span>
+                            <input
+                            class="f-14"
+                            matInput
+                            type="text"
+                            (keypress)="mobileNumberValidation($event)"
+                            [formControl]="mobileNo"
+                            (paste)="numberNopaste($event)"
+                            >
+                            <mat-error *ngIf="mobileNo.hasError('required')">Mobile Number required</mat-error>
+                            <mat-error *ngIf="mobileNo.hasError('minlength')">Mobile Number invalid</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+
+                    <!-- <app-inputtext [type]="'number'"
+                    [name]="'Landline Number'" style="width: 100%;"
+                    (focusOutEvent)="landlineHandler($event)"
+                    [keypress]="'number'"
+                    (validField)="landlineValidity($event)"></app-inputtext> -->
+
+                    <div class="col-md-12">
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Landline Number</mat-label>
+                            <input type="text" matInput [formControl]="landlineNumber"
+                            (keypress)="mobileNumberValidation($event)"
+                            (paste)="numberNopaste($event)"
+                            (change)="landlineValidityCheck($event)"
+                            >
+                            <mat-error *ngIf="landlineNumber.hasError('required')">Landline Number required</mat-error>
+                            <mat-error *ngIf="landlineNumber.hasError('invalid')">Landline Number invalid</mat-error>
+                            <mat-error *ngIf="landlineNumber.hasError('minlength')">Landline Number is atleast of 7 digits</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline" class="w100">
+                        <mat-label>Issuance Countries Interested</mat-label>
+
+
+                            <input type="text" class="f-14" matInput [formControl]="issuanceCountry"
+                                [matAutocomplete]="issuancecountryDropdown"
+                                (input)="issuanceCountryChange($event)"
+                                (change)="checkAutocomplete($event,issuanceCountry,'issuanceCountry')">
+                                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            <mat-autocomplete  #issuancecountryDropdown="matAutocomplete"
+                            [displayWith]="displayBeneCountries"
+                                >
+                                <mat-option *ngFor="let item of issuanceCountryOptions" [value]="selectedIssuanceCountries">
+                                    <div class="" (click)="optionClickedIssuanceCountry($event, item)">
+                                        <mat-checkbox [checked]="item.selected" (change)="toggleIssuanceCountrySelection($event,item)" (click)="$event.stopPropagation()">
+                                            {{item.name}}
+                                        </mat-checkbox>
+
+                                    </div>
+                                </mat-option>
+                            </mat-autocomplete>
+
+                        <mat-error *ngIf="issuanceCountry.invalid">Issuance Country is required</mat-error>
+                      </mat-form-field>
+                </div>
+                <!-- <div class="col-md-4">
+
+
+                    <app-inputtext [type]="'number'" [required]="true"
+                    [name]="'Min LC Value'" style="width: 100%;"
+                    (focusOutEvent)="minLCValueHandler($event)"
+                    [keypress]="'minLC'"
+                    (validField)="minLCValidity($event)"></app-inputtext>
+                </div>
+                <div class="col-md-4">
+
+                      <mat-form-field class="w100" appearance="outline">
+                        <mat-label>Currency</mat-label>
+
+                        <input type="text" class="f-14" matInput [formControl]="currency"
+                            [matAutocomplete]="currencyDropdown"
+                            (input)="currencyChange($event)">
+                            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                        <mat-autocomplete  #currencyDropdown="matAutocomplete"
+                            >
+                            <mat-option *ngFor="let item of currencyOptions" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="currency.invalid">Currency is required</mat-error>
+                    </mat-form-field>
+                </div> -->
+            </div>
+            <!-- <div class="row"> -->
+                <!-- <div class="col-md-4">
+
+                      <mat-form-field class="w100" appearance="outline">
+                        <mat-label>Blacklisted Goods/Commodities</mat-label>
+
+                        <input type="text" class="f-14" matInput [formControl]="blacklistedGoods"
+                            [matAutocomplete]="goodsDropdown"
+                            (input)="goodsChange($event)">
+                            <mat-icon matSuffix style="background:white !important;z-index:1 !important">keyboard_arrow_down</mat-icon>
+                        <mat-autocomplete  #goodsDropdown="matAutocomplete"
+                        [displayWith]="displayGoods">
+                            <mat-option *ngFor="let item of goodsOptions" [value]="selectedGoods">
+                                <div class="" (click)="optionClicked($event, item)">
+                                    <mat-checkbox [checked]="item.selected" (change)="toggleSelection(item)" (click)="$event.stopPropagation()">
+                                        {{item.name}}
+                                    </mat-checkbox>
+                                </div>
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="blacklistedGoods.invalid">Blacklisted Goods/Commodities required</mat-error>
+                    </mat-form-field>
+                </div> -->
+                <!-- <div class="col-md-4">
+
+                      <mat-form-field class="w100" appearance="outline">
+                        <mat-label>Beneficiary Countries Interested</mat-label>
+
+                        <input type="text" class="f-14" matInput [formControl]="beneficiaryCountry"
+                                [matAutocomplete]="benecountryDropdown"
+                                (input)="beneCountryChange($event)">
+                                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            <mat-autocomplete  #benecountryDropdown="matAutocomplete"
+                            [displayWith]="displayBeneCountries"
+                                >
+                                <mat-option *ngFor="let item of beneficiaryCountryOptions" [value]="selectedBeneficiaryCountries">
+                                    <div class="" (click)="optionClickedBeneCountry($event, item)">
+                                        <mat-checkbox [checked]="item.selected" (change)="toggleBeneCountrySelection($event,item)" (click)="$event.stopPropagation()">
+                                            {{item.name}}
+                                        </mat-checkbox>
+
+                                    </div>
+                                </mat-option>
+                            </mat-autocomplete>
+                        <mat-error *ngIf="beneficiaryCountry.invalid">Beneficiary Country is required</mat-error>
+                    </mat-form-field>
+
+                </div> -->
+            <!-- </div> -->
+            <div class="row terms">
+                <div class="d-flex justify-content-center  align-items-center">
+                    <mat-checkbox class="example-margin"  (change)="terms($event)"></mat-checkbox>
+                    <div>I agree to the <span class="yellow-txt  cpointer" (click)="openPopup('tnc')"><u>Terms & Conditions</u></span> and <span class="yellow-txt cpointer" (click)="openPopup('privacyPolicy')"><u>Privacy Policy</u></span></div>
+                </div>
+                <div class="text-center" style="min-height:20px;margin-bottom: 10px;">
+                    <span style="color:red;" class="f-14 fw-500"
+                        *ngIf="showTermsAcceptedError"
+                    >Please accept terms and conditions.</span>
+                    <span style="color:red;" class="f-14 fw-500"
+                        *ngIf="showFormError"
+                    >Please fill out the form.</span>
+                </div>
+                <div class="col-md-3 m-auto " >
+                    <div (click)="signup()">
+                        <app-button [name]="'PROCEED'" [disable]="getbutton" [class]="'primary-btn f-16 w-100'" [type]="'button'"class="btnResize" ></app-button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="text-end" style="padding-bottom: 45px; margin-top: 10px; ">
+                <span (click)="back()" class="orange-text fontRegular f-14 cpointer"
+                    style="text-decoration: underline;">Back to Login</span>
+            </div>
+        </div>
+        <div class="mt-30 row d-flex justify-content-center align-items-center" *ngIf="subscriber=='Referrer'">
+            <div class="row">
+                <div class="col-md-4">
+
+                    <app-inputtext [type]="'text'" [required]="true"
+                    [name]="'First Name'" style="width: 100%;"
+                    (focusOutEvent)="firstNameHandler($event)"
+                    (validField)="firstNameValidity($event)"></app-inputtext>
+
+
+                </div>
+                <div class="col-md-4">
+
+                    <app-inputtext [type]="'text'" [required]="true"
+                    [name]="'Last Name'" style="width: 100%;"
+                    (focusOutEvent)="lastNameHandler($event)"
+                    (validField)="lastNameValidity($event)"></app-inputtext>
+
+                </div>
+                <div class="col-md-4">
+
+                    <app-inputtext [type]="'email'" [required]="true"
+                    [name]="'Official Email ID'" style="width: 100%;"
+                    (focusOutEvent)="emailHandler($event)"
+                    (validField)="emailValidity($event)"></app-inputtext>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <mat-form-field class="w100" appearance="outline">
+                            <mat-label>Country</mat-label>
+
+                            <input type="text" class="f-14" matInput [formControl]="countrySelected"
+                                [matAutocomplete]="countryDropdown"
+                                (input)="countryChange($event)"
+                                (change)="checkAutocomplete($event,countrySelected,'countrySelected')"
+                                >
+                                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                            <mat-autocomplete  #countryDropdown="matAutocomplete"
+                            (optionSelected)='getCountryCode($event)'
+                                >
+                                <mat-option *ngFor="let item of countryOptions" [value]="item.countryName">
+                                    {{item.countryName}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="countrySelected.invalid">Country required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- <div class="col-md-4">
+
+                    <app-inputtext [type]="'text'" [required]="true"
+                    [value]="countrySel?'+'+countryCode:''"
+                    [name]="'Mobile Number'" style="width: 100%;"
+                    (focusOutEvent)="mobileHandler($event)"
+                    [keypress]="'number'"
+                    (validField)="mobileValidity($event)"></app-inputtext>
+
+                </div> -->
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <mat-form-field class="w100 mobNo"  appearance="outline">
+                            <mat-label>Mobile Number</mat-label>
+                            <span matPrefix *ngIf="countrySel" class="f-14" style="padding-left: 5px;">{{countrySel?'+'+countryCode:''}}</span>
+                            <input
+                            class="f-14"
+                            matInput
+                            type="text"
+                            (keypress)="mobileNumberValidation($event)"
+                            [formControl]="mobileNo"
+                            (paste)="numberNopaste($event)"
+                            >
+                            <mat-error *ngIf="mobileNo.hasError('required')">Mobile Number required</mat-error>
+                            <mat-error *ngIf="mobileNo.hasError('minlength')">Mobile Number invalid</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+
+                    <!-- <app-inputtext [type]="'number'"
+                    [name]="'Landline Number'" style="width: 100%;"
+                    (focusOutEvent)="landlineHandler($event)"
+                    [keypress]="'number'"
+                    (validField)="landlineValidity($event)"></app-inputtext> -->
+
+                    <div class="col-md-12">
+                        <mat-form-field appearance="outline" class="w100">
+                            <mat-label>Landline Number</mat-label>
+                            <input type="text" matInput [formControl]="landlineNumber"
+                            (keypress)="mobileNumberValidation($event)"
+                            (paste)="numberNopaste($event)"
+                            (change)="landlineValidityCheck($event)"
+                            >
+                            <mat-error *ngIf="landlineNumber.hasError('required')">Landline Number required</mat-error>
+                            <mat-error *ngIf="landlineNumber.hasError('invalid')">Landline Number invalid</mat-error>
+                            <mat-error *ngIf="landlineNumber.hasError('minlength')">Landline Number is atleast of 7 digits</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+
+                    <app-inputtext [type]="'text'" [required]="true"
+                    [name]="'Company Name'" style="width: 100%;"
+                    (focusOutEvent)="companyNameHandler($event)"
+                    (validField)="companyNameValidity($event)"></app-inputtext>
+                </div>
+
+                <div class="col-md-4">
+
+                    <app-inputtext [type]="'text'" [required]="true"
+                    [name]="'Designation'" style="width: 100%;"
+                    (focusOutEvent)="designationHandler($event)"
+                    (validField)="designationValidity($event)"></app-inputtext>
+                </div>
+                <div class="col-md-4">
+
+                      <mat-form-field class="w100" appearance="outline">
+                        <mat-label>Business Type</mat-label>
+
+                        <input type="text" class="f-14" matInput [formControl]="businessType"
+                            [matAutocomplete]="businessDropdown"
+                            (input)="businessTypeChange($event)"
+                            (change)="checkAutocomplete($event,businessType,'businessType')">
+                            <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                        <mat-autocomplete  #businessDropdown="matAutocomplete"
+                            (optionSelected)="getSelectedBusinessType($event)"
+                            >
+                            <mat-option *ngFor="let item of businessTypeOptions" [value]="item.value">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="businessType.invalid">Business Type required</mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="row" style="min-height:75px">
+                <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
+                <!-- Postponed until the backend is ready. On 10/03/23 -->
+                <div class="col-md-4" *ngIf="selectedOtherBusinesssType">
+
+                    <app-inputtext [type]="'text'" [required]="true"
+                    [name]="'Business Type'" style="width: 100%;"
+                    (focusOutEvent)="otherBusinessTypeHandler($event)"
+                    (validField)="otherBusinessTypeValidity($event)"></app-inputtext>
+                </div>
+            </div>
+            <div class="row terms">
+                <div class="d-flex justify-content-center  align-items-center">
+                    <mat-checkbox class="example-margin"  (change)="terms($event)"></mat-checkbox>
+                    <div>I agree to the <span class="yellow-txt cpointer" (click)="openPopup('tnc')"><u>Terms & Conditions</u></span> and <span class="yellow-txt cpointer" (click)="openPopup('privacyPolicy')"><u>Privacy Policy</u></span></div>
+                </div>
+                <div class="text-center" style="min-height:20px;margin-bottom: 10px;">
+                    <span style="color:red;" class="f-14 fw-500"
+                        *ngIf="showTermsAcceptedError"
+                    >Please accept terms and conditions.</span>
+                    <span style="color:red;" class="f-14 fw-500"
+                        *ngIf="showFormError"
+                    >Please fill out the form.</span>
+                </div>
+                <div class="col-md-3 m-auto " >
+                    <div (click)="signup()">
+                        <app-button [name]="'PROCEED'" [disable]="getbutton" [class]="'primary-btn f-16 w-100'" [type]="'button'"class="btnResize" ></app-button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="text-end" style="padding-bottom: 45px; margin-top: 10px; ">
+                <span (click)="back()" class="orange-text fontRegular f-14 cpointer"
+                    style="text-decoration: underline;">Back to Login</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="signup-form isMobile">
+
+</div>
